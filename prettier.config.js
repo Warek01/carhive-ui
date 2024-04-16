@@ -1,9 +1,9 @@
 module.exports = {
-  arrowParens: "always",
+  arrowParens: 'always',
   useTabs: false,
   tabWidth: 2,
-  endOfLine: "crlf",
-  trailingComma: "all",
+  endOfLine: 'crlf',
+  trailingComma: 'all',
   singleQuote: true,
   semi: false,
   bracketSpacing: true,
@@ -11,4 +11,5 @@ module.exports = {
   singleAttributePerLine: true,
   jsxSingleQuote: false,
   bracketSameLine: false,
+  plugins: ['prettier-plugin-tailwindcss'],
 }

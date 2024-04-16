@@ -3,12 +3,7 @@ import type { Brand, Car, Engine } from 'types/definitions'
 import { EngineType } from 'lib/car/EngineType'
 import { CarColor } from 'lib/car/CarColor'
 
-const brands: Brand[] = [
-  { name: 'Toyota' },
-  { name: 'Honda' },
-  { name: 'Ford' },
-  { name: 'BMW' },
-]
+const brands: Brand[] = [{ name: 'Toyota' }, { name: 'Honda' }, { name: 'Ford' }, { name: 'BMW' }]
 
 const engines: Engine[] = [
   { model: 'V6', brand: 'Toyota', volume: 3.5, type: EngineType.GAS },

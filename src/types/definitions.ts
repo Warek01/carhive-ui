@@ -1,6 +1,9 @@
+import type { ReactNode } from 'react'
+
 import type { CarType } from 'lib/car/CarType'
 import type { CarColor } from 'lib/car/CarColor'
 import type { EngineType } from 'lib/car/EngineType'
+import type { AppRoute } from 'routing/AppRoute'
 
 export interface AppEnv {
   readonly NODE_ENV: 'development' | 'production'
@@ -27,4 +30,9 @@ export interface Car {
   wheelSize?: number
   mileage?: number
   year?: Date
+}
+
+export interface Link {
+  content: ReactNode
+  href?: string | AppRoute
 }

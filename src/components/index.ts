@@ -1,4 +1,5 @@
 import AppLayout from './AppLayout'
+import CarTypesList from './CarTypesSelect'
 import Header from './Header'
 
-export { Header, AppLayout }
+export { Header, AppLayout, CarTypesList }

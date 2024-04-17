@@ -1,23 +1,24 @@
-import { CarType } from 'lib/car/CarType'
 import type { Brand, Car, Engine } from 'types/definitions'
 import { EngineType } from 'lib/car/EngineType'
 import { CarColor } from 'lib/car/CarColor'
 
-const brands: Brand[] = [{ name: 'Toyota' }, { name: 'Honda' }, { name: 'Ford' }, { name: 'BMW' }]
+export const __mock__brands: Brand[] = [{ name: 'Toyota' }, { name: 'Honda' }, { name: 'Ford' }, { name: 'BMW' }]
 
-const engines: Engine[] = [
+export const __mock__engines: Engine[] = [
   { model: 'V6', brand: 'Toyota', volume: 3.5, type: EngineType.GAS },
   { model: 'i-VTEC', brand: 'Honda', volume: 2.0, type: EngineType.GAS },
   { model: 'EcoBoost', brand: 'Ford', volume: 2.3, type: EngineType.GAS },
   { model: 'Turbo', brand: 'BMW', volume: 2.0, type: EngineType.GAS },
 ]
 
-const cars: Car[] = [
+export const __mock__cars: Car[] = [
   {
-    brand: brands[0], // Toyota
+    id: '1',
+    brand: __mock__brands[0], // Toyota
     model: 'Camry',
-    type: CarType.SEDAN,
-    engine: engines[0], // V6
+    price: 10_000,
+    type: 0,
+    engine: __mock__engines[0], // V6
     color: CarColor.BLACK,
     clearance: 150,
     wheelSize: 17,
@@ -25,10 +26,12 @@ const cars: Car[] = [
     year: new Date(2018, 5, 1),
   },
   {
-    brand: brands[1], // Honda
+    id: '2',
+    brand: __mock__brands[1], // Honda
     model: 'CR-V',
-    type: CarType.SUV,
-    engine: engines[1], // i-VTEC
+    price: 10_000,
+    type: 1,
+    engine: __mock__engines[1], // i-VTEC
     color: CarColor.RED,
     clearance: 170,
     wheelSize: 18,
@@ -36,10 +39,12 @@ const cars: Car[] = [
     year: new Date(2019, 3, 1),
   },
   {
-    brand: brands[2], // Ford
+    id: '3',
+    brand: __mock__brands[2], // Ford
     model: 'F-150',
-    type: CarType.PICKUP_TRUCK,
-    engine: engines[2], // EcoBoost
+    price: 10_000,
+    type: 0,
+    engine: __mock__engines[2], // EcoBoost
     color: CarColor.WHITE,
     clearance: 200,
     wheelSize: 20,
@@ -47,10 +52,12 @@ const cars: Car[] = [
     year: new Date(2017, 8, 1),
   },
   {
-    brand: brands[3], // BMW
+    id: '4',
+    brand: __mock__brands[3], // BMW
     model: '3 Series',
-    type: CarType.SEDAN,
-    engine: engines[3], // Turbo
+    price: 10_000,
+    type: 3,
+    engine: __mock__engines[3], // Turbo
     color: CarColor.BLUE,
     clearance: 140,
     wheelSize: 19,
@@ -58,10 +65,12 @@ const cars: Car[] = [
     year: new Date(2020, 1, 1),
   },
   {
-    brand: brands[0], // Toyota
+    id: '5',
+    brand: __mock__brands[0], // Toyota
     model: 'Rav4',
-    type: CarType.SUV,
-    engine: engines[0], // V6
+    price: 10_000,
+    type: 4,
+    engine: __mock__engines[0], // V6
     color: CarColor.GREEN,
     clearance: 180,
     wheelSize: 18,
@@ -69,10 +78,12 @@ const cars: Car[] = [
     year: new Date(2019, 6, 1),
   },
   {
-    brand: brands[1], // Honda
+    id: '6',
+    brand: __mock__brands[1], // Honda
     model: 'Civic',
-    type: CarType.HATCHBACK,
-    engine: engines[1], // i-VTEC
+    price: 10_000,
+    type: 5,
+    engine: __mock__engines[1], // i-VTEC
     color: CarColor.SILVER,
     clearance: 140,
     wheelSize: 16,
@@ -80,10 +91,12 @@ const cars: Car[] = [
     year: new Date(2021, 2, 1),
   },
   {
-    brand: brands[2], // Ford
+    id: '7',
+    brand: __mock__brands[2], // Ford
     model: 'Escape',
-    type: CarType.SUV,
-    engine: engines[2], // EcoBoost
+    price: 10_000,
+    type: 5,
+    engine: __mock__engines[2], // EcoBoost
     color: CarColor.ORANGE,
     clearance: 160,
     wheelSize: 17,
@@ -91,10 +104,12 @@ const cars: Car[] = [
     year: new Date(2018, 10, 1),
   },
   {
-    brand: brands[3], // BMW
+    id: '8',
+    brand: __mock__brands[3], // BMW
     model: 'X5',
-    type: CarType.SUV,
-    engine: engines[3], // Turbo
+    price: 10_000,
+    type: 0,
+    engine: __mock__engines[3], // Turbo
     color: CarColor.BLACK,
     clearance: 190,
     wheelSize: 19,
@@ -102,10 +117,12 @@ const cars: Car[] = [
     year: new Date(2020, 5, 1),
   },
   {
-    brand: brands[0], // Toyota
+    id: '9',
+    brand: __mock__brands[0], // Toyota
     model: 'Prius',
-    type: CarType.HATCHBACK,
-    engine: engines[0], // V6
+    price: 10_000,
+    type: 6,
+    engine: __mock__engines[0], // V6
     color: CarColor.GREEN,
     clearance: 140,
     wheelSize: 15,
@@ -113,10 +130,12 @@ const cars: Car[] = [
     year: new Date(2019, 8, 1),
   },
   {
-    brand: brands[1], // Honda
+    id: '10',
+    brand: __mock__brands[1], // Honda
     model: 'Accord',
-    type: CarType.SEDAN,
-    engine: engines[1], // i-VTEC
+    price: 10_000,
+    type: 7,
+    engine: __mock__engines[1], // i-VTEC
     color: CarColor.GRAY,
     clearance: 150,
     wheelSize: 17,
@@ -124,10 +143,12 @@ const cars: Car[] = [
     year: new Date(2018, 11, 1),
   },
   {
-    brand: brands[2], // Ford
+    id: '11',
+    brand: __mock__brands[2], // Ford
     model: 'Mustang',
-    type: CarType.COUPE,
-    engine: engines[2], // EcoBoost
+    price: 10_000,
+    type: 2,
+    engine: __mock__engines[2], // EcoBoost
     color: CarColor.YELLOW,
     clearance: 130,
     wheelSize: 18,
@@ -135,10 +156,12 @@ const cars: Car[] = [
     year: new Date(2020, 7, 1),
   },
   {
-    brand: brands[3], // BMW
+    id: '12',
+    brand: __mock__brands[3], // BMW
     model: 'X3',
-    type: CarType.SUV,
-    engine: engines[3], // Turbo
+    price: 10_000,
+    type: 2,
+    engine: __mock__engines[3], // Turbo
     color: CarColor.WHITE,
     clearance: 170,
     wheelSize: 19,
@@ -146,10 +169,12 @@ const cars: Car[] = [
     year: new Date(2019, 5, 1),
   },
   {
-    brand: brands[0], // Toyota
+    id: '13',
+    brand: __mock__brands[0], // Toyota
     model: 'Highlander',
-    type: CarType.SUV,
-    engine: engines[0], // V6
+    price: 10_000,
+    type: 3,
+    engine: __mock__engines[0], // V6
     color: CarColor.BLUE,
     clearance: 190,
     wheelSize: 20,
@@ -157,10 +182,12 @@ const cars: Car[] = [
     year: new Date(2017, 9, 1),
   },
   {
-    brand: brands[1], // Honda
+    id: '14',
+    brand: __mock__brands[1], // Honda
     model: 'Pilot',
-    type: CarType.SUV,
-    engine: engines[1], // i-VTEC
+    price: 10_000,
+    type: 4,
+    engine: __mock__engines[1], // i-VTEC
     color: CarColor.SILVER,
     clearance: 200,
     wheelSize: 18,
@@ -168,10 +195,12 @@ const cars: Car[] = [
     year: new Date(2018, 6, 1),
   },
   {
-    brand: brands[2], // Ford
+    id: '15',
+    brand: __mock__brands[2], // Ford
     model: 'Focus',
-    type: CarType.HATCHBACK,
-    engine: engines[2], // EcoBoost
+    price: 10_000,
+    type: 5,
+    engine: __mock__engines[2], // EcoBoost
     color: CarColor.RED,
     clearance: 140,
     wheelSize: 16,
@@ -179,10 +208,12 @@ const cars: Car[] = [
     year: new Date(2020, 3, 1),
   },
   {
-    brand: brands[3], // BMW
+    id: '16',
+    brand: __mock__brands[3], // BMW
     model: '5 Series',
-    type: CarType.SEDAN,
-    engine: engines[3], // Turbo
+    price: 10_000,
+    type: 6,
+    engine: __mock__engines[3], // Turbo
     color: CarColor.BLACK,
     clearance: 150,
     wheelSize: 17,
@@ -190,10 +221,12 @@ const cars: Car[] = [
     year: new Date(2019, 2, 1),
   },
   {
-    brand: brands[0], // Toyota
+    id: '17',
+    brand: __mock__brands[0], // Toyota
     model: 'Tacoma',
-    type: CarType.PICKUP_TRUCK,
-    engine: engines[0], // V6
+    price: 10_000,
+    type: 7,
+    engine: __mock__engines[0], // V6
     color: CarColor.ORANGE,
     clearance: 180,
     wheelSize: 18,
@@ -201,10 +234,12 @@ const cars: Car[] = [
     year: new Date(2017, 7, 1),
   },
   {
-    brand: brands[1], // Honda
+    id: '18',
+    brand: __mock__brands[1], // Honda
     model: 'Odyssey',
-    type: CarType.MINIVAN,
-    engine: engines[1], // i-VTEC
+    price: 10_000,
+    type: 8,
+    engine: __mock__engines[1], // i-VTEC
     color: CarColor.PURPLE,
     clearance: 160,
     wheelSize: 17,

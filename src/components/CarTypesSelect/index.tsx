@@ -1,22 +1,20 @@
 import { FC, memo, useCallback, useState } from 'react'
 import { Chip } from '@mui/material'
 
-import { CarType } from 'lib/car/CarType'
+import { carTypes } from 'lib/car/carTypes'
 
 interface Props {
-  initialSelected: CarType[]
-  onChange(selected: CarType[]): void
+  initialSelected: number[]
+  onChange(selected: number[]): void
 }
 
 export const CarTypesSelect: FC<Props> = ({ onChange, initialSelected }) => {
-  const [selected, setSelected] = useState<CarType[]>(initialSelected)
+  const [selected, setSelected] = useState<number[]>(initialSelected)
 
   const handleChipClick = useCallback(
-    (type: CarType) => {
+    (type: number) => {
       return () => {
-        const newSelected = selected.includes(type)
-          ? selected.filter((t) => t !== type)
-          : [...selected, type]
+        const newSelected = selected.includes(type) ? selected.filter((t) => t !== type) : [...selected, type]
 
         setSelected(newSelected)
         onChange(newSelected)
@@ -28,13 +26,13 @@ export const CarTypesSelect: FC<Props> = ({ onChange, initialSelected }) => {
   return (
     <div>
       <ul className="flex gap-3">
-        {Object.entries(CarType).map(([type, name]) => (
-          <li key={type}>
+        {carTypes.map((type, index) => (
+          <li key={index}>
             <Chip
               clickable
-              color={selected.includes(type as CarType) ? 'success' : 'primary'}
-              label={name}
-              onClick={handleChipClick(type as CarType)}
+              color={selected.includes(index) ? 'success' : 'primary'}
+              label={type}
+              onClick={handleChipClick(index)}
             />
           </li>
         ))}

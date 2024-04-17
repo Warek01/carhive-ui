@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 
-import type { CarType } from 'lib/car/CarType'
 import type { CarColor } from 'lib/car/CarColor'
 import type { EngineType } from 'lib/car/EngineType'
 import type { AppRoute } from 'routing/AppRoute'
@@ -21,9 +20,11 @@ export interface Engine {
 }
 
 export interface Car {
+  id: string
   brand: Brand
   model: string
-  type?: CarType
+  price: number
+  type: number
   engine?: Engine | number
   color?: CarColor
   clearance?: number
@@ -35,4 +36,10 @@ export interface Car {
 export interface Link {
   content: ReactNode
   href?: string | AppRoute
+}
+
+export interface PaginationData {
+  currentPage: number
+  totalPages: number
+  itemsPerPage: number
 }

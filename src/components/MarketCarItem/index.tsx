@@ -8,8 +8,8 @@ import * as icons from '@mui/icons-material'
 
 import type { Car } from 'types/definitions'
 import { AppRoute } from 'routing/AppRoute'
-import { carTypes } from 'lib/car/carTypes'
-import { toggleArrayItem } from '../../utils/toggleArrayItem'
+import { carTypes } from 'lib/car'
+import { toggleArrayItem } from 'utils'
 
 interface Props {
   car: Car
@@ -26,7 +26,7 @@ const MarketCarItem: FC<Props> = ({ car }) => {
 
   return (
     <Card sx={{ p: 1 }}>
-      <p>{`${car.brand.name} ${car.model}`}</p>
+      <p>{`${car.brandName} ${car.model}`}</p>
       <p>Type: {carTypes[car.type]}</p>
       <p>Year: {dayjs(car.year).format('DD-MM-YYYY')}</p>
 

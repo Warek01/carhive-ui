@@ -3,7 +3,7 @@ import { RouterProvider } from 'react-router-dom'
 
 import 'App.scss'
 import { appRouter } from 'routing/appRouter'
-import LocalStorageKey from './lib/LocalStorageKey'
+import LocalStorageKey from 'lib/LocalStorageKey'
 import { __mock__listings } from '__mocks__/listings'
 
 const App: FC = () => {

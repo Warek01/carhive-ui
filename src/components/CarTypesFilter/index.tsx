@@ -8,7 +8,7 @@ interface Props {
   onChange(selected: number[]): void
 }
 
-export const CarTypesSelect: FC<Props> = ({ onChange, initialSelected }) => {
+export const CarTypesFilter: FC<Props> = ({ onChange, initialSelected }) => {
   const [selected, setSelected] = useState<number[]>(initialSelected)
 
   const handleChipClick = useCallback(
@@ -43,4 +43,4 @@ export const CarTypesSelect: FC<Props> = ({ onChange, initialSelected }) => {
   )
 }
 
-export default memo(CarTypesSelect)
+export default memo(CarTypesFilter)

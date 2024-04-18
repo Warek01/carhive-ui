@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { ListingsList, CarTypesList } from 'components'
+import { ListingsList, CarTypesFilter } from 'components'
 import { useQueryState } from 'lib/hooks'
 import type { PaginationData } from 'lib/definitions'
 import LocalStorageKey from 'lib/LocalStorageKey'
@@ -40,7 +40,7 @@ const MarketPage: FC = () => {
     <div>
       <section>
         <h1>Categories:</h1>
-        <CarTypesList
+        <CarTypesFilter
           onChange={setSelectedCarTypes}
           initialSelected={selectedCarTypes}
         />

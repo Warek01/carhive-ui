@@ -16,3 +16,7 @@ export interface PaginationData {
   totalPages: number
   itemsPerPage: number
 }
+
+export type Nullable<T> = {
+  [P in keyof T]: T[P] | null
+}

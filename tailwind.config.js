@@ -3,7 +3,11 @@ module.exports = {
   content: ['src/**/*.{ts,tsx,scss}'],
   darkMode: ['class'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Montserrat: `Montserrat, sans-serif, serif`
+      }
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

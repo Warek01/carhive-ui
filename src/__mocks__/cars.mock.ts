@@ -184,7 +184,7 @@ export const __mock__cars: Car[] = [
     price: 10_000,
     type: 4,
     engine: __mock__engines[1], // i-VTEC
-    color:'#FF0000',
+    color: '#FF0000',
     clearance: 200,
     wheelSize: 18,
     mileage: 45000,

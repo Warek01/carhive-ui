@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom'
 
 import { AppRoute } from './AppRoute'
-import { CarDetailsPage, HomePage, MarketPage, NotFoundPage } from 'pages'
+import { CarDetailsPage, HomePage, MarketPage, NewDealPage, NotFoundPage } from 'pages'
 import { AppLayout } from 'components'
 
 const routes: RouteObject[] = [
@@ -20,6 +20,10 @@ const routes: RouteObject[] = [
       {
         path: AppRoute.CAR_DETAILS,
         Component: CarDetailsPage,
+      },
+      {
+        path: AppRoute.NEW_DEAL,
+        Component: NewDealPage,
       },
     ],
   },

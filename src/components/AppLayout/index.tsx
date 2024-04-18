@@ -20,7 +20,7 @@ const AppLayout: FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="bg-gray-200 px-3 py-2 text-2xl">
+      <div className="bg-gray-200 px-3 py-2 text-2xl font-Montserrat">
         <Header
           isDarkTheme={isDarkTheme}
           setIsDarkTheme={setIsDarkTheme}

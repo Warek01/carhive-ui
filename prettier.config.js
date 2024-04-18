@@ -7,7 +7,7 @@ module.exports = {
   singleQuote: true,
   semi: false,
   bracketSpacing: true,
-  printWidth: 120,
+  printWidth: 100,
   singleAttributePerLine: true,
   jsxSingleQuote: false,
   bracketSameLine: false,

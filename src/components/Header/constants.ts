@@ -1,13 +1,13 @@
-import type { Link } from 'types/definitions'
+import type { Link } from 'lib/definitions'
 import { AppRoute } from '../../routing/AppRoute'
 
 export const headerLinks: Link[] = [
   {
-    href: AppRoute.MARKET,
+    href: AppRoute.LISTINGS,
     content: 'Market',
   },
   {
-    href: AppRoute.NEW_DEAL,
+    href: AppRoute.NEW_LISTING,
     content: 'Post a deal',
   },
   {

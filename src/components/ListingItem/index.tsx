@@ -6,43 +6,45 @@ import { generatePath } from 'react-router'
 import { useLocalStorage } from 'usehooks-ts'
 import * as icons from '@mui/icons-material'
 
-import type { Car } from 'types/definitions'
 import { AppRoute } from 'routing/AppRoute'
-import { carTypes } from 'lib/car'
-import { toggleArrayItem } from 'utils'
+import { carTypes, Listing } from 'lib/listings'
+import { toggleArrayItem } from 'lib/utils'
 
 interface Props {
-  car: Car
+  listing: Listing
 }
 
-const MarketCarItem: FC<Props> = ({ car }) => {
+const ListingItem: FC<Props> = ({ listing }) => {
   const [favoriteCarIds, setFavoriteCarIds] = useLocalStorage<string[]>('favorite-car-ids', [])
 
-  const isFavorite = useMemo(() => favoriteCarIds.includes(car.id), [favoriteCarIds, car.id])
+  const isFavorite = useMemo(
+    () => favoriteCarIds.includes(listing.id),
+    [favoriteCarIds, listing.id],
+  )
 
   const handleFavoriteToggle = useCallback(() => {
-    setFavoriteCarIds((favs) => toggleArrayItem(favs, car.id))
+    setFavoriteCarIds((favs) => toggleArrayItem(favs, listing.id))
   }, [favoriteCarIds, isFavorite])
 
   return (
     <Card sx={{ p: 1 }}>
-      <p>{`${car.brandName} ${car.model}`}</p>
-      <p>Type: {carTypes[car.type]}</p>
-      <p>Year: {dayjs(car.year).format('DD-MM-YYYY')}</p>
+      <p>{`${listing.brandName} ${listing.model}`}</p>
+      <p>Type: {carTypes[listing.type]}</p>
+      <p>Year: {dayjs(listing.year).format('DD-MM-YYYY')}</p>
 
-      {car.color && (
+      {listing.color && (
         <p className="flex items-center gap-3">
           Color:{' '}
           <span
             className="inline-block h-5 w-5 rounded-full"
-            style={{ backgroundColor: car.color }}
+            style={{ backgroundColor: listing.color }}
           ></span>
         </p>
       )}
 
-      <p>{car.price} $</p>
+      <p>{listing.price} $</p>
 
-      <Link to={generatePath(AppRoute.CAR_DETAILS, { carId: car.id })}>
+      <Link to={generatePath(AppRoute.LISTING_DETAILS, { listingId: listing.id })}>
         <Button variant="outlined">Details</Button>
       </Link>
       <IconButton onClick={handleFavoriteToggle}>
@@ -55,4 +57,4 @@ const MarketCarItem: FC<Props> = ({ car }) => {
   )
 }
 
-export default memo(MarketCarItem)
+export default memo(ListingItem)

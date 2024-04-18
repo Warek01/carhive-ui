@@ -14,15 +14,15 @@ const routes: RouteObject[] = [
         Component: HomePage,
       },
       {
-        path: AppRoute.MARKET,
+        path: AppRoute.LISTINGS,
         Component: MarketPage,
       },
       {
-        path: AppRoute.CAR_DETAILS,
+        path: AppRoute.LISTING_DETAILS,
         Component: CarDetailsPage,
       },
       {
-        path: AppRoute.NEW_DEAL,
+        path: AppRoute.NEW_LISTING,
         Component: NewDealPage,
       },
     ],

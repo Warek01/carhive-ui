@@ -1,4 +1,4 @@
-import type { AppEnv } from './definitions'
+import type { AppEnv } from './lib/definitions'
 
 declare global {
   namespace NodeJS {

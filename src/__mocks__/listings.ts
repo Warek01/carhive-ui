@@ -1,20 +1,12 @@
-import type { Car, Engine } from 'types/definitions'
+import { type Listing } from 'lib/listings'
 
-export const __mock__engines: Engine[] = [
-  { model: 'V6', brand: 'Toyota', volume: 3.5, type: 1, horsepower: 255 },
-  { model: 'i-VTEC', brand: 'Honda', volume: 2.0, type: 1, horsepower: 110 },
-  { model: 'EcoBoost', brand: 'Ford', volume: 2.3, type: 2, horsepower: 125 },
-  { model: 'Turbo', brand: 'BMW', volume: 2.0, type: 3, horsepower: 200 },
-]
-
-export const __mock__cars: Car[] = [
+export const __mock__listings: Listing[] = [
   {
     id: '1',
     brandName: 'Toyota',
     model: 'Camry',
     price: 10_000,
     type: 0,
-    engine: __mock__engines[0], // V6
     color: '#000000',
     clearance: 150,
     wheelSize: 17,
@@ -27,7 +19,6 @@ export const __mock__cars: Car[] = [
     model: 'CR-V',
     price: 10_000,
     type: 1,
-    engine: __mock__engines[1], // i-VTEC
     color: '#FF0000',
     clearance: 170,
     wheelSize: 18,
@@ -40,7 +31,6 @@ export const __mock__cars: Car[] = [
     model: 'F-150',
     price: 10_000,
     type: 0,
-    engine: __mock__engines[2], // EcoBoost
     color: '#FF0000',
     clearance: 200,
     wheelSize: 20,
@@ -53,7 +43,6 @@ export const __mock__cars: Car[] = [
     model: '3 Series',
     price: 10_000,
     type: 3,
-    engine: __mock__engines[3], // Turbo
     color: '#FF0000',
     clearance: 140,
     wheelSize: 19,
@@ -66,7 +55,6 @@ export const __mock__cars: Car[] = [
     model: 'Rav4',
     price: 10_000,
     type: 4,
-    engine: __mock__engines[0], // V6
     color: '#FF0000',
     clearance: 180,
     wheelSize: 18,
@@ -79,7 +67,6 @@ export const __mock__cars: Car[] = [
     model: 'Civic',
     price: 10_000,
     type: 5,
-    engine: __mock__engines[1], // i-VTEC
     color: '#FF0000',
     clearance: 140,
     wheelSize: 16,
@@ -92,7 +79,6 @@ export const __mock__cars: Car[] = [
     model: 'Escape',
     price: 10_000,
     type: 5,
-    engine: __mock__engines[2], // EcoBoost
     color: '#FF0000',
     clearance: 160,
     wheelSize: 17,
@@ -105,7 +91,6 @@ export const __mock__cars: Car[] = [
     model: 'X5',
     price: 10_000,
     type: 0,
-    engine: __mock__engines[3], // Turbo
     color: '#FF0000',
     clearance: 190,
     wheelSize: 19,
@@ -118,7 +103,6 @@ export const __mock__cars: Car[] = [
     model: 'Prius',
     price: 10_000,
     type: 6,
-    engine: __mock__engines[0], // V6
     color: '#FF0000',
     clearance: 140,
     wheelSize: 15,
@@ -131,7 +115,6 @@ export const __mock__cars: Car[] = [
     model: 'Accord',
     price: 10_000,
     type: 7,
-    engine: __mock__engines[1], // i-VTEC
     color: '#FF0000',
     clearance: 150,
     wheelSize: 17,
@@ -144,7 +127,6 @@ export const __mock__cars: Car[] = [
     model: 'Mustang',
     price: 10_000,
     type: 2,
-    engine: __mock__engines[2], // EcoBoost
     color: '#FF0000',
     clearance: 130,
     wheelSize: 18,
@@ -157,7 +139,6 @@ export const __mock__cars: Car[] = [
     model: 'X3',
     price: 10_000,
     type: 2,
-    engine: __mock__engines[3], // Turbo
     color: '#FF0000',
     clearance: 170,
     wheelSize: 19,
@@ -170,7 +151,6 @@ export const __mock__cars: Car[] = [
     model: 'Highlander',
     price: 10_000,
     type: 3,
-    engine: __mock__engines[0], // V6
     color: '#FF0000',
     clearance: 190,
     wheelSize: 20,
@@ -183,7 +163,6 @@ export const __mock__cars: Car[] = [
     model: 'Pilot',
     price: 10_000,
     type: 4,
-    engine: __mock__engines[1], // i-VTEC
     color: '#FF0000',
     clearance: 200,
     wheelSize: 18,
@@ -196,7 +175,6 @@ export const __mock__cars: Car[] = [
     model: 'Focus',
     price: 10_000,
     type: 5,
-    engine: __mock__engines[2], // EcoBoost
     color: '#FF0000',
     clearance: 140,
     wheelSize: 16,
@@ -209,7 +187,6 @@ export const __mock__cars: Car[] = [
     model: '5 Series',
     price: 10_000,
     type: 6,
-    engine: __mock__engines[3], // Turbo
     color: '#FF0000',
     clearance: 150,
     wheelSize: 17,
@@ -222,7 +199,6 @@ export const __mock__cars: Car[] = [
     model: 'Tacoma',
     price: 10_000,
     type: 7,
-    engine: __mock__engines[0], // V6
     color: '#FF0000',
     clearance: 180,
     wheelSize: 18,
@@ -235,7 +211,6 @@ export const __mock__cars: Car[] = [
     model: 'Odyssey',
     price: 10_000,
     type: 8,
-    engine: __mock__engines[1], // i-VTEC
     color: '#FF0000',
     clearance: 160,
     wheelSize: 17,

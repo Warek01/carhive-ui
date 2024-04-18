@@ -1,15 +1,16 @@
 import { FC, memo } from 'react'
 import { Grid } from '@mui/material'
 
-import type { Car, PaginationData } from 'types/definitions'
-import { MarketCarItem } from 'components'
+import type { PaginationData } from 'lib/definitions'
+import { ListingItem } from 'components'
+import { type Listing } from 'lib/listings'
 
 interface Props {
   paginationData: PaginationData
-  items: Car[]
+  items: Listing[]
 }
 
-const CarsList: FC<Props> = ({ items, paginationData }) => {
+const ListingsList: FC<Props> = ({ items, paginationData }) => {
   return (
     <div>
       <Grid
@@ -22,7 +23,7 @@ const CarsList: FC<Props> = ({ items, paginationData }) => {
             key={index}
             item
           >
-            <MarketCarItem car={car} />
+            <ListingItem listing={car} />
           </Grid>
         ))}
       </Grid>
@@ -30,4 +31,4 @@ const CarsList: FC<Props> = ({ items, paginationData }) => {
   )
 }
 
-export default memo(CarsList)
+export default memo(ListingsList)

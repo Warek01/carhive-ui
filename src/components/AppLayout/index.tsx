@@ -5,10 +5,11 @@ import { useLocalStorage } from 'usehooks-ts'
 
 import { Header } from 'components'
 import { darkTheme, lightTheme } from 'lib/themes'
+import LocalStorageKey from 'lib/LocalStorageKey'
 
 const AppLayout: FC = () => {
   const [isDarkTheme, setIsDarkTheme] = useLocalStorage<boolean>(
-    'is-dark-theme',
+    LocalStorageKey.THEME,
     window.matchMedia('(prefers-color-scheme: dark)').matches,
   )
 
@@ -20,7 +21,7 @@ const AppLayout: FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="bg-gray-200 px-3 py-2 text-2xl font-Montserrat">
+      <div className="min-h-screen bg-stone-200 px-3 py-2 font-Montserrat text-2xl dark:bg-stone-800 dark:text-white">
         <Header
           isDarkTheme={isDarkTheme}
           setIsDarkTheme={setIsDarkTheme}

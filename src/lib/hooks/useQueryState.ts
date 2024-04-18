@@ -1,7 +1,10 @@
 import { useLocation, useSearchParams } from 'react-router-dom'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-export const useQueryState = <T>(name: string, initialValue: T): [get: T, set: Dispatch<SetStateAction<T>>] => {
+export const useQueryState = <T>(
+  name: string,
+  initialValue: T,
+): [get: T, set: Dispatch<SetStateAction<T>>] => {
   const location = useLocation()
 
   const [get, set] = useState<T>(() => {

@@ -1,14 +1,19 @@
 import { FC, useMemo } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { CarsList, CarTypesList } from 'components'
-import { useQueryState } from 'hooks'
-import { __mock__cars } from '__mocks__/cars.mock'
-import type { PaginationData } from 'types/definitions'
+import { ListingsList, CarTypesList } from 'components'
+import { useQueryState } from 'lib/hooks'
+import type { PaginationData } from 'lib/definitions'
+import LocalStorageKey from 'lib/LocalStorageKey'
+import { Listing } from 'lib/listings'
 
 const MarketPage: FC = () => {
   const [selectedCarTypes, setSelectedCarTypes] = useQueryState<number[]>('carTypes', [])
-  const [favoriteCarIds, setFavoriteCarIds] = useLocalStorage('favorite-car-ids', [])
+  const [favoriteListings, setFavoriteListings] = useLocalStorage<number[]>(
+    LocalStorageKey.FAVORITE_LISTINGS,
+    [],
+  )
+  const [listings, setListings] = useLocalStorage<Listing[]>(LocalStorageKey.LISTINGS, [])
 
   // Implement pagination later
   const totalPages = 10
@@ -24,7 +29,10 @@ const MarketPage: FC = () => {
   )
 
   const items = useMemo(
-    () => __mock__cars.filter((c) => (selectedCarTypes.length ? selectedCarTypes.includes(c.type ?? -1) : true)),
+    () =>
+      listings.filter((c) =>
+        selectedCarTypes.length ? selectedCarTypes.includes(c.type ?? -1) : true,
+      ),
     [selectedCarTypes],
   )
 
@@ -39,7 +47,7 @@ const MarketPage: FC = () => {
       </section>
       <section>
         <h1>Deals:</h1>
-        <CarsList
+        <ListingsList
           items={items}
           paginationData={paginationData}
         />

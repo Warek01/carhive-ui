@@ -1,7 +1,7 @@
 import { FC, memo, useCallback, useState } from 'react'
 import { Chip } from '@mui/material'
 
-import { carTypes } from 'lib/car'
+import { carTypes } from 'lib/listings'
 
 interface Props {
   initialSelected: number[]
@@ -14,7 +14,9 @@ export const CarTypesSelect: FC<Props> = ({ onChange, initialSelected }) => {
   const handleChipClick = useCallback(
     (type: number) => {
       return () => {
-        const newSelected = selected.includes(type) ? selected.filter((t) => t !== type) : [...selected, type]
+        const newSelected = selected.includes(type)
+          ? selected.filter((t) => t !== type)
+          : [...selected, type]
 
         setSelected(newSelected)
         onChange(newSelected)

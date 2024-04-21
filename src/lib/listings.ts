@@ -1,4 +1,4 @@
-import type { Nullable } from 'lib/definitions'
+import type { Nullable } from '@/lib/definitions'
 
 export interface Listing {
   id: string

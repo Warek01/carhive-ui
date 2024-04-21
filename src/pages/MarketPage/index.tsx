@@ -1,11 +1,11 @@
 import { FC, useMemo } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { ListingsList, CarTypesFilter } from 'components'
-import { useQueryState } from 'lib/hooks'
-import type { PaginationData } from 'lib/definitions'
-import LocalStorageKey from 'lib/LocalStorageKey'
-import { Listing } from 'lib/listings'
+import { ListingsList, CarTypesFilter } from '@/components'
+import { useQueryState } from '@/lib/hooks'
+import type { PaginationData } from '@/lib/definitions'
+import LocalStorageKey from '@/lib/LocalStorageKey'
+import { Listing } from '@/lib/listings'
 
 const MarketPage: FC = () => {
   const [selectedCarTypes, setSelectedCarTypes] = useQueryState<number[]>('carTypes', [])

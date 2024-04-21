@@ -1,9 +1,9 @@
 import { FC, memo } from 'react'
 import { Grid } from '@mui/material'
 
-import type { PaginationData } from 'lib/definitions'
-import { ListingItem } from 'components'
-import { type Listing } from 'lib/listings'
+import type { PaginationData } from '@/lib/definitions'
+import { ListingItem } from '@/components'
+import { type Listing } from '@/lib/listings'
 
 interface Props {
   paginationData: PaginationData

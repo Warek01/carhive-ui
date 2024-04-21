@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { NewListingForm } from 'components'
+import { NewListingForm } from '@/components'
 
 const NewDealPage: FC = () => {
   return (

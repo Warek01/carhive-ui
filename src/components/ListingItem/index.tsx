@@ -6,9 +6,9 @@ import { generatePath } from 'react-router'
 import { useLocalStorage } from 'usehooks-ts'
 import * as icons from '@mui/icons-material'
 
-import { AppRoute } from 'routing/AppRoute'
-import { carTypes, Listing } from 'lib/listings'
-import { toggleArrayItem } from 'lib/utils'
+import { AppRoute } from '@/routing/AppRoute'
+import { carTypes, Listing } from '@/lib/listings'
+import { toggleArrayItem } from '@/lib/utils'
 
 interface Props {
   listing: Listing

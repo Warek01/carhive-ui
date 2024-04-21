@@ -1,5 +1,5 @@
-import type { Link } from 'lib/definitions'
-import { AppRoute } from '../../routing/AppRoute'
+import type { Link } from '@/lib/definitions'
+import { AppRoute } from '@/routing/AppRoute'
 
 export const headerLinks: Link[] = [
   {

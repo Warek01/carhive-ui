@@ -1,7 +1,8 @@
 export enum AppRoute {
   HOME = '/',
-  MARKET = '/market',
-  MARKET_CATEGORY = '/market/:categoryId',
-  CAR_DETAILS = '/car/:carId',
+  LISTINGS = '/listings/list',
+  NEW_LISTING = '/listings/new',
+  LISTING_DETAILS = '/listings/:listingId',
+  PROFILE = '/me',
   ANY = '*',
 }

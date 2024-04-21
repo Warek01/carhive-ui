@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-import { carTypes, CreateListingDTO } from 'lib/listings'
+import { carTypes, CreateListingDTO } from '@/lib/listings'
 
 export const createListingInitialValues: CreateListingDTO = {
   brandName: '',

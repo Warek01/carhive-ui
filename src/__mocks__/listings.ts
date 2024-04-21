@@ -1,4 +1,4 @@
-import { type Listing } from 'lib/listings'
+import { type Listing } from '@/lib/listings'
 
 export const __mock__listings: Listing[] = [
   {

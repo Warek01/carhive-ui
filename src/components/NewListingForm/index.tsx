@@ -5,8 +5,8 @@ import { useLocalStorage } from 'usehooks-ts'
 import { v4 as uuid } from 'uuid'
 
 import { createListingInitialValues, createListingValidationSchema } from './constants'
-import LocalStorageKey from 'lib/LocalStorageKey'
-import { CreateListingDTO, carBrands, carTypes, engineTypes, Listing } from 'lib/listings'
+import LocalStorageKey from '@/lib/LocalStorageKey'
+import { CreateListingDTO, carBrands, carTypes, engineTypes, Listing } from '@/lib/listings'
 
 const NewListingForm: FC = () => {
   const [listings, setListings] = useLocalStorage<Listing[]>(LocalStorageKey.LISTINGS, [])

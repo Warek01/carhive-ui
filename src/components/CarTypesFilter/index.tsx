@@ -1,7 +1,7 @@
 import { FC, memo, useCallback, useState } from 'react'
 import { Chip } from '@mui/material'
 
-import { carTypes } from 'lib/listings'
+import { carTypes } from '@/lib/listings'
 
 interface Props {
   initialSelected: number[]

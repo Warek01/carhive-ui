@@ -7,7 +7,13 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "format": "prettier -w src/"
+    "format": "prettier -w src/",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "prettier -w"
+    ]
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -15,10 +21,7 @@
     "@fontsource/roboto": "^5.0.13",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/forms": "^0.5.7",
-    "@tailwindcss/typography": "^0.5.12",
-    "@types/node": "^16.18.96",
+    "@types/node": "^20.12.7",
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
     "@types/uuid": "^9.0.8",
@@ -27,6 +30,7 @@
     "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
     "formik": "^2.4.5",
+    "lint-staged": "^15.2.2",
     "lodash": "^4.17.21",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
@@ -45,5 +49,8 @@
     "vite-tsconfig-paths": "^4.3.2",
     "yup": "^1.4.0"
   },
-  "packageManager": "pnpm@9.0.4+sha256.caa915eaae9d9aefccf50ee8aeda25a2f8684d8f9d5c6e367eaf176d97c1f89e"
+  "packageManager": "pnpm@9.0.4+sha256.caa915eaae9d9aefccf50ee8aeda25a2f8684d8f9d5c6e367eaf176d97c1f89e",
+  "devDependencies": {
+    "husky": "^8.0.3"
+  }
 }

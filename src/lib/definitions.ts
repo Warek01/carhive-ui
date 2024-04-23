@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import type { AppRoute } from '@/routing/AppRoute'
 
 export interface AppEnv {
-  readonly NODE_ENV: 'development' | 'production'
+  NODE_ENV: 'development' | 'production'
 }
 
 export interface Link {

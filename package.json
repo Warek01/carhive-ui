@@ -8,7 +8,12 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "format": "prettier -w src/",
+    "predeploy": "pnpm run build",
+    "deploy": "gh-pages -d dist",
     "prepare": "husky install"
+  },
+  "engines": {
+    "node": "20.12.1"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
@@ -31,6 +36,8 @@
     "dayjs": "^1.11.10",
     "dotenv": "^16.4.5",
     "formik": "^2.4.5",
+    "gh-pages": "^6.1.1",
+    "husky": "^8.0.3",
     "lint-staged": "^15.2.2",
     "lodash": "^4.17.21",
     "postcss": "^8.4.38",
@@ -50,8 +57,5 @@
     "vite-tsconfig-paths": "^4.3.2",
     "yup": "^1.4.0"
   },
-  "packageManager": "pnpm@9.0.4+sha256.caa915eaae9d9aefccf50ee8aeda25a2f8684d8f9d5c6e367eaf176d97c1f89e",
-  "devDependencies": {
-    "husky": "^8.0.3"
-  }
+  "packageManager": "pnpm@9.0.5"
 }

@@ -4,6 +4,7 @@ import type { AppRoute } from '@/routing/AppRoute'
 
 export interface AppEnv {
   NODE_ENV: 'development' | 'production'
+  VITE_APP_BASE_URL: string
 }
 
 export interface Link {

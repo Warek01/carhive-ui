@@ -33,4 +33,6 @@ const routes: RouteObject[] = [
   },
 ]
 
-export const appRouter = createBrowserRouter(routes)
+export const appRouter = createBrowserRouter(routes, {
+  basename: import.meta.env.VITE_APP_BASE_PATH,
+})

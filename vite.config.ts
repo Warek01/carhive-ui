@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react(), tsconfigPaths()],
-    base: process.env.BASE_URL,
+    base: process.env.VITE_APP_BASE_PATH,
     appType: 'spa',
   }
 })

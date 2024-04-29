@@ -8,7 +8,7 @@ import { AuthContextProvider } from '@/context/AuthContext.tsx'
 import './index.scss'
 
 const App: FC = () => {
-  //debug
+  // debug
   useEffect(() => {
     if (!localStorage.getItem(LocalStorageKey.LISTINGS))
       localStorage.setItem(

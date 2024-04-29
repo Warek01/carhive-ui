@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouteObject } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  createHashRouter,
+  RouteObject,
+} from 'react-router-dom'
 
 import {
   CarDetailsPage,
@@ -44,6 +48,6 @@ const routes: RouteObject[] = [
   },
 ]
 
-export const appRouter = createBrowserRouter(routes, {
-  basename: import.meta.env.VITE_APP_BASE_PATH,
-})
+export const appRouter = import.meta.env.DEV
+  ? createBrowserRouter(routes)
+  : createHashRouter(routes)

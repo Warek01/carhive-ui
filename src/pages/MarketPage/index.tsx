@@ -3,7 +3,6 @@ import { useLocalStorage } from 'usehooks-ts'
 import { Box, Typography } from '@mui/material'
 
 import { ListingsList, CarTypesFilter } from '@/components'
-import { useQueryState } from '@/lib/hooks'
 import type { PaginationData } from '@/lib/definitions'
 import LocalStorageKey from '@/lib/LocalStorageKey'
 import { Listing } from '@/lib/listings'
@@ -25,7 +24,10 @@ const MarketPage: FC = () => {
   // Implement pagination later
   const totalPages = 10
   const itemsPerPage = 10
-  const [currentPage, setCurrentPage] = useQueryState<number>('page', 0)
+  const [currentPage, setCurrentPage] = useLocalStorage<number>(
+    LocalStorageKey.MARKET_PAGE,
+    0,
+  )
   const paginationData = useMemo<PaginationData>(
     () => ({
       currentPage,

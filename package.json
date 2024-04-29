@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://warek01.github.io/faf-cars/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

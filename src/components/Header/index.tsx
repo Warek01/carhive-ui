@@ -15,8 +15,8 @@ import {
   Switch,
   Typography,
   SvgIconProps,
-  Box,
   Stack,
+  IconButton,
 } from '@mui/material'
 
 import { AppRoute } from 'routing/AppRoute'
@@ -78,14 +78,7 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
             <icons.TimeToLeave sx={{ width: 32, height: 32 }} />
             FAF cars
           </Typography>
-          <Stack
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 2,
-              flexDirection: 'row',
-            }}
-          >
+          <Stack alignItems="center" direction="row" spacing={4} pl={4}>
             {headerLinks.map(({ content, href }, index) => (
               <Typography
                 component={RouterLink}
@@ -98,10 +91,20 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
             ))}
           </Stack>
         </Stack>
-        <Box component="label" sx={{ display: 'flex', alignItems: 'center' }}>
-          <Switch checked={isDarkTheme} onChange={handleChange} />
-          {icon}
-        </Box>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Stack
+            component="label"
+            direction="row"
+            spacing={0}
+            alignItems="center"
+          >
+            <Switch checked={isDarkTheme} onChange={handleChange} />
+            {icon}
+          </Stack>
+          <IconButton component={RouterLink} to={AppRoute.PROFILE}>
+            <icons.Person fontSize="medium" />
+          </IconButton>
+        </Stack>
       </Container>
     </AppBar>
   )

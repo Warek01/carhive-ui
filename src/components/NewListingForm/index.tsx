@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useEffect } from 'react'
+import { FC, memo, useCallback } from 'react'
 import { FormikHelpers, useFormik } from 'formik'
 import {
   InputLabel,
@@ -157,7 +157,7 @@ const NewListingForm: FC = () => {
           <FormControl fullWidth error={!!formik.errors.color}>
             <TextField
               type="color"
-              value={formik.values.color ?? '#FFFFFF'}
+              value={formik.values.color}
               label="Color"
               onChange={(e) => formik.setFieldValue('color', e.target.value)}
               error={!!formik.errors.color}

@@ -10,8 +10,4 @@ export const headerLinks: Link[] = [
     href: AppRoute.NEW_LISTING,
     content: 'Post a deal',
   },
-  {
-    href: AppRoute.PROFILE,
-    content: 'My profile',
-  },
 ]

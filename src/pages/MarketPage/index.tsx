@@ -6,14 +6,21 @@ import { useQueryState } from '@/lib/hooks'
 import type { PaginationData } from '@/lib/definitions'
 import LocalStorageKey from '@/lib/LocalStorageKey'
 import { Listing } from '@/lib/listings'
+import { Box, Container, Typography } from '@mui/material'
 
 const MarketPage: FC = () => {
-  const [selectedCarTypes, setSelectedCarTypes] = useQueryState<number[]>('carTypes', [])
+  const [selectedCarTypes, setSelectedCarTypes] = useQueryState<number[]>(
+    'carTypes',
+    [],
+  )
   const [favoriteListings, setFavoriteListings] = useLocalStorage<number[]>(
     LocalStorageKey.FAVORITE_LISTINGS,
     [],
   )
-  const [listings, setListings] = useLocalStorage<Listing[]>(LocalStorageKey.LISTINGS, [])
+  const [listings, setListings] = useLocalStorage<Listing[]>(
+    LocalStorageKey.LISTINGS,
+    [],
+  )
 
   // Implement pagination later
   const totalPages = 10
@@ -31,28 +38,27 @@ const MarketPage: FC = () => {
   const items = useMemo(
     () =>
       listings.filter((c) =>
-        selectedCarTypes.length ? selectedCarTypes.includes(c.type ?? -1) : true,
+        selectedCarTypes.length
+          ? selectedCarTypes.includes(c.type ?? -1)
+          : true,
       ),
     [selectedCarTypes],
   )
 
   return (
-    <div>
-      <section>
-        <h1>Categories:</h1>
+    <Container>
+      <Box component="section">
+        <Typography variant="h3">Categories:</Typography>
         <CarTypesFilter
           onChange={setSelectedCarTypes}
           initialSelected={selectedCarTypes}
         />
-      </section>
-      <section>
-        <h1>Deals:</h1>
-        <ListingsList
-          items={items}
-          paginationData={paginationData}
-        />
-      </section>
-    </div>
+      </Box>
+      <Box component="section">
+        <Typography variant="h3">Deals:</Typography>
+        <ListingsList items={items} paginationData={paginationData} />
+      </Box>
+    </Container>
   )
 }
 

@@ -18,7 +18,13 @@ export interface Listing {
 
 export interface CreateListingDTO extends Nullable<Omit<Listing, 'id'>> {}
 
-export const engineTypes: string[] = ['Gas', 'Diesel', 'Hybrid', 'Electric', 'Other']
+export const engineTypes: string[] = [
+  'Gas',
+  'Diesel',
+  'Hybrid',
+  'Electric',
+  'Other',
+]
 
 export const carTypes: string[] = [
   'Sedan',

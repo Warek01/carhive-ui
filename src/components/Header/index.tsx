@@ -5,12 +5,20 @@ import {
   memo,
   SetStateAction,
   useCallback,
-  useEffect,
   useMemo,
 } from 'react'
-import Switch from '@mui/material/Switch'
 import * as icons from '@mui/icons-material'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
+import {
+  AppBar,
+  Container,
+  Toolbar,
+  Switch,
+  Typography,
+  SvgIconProps,
+  Box,
+  Stack,
+} from '@mui/material'
 
 import { AppRoute } from 'routing/AppRoute'
 import { headerLinks } from './constants'
@@ -21,54 +29,77 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
+  const iconProps = useMemo<SvgIconProps>(
+    () => ({
+      width: 32,
+      height: 32,
+    }),
+    [],
+  )
+
   const icon = useMemo(
     () =>
       isDarkTheme ? (
-        <icons.DarkMode
-          width={32}
-          height={32}
-        />
+        <icons.DarkMode {...iconProps} />
       ) : (
-        <icons.LightMode
-          width={32}
-          height={32}
-        />
+        <icons.LightMode {...iconProps} />
       ),
     [isDarkTheme],
   )
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => setIsDarkTheme(event.target.checked),
-    [setIsDarkTheme],
+    [],
   )
 
   return (
-    <header className="flex flex-row justify-between border-b border-b-black px-12">
-      <Link
-        to={AppRoute.HOME}
-        className="custom flex gap-3"
-      >
-        <icons.TimeToLeave fontSize="large" />
-        <h3>FAF cars</h3>
-      </Link>
-      <nav className="flex gap-4">
-        {headerLinks.map(({ content, href }, index) => (
-          <Link
-            key={index}
-            to={href ?? '#'}
-          >
-            {content}
-          </Link>
-        ))}
-      </nav>
-      <label>
-        <Switch
-          checked={isDarkTheme}
-          onChange={handleChange}
-        />
-        {icon}
-      </label>
-    </header>
+    <Container fixed maxWidth="lg">
+      <AppBar>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Stack direction="row" gap={3}>
+            <Typography
+              component={RouterLink}
+              variant="h6"
+              to={AppRoute.HOME}
+              sx={{
+                px: 2,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                justifyContent: 'center',
+                color: 'inherit',
+              }}
+            >
+              <icons.TimeToLeave sx={{ width: 32, height: 32 }} />
+              FAF cars
+            </Typography>
+            <Stack
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+                flexDirection: 'row',
+              }}
+            >
+              {headerLinks.map(({ content, href }, index) => (
+                <Typography
+                  component={RouterLink}
+                  key={index}
+                  to={href ?? '#'}
+                  sx={{ color: 'inherit' }}
+                >
+                  {content}
+                </Typography>
+              ))}
+            </Stack>
+          </Stack>
+          <Box component="label" sx={{ display: 'flex', alignItems: 'center' }}>
+            <Switch checked={isDarkTheme} onChange={handleChange} />
+            {icon}
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </Container>
   )
 }
 

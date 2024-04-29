@@ -1,5 +1,5 @@
 import { FC, memo, useCallback, useState } from 'react'
-import { Chip } from '@mui/material'
+import { Box, Chip, Stack } from '@mui/material'
 
 import { carTypes } from '@/lib/listings'
 
@@ -26,20 +26,19 @@ export const CarTypesFilter: FC<Props> = ({ onChange, initialSelected }) => {
   )
 
   return (
-    <div>
-      <ul className="flex gap-3">
+    <Box>
+      <Stack direction="row" spacing={2}>
         {carTypes.map((type, index) => (
-          <li key={index}>
-            <Chip
-              clickable
-              color={selected.includes(index) ? 'success' : 'primary'}
-              label={type}
-              onClick={handleChipClick(index)}
-            />
-          </li>
+          <Chip
+            key={index}
+            clickable
+            color={selected.includes(index) ? 'success' : 'primary'}
+            label={type}
+            onClick={handleChipClick(index)}
+          />
         ))}
-      </ul>
-    </div>
+      </Stack>
+    </Box>
   )
 }
 

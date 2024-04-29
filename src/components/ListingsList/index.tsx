@@ -13,16 +13,9 @@ interface Props {
 const ListingsList: FC<Props> = ({ items, paginationData }) => {
   return (
     <div>
-      <Grid
-        spacing={2}
-        container
-      >
+      <Grid spacing={2} container>
         {items.map((car, index) => (
-          <Grid
-            xs={4}
-            key={index}
-            item
-          >
+          <Grid xs={4} key={index} item>
             <ListingItem listing={car} />
           </Grid>
         ))}

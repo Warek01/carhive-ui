@@ -1,6 +1,12 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom'
 
-import { CarDetailsPage, HomePage, MarketPage, NewDealPage, NotFoundPage } from '@/pages'
+import {
+  CarDetailsPage,
+  HomePage,
+  MarketPage,
+  NewDealPage,
+  NotFoundPage,
+} from '@/pages'
 import { AppLayout } from '@/components'
 import { AppRoute } from './AppRoute'
 

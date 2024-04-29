@@ -1,10 +1,11 @@
 import { FC, memo, useCallback, useMemo } from 'react'
-import { Button, Card, IconButton } from '@mui/material'
+import { Button, Card, IconButton, Typography, Link } from '@mui/material'
 import dayjs from 'dayjs'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import { generatePath } from 'react-router'
 import { useLocalStorage } from 'usehooks-ts'
 import * as icons from '@mui/icons-material'
+import { amber } from '@mui/material/colors'
 
 import { AppRoute } from '@/routing/AppRoute'
 import { carTypes, Listing } from '@/lib/listings'
@@ -15,7 +16,10 @@ interface Props {
 }
 
 const ListingItem: FC<Props> = ({ listing }) => {
-  const [favoriteCarIds, setFavoriteCarIds] = useLocalStorage<string[]>('favorite-car-ids', [])
+  const [favoriteCarIds, setFavoriteCarIds] = useLocalStorage<string[]>(
+    'favorite-car-ids',
+    [],
+  )
 
   const isFavorite = useMemo(
     () => favoriteCarIds.includes(listing.id),
@@ -28,29 +32,34 @@ const ListingItem: FC<Props> = ({ listing }) => {
 
   return (
     <Card sx={{ p: 1 }}>
-      <p>{`${listing.brandName} ${listing.model}`}</p>
-      <p>Type: {carTypes[listing.type]}</p>
-      <p>Year: {dayjs(listing.year).format('DD-MM-YYYY')}</p>
+      <Typography variant="body1">{`${listing.brandName} ${listing.model}`}</Typography>
+      <Typography variant="body1">Type: {carTypes[listing.type]}</Typography>
+      <Typography variant="body1">
+        Year: {dayjs(listing.year).format('DD-MM-YYYY')}
+      </Typography>
 
       {listing.color && (
-        <p className="flex items-center gap-3">
+        <Typography variant="body1" className="flex items-center gap-3">
           Color:{' '}
           <span
             className="inline-block h-5 w-5 rounded-full"
             style={{ backgroundColor: listing.color }}
           ></span>
-        </p>
+        </Typography>
       )}
 
       <p>{listing.price} $</p>
 
-      <Link to={generatePath(AppRoute.LISTING_DETAILS, { listingId: listing.id })}>
+      <Link
+        component={RouterLink}
+        to={generatePath(AppRoute.LISTING_DETAILS, { listingId: listing.id })}
+      >
         <Button variant="outlined">Details</Button>
       </Link>
       <IconButton onClick={handleFavoriteToggle}>
         <icons.Star
           fontSize="medium"
-          color={isFavorite ? 'warning' : 'primary'}
+          sx={{ color: isFavorite ? amber[500] : 'default' }}
         />
       </IconButton>
     </Card>

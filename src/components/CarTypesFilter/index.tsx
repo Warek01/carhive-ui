@@ -1,16 +1,14 @@
-import { FC, memo, useCallback, useState } from 'react'
+import { FC, memo, useCallback } from 'react'
 import { Box, Chip, Stack } from '@mui/material'
 
 import { carTypes } from '@/lib/listings'
 
 interface Props {
-  initialSelected: number[]
+  selected: number[]
   onChange(selected: number[]): void
 }
 
-export const CarTypesFilter: FC<Props> = ({ onChange, initialSelected }) => {
-  const [selected, setSelected] = useState<number[]>(initialSelected)
-
+export const CarTypesFilter: FC<Props> = ({ onChange, selected }) => {
   const handleChipClick = useCallback(
     (type: number) => {
       return () => {
@@ -18,12 +16,15 @@ export const CarTypesFilter: FC<Props> = ({ onChange, initialSelected }) => {
           ? selected.filter((t) => t !== type)
           : [...selected, type]
 
-        setSelected(newSelected)
         onChange(newSelected)
       }
     },
-    [selected],
+    [selected, onChange],
   )
+
+  const handleClear = useCallback(() => {
+    onChange([])
+  }, [onChange])
 
   return (
     <Box>
@@ -37,6 +38,7 @@ export const CarTypesFilter: FC<Props> = ({ onChange, initialSelected }) => {
             onClick={handleChipClick(index)}
           />
         ))}
+        <Chip color="primary" clickable label="Clear" onClick={handleClear} />
       </Stack>
     </Box>
   )

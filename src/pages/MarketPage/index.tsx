@@ -1,16 +1,16 @@
 import { FC, useMemo } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
+import { Box, Typography } from '@mui/material'
 
 import { ListingsList, CarTypesFilter } from '@/components'
 import { useQueryState } from '@/lib/hooks'
 import type { PaginationData } from '@/lib/definitions'
 import LocalStorageKey from '@/lib/LocalStorageKey'
 import { Listing } from '@/lib/listings'
-import { Box, Typography } from '@mui/material'
 
 const MarketPage: FC = () => {
-  const [selectedCarTypes, setSelectedCarTypes] = useQueryState<number[]>(
-    'carTypes',
+  const [selectedCarTypes, setSelectedCarTypes] = useLocalStorage<number[]>(
+    LocalStorageKey.LISTINGS_FILTER,
     [],
   )
   const [favoriteListings, setFavoriteListings] = useLocalStorage<number[]>(
@@ -51,7 +51,7 @@ const MarketPage: FC = () => {
         <Typography variant="h3">Categories:</Typography>
         <CarTypesFilter
           onChange={setSelectedCarTypes}
-          initialSelected={selectedCarTypes}
+          selected={selectedCarTypes}
         />
       </Box>
       <Box component="section">

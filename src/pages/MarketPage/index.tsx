@@ -6,7 +6,7 @@ import { useQueryState } from '@/lib/hooks'
 import type { PaginationData } from '@/lib/definitions'
 import LocalStorageKey from '@/lib/LocalStorageKey'
 import { Listing } from '@/lib/listings'
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 const MarketPage: FC = () => {
   const [selectedCarTypes, setSelectedCarTypes] = useQueryState<number[]>(
@@ -46,7 +46,7 @@ const MarketPage: FC = () => {
   )
 
   return (
-    <Container>
+    <Box>
       <Box component="section">
         <Typography variant="h3">Categories:</Typography>
         <CarTypesFilter
@@ -58,7 +58,7 @@ const MarketPage: FC = () => {
         <Typography variant="h3">Deals:</Typography>
         <ListingsList items={items} paginationData={paginationData} />
       </Box>
-    </Container>
+    </Box>
   )
 }
 

@@ -1,10 +1,11 @@
 import { FC } from 'react'
+import { Box, Typography } from '@mui/material'
 
 const HomePage: FC = () => {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <Box>
+      <Typography variant="h1">Home</Typography>
+    </Box>
   )
 }
 

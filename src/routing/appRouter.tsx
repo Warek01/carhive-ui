@@ -36,11 +36,11 @@ const routes: RouteObject[] = [
         path: AppRoute.NEW_LISTING,
         Component: NewDealPage,
       },
+      {
+        path: AppRoute.ANY,
+        Component: NotFoundPage,
+      },
     ],
-  },
-  {
-    path: AppRoute.ANY,
-    Component: NotFoundPage,
   },
 ]
 

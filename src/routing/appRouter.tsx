@@ -4,7 +4,7 @@ import {
   CarDetailsPage,
   HomePage,
   MarketPage,
-  NewDealPage,
+  NewListingPage,
   NotFoundPage,
   ProfilePage,
 } from '@/pages'
@@ -34,7 +34,7 @@ const routes: RouteObject[] = [
       },
       {
         path: AppRoute.NEW_LISTING,
-        Component: NewDealPage,
+        Component: NewListingPage,
       },
       {
         path: AppRoute.ANY,

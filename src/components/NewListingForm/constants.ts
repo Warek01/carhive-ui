@@ -7,7 +7,7 @@ export const createListingInitialValues: CreateListingDTO = {
   model: '',
   price: null,
   type: null,
-  color: '#ffffff',
+  color: '#FFFFFF',
   year: null,
   clearance: null,
   wheelSize: null,
@@ -18,18 +18,36 @@ export const createListingInitialValues: CreateListingDTO = {
 }
 
 export const createListingValidationSchema = Yup.object().shape({
-  brandName: Yup.string().min(1),
-  model: Yup.string().min(1),
-  price: Yup.number().positive().integer(),
-  year: Yup.number().positive(),
+  brandName: Yup.string().min(1).required('Brand is required.'),
+  model: Yup.string().min(1).required('Model is required'),
+  price: Yup.number()
+    .positive('Price most be positive.')
+    .integer()
+    .required('Price is required.'),
+  year: Yup.number()
+    .positive('Year must be possible')
+    .required('Year is required.'),
+  engineType: Yup.number()
+    .integer()
+    .positive()
+    .required('Engine type is required'),
   type: Yup.number()
     .positive()
     .max(carTypes.length - 1)
-    .integer(),
+    .integer()
+    .required('Car type is required.'),
   color: Yup.string().nullable(),
-  clearance: Yup.number().integer().positive().nullable(),
-  wheelSize: Yup.number().integer().positive().nullable(),
-  engineType: Yup.number().integer().positive().nullable(),
-  engineVolume: Yup.number().min(0).nullable(),
-  horsepower: Yup.number().integer().positive().nullable(),
+  clearance: Yup.number()
+    .integer()
+    .positive('Clearance must be positive.')
+    .nullable(),
+  wheelSize: Yup.number()
+    .integer()
+    .positive('Wheel size must be positive.')
+    .nullable(),
+  engineVolume: Yup.number().min(0, 'Volume must be positive.').nullable(),
+  horsepower: Yup.number()
+    .integer()
+    .positive('Horsepower must be positive.')
+    .nullable(),
 })

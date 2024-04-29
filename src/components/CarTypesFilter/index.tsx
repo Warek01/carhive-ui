@@ -33,12 +33,12 @@ export const CarTypesFilter: FC<Props> = ({ onChange, selected }) => {
           <Chip
             key={index}
             clickable
-            color={selected.includes(index) ? 'success' : 'primary'}
+            color={selected.includes(index) ? 'primary' : 'default'}
             label={type}
             onClick={handleChipClick(index)}
           />
         ))}
-        <Chip color="primary" clickable label="Clear" onClick={handleClear} />
+        <Chip color="secondary" onDelete={handleClear} label="Clear" />
       </Stack>
     </Box>
   )

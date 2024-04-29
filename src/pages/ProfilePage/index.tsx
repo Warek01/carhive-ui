@@ -1,5 +1,5 @@
 import { FC, useContext } from 'react'
-import { Box, Card, CardContent, Container, Typography } from '@mui/material'
+import { Box, Container } from '@mui/material'
 
 import AuthContext from '@/context/AuthContext.tsx'
 import { UserCard } from '@/components'

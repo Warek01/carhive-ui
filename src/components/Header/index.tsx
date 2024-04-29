@@ -12,7 +12,6 @@ import { Link as RouterLink } from 'react-router-dom'
 import {
   AppBar,
   Container,
-  Toolbar,
   Switch,
   Typography,
   SvgIconProps,
@@ -53,53 +52,58 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
   )
 
   return (
-    <Container fixed maxWidth="lg">
-      <AppBar>
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Stack direction="row" gap={3}>
-            <Typography
-              component={RouterLink}
-              variant="h6"
-              to={AppRoute.HOME}
-              sx={{
-                px: 2,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-                justifyContent: 'center',
-                color: 'inherit',
-              }}
-            >
-              <icons.TimeToLeave sx={{ width: 32, height: 32 }} />
-              FAF cars
-            </Typography>
-            <Stack
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 2,
-                flexDirection: 'row',
-              }}
-            >
-              {headerLinks.map(({ content, href }, index) => (
-                <Typography
-                  component={RouterLink}
-                  key={index}
-                  to={href ?? '#'}
-                  sx={{ color: 'inherit' }}
-                >
-                  {content}
-                </Typography>
-              ))}
-            </Stack>
+    <AppBar>
+      <Container
+        fixed
+        maxWidth="lg"
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          height: 64,
+        }}
+      >
+        <Stack direction="row" gap={3}>
+          <Typography
+            component={RouterLink}
+            variant="h6"
+            to={AppRoute.HOME}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              justifyContent: 'center',
+              color: 'inherit',
+            }}
+          >
+            <icons.TimeToLeave sx={{ width: 32, height: 32 }} />
+            FAF cars
+          </Typography>
+          <Stack
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 2,
+              flexDirection: 'row',
+            }}
+          >
+            {headerLinks.map(({ content, href }, index) => (
+              <Typography
+                component={RouterLink}
+                key={index}
+                to={href ?? '#'}
+                sx={{ color: 'inherit' }}
+              >
+                {content}
+              </Typography>
+            ))}
           </Stack>
-          <Box component="label" sx={{ display: 'flex', alignItems: 'center' }}>
-            <Switch checked={isDarkTheme} onChange={handleChange} />
-            {icon}
-          </Box>
-        </Toolbar>
-      </AppBar>
-    </Container>
+        </Stack>
+        <Box component="label" sx={{ display: 'flex', alignItems: 'center' }}>
+          <Switch checked={isDarkTheme} onChange={handleChange} />
+          {icon}
+        </Box>
+      </Container>
+    </AppBar>
   )
 }
 

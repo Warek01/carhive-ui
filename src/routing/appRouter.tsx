@@ -6,6 +6,7 @@ import {
   MarketPage,
   NewDealPage,
   NotFoundPage,
+  ProfilePage,
 } from '@/pages'
 import { AppLayout } from '@/components'
 import { AppRoute } from './AppRoute'
@@ -26,6 +27,10 @@ const routes: RouteObject[] = [
       {
         path: AppRoute.LISTING_DETAILS,
         Component: CarDetailsPage,
+      },
+      {
+        path: AppRoute.PROFILE,
+        Component: ProfilePage,
       },
       {
         path: AppRoute.NEW_LISTING,

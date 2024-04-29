@@ -21,3 +21,8 @@ export interface PaginationData {
 export type Nullable<T> = {
   [P in keyof T]: T[P] | null
 }
+
+export interface User {
+  username: string
+  name?: string
+}

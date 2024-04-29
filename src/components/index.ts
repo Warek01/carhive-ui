@@ -4,6 +4,7 @@ import Header from './Header'
 import ListingsList from './ListingsList'
 import ListingItem from './ListingItem'
 import NewListingForm from './NewListingForm'
+import UserCard from './UserCard'
 
 export {
   Header,
@@ -12,4 +13,5 @@ export {
   ListingsList,
   ListingItem,
   NewListingForm,
+  UserCard,
 }

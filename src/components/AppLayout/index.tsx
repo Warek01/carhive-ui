@@ -3,7 +3,7 @@ import { Theme, ThemeProvider } from '@mui/material/styles'
 import { Outlet } from 'react-router'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { Header } from '@/components'
+import { Header, MobileSplashScreen } from '@/components'
 import { darkTheme, lightTheme } from '@/lib/themes'
 import LocalStorageKey from '@/lib/LocalStorageKey'
 import { Container, CssBaseline } from '@mui/material'
@@ -22,10 +22,12 @@ const AppLayout: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
-      <Container fixed maxWidth="lg" sx={{ mt: 8 }}>
-        <Outlet />
-      </Container>
+      <MobileSplashScreen>
+        <Header isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
+        <Container fixed maxWidth="lg" sx={{ mt: 8 }}>
+          <Outlet />
+        </Container>
+      </MobileSplashScreen>
     </ThemeProvider>
   )
 }

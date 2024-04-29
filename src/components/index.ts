@@ -5,6 +5,7 @@ import ListingsList from './ListingsList'
 import ListingItem from './ListingItem'
 import NewListingForm from './NewListingForm'
 import UserCard from './UserCard'
+import MobileSplashScreen from './MobileSplashScreen'
 
 export {
   Header,
@@ -14,4 +15,5 @@ export {
   ListingItem,
   NewListingForm,
   UserCard,
+  MobileSplashScreen,
 }

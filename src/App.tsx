@@ -1,9 +1,5 @@
 import { FC, useMemo } from 'react'
-import {
-  createBrowserRouter,
-  createHashRouter,
-  RouterProvider,
-} from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 import appRoutes from '@/routing/appRoutes.tsx'
@@ -12,14 +8,7 @@ import './index.scss'
 
 const App: FC = () => {
   const queryClient = useMemo<QueryClient>(() => new QueryClient({}), [])
-
-  const router = useMemo(
-    () =>
-      import.meta.env.DEV
-        ? createBrowserRouter(appRoutes)
-        : createHashRouter(appRoutes),
-    [],
-  )
+  const router = useMemo(() => createBrowserRouter(appRoutes), [])
 
   return (
     <QueryClientProvider client={queryClient}>

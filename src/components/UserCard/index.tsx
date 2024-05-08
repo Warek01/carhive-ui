@@ -22,9 +22,6 @@ const UserCard: FC<Props> = ({ user }) => {
         <Avatar>
           <icons.AccountCircle />
         </Avatar>
-        <Typography variant="h5" component="h2">
-          {user.name}
-        </Typography>
         <Typography color="textSecondary">Username: {user.username}</Typography>
       </CardContent>
     </Card>

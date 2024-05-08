@@ -1,22 +1,41 @@
-import type { Nullable } from '@/lib/definitions'
+import type { Nullable, User } from '@/lib/definitions'
 
 export interface Listing {
   id: string
   brandName: string
-  model: string
+  modelName: string
   price: number
-  type: number
+  type: string
   horsepower: number | null
-  engineType: number | null
+  engineType: string | null
   engineVolume: number | null
   color: string | null
   clearance: number | null
   wheelSize: number | null
   mileage: number | null
   year: number | null
+  updatedAt: string
+  createdAt: string
+  deletedAt: string | null
+  publisher: User | null
+  previewUrl: string | null
 }
 
-export interface CreateListingDTO extends Nullable<Omit<Listing, 'id'>> {}
+export interface CreateListingDto {
+  brandName: string
+  modelName: string
+  price: number
+  type: string
+  horsepower: number | null
+  engineType: string | null
+  engineVolume: number | null
+  color: string | null
+  clearance: number | null
+  wheelSize: number | null
+  mileage: number | null
+  year: number | null
+  publisherId: string
+}
 
 export const engineTypes: string[] = [
   'Gas',

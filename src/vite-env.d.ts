@@ -2,6 +2,4 @@
 
 import type { AppEnv } from '@/lib/definitions.ts'
 
-interface ImportMeta {
-  readonly env: Readonly<AppEnv>
-}
+interface ImportMetaEnv extends Readonly<AppEnv> {}

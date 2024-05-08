@@ -4,6 +4,7 @@ import type { AppRoute } from '@/routing/AppRoute'
 
 export interface AppEnv {
   NODE_ENV: 'development' | 'production'
+  VITE_API_URL: string
 }
 
 export interface Link {
@@ -22,6 +23,16 @@ export type Nullable<T> = {
 }
 
 export interface User {
+  id: string
   username: string
-  name?: string
+}
+
+export interface PaginatedResponse<T> {
+  items: T[]
+  totalItems: number
+}
+
+export interface Pagination {
+  page: number
+  take: number
 }

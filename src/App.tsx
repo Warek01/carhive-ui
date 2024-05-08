@@ -1,26 +1,32 @@
-import { FC, useEffect } from 'react'
-import { RouterProvider } from 'react-router-dom'
+import { FC, useMemo } from 'react'
+import {
+  createBrowserRouter,
+  createHashRouter,
+  RouterProvider,
+} from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
-import { appRouter } from '@/routing/appRouter'
-import LocalStorageKey from '@/lib/LocalStorageKey'
-import { __mock__listings } from '@/__mocks__/listings'
+import appRoutes from '@/routing/appRoutes.tsx'
 import { AuthContextProvider } from '@/context/AuthContext.tsx'
 import './index.scss'
 
 const App: FC = () => {
-  // debug
-  useEffect(() => {
-    if (!localStorage.getItem(LocalStorageKey.LISTINGS))
-      localStorage.setItem(
-        LocalStorageKey.LISTINGS,
-        JSON.stringify(__mock__listings),
-      )
-  }, [])
+  const queryClient = useMemo<QueryClient>(() => new QueryClient({}), [])
+
+  const router = useMemo(
+    () =>
+      import.meta.env.DEV
+        ? createBrowserRouter(appRoutes)
+        : createHashRouter(appRoutes),
+    [],
+  )
 
   return (
-    <AuthContextProvider>
-      <RouterProvider router={appRouter} />
-    </AuthContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
+    </QueryClientProvider>
   )
 }
 

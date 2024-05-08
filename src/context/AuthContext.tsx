@@ -10,7 +10,6 @@ export interface AuthContextProps {
 }
 
 const AuthContext = createContext<AuthContextProps>(null!)
-
 export default AuthContext
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {

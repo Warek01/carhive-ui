@@ -1,12 +1,12 @@
 import * as Yup from 'yup'
 
-import { carTypes, CreateListingDTO } from '@/lib/listings'
+import { carTypes, CreateListingDto } from '@/lib/listings'
 
-export const createListingInitialValues: CreateListingDTO = {
+export const createListingInitialValues = {
   brandName: '',
-  model: '',
+  modelName: '',
   price: null,
-  type: null,
+  type: '',
   color: '#FFFFFF',
   year: null,
   clearance: null,
@@ -15,27 +15,19 @@ export const createListingInitialValues: CreateListingDTO = {
   engineType: null,
   engineVolume: null,
   horsepower: null,
-}
+  publisherId: null,
+} as unknown as CreateListingDto
 
 export const createListingValidationSchema = Yup.object().shape({
   brandName: Yup.string().min(1).required('Brand is required.'),
-  model: Yup.string().min(1).required('Model is required'),
+  modelName: Yup.string().min(1).required('Model is required'),
   price: Yup.number()
     .positive('Price most be positive.')
     .integer()
     .required('Price is required.'),
-  year: Yup.number()
-    .positive('Year must be possible')
-    .required('Year is required.'),
-  engineType: Yup.number()
-    .integer()
-    .positive()
-    .required('Engine type is required'),
-  type: Yup.number()
-    .positive()
-    .max(carTypes.length - 1)
-    .integer()
-    .required('Car type is required.'),
+  type: Yup.string().min(1).required('Car type is required.'),
+  year: Yup.number().positive('Year must be possible').nullable(),
+  engineType: Yup.string().min(1).nullable(),
   color: Yup.string().nullable(),
   clearance: Yup.number()
     .integer()
@@ -50,4 +42,8 @@ export const createListingValidationSchema = Yup.object().shape({
     .integer()
     .positive('Horsepower must be positive.')
     .nullable(),
-})
+  mileage: Yup.number()
+    .integer()
+    .positive('Mileage must be positive')
+    .nullable(),
+} as Record<keyof CreateListingDto, any>)

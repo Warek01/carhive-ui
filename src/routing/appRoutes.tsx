@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  createHashRouter,
-  RouteObject,
-} from 'react-router-dom'
+import { RouteObject } from 'react-router-dom'
 
 import {
   CarDetailsPage,
@@ -15,7 +11,7 @@ import {
 import { AppLayout } from '@/components'
 import { AppRoute } from './AppRoute'
 
-const routes: RouteObject[] = [
+const appRoutes: RouteObject[] = [
   {
     path: AppRoute.HOME,
     Component: AppLayout,
@@ -48,6 +44,4 @@ const routes: RouteObject[] = [
   },
 ]
 
-export const appRouter = import.meta.env.DEV
-  ? createBrowserRouter(routes)
-  : createHashRouter(routes)
+export default appRoutes

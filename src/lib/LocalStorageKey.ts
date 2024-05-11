@@ -5,6 +5,7 @@ enum LocalStorageKey {
   CURRENT_USER = 'current-user',
   LISTINGS_FILTER = 'listings-filter',
   MARKET_PAGE = 'market-page',
+  AUTH_TOKEN = 'auth-token',
 }
 
 export default LocalStorageKey

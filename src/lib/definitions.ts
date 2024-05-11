@@ -25,6 +25,7 @@ export type Nullable<T> = {
 export interface User {
   id: string
   username: string
+  email: string
 }
 
 export interface PaginatedResponse<T> {

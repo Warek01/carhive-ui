@@ -41,7 +41,6 @@ const NewListingForm: FC = () => {
       helpers: FormikHelpers<CreateListingDto>,
     ) => {
       try {
-        console.log(createDto)
         await createListingMutation.mutateAsync({
           ...createDto,
           publisherId: user.id,

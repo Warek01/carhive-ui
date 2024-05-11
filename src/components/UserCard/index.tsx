@@ -23,6 +23,7 @@ const UserCard: FC<Props> = ({ user }) => {
           <icons.AccountCircle />
         </Avatar>
         <Typography color="textSecondary">Username: {user.username}</Typography>
+        <Typography color="textSecondary">Email: {user.email}</Typography>
       </CardContent>
     </Card>
   )

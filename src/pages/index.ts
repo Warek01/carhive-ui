@@ -4,6 +4,8 @@ import MarketPage from './MarketPage'
 import NotFoundPage from './NotFoundPage'
 import NewListingPage from './NewListingPage'
 import ProfilePage from './ProfilePage'
+import LoginPage from './LoginPage'
+import RegisterPage from './RegisterPage'
 
 export {
   HomePage,
@@ -12,4 +14,6 @@ export {
   CarDetailsPage,
   NewListingPage,
   ProfilePage,
+  LoginPage,
+  RegisterPage,
 }

@@ -3,10 +3,8 @@ import { useLocalStorage } from 'usehooks-ts'
 import { Box, Typography } from '@mui/material'
 
 import { ListingsList, CarTypesFilter } from '@/components'
-import type { PaginationData } from '@/lib/definitions'
 import LocalStorageKey from '@/lib/LocalStorageKey'
-import { Listing } from '@/lib/listings'
-import { useHttpService, useLoading } from '@/hooks'
+import { useHttpService, useWatchLoading } from '@/hooks'
 import { useQuery } from 'react-query'
 import QueryKey from '@/lib/QueryKey.ts'
 
@@ -22,7 +20,7 @@ const MarketPage: FC = () => {
     http.getListings(),
   )
 
-  useLoading(listingsListQuery.isLoading)
+  useWatchLoading(listingsListQuery.isLoading)
 
   return (
     <Box>
@@ -34,14 +32,8 @@ const MarketPage: FC = () => {
         />
       </Box>
       <Box component="section">
-        {listingsListQuery.isLoading ? (
-          <Typography variant="h3">Loading</Typography>
-        ) : (
-          <>
-            <Typography variant="h3">Deals:</Typography>
-            <ListingsList items={listingsListQuery.data?.items ?? []} />
-          </>
-        )}
+        <Typography variant="h3">Deals:</Typography>
+        <ListingsList items={listingsListQuery.data?.items ?? []} />
       </Box>
     </Box>
   )

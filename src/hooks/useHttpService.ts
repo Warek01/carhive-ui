@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import HttpService from '@/serices/http.service.ts'
+import HttpService from '@/services/http.service.ts'
 
 const useHttpService = () => useMemo<HttpService>(() => new HttpService(), [])
 

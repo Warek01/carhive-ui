@@ -10,7 +10,7 @@ import {
   ProfilePage,
   RegisterPage,
 } from '@/pages'
-import { AppLayout } from '@/components'
+import { AppLayout, AuthProtected, ReverseAuthProtected } from '@/components'
 import { AppRoute } from './AppRoute'
 
 const appRoutes: RouteObject[] = [
@@ -19,33 +19,48 @@ const appRoutes: RouteObject[] = [
     Component: AppLayout,
     children: [
       {
-        index: true,
-        Component: HomePage,
+        Component: AuthProtected,
+        children: [
+          // auth protected routes
+          {
+            index: true,
+            Component: HomePage,
+          },
+          {
+            path: AppRoute.LISTINGS,
+            Component: MarketPage,
+          },
+          {
+            path: AppRoute.LISTING_DETAILS,
+            Component: CarDetailsPage,
+          },
+          {
+            path: AppRoute.PROFILE,
+            Component: ProfilePage,
+          },
+          {
+            path: AppRoute.NEW_LISTING,
+            Component: NewListingPage,
+          },
+        ],
       },
+
       {
-        path: AppRoute.LISTINGS,
-        Component: MarketPage,
+        Component: ReverseAuthProtected,
+        children: [
+          // non-protected routes
+          {
+            path: AppRoute.REGISTER,
+            Component: RegisterPage,
+          },
+          {
+            path: AppRoute.LOGIN,
+            Component: LoginPage,
+          },
+        ],
       },
-      {
-        path: AppRoute.LISTING_DETAILS,
-        Component: CarDetailsPage,
-      },
-      {
-        path: AppRoute.PROFILE,
-        Component: ProfilePage,
-      },
-      {
-        path: AppRoute.NEW_LISTING,
-        Component: NewListingPage,
-      },
-      {
-        path: AppRoute.REGISTER,
-        Component: RegisterPage,
-      },
-      {
-        path: AppRoute.LOGIN,
-        Component: LoginPage,
-      },
+
+      // 404
       {
         path: AppRoute.ANY,
         Component: NotFoundPage,

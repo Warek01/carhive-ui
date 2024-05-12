@@ -52,7 +52,11 @@ const AppLayout: FC = () => {
       <ToastContainer {...toastProps} />
       <MobileSplashScreen>
         <Header isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
-        <Container fixed maxWidth="lg" sx={{ mt: 8 }}>
+        <Container
+          fixed
+          maxWidth="lg"
+          sx={{ pt: 8, minHeight: '100vh', height: '100vh' }}
+        >
           <Outlet />
         </Container>
       </MobileSplashScreen>

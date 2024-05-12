@@ -8,6 +8,8 @@ import {
   Grid,
   FormHelperText,
   Typography,
+  CircularProgress,
+  Backdrop,
 } from '@mui/material'
 import { Navigate } from 'react-router'
 import { Link as RouterLink } from 'react-router-dom'
@@ -77,15 +79,24 @@ const RegisterForm: FC = () => {
 
   return (
     <Box>
-      {isLoading ? (
-        <Typography>Creating ...</Typography>
-      ) : (
-        <Grid
-          container
-          component="form"
-          onSubmit={formik.handleSubmit}
-          spacing={1}
-        >
+      <Backdrop
+        open={isLoading}
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Grid
+        container
+        component="form"
+        onSubmit={formik.handleSubmit}
+        spacing={3}
+      >
+        <Grid item xs={12}>
+          <Typography variant="h3" textAlign="center">
+            Register
+          </Typography>
+        </Grid>
+        <Grid item container xs={12} spacing={2}>
           <Grid item xs={12}>
             <FormControl fullWidth error={!!formik.errors.username}>
               <TextField
@@ -148,17 +159,25 @@ const RegisterForm: FC = () => {
               )}
             </FormControl>
           </Grid>
-
-          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button variant="outlined" type="submit">
-              Register
-            </Button>
-            <Button variant="text" component={RouterLink} to={AppRoute.LOGIN}>
-              Already have an account?
-            </Button>
-          </Grid>
         </Grid>
-      )}
+
+        <Grid
+          item
+          xs={12}
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          gap={2}
+        >
+          <Button variant="outlined" type="submit">
+            Register
+          </Button>
+          <Button variant="text" component={RouterLink} to={AppRoute.LOGIN}>
+            Already have an account?
+          </Button>
+        </Grid>
+      </Grid>
     </Box>
   )
 }

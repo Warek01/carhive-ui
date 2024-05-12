@@ -1,12 +1,20 @@
 import { FC } from 'react'
-import { Box } from '@mui/material'
+import { Box, Container } from '@mui/material'
 
 import { LoginForm } from '@/components'
 
 const LoginPage: FC = () => {
   return (
-    <Box>
-      <LoginForm />
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100%"
+      mt={-10}
+    >
+      <Container fixed maxWidth="xs">
+        <LoginForm />
+      </Container>
     </Box>
   )
 }

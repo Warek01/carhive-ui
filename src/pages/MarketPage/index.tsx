@@ -6,20 +6,23 @@ import { ListingsList, CarTypesFilter } from '@/components'
 import type { PaginationData } from '@/lib/definitions'
 import LocalStorageKey from '@/lib/LocalStorageKey'
 import { Listing } from '@/lib/listings'
-import { useHttpService } from '@/hooks'
+import { useHttpService, useLoading } from '@/hooks'
 import { useQuery } from 'react-query'
 import QueryKey from '@/lib/QueryKey.ts'
 
 const MarketPage: FC = () => {
+  const http = useHttpService()
+
   const [selectedCarTypes, setSelectedCarTypes] = useLocalStorage<number[]>(
     LocalStorageKey.LISTINGS_FILTER,
     [],
   )
 
-  const http = useHttpService()
   const listingsListQuery = useQuery(QueryKey.LISTINGS_LIST, () =>
     http.getListings(),
   )
+
+  useLoading(listingsListQuery.isLoading)
 
   return (
     <Box>

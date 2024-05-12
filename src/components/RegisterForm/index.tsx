@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useContext, useState } from 'react'
+import { FC, memo, useCallback, useContext } from 'react'
 import { useFormik } from 'formik'
 import {
   TextField,
@@ -8,27 +8,21 @@ import {
   Grid,
   FormHelperText,
   Typography,
-  CircularProgress,
-  Backdrop,
 } from '@mui/material'
-import { Navigate } from 'react-router'
 import { Link as RouterLink } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
 
-import { useHttpService } from '@/hooks'
+import { useHttpService, useLoading } from '@/hooks'
 import { registerInitialValues, registerValidationSchema } from './constants'
 import AuthContext from '@/context/AuthContext.tsx'
 import { AppRoute } from '@/routing/AppRoute.ts'
 import type { RegisterCredentials } from '@/lib/auth.ts'
 
 const RegisterForm: FC = () => {
-  const { user, login } = useContext(AuthContext)
-
-  if (user) return <Navigate to={AppRoute.HOME} />
-
+  const { login } = useContext(AuthContext)
+  const { setLoading, unsetLoading } = useLoading()
   const http = useHttpService()
-  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = useCallback(
     async (values: RegisterCredentials) => {
@@ -37,7 +31,7 @@ const RegisterForm: FC = () => {
         return
       }
 
-      setIsLoading(true)
+      setLoading()
 
       try {
         const res = await http.register({
@@ -63,7 +57,7 @@ const RegisterForm: FC = () => {
         }
       }
 
-      setIsLoading(false)
+      unsetLoading()
     },
     [login],
   )
@@ -79,12 +73,6 @@ const RegisterForm: FC = () => {
 
   return (
     <Box>
-      <Backdrop
-        open={isLoading}
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
       <Grid
         container
         component="form"

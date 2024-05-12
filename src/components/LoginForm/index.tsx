@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useContext, useState } from 'react'
+import { FC, memo, useCallback } from 'react'
 import { useFormik } from 'formik'
 import {
   TextField,
@@ -8,28 +8,24 @@ import {
   Grid,
   FormHelperText,
   Typography,
-  Backdrop,
-  CircularProgress,
 } from '@mui/material'
-import { Navigate } from 'react-router'
 import { Link as RouterLink } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
 
-import { useAuth, useHttpService } from '@/hooks'
+import { useAuth, useHttpService, useLoading } from '@/hooks'
 import { loginInitialValues, loginValidationSchema } from './constants'
 import { AppRoute } from '@/routing/AppRoute.ts'
 import { LoginCredentials } from '@/lib/auth.ts'
 
 const LoginForm: FC = () => {
   const { login } = useAuth()
-
   const http = useHttpService()
-  const [isLoading, setIsLoading] = useState(false)
+  const { setLoading, unsetLoading } = useLoading()
 
   const handleSubmit = useCallback(
     async (values: LoginCredentials) => {
-      setIsLoading(true)
+      setLoading()
 
       try {
         const res = await http.login({ ...values })
@@ -51,7 +47,7 @@ const LoginForm: FC = () => {
         }
       }
 
-      setIsLoading(false)
+      unsetLoading()
     },
     [login],
   )
@@ -67,12 +63,6 @@ const LoginForm: FC = () => {
 
   return (
     <Box>
-      <Backdrop
-        open={isLoading}
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
       <Grid
         container
         component="form"

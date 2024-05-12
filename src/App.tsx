@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import appRoutes from '@/routing/appRoutes.tsx'
 import { AuthContextProvider } from '@/context/AuthContext.tsx'
+import { GlobalLoadingContextProvider } from '@/context/GlobalLoadingContext.tsx'
 import './index.scss'
 
 const App: FC = () => {
@@ -13,7 +14,9 @@ const App: FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <RouterProvider router={router} />
+        <GlobalLoadingContextProvider>
+          <RouterProvider router={router} />
+        </GlobalLoadingContextProvider>
       </AuthContextProvider>
     </QueryClientProvider>
   )

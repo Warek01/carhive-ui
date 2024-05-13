@@ -6,6 +6,7 @@ enum LocalStorageKey {
   LISTINGS_FILTER = 'listings-filter',
   MARKET_PAGE = 'market-page',
   AUTH_TOKEN = 'auth-token',
+  LISTINGS_PAGINATION_DATA = 'listings-pagination-data',
 }
 
 export default LocalStorageKey

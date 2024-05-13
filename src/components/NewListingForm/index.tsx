@@ -43,7 +43,7 @@ const NewListingForm: FC = () => {
       try {
         await createListingMutation.mutateAsync({
           ...createDto,
-          publisherId: user.id,
+          publisherId: user!.id,
         })
         helpers.resetForm()
         toast('Listing created successfully.')

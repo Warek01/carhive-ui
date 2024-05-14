@@ -4,7 +4,8 @@ import type { AppRoute } from '@/routing/AppRoute'
 
 export interface AppEnv {
   NODE_ENV: 'development' | 'production'
-  VITE_API_URL: string
+  VITE_API_BASENAME: string
+  VITE_API_FILE_BASENAME: string
 }
 
 export interface Link {
@@ -34,6 +35,16 @@ export interface PaginatedResponse<T> {
 }
 
 export interface Pagination {
-  page: number
-  take: number
+  page?: number
+  take?: number
+}
+
+export interface FileDto {
+  fileName: string
+  base64Body: string
+}
+
+export interface ImageFile {
+  file: File
+  body: string
 }

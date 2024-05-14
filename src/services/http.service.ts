@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
+import qs from 'qs'
 
-import type { PaginatedResponse, Pagination } from '@/lib/definitions.ts'
+import type { PaginatedResponse } from '@/lib/definitions.ts'
 import type { CreateListingDto, Listing } from '@/lib/listings.ts'
 import type { JwtResponse, LoginDto, RegisterDto } from '@/lib/auth.ts'
 import LocalStorageKey from '@/lib/LocalStorageKey.ts'
@@ -12,24 +13,25 @@ export default class HttpService {
     const headers: HeadersInit = {}
 
     const authToken = localStorage.getItem(LocalStorageKey.AUTH_TOKEN)
-    if (authToken?.length) headers.Authorization = `Bearer ${authToken}`
+    if (authToken?.length)
+      headers.Authorization = `Bearer ${JSON.parse(authToken)}`
 
     this._axiosInstance = axios.create({
-      baseURL: import.meta.env.VITE_API_URL,
+      baseURL: import.meta.env.VITE_API_BASENAME,
       timeout: 15_000,
+      paramsSerializer: (params) => qs.stringify(params),
       headers,
     })
   }
 
-  public async getListings({
-    page = 0,
-    take = 10,
-  }: Partial<Pagination> = {}): Promise<PaginatedResponse<Listing>> {
+  public async getListings(
+    params: Object,
+  ): Promise<PaginatedResponse<Listing>> {
     const { data } = await this._axiosInstance.get<PaginatedResponse<Listing>>(
       'listing',
       {
         method: 'GET',
-        params: { page, take },
+        params,
       },
     )
 

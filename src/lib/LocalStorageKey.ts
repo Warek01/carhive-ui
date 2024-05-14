@@ -7,6 +7,7 @@ enum LocalStorageKey {
   MARKET_PAGE = 'market-page',
   AUTH_TOKEN = 'auth-token',
   LISTINGS_PAGINATION_DATA = 'listings-pagination-data',
+  LISTINGS_ORDER_BY = 'listings-order-by',
 }
 
 export default LocalStorageKey

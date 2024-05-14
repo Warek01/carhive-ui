@@ -1,6 +1,15 @@
-import { ChangeEvent, FC, useCallback, useEffect } from 'react'
+import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
-import { Box, Pagination, Stack, Typography } from '@mui/material'
+import {
+  Box,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Pagination,
+  Select,
+  Stack,
+} from '@mui/material'
 import { useQuery } from 'react-query'
 
 import { ListingsList, CarTypesFilter } from '@/components'
@@ -8,11 +17,16 @@ import LocalStorageKey from '@/lib/LocalStorageKey'
 import { useHttpService, useWatchLoading } from '@/hooks'
 import QueryKey from '@/lib/QueryKey.ts'
 import type { PaginationData } from '@/lib/definitions.ts'
+import { listingsOrderByValues } from '@/lib/listings.ts'
 
 const MarketPage: FC = () => {
   const http = useHttpService()
+  const [orderBy, setOrderBy] = useLocalStorage<string>(
+    LocalStorageKey.LISTINGS_ORDER_BY,
+    'createdAtDesc',
+  )
 
-  const [selectedCarTypes, setSelectedCarTypes] = useLocalStorage<number[]>(
+  const [selectedCarTypes, setSelectedCarTypes] = useLocalStorage<string[]>(
     LocalStorageKey.LISTINGS_FILTER,
     [],
   )
@@ -27,11 +41,13 @@ const MarketPage: FC = () => {
   )
 
   const listingsListQuery = useQuery(
-    [QueryKey.LISTINGS_LIST, paginationData],
+    [QueryKey.LISTINGS_LIST, paginationData, orderBy, selectedCarTypes],
     () =>
       http.getListings({
-        take: 10,
+        take: paginationData.itemsPerPage,
         page: paginationData.currentPage,
+        order: orderBy,
+        carTypes: selectedCarTypes,
       }),
     {
       initialData: { totalItems: 0, items: [] },
@@ -61,16 +77,55 @@ const MarketPage: FC = () => {
     }))
   }, [listingsListQuery.data])
 
+  console.log(1)
+
   return (
     <Stack spacing={3}>
-      <Typography variant="h3">Categories:</Typography>
       <Box component="section">
+        <Grid container spacing={3} py={3}>
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel>Order</InputLabel>
+              <Select
+                value={orderBy}
+                label="Order"
+                onChange={(e) => setOrderBy(e.target.value)}
+              >
+                {Object.entries(listingsOrderByValues).map(([value, text]) => (
+                  <MenuItem value={value} key={value}>
+                    {text}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel>Items per page</InputLabel>
+              <Select
+                value={paginationData.itemsPerPage}
+                label="Items per page"
+                onChange={(e) =>
+                  setPaginationData((p) => ({
+                    ...p,
+                    itemsPerPage: parseInt(e.target.value as string),
+                  }))
+                }
+              >
+                <MenuItem value={5}>5</MenuItem>
+                <MenuItem value={10}>10</MenuItem>
+                <MenuItem value={20}>20</MenuItem>
+                <MenuItem value={50}>50</MenuItem>
+                <MenuItem value={100}>100</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
         <CarTypesFilter
           onChange={setSelectedCarTypes}
           selected={selectedCarTypes}
         />
       </Box>
-      <Typography variant="h3">Deals:</Typography>
       <Box
         component="section"
         display="flex"

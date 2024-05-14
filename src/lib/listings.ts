@@ -1,4 +1,4 @@
-import type { Nullable, User } from '@/lib/definitions'
+import type { FileDto, User } from '@/lib/definitions'
 
 export interface Listing {
   id: string
@@ -18,7 +18,7 @@ export interface Listing {
   createdAt: string
   deletedAt: string | null
   publisher: User | null
-  previewUrl: string | null
+  previewFileName: string | null
 }
 
 export interface CreateListingDto {
@@ -35,6 +35,7 @@ export interface CreateListingDto {
   mileage: number | null
   year: number | null
   publisherId: string
+  previewImage: FileDto
 }
 
 export const engineTypes: string[] = [
@@ -120,3 +121,10 @@ export const carBrands: string[] = [
   'Volkswagen',
   'Volvo',
 ]
+
+export const listingsOrderByValues: Record<string, string> = {
+  createdAtDesc: 'New first',
+  createdAtAsc: 'Old first',
+  priceAsc: 'Cheap first',
+  priceDesc: 'Expensive first',
+}

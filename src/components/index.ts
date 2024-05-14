@@ -10,6 +10,7 @@ import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 import AuthProtected from './AuthProtected'
 import ReverseAuthProtected from './ReverseAuthProtected'
+import FileInput from './FileInput'
 
 export {
   Header,
@@ -24,4 +25,5 @@ export {
   RegisterForm,
   AuthProtected,
   ReverseAuthProtected,
+  FileInput,
 }

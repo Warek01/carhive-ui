@@ -39,8 +39,26 @@ const ListingItem: FC<Props> = ({ listing }) => {
   }, [favoriteCarIds, isFavorite])
 
   return (
-    <Card sx={{ p: 1 }}>
-      <Typography variant="body1">{`${listing.brandName} ${listing.modelName}`}</Typography>
+    <Card sx={{ p: 1, overflow: 'hidden' }}>
+      {listing.previewFileName && (
+        <Box
+          sx={{ position: 'relative', width: '100%', aspectRatio: '16 / 9' }}
+        >
+          <img
+            style={{ position: 'relative', width: '100%', height: '100%' }}
+            alt={listing.modelName}
+            src={`${import.meta.env.VITE_API_FILE_BASENAME}/${listing.previewFileName}`}
+          />
+        </Box>
+      )}
+      <Typography
+        variant="body1"
+        textOverflow="ellipsis"
+        overflow="hidden"
+        maxWidth={300}
+      >
+        {listing.brandName} {listing.modelName}
+      </Typography>
       <Typography variant="body1">Type: {listing.type}</Typography>
       <Typography variant="body1">
         Year: {dayjs(listing.year).format('DD-MM-YYYY')}

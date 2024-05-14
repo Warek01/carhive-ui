@@ -4,13 +4,13 @@ import { Box, Chip, Stack } from '@mui/material'
 import { carTypes } from '@/lib/listings'
 
 interface Props {
-  selected: number[]
-  onChange(selected: number[]): void
+  selected: string[]
+  onChange(selected: string[]): void
 }
 
 export const CarTypesFilter: FC<Props> = ({ onChange, selected }) => {
   const handleChipClick = useCallback(
-    (type: number) => {
+    (type: string) => {
       return () => {
         const newSelected = selected.includes(type)
           ? selected.filter((t) => t !== type)
@@ -28,17 +28,23 @@ export const CarTypesFilter: FC<Props> = ({ onChange, selected }) => {
 
   return (
     <Box>
-      <Stack direction="row" spacing={2}>
-        {carTypes.map((type, index) => (
+      <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+        {carTypes.map((type) => (
           <Chip
-            key={index}
+            key={type}
             clickable
-            color={selected.includes(index) ? 'primary' : 'default'}
+            color={selected.includes(type) ? 'primary' : 'default'}
             label={type}
-            onClick={handleChipClick(index)}
+            size="small"
+            onClick={handleChipClick(type)}
           />
         ))}
-        <Chip color="secondary" onDelete={handleClear} label="Clear" />
+        <Chip
+          color="secondary"
+          size="small"
+          onDelete={handleClear}
+          label="Clear"
+        />
       </Stack>
     </Box>
   )

@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import { Avatar, Card, CardContent, Typography } from '@mui/material'
-import * as icons from '@mui/icons-material'
+import { AccountCircle } from '@mui/icons-material'
 
 import type { User } from '@/lib/definitions.ts'
 
@@ -20,7 +20,7 @@ const UserCard: FC<Props> = ({ user }) => {
         }}
       >
         <Avatar>
-          <icons.AccountCircle />
+          <AccountCircle />
         </Avatar>
         <Typography color="textSecondary">Username: {user.username}</Typography>
         <Typography color="textSecondary">Email: {user.email}</Typography>

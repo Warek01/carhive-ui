@@ -12,12 +12,13 @@ import dayjs from 'dayjs'
 import { Link as RouterLink } from 'react-router-dom'
 import { generatePath } from 'react-router'
 import { useLocalStorage } from 'usehooks-ts'
-import * as icons from '@mui/icons-material'
+import { Star } from '@mui/icons-material'
 import { amber } from '@mui/material/colors'
 
 import { AppRoute } from '@/routing/AppRoute'
 import { Listing } from '@/lib/listings'
 import { toggleArrayItem } from '@/lib/utils'
+import { Image } from '@/components'
 
 interface Props {
   listing: Listing
@@ -39,18 +40,23 @@ const ListingItem: FC<Props> = ({ listing }) => {
   }, [favoriteCarIds, isFavorite])
 
   return (
-    <Card sx={{ p: 1, overflow: 'hidden' }}>
-      {listing.previewFileName && (
-        <Box
-          sx={{ position: 'relative', width: '100%', aspectRatio: '16 / 9' }}
-        >
-          <img
-            style={{ position: 'relative', width: '100%', height: '100%' }}
-            alt={listing.modelName}
-            src={`${import.meta.env.VITE_API_FILE_BASENAME}/${listing.previewFileName}`}
-          />
-        </Box>
-      )}
+    <Card
+      component="div"
+      sx={{
+        p: 2,
+        overflow: 'hidden',
+        width: '100%',
+        minHeight: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 0.5,
+      }}
+    >
+      <Box mb={2}>
+        <Image
+          src={`${import.meta.env.VITE_API_FILE_BASENAME}/${listing.previewFileName}`}
+        />
+      </Box>
       <Typography
         variant="body1"
         textOverflow="ellipsis"
@@ -80,18 +86,20 @@ const ListingItem: FC<Props> = ({ listing }) => {
 
       <p>{listing.price} $</p>
 
-      <Link
-        component={RouterLink}
-        to={generatePath(AppRoute.LISTING_DETAILS, { listingId: listing.id })}
-      >
-        <Button variant="outlined">Details</Button>
-      </Link>
-      <IconButton onClick={handleFavoriteToggle}>
-        <icons.Star
-          fontSize="medium"
-          sx={{ color: isFavorite ? amber[500] : 'default' }}
-        />
-      </IconButton>
+      <Box display="flex" alignItems="center" justifyContent="space-between">
+        <Link
+          component={RouterLink}
+          to={generatePath(AppRoute.LISTING_DETAILS, { listingId: listing.id })}
+        >
+          <Button variant="outlined">Details</Button>
+        </Link>
+        <IconButton onClick={handleFavoriteToggle}>
+          <Star
+            fontSize="medium"
+            sx={{ color: isFavorite ? amber[500] : 'default' }}
+          />
+        </IconButton>
+      </Box>
     </Card>
   )
 }

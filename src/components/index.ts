@@ -11,6 +11,7 @@ import RegisterForm from './RegisterForm'
 import AuthProtected from './AuthProtected'
 import ReverseAuthProtected from './ReverseAuthProtected'
 import FileInput from './FileInput'
+import Image from './Image'
 
 export {
   Header,
@@ -26,4 +27,5 @@ export {
   AuthProtected,
   ReverseAuthProtected,
   FileInput,
+  Image,
 }

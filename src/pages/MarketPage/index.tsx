@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useCallback, useEffect } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import {
   Box,
@@ -49,9 +49,6 @@ const MarketPage: FC = () => {
         order: orderBy,
         carTypes: selectedCarTypes,
       }),
-    {
-      initialData: { totalItems: 0, items: [] },
-    },
   )
 
   useWatchLoading(listingsListQuery.isLoading)
@@ -76,8 +73,6 @@ const MarketPage: FC = () => {
       ),
     }))
   }, [listingsListQuery.data])
-
-  console.log(1)
 
   return (
     <Stack spacing={3}>
@@ -134,7 +129,10 @@ const MarketPage: FC = () => {
         gap={8}
         pb={10}
       >
-        <ListingsList items={listingsListQuery.data!.items} />
+        <ListingsList
+          items={listingsListQuery.data?.items}
+          skeletonCount={paginationData.itemsPerPage}
+        />
 
         {paginationData.totalPages > 1 && (
           <Pagination

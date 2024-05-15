@@ -1,6 +1,6 @@
 import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react'
 import { Button, FormControl, styled } from '@mui/material'
-import * as icons from '@mui/icons-material'
+import { CloudUpload } from '@mui/icons-material'
 
 interface Props {
   file: File | null | undefined
@@ -42,7 +42,7 @@ const FileInput: FC<Props> = ({ onChange, file }) => {
         role={undefined}
         variant="contained"
         tabIndex={-1}
-        startIcon={<icons.CloudUpload />}
+        startIcon={<CloudUpload />}
       >
         {file?.name ?? 'Upload an image'}
         <VisuallyHiddenInput

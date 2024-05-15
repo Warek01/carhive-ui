@@ -1,20 +1,33 @@
 import { FC, memo } from 'react'
-import { Box, Grid } from '@mui/material'
+import { Box, Grid, Skeleton } from '@mui/material'
 
 import { ListingItem } from '@/components'
 import { type Listing } from '@/lib/listings'
 
 interface Props {
-  items: Listing[]
+  items?: Listing[]
+  skeletonCount: number
 }
 
-const ListingsList: FC<Props> = ({ items }) => {
+const ListingsList: FC<Props> = ({ items, skeletonCount }) => {
+  const shouldDisplaySkeletons = !items
+  const arr = items ?? Array(skeletonCount).fill(null)
+
   return (
     <Box>
-      <Grid spacing={2} container>
-        {items.map((car, index) => (
-          <Grid xs={4} key={index} item>
-            <ListingItem listing={car} />
+      <Grid spacing={2} container alignItems="stretch">
+        {arr.map((car, index) => (
+          <Grid
+            xs={4}
+            key={index}
+            item
+            sx={{ aspectRatio: { xs: '9/16', lg: '9/12' } }}
+          >
+            {shouldDisplaySkeletons ? (
+              <Skeleton height="100%" variant="rectangular" width="100%" />
+            ) : (
+              <ListingItem listing={car} />
+            )}
           </Grid>
         ))}
       </Grid>

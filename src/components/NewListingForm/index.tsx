@@ -14,7 +14,7 @@ import {
 } from '@mui/material'
 import { toast } from 'react-toastify'
 import { useMutation } from 'react-query'
-import * as icons from '@mui/icons-material'
+import { Delete } from '@mui/icons-material'
 import { AxiosError } from 'axios'
 
 import {
@@ -133,7 +133,7 @@ const NewListingForm: FC = () => {
           >
             {preview && (
               <IconButton onClick={() => setPreview(null)} color="error">
-                <icons.Delete fontSize="large" />
+                <Delete fontSize="large" />
               </IconButton>
             )}
             <FileInput file={preview?.file} onChange={handlePreviewChange} />

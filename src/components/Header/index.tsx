@@ -7,7 +7,7 @@ import {
   useCallback,
   useMemo,
 } from 'react'
-import * as icons from '@mui/icons-material'
+import { LightMode, DarkMode, TimeToLeave, Person } from '@mui/icons-material'
 import { Link as RouterLink } from 'react-router-dom'
 import {
   AppBar,
@@ -38,11 +38,7 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
 
   const icon = useMemo(
     () =>
-      isDarkTheme ? (
-        <icons.DarkMode {...iconProps} />
-      ) : (
-        <icons.LightMode {...iconProps} />
-      ),
+      isDarkTheme ? <DarkMode {...iconProps} /> : <LightMode {...iconProps} />,
     [isDarkTheme],
   )
 
@@ -75,7 +71,7 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
               color: 'inherit',
             }}
           >
-            <icons.TimeToLeave sx={{ width: 32, height: 32 }} />
+            <TimeToLeave sx={{ width: 32, height: 32 }} />
             FAF cars
           </Typography>
           <Stack alignItems="center" direction="row" spacing={4} pl={4}>
@@ -102,7 +98,7 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
             {icon}
           </Stack>
           <IconButton component={RouterLink} to={AppRoute.PROFILE}>
-            <icons.Person fontSize="medium" />
+            <Person fontSize="medium" />
           </IconButton>
         </Stack>
       </Container>

@@ -18,4 +18,8 @@ export const HEADER_LINKS: Link[] = [
     href: AppRoute.REGISTER,
     content: 'Register',
   },
+  {
+    href: AppRoute.ADMIN_DASHBOARD,
+    content: 'Admin',
+  },
 ]

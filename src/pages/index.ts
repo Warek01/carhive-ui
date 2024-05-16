@@ -6,6 +6,7 @@ import NewListingPage from './NewListingPage'
 import ProfilePage from './ProfilePage'
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
+import AdminDashboardPage from './AdminDashboardPage'
 
 export {
   HomePage,
@@ -16,4 +17,5 @@ export {
   ProfilePage,
   LoginPage,
   RegisterPage,
+  AdminDashboardPage,
 }

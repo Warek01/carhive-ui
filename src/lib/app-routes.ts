@@ -2,6 +2,7 @@ import { RouteObject } from 'react-router-dom'
 
 import { AppLayout, AppRouteProtection } from '@/components'
 import {
+  AdminDashboardPage,
   CarDetailsPage,
   HomePage,
   LoginPage,
@@ -48,6 +49,10 @@ const APP_ROUTES: RouteObject[] = [
           {
             path: AppRoute.LOGIN,
             Component: LoginPage,
+          },
+          {
+            path: AppRoute.ADMIN_DASHBOARD,
+            Component: AdminDashboardPage,
           },
         ],
       },

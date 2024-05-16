@@ -3,12 +3,12 @@ import { Theme, ThemeProvider } from '@mui/material/styles'
 import { Outlet } from 'react-router'
 import { useLocalStorage } from 'usehooks-ts'
 import { ToastContainer, ToastContainerProps } from 'react-toastify'
-import { Container, CssBaseline, Paper } from '@mui/material'
+import { Container, CssBaseline } from '@mui/material'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { Header, MobileSplashScreen } from '@/components'
 import { darkTheme, lightTheme } from '@/lib/themes'
-import LocalStorageKey from '@/lib/LocalStorageKey'
+import LocalStorageKey from '@/lib/local-storage-key'
 
 const AppLayout: FC = () => {
   const [isDarkTheme, setIsDarkTheme] = useLocalStorage<boolean>(

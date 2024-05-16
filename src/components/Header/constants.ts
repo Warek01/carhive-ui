@@ -1,7 +1,7 @@
 import type { Link } from '@/lib/definitions'
-import { AppRoute } from '@/routing/AppRoute'
+import AppRoute from '@/lib/app-route'
 
-export const headerLinks: Link[] = [
+export const HEADER_LINKS: Link[] = [
   {
     href: AppRoute.LISTINGS,
     content: 'Market',

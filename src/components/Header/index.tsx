@@ -19,8 +19,8 @@ import {
   IconButton,
 } from '@mui/material'
 
-import { AppRoute } from 'routing/AppRoute'
-import { headerLinks } from './constants'
+import { HEADER_LINKS } from './constants'
+import AppRoute from '@/lib/app-route'
 
 interface Props {
   isDarkTheme: boolean
@@ -75,7 +75,7 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
             FAF cars
           </Typography>
           <Stack alignItems="center" direction="row" spacing={4} pl={4}>
-            {headerLinks.map(({ content, href }, index) => (
+            {HEADER_LINKS.map(({ content, href }, index) => (
               <Typography
                 component={RouterLink}
                 key={index}

@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
 
-import type { AppEnv } from '@/lib/definitions.ts'
+import type { AppEnv } from '@/lib/definitions'
 
 interface ImportMetaEnv extends Readonly<AppEnv> {}

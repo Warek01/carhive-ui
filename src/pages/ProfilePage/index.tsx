@@ -1,20 +1,16 @@
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import { Box, Button, Container, Typography } from '@mui/material'
-import { Navigate } from 'react-router'
 
-import AuthContext from '@/context/AuthContext.tsx'
 import { UserCard } from '@/components'
-import { AppRoute } from '@/routing/AppRoute.ts'
+import { useAuth } from '@/hooks'
 
 const ProfilePage: FC = () => {
-  const { user, logout } = useContext(AuthContext)
-
-  if (!user) return <Navigate to={AppRoute.LOGIN} />
+  const { user, logout } = useAuth()
 
   return (
     <Box>
       <Container maxWidth="xs" sx={{ pt: 10 }}>
-        <UserCard user={user} />
+        <UserCard user={user!} />
         <Button onClick={logout}>
           <Typography variant="h6">Log out</Typography>
         </Button>

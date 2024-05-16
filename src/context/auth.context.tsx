@@ -8,9 +8,9 @@ import {
 import { useLocalStorage } from 'usehooks-ts'
 import { jwtDecode } from 'jwt-decode'
 
-import type { User } from '@/lib/definitions.ts'
-import LocalStorageKey from '@/lib/LocalStorageKey.ts'
-import { AppJwtPayload } from '@/lib/auth.ts'
+import type { User } from '@/lib/definitions'
+import type { AppJwtPayload } from '@/lib/auth'
+import LocalStorageKey from '@/lib/local-storage-key'
 
 export interface AuthContextProps {
   user: User | null
@@ -41,6 +41,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
       username: decoded.name,
       email: decoded.email,
       id: decoded.sub!,
+      role: decoded.role,
     })
   }, [])
 

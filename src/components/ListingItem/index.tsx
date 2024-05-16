@@ -15,10 +15,10 @@ import { useLocalStorage } from 'usehooks-ts'
 import { Star } from '@mui/icons-material'
 import { amber } from '@mui/material/colors'
 
-import { AppRoute } from '@/routing/AppRoute'
 import { Listing } from '@/lib/listings'
 import { toggleArrayItem } from '@/lib/utils'
 import { Image } from '@/components'
+import AppRoute from '@/lib/app-route'
 
 interface Props {
   listing: Listing

@@ -31,4 +31,5 @@ export interface AppJwtPayload extends JwtPayload {
   nameid: string
   name: string
   email: string
+  role?: string | string[]
 }

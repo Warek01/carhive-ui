@@ -1,4 +1,4 @@
-import toggleArrayItem from './toggleArrayItem'
-import fileToBase64 from './fileToBase64'
+import fileToBase64 from './file-to-base-64'
+import toggleArrayItem from './toggle-array-item'
 
 export { toggleArrayItem, fileToBase64 }

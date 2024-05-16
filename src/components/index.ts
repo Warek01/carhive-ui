@@ -8,10 +8,9 @@ import UserCard from './UserCard'
 import MobileSplashScreen from './MobileSplashScreen'
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
-import AuthProtected from './AuthProtected'
-import ReverseAuthProtected from './ReverseAuthProtected'
 import FileInput from './FileInput'
 import Image from './Image'
+import AppRouteProtection from './AppRouteProtection'
 
 export {
   Header,
@@ -24,8 +23,7 @@ export {
   MobileSplashScreen,
   LoginForm,
   RegisterForm,
-  AuthProtected,
-  ReverseAuthProtected,
   FileInput,
   Image,
+  AppRouteProtection,
 }

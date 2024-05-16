@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
-
-import type { AppRoute } from '@/routing/AppRoute'
+import type AppRoute from '@/lib/app-route'
 
 export interface AppEnv {
   NODE_ENV: 'development' | 'production'
@@ -27,6 +26,7 @@ export interface User {
   id: string
   username: string
   email: string
+  role?: string | string[]
 }
 
 export interface PaginatedResponse<T> {

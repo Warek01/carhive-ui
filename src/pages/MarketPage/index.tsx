@@ -13,11 +13,11 @@ import {
 import { useQuery } from 'react-query'
 
 import { ListingsList, CarTypesFilter } from '@/components'
-import LocalStorageKey from '@/lib/LocalStorageKey'
 import { useHttpService, useWatchLoading } from '@/hooks'
-import QueryKey from '@/lib/QueryKey.ts'
-import type { PaginationData } from '@/lib/definitions.ts'
-import { listingsOrderByValues } from '@/lib/listings.ts'
+import type { PaginationData } from '@/lib/definitions'
+import { LISTING_ORDER_BY_VALUES } from '@/lib/listings'
+import LocalStorageKey from '@/lib/local-storage-key'
+import QueryKey from '@/lib/query-key'
 
 const MarketPage: FC = () => {
   const http = useHttpService()
@@ -86,11 +86,13 @@ const MarketPage: FC = () => {
                 label="Order"
                 onChange={(e) => setOrderBy(e.target.value)}
               >
-                {Object.entries(listingsOrderByValues).map(([value, text]) => (
-                  <MenuItem value={value} key={value}>
-                    {text}
-                  </MenuItem>
-                ))}
+                {Object.entries(LISTING_ORDER_BY_VALUES).map(
+                  ([value, text]) => (
+                    <MenuItem value={value} key={value}>
+                      {text}
+                    </MenuItem>
+                  ),
+                )}
               </Select>
             </FormControl>
           </Grid>

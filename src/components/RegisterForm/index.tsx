@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useContext } from 'react'
+import { FC, memo, useCallback } from 'react'
 import { useFormik } from 'formik'
 import {
   TextField,
@@ -13,14 +13,13 @@ import { Link as RouterLink } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
 
-import { useHttpService, useLoading } from '@/hooks'
+import { useAuth, useHttpService, useLoading } from '@/hooks'
 import { registerInitialValues, registerValidationSchema } from './constants'
-import AuthContext from '@/context/AuthContext.tsx'
-import { AppRoute } from '@/routing/AppRoute.ts'
-import type { RegisterCredentials } from '@/lib/auth.ts'
+import type { RegisterCredentials } from '@/lib/auth'
+import AppRoute from '@/lib/app-route'
 
 const RegisterForm: FC = () => {
-  const { login } = useContext(AuthContext)
+  const { login } = useAuth()
   const { setLoading, unsetLoading } = useLoading()
   const http = useHttpService()
 

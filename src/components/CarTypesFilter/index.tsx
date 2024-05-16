@@ -1,7 +1,7 @@
 import { FC, memo, useCallback } from 'react'
 import { Box, Chip, Stack } from '@mui/material'
 
-import { carTypes } from '@/lib/listings'
+import { CAR_TYPES } from '@/lib/listings'
 
 interface Props {
   selected: string[]
@@ -29,7 +29,7 @@ export const CarTypesFilter: FC<Props> = ({ onChange, selected }) => {
   return (
     <Box>
       <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
-        {carTypes.map((type) => (
+        {CAR_TYPES.map((type) => (
           <Chip
             key={type}
             clickable

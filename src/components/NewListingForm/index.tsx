@@ -23,14 +23,14 @@ import {
 } from './constants'
 import {
   CreateListingDto,
-  carBrands,
-  carTypes,
-  engineTypes,
+  CAR_BRANDS,
+  CAR_TYPES,
+  ENGINE_TYPES,
 } from '@/lib/listings'
 import { useAuth, useHttpService, useWatchLoading } from '@/hooks'
 import { FileInput } from '@/components'
 import { fileToBase64 } from '@/lib/utils'
-import type { ImageFile } from '@/lib/definitions.ts'
+import type { ImageFile } from '@/lib/definitions'
 
 const NewListingForm: FC = () => {
   const http = useHttpService()
@@ -151,7 +151,7 @@ const NewListingForm: FC = () => {
               }
               error={!!formik.errors?.brandName}
             >
-              {carBrands.map((brandName) => (
+              {CAR_BRANDS.map((brandName) => (
                 <MenuItem value={brandName} key={brandName}>
                   {brandName}
                 </MenuItem>
@@ -173,7 +173,7 @@ const NewListingForm: FC = () => {
               error={!!formik.errors.type}
               onChange={(e) => formik.setFieldValue('type', e.target.value)}
             >
-              {carTypes.map((type) => (
+              {CAR_TYPES.map((type) => (
                 <MenuItem value={type} key={type}>
                   {type}
                 </MenuItem>
@@ -197,7 +197,7 @@ const NewListingForm: FC = () => {
               }
               error={!!formik.errors.engineType}
             >
-              {engineTypes.map((type) => (
+              {ENGINE_TYPES.map((type) => (
                 <MenuItem value={type} key={type}>
                   {type}
                 </MenuItem>

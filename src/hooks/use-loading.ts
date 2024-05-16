@@ -1,6 +1,6 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 
-import GlobalLoadingContext from '@/context/GlobalLoadingContext.tsx'
+import GlobalLoadingContext from '@/context/global-loading.context'
 
 const useLoading = (isLoading: boolean | null = null) => {
   const { unsetLoading, setLoading } = useContext(GlobalLoadingContext)

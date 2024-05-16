@@ -38,7 +38,7 @@ export interface CreateListingDto {
   previewImage: FileDto
 }
 
-export const engineTypes: string[] = [
+export const ENGINE_TYPES: string[] = [
   'Gas',
   'Diesel',
   'Hybrid',
@@ -46,7 +46,7 @@ export const engineTypes: string[] = [
   'Other',
 ]
 
-export const carTypes: string[] = [
+export const CAR_TYPES: string[] = [
   'Sedan',
   'SUV',
   'Crossover',
@@ -60,7 +60,7 @@ export const carTypes: string[] = [
   'Other',
 ]
 
-export const carBrands: string[] = [
+export const CAR_BRANDS: string[] = [
   'Acura',
   'Alfa Romeo',
   'Audi',
@@ -122,7 +122,7 @@ export const carBrands: string[] = [
   'Volvo',
 ]
 
-export const listingsOrderByValues: Record<string, string> = {
+export const LISTING_ORDER_BY_VALUES: Record<string, string> = {
   createdAtDesc: 'New first',
   createdAtAsc: 'Old first',
   priceAsc: 'Cheap first',

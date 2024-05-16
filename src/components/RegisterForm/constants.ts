@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-import type { RegisterCredentials } from '@/lib/auth.ts'
+import type { RegisterCredentials } from '@/lib/auth'
 
 export const registerInitialValues = {
   email: '',

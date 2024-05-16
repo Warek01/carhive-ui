@@ -15,8 +15,8 @@ import { AxiosError } from 'axios'
 
 import { useAuth, useHttpService, useLoading } from '@/hooks'
 import { loginInitialValues, loginValidationSchema } from './constants'
-import { AppRoute } from '@/routing/AppRoute.ts'
-import { LoginCredentials } from '@/lib/auth.ts'
+import { LoginCredentials } from '@/lib/auth'
+import AppRoute from '@/lib/app-route'
 
 const LoginForm: FC = () => {
   const { login } = useAuth()

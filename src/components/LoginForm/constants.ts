@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-import type { LoginCredentials } from '@/lib/auth.ts'
+import type { LoginCredentials } from '@/lib/auth'
 
 export const loginInitialValues = {
   password: '',

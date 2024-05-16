@@ -1,6 +1,6 @@
-import useHttpService from './useHttpService'
-import useAuth from './useAuth'
-import useLoading from './useLoading'
-import useWatchLoading from './watchLoading'
+import useAuth from './use-auth'
+import useHttpService from './use-http-service'
+import useLoading from './use-loading'
+import useWatchLoading from './use-watch-loading'
 
 export { useHttpService, useAuth, useLoading, useWatchLoading }

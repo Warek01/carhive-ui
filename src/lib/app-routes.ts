@@ -1,5 +1,6 @@
 import { RouteObject } from 'react-router-dom'
 
+import { AppLayout, AppRouteProtection } from '@/components'
 import {
   CarDetailsPage,
   HomePage,
@@ -10,18 +11,16 @@ import {
   ProfilePage,
   RegisterPage,
 } from '@/pages'
-import { AppLayout, AuthProtected, ReverseAuthProtected } from '@/components'
-import { AppRoute } from './AppRoute'
+import AppRoute from '@/lib/app-route'
 
-const appRoutes: RouteObject[] = [
+const APP_ROUTES: RouteObject[] = [
   {
     path: AppRoute.HOME,
     Component: AppLayout,
     children: [
       {
-        Component: AuthProtected,
+        Component: AppRouteProtection,
         children: [
-          // auth protected routes
           {
             index: true,
             Component: HomePage,
@@ -42,13 +41,6 @@ const appRoutes: RouteObject[] = [
             path: AppRoute.NEW_LISTING,
             Component: NewListingPage,
           },
-        ],
-      },
-
-      {
-        Component: ReverseAuthProtected,
-        children: [
-          // non-protected routes
           {
             path: AppRoute.REGISTER,
             Component: RegisterPage,
@@ -60,7 +52,6 @@ const appRoutes: RouteObject[] = [
         ],
       },
 
-      // 404
       {
         path: AppRoute.ANY,
         Component: NotFoundPage,
@@ -69,4 +60,4 @@ const appRoutes: RouteObject[] = [
   },
 ]
 
-export default appRoutes
+export default APP_ROUTES

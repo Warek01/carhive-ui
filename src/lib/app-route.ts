@@ -1,4 +1,4 @@
-export enum AppRoute {
+enum AppRoute {
   HOME = '/',
   LISTINGS = '/listings',
   NEW_LISTING = '/listings/new',
@@ -6,5 +6,8 @@ export enum AppRoute {
   PROFILE = '/me',
   REGISTER = '/register',
   LOGIN = '/login',
+  ADMIN_DASHBOARD = '/admin',
   ANY = '*',
 }
+
+export default AppRoute

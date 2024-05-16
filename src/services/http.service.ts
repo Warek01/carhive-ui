@@ -1,10 +1,10 @@
 import axios, { AxiosInstance } from 'axios'
 import qs from 'qs'
 
-import type { PaginatedResponse } from '@/lib/definitions.ts'
-import type { CreateListingDto, Listing } from '@/lib/listings.ts'
-import type { JwtResponse, LoginDto, RegisterDto } from '@/lib/auth.ts'
-import LocalStorageKey from '@/lib/LocalStorageKey.ts'
+import type { PaginatedResponse } from '@/lib/definitions'
+import type { CreateListingDto, Listing } from '@/lib/listings'
+import type { JwtResponse, LoginDto, RegisterDto } from '@/lib/auth'
+import LocalStorageKey from '@/lib/local-storage-key'
 
 export default class HttpService {
   private readonly _axiosInstance: AxiosInstance

@@ -2,14 +2,14 @@ import { FC, useMemo } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-import appRoutes from '@/routing/appRoutes.tsx'
-import { AuthContextProvider } from '@/context/AuthContext.tsx'
-import { GlobalLoadingContextProvider } from '@/context/GlobalLoadingContext.tsx'
+import APP_ROUTES from '@/lib/app-routes'
+import { AuthContextProvider } from '@/context/auth.context'
+import { GlobalLoadingContextProvider } from '@/context/global-loading.context'
 import './index.scss'
 
 const App: FC = () => {
   const queryClient = useMemo<QueryClient>(() => new QueryClient({}), [])
-  const router = useMemo(() => createBrowserRouter(appRoutes), [])
+  const router = useMemo(() => createBrowserRouter(APP_ROUTES), [])
 
   return (
     <QueryClientProvider client={queryClient}>

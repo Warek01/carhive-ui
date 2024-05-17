@@ -5,6 +5,8 @@ import type { PaginatedResponse } from '@/lib/definitions'
 import type { CreateListingDto, Listing } from '@/lib/listings'
 import type { JwtResponse, LoginDto, RegisterDto } from '@/lib/auth'
 import LocalStorageKey from '@/lib/local-storage-key'
+import { UpdateUserDto, User } from '@/lib/user'
+import { getUserRoles } from '@/lib/utils'
 
 export default class HttpService {
   private readonly _axiosInstance: AxiosInstance
@@ -49,6 +51,25 @@ export default class HttpService {
 
   public async register(registerDto: RegisterDto): Promise<JwtResponse> {
     const res = await this._axiosInstance.post('auth/register', registerDto)
+    return res.data
+  }
+
+  public async getUsers(params?: Object): Promise<PaginatedResponse<User>> {
+    const res = await this._axiosInstance.get('user', { params })
+    res.data.items.forEach((u: any) => (u.role = getUserRoles(u.role as any)))
+    return res.data
+  }
+
+  public async updateUser(
+    userId: string,
+    updateDto: UpdateUserDto,
+  ): Promise<PaginatedResponse<User>> {
+    const res = await this._axiosInstance.patch(`user/${userId}`, updateDto)
+    return res.data
+  }
+
+  public async deleteUser(userId: string): Promise<void> {
+    const res = await this._axiosInstance.delete(`user/${userId}`)
     return res.data
   }
 }

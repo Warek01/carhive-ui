@@ -1,4 +1,5 @@
-import type { FileDto, User } from '@/lib/definitions'
+import type { FileDto } from '@/lib/definitions'
+import { User } from '@/lib/user'
 
 export interface Listing {
   id: string

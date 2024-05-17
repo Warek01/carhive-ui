@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 import { Avatar, Card, CardContent, Typography } from '@mui/material'
 import { AccountCircle } from '@mui/icons-material'
 
-import type { User } from '@/lib/definitions'
+import { User } from '@/lib/user'
 
 interface Props {
   user: User

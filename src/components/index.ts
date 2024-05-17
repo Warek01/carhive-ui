@@ -11,6 +11,7 @@ import RegisterForm from './RegisterForm'
 import FileInput from './FileInput'
 import Image from './Image'
 import AppRouteProtection from './AppRouteProtection'
+import UsersAdminList from './UsersAdminList'
 
 export {
   Header,
@@ -26,4 +27,5 @@ export {
   FileInput,
   Image,
   AppRouteProtection,
+  UsersAdminList,
 }

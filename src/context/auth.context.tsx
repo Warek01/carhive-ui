@@ -8,9 +8,10 @@ import {
 import { useLocalStorage } from 'usehooks-ts'
 import { jwtDecode } from 'jwt-decode'
 
-import type { User } from '@/lib/definitions'
 import type { AppJwtPayload } from '@/lib/auth'
 import LocalStorageKey from '@/lib/local-storage-key'
+import type { User } from '@/lib/user'
+import getUserRole from '@/lib/utils/get-user-role'
 
 export interface AuthContextProps {
   user: User | null
@@ -38,10 +39,10 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     setAuthToken(token)
     const decoded = jwtDecode<AppJwtPayload>(token)
     setUser({
+      id: decoded.sub || decoded.nameid!,
       username: decoded.name,
       email: decoded.email,
-      id: decoded.sub!,
-      role: decoded.role,
+      roles: getUserRole(decoded.role),
     })
   }, [])
 

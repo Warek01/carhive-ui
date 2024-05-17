@@ -8,6 +8,7 @@ enum LocalStorageKey {
   AUTH_TOKEN = 'auth-token',
   LISTINGS_PAGINATION_DATA = 'listings-pagination-data',
   LISTINGS_ORDER_BY = 'listings-order-by',
+  ADMIN_DASHBOARD_USERS_LIST_PAGINATION_DATA = 'admin-dashboard-users-list-pagination-data',
 }
 
 export default LocalStorageKey

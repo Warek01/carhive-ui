@@ -22,13 +22,6 @@ export type Nullable<T> = {
   [P in keyof T]: T[P] | null
 }
 
-export interface User {
-  id: string
-  username: string
-  email: string
-  role?: string | string[]
-}
-
 export interface PaginatedResponse<T> {
   items: T[]
   totalItems: number

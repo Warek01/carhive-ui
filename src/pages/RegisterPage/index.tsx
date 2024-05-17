@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import { Box, Container } from '@mui/material'
+import { FC } from 'react'
 
 import { RegisterForm } from '@/components'
 

@@ -1,22 +1,16 @@
-import { FC, memo, useCallback } from 'react'
+import { Box, Button, Grid, Typography } from '@mui/material'
+import { AxiosError } from 'axios'
 import { useFormik } from 'formik'
-import {
-  TextField,
-  FormControl,
-  Button,
-  Box,
-  Grid,
-  FormHelperText,
-  Typography,
-} from '@mui/material'
+import { FC, memo, useCallback } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { AxiosError } from 'axios'
 
+import { FormikTextField } from '@/components'
 import { useAuth, useHttpService, useLoading } from '@/hooks'
-import { registerInitialValues, registerValidationSchema } from './constants'
-import type { RegisterCredentials } from '@/lib/auth'
 import AppRoute from '@/lib/app-route'
+import type { RegisterCredentials } from '@/lib/auth'
+
+import { registerInitialValues, registerValidationSchema } from './constants'
 
 const RegisterForm: FC = () => {
   const { login } = useAuth()
@@ -85,66 +79,39 @@ const RegisterForm: FC = () => {
         </Grid>
         <Grid item container xs={12} spacing={2}>
           <Grid item xs={12}>
-            <FormControl fullWidth error={!!formik.errors.username}>
-              <TextField
-                type="text"
-                value={formik.values.username ?? ''}
-                label="Username"
-                onChange={(e) =>
-                  formik.setFieldValue('username', e.target.value)
-                }
-                error={!!formik.errors.username}
-              />
-              {formik.errors.username && (
-                <FormHelperText>{formik.errors.username}</FormHelperText>
-              )}
-            </FormControl>
+            <FormikTextField
+              fullWidth
+              formik={formik}
+              label="Username"
+              name="username"
+            />
           </Grid>
           <Grid item xs={12}>
-            <FormControl fullWidth error={!!formik.errors.email}>
-              <TextField
-                type="text"
-                value={formik.values.email ?? ''}
-                label="Email"
-                onChange={(e) => formik.setFieldValue('email', e.target.value)}
-                error={!!formik.errors.email}
-              />
-              {formik.errors.email && (
-                <FormHelperText>{formik.errors.email}</FormHelperText>
-              )}
-            </FormControl>
+            <FormikTextField
+              fullWidth
+              formik={formik}
+              type="Email"
+              label="Email"
+              name="email"
+            />
           </Grid>
           <Grid item xs={12}>
-            <FormControl fullWidth error={!!formik.errors.password}>
-              <TextField
-                type="password"
-                value={formik.values.password ?? ''}
-                label="Password"
-                onChange={(e) =>
-                  formik.setFieldValue('password', e.target.value)
-                }
-                error={!!formik.errors.password}
-              />
-              {formik.errors.password && (
-                <FormHelperText>{formik.errors.password}</FormHelperText>
-              )}
-            </FormControl>
+            <FormikTextField
+              fullWidth
+              formik={formik}
+              type="password"
+              label="Password"
+              name="password"
+            />
           </Grid>
           <Grid item xs={12}>
-            <FormControl fullWidth error={!!formik.errors.repeatPassword}>
-              <TextField
-                type="password"
-                value={formik.values.repeatPassword ?? ''}
-                label="Repeat password"
-                onChange={(e) =>
-                  formik.setFieldValue('repeatPassword', e.target.value)
-                }
-                error={!!formik.errors.repeatPassword}
-              />
-              {formik.errors.repeatPassword && (
-                <FormHelperText>{formik.errors.repeatPassword}</FormHelperText>
-              )}
-            </FormControl>
+            <FormikTextField
+              fullWidth
+              formik={formik}
+              type="password"
+              label="Repeat passwoed"
+              name="repeatPassword"
+            />
           </Grid>
         </Grid>
 

@@ -1,6 +1,6 @@
-import { FC, memo, PropsWithChildren } from 'react'
-import { Box } from '@mui/material'
 import { MobileOff } from '@mui/icons-material'
+import { Box } from '@mui/material'
+import { FC, PropsWithChildren, memo } from 'react'
 
 const MobileSplashScreen: FC<PropsWithChildren> = ({ children }) => {
   return (

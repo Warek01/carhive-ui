@@ -1,12 +1,12 @@
+import { jwtDecode } from 'jwt-decode'
 import {
-  createContext,
   FC,
   PropsWithChildren,
+  createContext,
   useCallback,
   useMemo,
 } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
-import { jwtDecode } from 'jwt-decode'
 
 import type { AppJwtPayload } from '@/lib/auth'
 import LocalStorageKey from '@/lib/local-storage-key'

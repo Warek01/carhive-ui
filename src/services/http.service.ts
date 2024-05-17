@@ -1,9 +1,9 @@
 import axios, { AxiosInstance } from 'axios'
 import qs from 'qs'
 
+import type { JwtResponse, LoginDto, RegisterDto } from '@/lib/auth'
 import type { PaginatedResponse } from '@/lib/definitions'
 import type { CreateListingDto, Listing } from '@/lib/listings'
-import type { JwtResponse, LoginDto, RegisterDto } from '@/lib/auth'
 import LocalStorageKey from '@/lib/local-storage-key'
 import { UpdateUserDto, User } from '@/lib/user'
 import { getUserRoles } from '@/lib/utils'

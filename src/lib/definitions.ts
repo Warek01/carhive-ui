@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+
 import type AppRoute from '@/lib/app-route'
 
 export interface AppEnv {

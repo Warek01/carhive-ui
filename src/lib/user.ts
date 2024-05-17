@@ -11,6 +11,13 @@ export interface UpdateUserDto {
   roles: UserRole[]
 }
 
+export interface CreateUserDto {
+  username: string
+  password: string
+  email: string
+  roles: UserRole[]
+}
+
 export enum UserRole {
   USER,
   ADMIN,

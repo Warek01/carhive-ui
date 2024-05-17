@@ -1,5 +1,5 @@
-import { FC, memo, useCallback } from 'react'
 import { Box, Chip, Stack } from '@mui/material'
+import { FC, memo, useCallback } from 'react'
 
 import { CAR_TYPES } from '@/lib/listings'
 

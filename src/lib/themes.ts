@@ -1,6 +1,6 @@
-import { createTheme, ThemeOptions } from '@mui/material/styles'
-import _ from 'lodash'
 import { amber } from '@mui/material/colors'
+import { ThemeOptions, createTheme } from '@mui/material/styles'
+import _ from 'lodash'
 
 const shared: ThemeOptions = {
   typography: {

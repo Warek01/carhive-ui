@@ -1,11 +1,11 @@
+import { Backdrop, CircularProgress } from '@mui/material'
 import {
-  createContext,
   FC,
   PropsWithChildren,
+  createContext,
   useCallback,
   useState,
 } from 'react'
-import { Backdrop, CircularProgress } from '@mui/material'
 
 export interface GlobalLoadingContextProps {
   setLoading(): void

@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import { Box, Button, Container, Typography } from '@mui/material'
+import { FC } from 'react'
 
 import { UserCard } from '@/components'
 import { useAuth } from '@/hooks'

@@ -1,30 +1,31 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { Add } from '@mui/icons-material'
 import {
   Box,
   Button,
   CircularProgress,
+  Container,
   Fab,
+  FormControlLabel,
   Modal,
-  TextField,
-  Typography,
+  Pagination,
   Stack,
   Switch,
-  FormControlLabel,
-  Container,
-  Pagination,
+  TextField,
+  Typography,
 } from '@mui/material'
+import { FormikHelpers } from 'formik'
+import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
-import { Add } from '@mui/icons-material'
+import { useLocalStorage } from 'usehooks-ts'
 
-import { UsersAdminList } from '@/components'
-import type { UpdateUserDto, User } from '@/lib/user'
-import QueryKey from '@/lib/query-key'
+import { CreateUserForm, UsersList } from '@/components'
 import { useHttpService, useWatchLoading } from '@/hooks'
 import type { RegisterDto } from '@/lib/auth'
-import { useLocalStorage } from 'usehooks-ts'
-import LocalStorageKey from '@/lib/local-storage-key'
 import { PaginationData } from '@/lib/definitions'
+import LocalStorageKey from '@/lib/local-storage-key'
+import QueryKey from '@/lib/query-key'
+import { CreateUserDto, UpdateUserDto, User } from '@/lib/user'
 
 const AdminDashboardPage: FC = () => {
   const [paginationData, setPaginationData] = useLocalStorage<PaginationData>(
@@ -90,17 +91,21 @@ const AdminDashboardPage: FC = () => {
     [],
   )
 
-  const handleUserCreate = useCallback(async () => {
-    setIsCreatingUser(false)
-    try {
-      await createUserMutation.mutateAsync(registerDto)
-      toast('User created.')
-    } catch (err) {
-      console.error(err)
-      toast('Error creating.', { type: 'error' })
-    }
-    setRegisterDto({} as RegisterDto)
-  }, [registerDto])
+  const handleUserCreate = useCallback(
+    async (createDto: CreateUserDto, helpers: FormikHelpers<CreateUserDto>) => {
+      setIsCreatingUser(false)
+      try {
+        await createUserMutation.mutateAsync(createDto)
+        toast('User created.')
+      } catch (err) {
+        console.error(err)
+        toast('Error creating.', { type: 'error' })
+      }
+      helpers.resetForm()
+      setRegisterDto({} as RegisterDto)
+    },
+    [registerDto],
+  )
 
   useEffect(() => {
     if (usersQuery.data)
@@ -127,70 +132,7 @@ const AdminDashboardPage: FC = () => {
           }}
         >
           <Stack spacing={2}>
-            <TextField
-              placeholder="Username"
-              value={registerDto.username}
-              onChange={(e) =>
-                setRegisterDto((r) => ({ ...r, username: e.target.value }))
-              }
-            />
-            <TextField
-              placeholder="Email"
-              value={registerDto.email}
-              onChange={(e) =>
-                setRegisterDto((r) => ({ ...r, email: e.target.value }))
-              }
-            />
-            <TextField
-              placeholder="Password"
-              value={registerDto.password}
-              onChange={(e) =>
-                setRegisterDto((r) => ({ ...r, password: e.target.value }))
-              }
-            />
-            <Stack direction="row">
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={true}
-                    inputProps={{ 'aria-label': 'controlled' }}
-                    onChange={() => {}}
-                  />
-                }
-                label="Remove listing"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={true}
-                    inputProps={{ 'aria-label': 'controlled' }}
-                    onChange={() => {}}
-                  />
-                }
-                label="Create listing"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={true}
-                    inputProps={{ 'aria-label': 'controlled' }}
-                    onChange={() => {}}
-                  />
-                }
-                label="Admin"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={true}
-                    inputProps={{ 'aria-label': 'controlled' }}
-                    onChange={() => {}}
-                  />
-                }
-                label="Self delete"
-              />
-            </Stack>
-            <Button onClick={handleUserCreate}>Save</Button>
+            <CreateUserForm onSubmit={handleUserCreate} />
           </Stack>
         </Container>
       </Modal>
@@ -213,7 +155,7 @@ const AdminDashboardPage: FC = () => {
         >
           {usersQuery.data ? (
             <>
-              <UsersAdminList
+              <UsersList
                 users={usersQuery.data.items}
                 onDelete={handleUserDelete}
                 onUpdate={handleUserUpdate}

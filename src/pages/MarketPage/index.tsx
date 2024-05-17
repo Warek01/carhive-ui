@@ -1,5 +1,3 @@
-import { ChangeEvent, FC, useCallback, useEffect } from 'react'
-import { useLocalStorage } from 'usehooks-ts'
 import {
   Box,
   FormControl,
@@ -10,9 +8,11 @@ import {
   Select,
   Stack,
 } from '@mui/material'
+import { ChangeEvent, FC, useCallback, useEffect } from 'react'
 import { useQuery } from 'react-query'
+import { useLocalStorage } from 'usehooks-ts'
 
-import { ListingsList, CarTypesFilter } from '@/components'
+import { CarTypesFilter, ListingsList } from '@/components'
 import { useHttpService, useWatchLoading } from '@/hooks'
 import type { PaginationData } from '@/lib/definitions'
 import { LISTING_ORDER_BY_VALUES } from '@/lib/listings'

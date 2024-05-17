@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router-dom'
 
 import { AppLayout, AppRouteProtection } from '@/components'
+import AppRoute from '@/lib/app-route'
 import {
   AdminDashboardPage,
   CarDetailsPage,
@@ -12,7 +13,6 @@ import {
   ProfilePage,
   RegisterPage,
 } from '@/pages'
-import AppRoute from '@/lib/app-route'
 
 const APP_ROUTES: RouteObject[] = [
   {

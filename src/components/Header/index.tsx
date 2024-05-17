@@ -1,26 +1,27 @@
+import { DarkMode, LightMode, Person, TimeToLeave } from '@mui/icons-material'
+import {
+  AppBar,
+  Container,
+  IconButton,
+  Stack,
+  SvgIconProps,
+  Switch,
+  Typography,
+} from '@mui/material'
 import {
   ChangeEventHandler,
   Dispatch,
   FC,
-  memo,
   SetStateAction,
+  memo,
   useCallback,
   useMemo,
 } from 'react'
-import { LightMode, DarkMode, TimeToLeave, Person } from '@mui/icons-material'
 import { Link as RouterLink } from 'react-router-dom'
-import {
-  AppBar,
-  Container,
-  Switch,
-  Typography,
-  SvgIconProps,
-  Stack,
-  IconButton,
-} from '@mui/material'
+
+import AppRoute from '@/lib/app-route'
 
 import { HEADER_LINKS } from './constants'
-import AppRoute from '@/lib/app-route'
 
 interface Props {
   isDarkTheme: boolean

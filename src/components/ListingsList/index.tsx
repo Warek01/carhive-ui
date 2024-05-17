@@ -1,5 +1,5 @@
-import { FC, memo } from 'react'
 import { Box, Grid, Skeleton } from '@mui/material'
+import { FC, memo } from 'react'
 
 import { ListingItem } from '@/components'
 import { type Listing } from '@/lib/listings'

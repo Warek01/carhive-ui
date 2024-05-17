@@ -1,10 +1,11 @@
 import { FC, useMemo } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import APP_ROUTES from '@/lib/app-routes'
 import { AuthContextProvider } from '@/context/auth.context'
 import { GlobalLoadingContextProvider } from '@/context/global-loading.context'
+import APP_ROUTES from '@/lib/app-routes'
+
 import './index.scss'
 
 const App: FC = () => {

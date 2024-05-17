@@ -1,6 +1,6 @@
-import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react'
-import { Button, FormControl, styled } from '@mui/material'
 import { CloudUpload } from '@mui/icons-material'
+import { Button, FormControl, styled } from '@mui/material'
+import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react'
 
 interface Props {
   file: File | null | undefined

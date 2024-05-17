@@ -1,6 +1,6 @@
+import { Box } from '@mui/material'
 import { FC } from 'react'
 import { useParams } from 'react-router'
-import { Box } from '@mui/material'
 
 interface Params extends Record<string, string> {
   carId: string

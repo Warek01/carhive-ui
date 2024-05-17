@@ -1,12 +1,12 @@
+import AdminDashboardPage from './AdminDashboardPage'
 import CarDetailsPage from './CarDetailsPage'
 import HomePage from './HomePage'
-import MarketPage from './MarketPage'
-import NotFoundPage from './NotFoundPage'
-import NewListingPage from './NewListingPage'
-import ProfilePage from './ProfilePage'
 import LoginPage from './LoginPage'
+import MarketPage from './MarketPage'
+import NewListingPage from './NewListingPage'
+import NotFoundPage from './NotFoundPage'
+import ProfilePage from './ProfilePage'
 import RegisterPage from './RegisterPage'
-import AdminDashboardPage from './AdminDashboardPage'
 
 export {
   HomePage,

@@ -1,6 +1,6 @@
-import { FC, memo, useState } from 'react'
-import { Box, Skeleton } from '@mui/material'
 import { HideImage } from '@mui/icons-material'
+import { Box, Skeleton } from '@mui/material'
+import { FC, memo, useState } from 'react'
 
 interface Props {
   src?: string | null

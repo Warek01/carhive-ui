@@ -1,6 +1,5 @@
 import { amber } from '@mui/material/colors'
 import { ThemeOptions, createTheme } from '@mui/material/styles'
-import _ from 'lodash'
 
 const shared: ThemeOptions = {
   typography: {
@@ -15,18 +14,12 @@ const shared: ThemeOptions = {
   direction: 'ltr',
 }
 
-export const darkTheme = createTheme(
-  _.merge({}, shared, {
-    palette: {
-      mode: 'dark',
-    },
-  } as ThemeOptions),
-)
+const dark = { ...shared }
+dark.palette!.mode = 'dark'
 
-export const lightTheme = createTheme(
-  _.merge({}, shared, {
-    palette: {
-      mode: 'light',
-    },
-  } as ThemeOptions),
-)
+const light = { ...shared }
+light.palette!.mode = 'light'
+
+export const darkTheme = createTheme(dark)
+
+export const lightTheme = createTheme(light)

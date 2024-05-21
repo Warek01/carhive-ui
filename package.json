@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://warek01.github.io/faf-cars/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -14,7 +13,7 @@
     "prepare": "husky install"
   },
   "engines": {
-    "node": "20.12.1"
+    "node": "^20.13.1"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
@@ -27,15 +26,12 @@
     "@fontsource/roboto": "^5.0.13",
     "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.18",
-    "@types/qs": "^6.9.15",
     "@vitejs/plugin-react": "^4.2.1",
-    "axios": "^1.6.8",
-    "clsx": "^2.1.1",
+    "axios": "^1.7.2",
     "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "formik": "^2.4.6",
     "jwt-decode": "^4.0.0",
-    "lodash": "^4.17.21",
     "qs": "^6.12.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -43,24 +39,21 @@
     "react-router": "^6.23.1",
     "react-router-dom": "^6.23.1",
     "react-toastify": "^10.0.5",
-    "sass": "^1.77.2",
     "typescript": "^5.4.5",
     "usehooks-ts": "^3.1.0",
-    "uuid": "^9.0.1",
     "vite": "^5.2.11",
     "vite-tsconfig-paths": "^4.3.2",
     "yup": "^1.4.0"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/lodash": "^4.17.4",
     "@types/node": "^20.12.12",
+    "@types/qs": "^6.9.15",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
-    "@types/uuid": "^9.0.8",
     "gh-pages": "^6.1.1",
     "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
+    "lint-staged": "^15.2.4",
     "prettier": "^3.2.5"
   },
   "packageManager": "pnpm@9.1.1"

@@ -1,16 +1,12 @@
 import { Add } from '@mui/icons-material'
 import {
   Box,
-  Button,
   CircularProgress,
   Container,
   Fab,
-  FormControlLabel,
   Modal,
   Pagination,
   Stack,
-  Switch,
-  TextField,
   Typography,
 } from '@mui/material'
 import { FormikHelpers } from 'formik'
@@ -31,9 +27,9 @@ const AdminDashboardPage: FC = () => {
   const [paginationData, setPaginationData] = useLocalStorage<PaginationData>(
     LocalStorageKey.ADMIN_DASHBOARD_USERS_LIST_PAGINATION_DATA,
     {
-      itemsPerPage: 10,
-      totalPages: 1,
-      currentPage: 0,
+      size: 10,
+      count: 1,
+      page: 0,
     },
   )
 
@@ -41,8 +37,8 @@ const AdminDashboardPage: FC = () => {
   const queryClient = useQueryClient()
   const usersQuery = useQuery([QueryKey.USERS_LIST, paginationData], () =>
     http.getUsers({
-      take: paginationData.itemsPerPage,
-      page: paginationData.currentPage,
+      take: paginationData.size,
+      page: paginationData.page,
     }),
   )
   const deleteUserMutation = useMutation(
@@ -71,7 +67,7 @@ const AdminDashboardPage: FC = () => {
   const handleUserDelete = useCallback(async (user: User) => {
     try {
       await deleteUserMutation.mutateAsync(user.id)
-      toast('User deleted.')
+      toast('User deleted.', { toastId: 'user-delete' })
     } catch (err) {
       console.error(err)
       toast('Error deleting.', { type: 'error' })
@@ -82,7 +78,7 @@ const AdminDashboardPage: FC = () => {
     async (userId: string, updateDto: UpdateUserDto) => {
       try {
         await updateUserMutation.mutateAsync([userId, updateDto])
-        toast('User updated.')
+        toast('User updated.', { toastId: 'user-update' })
       } catch (err) {
         console.error(err)
         toast('Error updating.', { type: 'error' })
@@ -96,7 +92,7 @@ const AdminDashboardPage: FC = () => {
       setIsCreatingUser(false)
       try {
         await createUserMutation.mutateAsync(createDto)
-        toast('User created.')
+        toast('User created.', { toastId: 'user-create' })
       } catch (err) {
         console.error(err)
         toast('Error creating.', { type: 'error' })
@@ -111,7 +107,7 @@ const AdminDashboardPage: FC = () => {
     if (usersQuery.data)
       setPaginationData((p) => ({
         ...p,
-        totalPages: Math.ceil(usersQuery.data.totalItems / p.itemsPerPage),
+        count: Math.ceil(usersQuery.data.totalItems / p.size),
       }))
   }, [usersQuery.data])
 
@@ -161,10 +157,10 @@ const AdminDashboardPage: FC = () => {
                 onUpdate={handleUserUpdate}
               />
               <Pagination
-                page={paginationData.currentPage + 1}
-                count={paginationData.totalPages}
+                page={paginationData.page + 1}
+                count={paginationData.count}
                 onChange={(_, page) =>
-                  setPaginationData((p) => ({ ...p, currentPage: page - 1 }))
+                  setPaginationData((p) => ({ ...p, page: page - 1 }))
                 }
               />
             </>

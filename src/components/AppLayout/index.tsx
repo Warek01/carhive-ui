@@ -4,7 +4,7 @@ import { FC, memo, useMemo } from 'react'
 import { Outlet } from 'react-router'
 import { ToastContainer, ToastContainerProps } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useLocalStorage } from 'usehooks-ts'
+import { useDarkMode, useLocalStorage } from 'usehooks-ts'
 
 import { Header, MobileSplashScreen } from '@/components'
 import LocalStorageKey from '@/lib/local-storage-key'
@@ -24,7 +24,7 @@ const AppLayout: FC = () => {
   const toastProps = useMemo<ToastContainerProps>(
     () => ({
       theme: isDarkTheme ? 'dark' : 'colored',
-      autoClose: 3000,
+      autoClose: 2000,
       limit: 3,
       position: 'top-right',
       closeOnClick: true,

@@ -11,6 +11,7 @@ import {
 } from '@mui/material'
 import { FC, memo } from 'react'
 
+import { useAuth } from '@/hooks'
 import { UpdateUserDto, User, UserRole } from '@/lib/user'
 import { toggleArrayItem } from '@/lib/utils'
 
@@ -22,12 +23,12 @@ interface Props {
 
 const ROLES_MAP: [UserRole, string][] = [
   [UserRole.ADMIN, 'Admin'],
-  [UserRole.SELF_DELETE, 'Self-delete'],
-  [UserRole.CREATE_LISTING, 'Create listing'],
-  [UserRole.REMOVE_LISTING, 'Remove listing'],
+  [UserRole.LISTING_CREATOR, 'Listing creator'],
 ]
 
 const UsersList: FC<Props> = ({ users, onUpdate, onDelete }) => {
+  const { user } = useAuth()
+
   return (
     <Stack spacing={1} alignSelf="stretch">
       {users.map((u) => (
@@ -52,6 +53,7 @@ const UsersList: FC<Props> = ({ users, onUpdate, onDelete }) => {
                     <FormControlLabel
                       control={
                         <Switch
+                          disabled={u.id === user!.id}
                           checked={u.roles.includes(role)}
                           inputProps={{ 'aria-label': 'controlled' }}
                           onChange={() =>
@@ -67,7 +69,11 @@ const UsersList: FC<Props> = ({ users, onUpdate, onDelete }) => {
                   </FormGroup>
                 ))}
               </Stack>
-              <IconButton color="error" onClick={() => onDelete(u)}>
+              <IconButton
+                color="error"
+                onClick={() => onDelete(u)}
+                disabled={u.id === user!.id}
+              >
                 <Delete />
               </IconButton>
             </Grid>

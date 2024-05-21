@@ -3,6 +3,7 @@ export interface User {
   username: string
   email: string
   roles: UserRole[]
+  phone?: string
 }
 
 export interface UpdateUserDto {
@@ -19,17 +20,11 @@ export interface CreateUserDto {
 }
 
 export enum UserRole {
-  USER,
   ADMIN,
-  SELF_DELETE,
-  CREATE_LISTING,
-  REMOVE_LISTING,
+  LISTING_CREATOR,
 }
 
 export const USER_ROLE_STRING_MAP: Record<string, UserRole> = {
-  User: UserRole.USER,
   Admin: UserRole.ADMIN,
-  SelfDelete: UserRole.SELF_DELETE,
-  CreateListing: UserRole.CREATE_LISTING,
-  RemoveListing: UserRole.REMOVE_LISTING,
+  ListingCreator: UserRole.LISTING_CREATOR,
 }

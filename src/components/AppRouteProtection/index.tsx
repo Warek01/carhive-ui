@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router'
+import { toast } from 'react-toastify'
 
 import { useAuth } from '@/hooks'
 import AppRoute from '@/lib/app-route'
@@ -21,7 +22,16 @@ const ROUTE_TYPE_MAP: Record<AppRouteType, (AppRoute | string)[]> = {
 
 const AppRouteProtection: FC = () => {
   const location = useLocation()
-  const { isAuthorized, user } = useAuth()
+  const { isAuthorized, user, logout, expiresAt } = useAuth()
+
+  if (expiresAt && expiresAt < new Date()) {
+    logout()
+    toast('Session has expired.', {
+      toastId: 'session-expire',
+      type: 'warning',
+    })
+    return <Navigate to={AppRoute.LOGIN} />
+  }
 
   const isOnUnauthorizedPage = ROUTE_TYPE_MAP[
     AppRouteType.UNAUTHORIZED

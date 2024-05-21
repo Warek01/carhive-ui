@@ -4,7 +4,8 @@ import {
   PropsWithChildren,
   createContext,
   useCallback,
-  useMemo,
+  useEffect,
+  useState,
 } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 
@@ -16,6 +17,7 @@ import getUserRole from '@/lib/utils/get-user-role'
 export interface AuthContextProps {
   user: User | null
   authToken: string | null
+  expiresAt: Date | null
   login(token: string): void
   logout(): void
 }
@@ -24,11 +26,9 @@ const AuthContext = createContext<AuthContextProps>(null!)
 export default AuthContext
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [user, setUser] = useLocalStorage<User | null>(
-    LocalStorageKey.CURRENT_USER,
-    null,
-    { initializeWithValue: true },
-  )
+  const [user, setUser] = useState<User | null>(null)
+
+  const [expiresAt, setExpiresAt] = useState<Date | null>(null)
 
   const [authToken, setAuthToken] = useLocalStorage<string | null>(
     LocalStorageKey.AUTH_TOKEN,
@@ -37,29 +37,38 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const login = useCallback((token: string) => {
     setAuthToken(token)
-    const decoded = jwtDecode<AppJwtPayload>(token)
+  }, [])
+
+  const logout = useCallback(() => {
+    setAuthToken(null)
+  }, [])
+
+  useEffect(() => {
+    if (!authToken) {
+      setUser(null)
+      setExpiresAt(null)
+      return
+    }
+
+    const decoded = jwtDecode<AppJwtPayload>(authToken)
+
+    setExpiresAt(new Date(decoded.exp! * 1000))
     setUser({
-      id: decoded.sub || decoded.nameid!,
+      id: decoded.sub!,
+      phone: decoded.phone,
       username: decoded.name,
       email: decoded.email,
       roles: getUserRole(decoded.role),
     })
-  }, [])
+  }, [authToken])
 
-  const logout = useCallback(() => {
-    setUser(null)
-    setAuthToken(null)
-  }, [])
-
-  const context = useMemo<AuthContextProps>(
-    () => ({
-      user,
-      authToken,
-      login,
-      logout,
-    }),
-    [user, authToken, login, logout],
-  )
+  const context: AuthContextProps = {
+    user,
+    authToken,
+    login,
+    logout,
+    expiresAt,
+  }
 
   return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
 }

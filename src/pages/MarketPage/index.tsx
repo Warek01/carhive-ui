@@ -8,13 +8,12 @@ import {
   Select,
   Stack,
 } from '@mui/material'
-import { ChangeEvent, FC, useCallback, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { CarTypesFilter, ListingsList } from '@/components'
-import { useHttpService, useWatchLoading } from '@/hooks'
-import type { PaginationData } from '@/lib/definitions'
+import { useHttpService, usePagination, useWatchLoading } from '@/hooks'
 import { LISTING_ORDER_BY_VALUES } from '@/lib/listings'
 import LocalStorageKey from '@/lib/local-storage-key'
 import QueryKey from '@/lib/query-key'
@@ -31,21 +30,14 @@ const MarketPage: FC = () => {
     [],
   )
 
-  const [paginationData, setPaginationData] = useLocalStorage<PaginationData>(
-    LocalStorageKey.LISTINGS_PAGINATION_DATA,
-    {
-      currentPage: 0,
-      totalPages: 1,
-      itemsPerPage: 10,
-    },
-  )
+  const pagination = usePagination()
 
   const listingsListQuery = useQuery(
-    [QueryKey.LISTINGS_LIST, paginationData, orderBy, selectedCarTypes],
+    [QueryKey.LISTINGS_LIST, pagination, orderBy, selectedCarTypes],
     () =>
       http.getListings({
-        take: paginationData.itemsPerPage,
-        page: paginationData.currentPage,
+        take: pagination.size,
+        page: pagination.page,
         order: orderBy,
         carTypes: selectedCarTypes,
       }),
@@ -53,26 +45,11 @@ const MarketPage: FC = () => {
 
   useWatchLoading(listingsListQuery.isLoading)
 
-  const handlePaginationChange = useCallback(
-    (event: ChangeEvent<unknown>, value: number) => {
-      setPaginationData((pd) => ({
-        ...pd,
-        currentPage: value - 1,
-      }))
-    },
-    [],
-  )
-
   useEffect(() => {
     if (!listingsListQuery.data) return
 
-    setPaginationData((pd) => ({
-      ...pd,
-      totalPages: Math.ceil(
-        listingsListQuery.data.totalItems / pd.itemsPerPage,
-      ),
-    }))
-  }, [listingsListQuery.data])
+    pagination.setItems(listingsListQuery.data.totalItems)
+  }, [listingsListQuery.data, pagination])
 
   return (
     <Stack spacing={3}>
@@ -100,14 +77,9 @@ const MarketPage: FC = () => {
             <FormControl fullWidth>
               <InputLabel>Items per page</InputLabel>
               <Select
-                value={paginationData.itemsPerPage}
+                value={pagination.size}
                 label="Items per page"
-                onChange={(e) =>
-                  setPaginationData((p) => ({
-                    ...p,
-                    itemsPerPage: parseInt(e.target.value as string),
-                  }))
-                }
+                onChange={(e) => pagination.setSize(e.target.value)}
               >
                 <MenuItem value={5}>5</MenuItem>
                 <MenuItem value={10}>10</MenuItem>
@@ -133,15 +105,15 @@ const MarketPage: FC = () => {
       >
         <ListingsList
           items={listingsListQuery.data?.items}
-          skeletonCount={paginationData.itemsPerPage}
+          skeletonCount={pagination.size}
         />
 
-        {paginationData.totalPages > 1 && (
+        {pagination.count > 1 && (
           <Pagination
-            count={paginationData.totalPages}
+            count={pagination.count}
             size="large"
-            page={paginationData.currentPage + 1}
-            onChange={handlePaginationChange}
+            page={pagination.page + 1}
+            onChange={(e, page) => pagination.setPage(page + 1)}
           />
         )}
       </Box>

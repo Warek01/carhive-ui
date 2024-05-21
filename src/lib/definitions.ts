@@ -14,9 +14,10 @@ export interface Link {
 }
 
 export interface PaginationData {
-  currentPage: number
-  totalPages: number
-  itemsPerPage: number
+  page: number
+  count: number
+  size: number
+  items: number
 }
 
 export type Nullable<T> = {

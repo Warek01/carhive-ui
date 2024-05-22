@@ -16,8 +16,8 @@ import { Link as RouterLink } from 'react-router-dom'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { Image } from '@/components'
-import AppRoute from '@/lib/app-route'
 import { Listing } from '@/lib/listings'
+import AppRoute from '@/lib/routing/app-route'
 import { toggleArrayItem } from '@/lib/utils'
 
 interface Props {

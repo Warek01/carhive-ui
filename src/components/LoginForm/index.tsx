@@ -7,8 +7,8 @@ import { toast } from 'react-toastify'
 
 import { FormikTextField } from '@/components'
 import { useAuth, useHttpService, useLoading } from '@/hooks'
-import AppRoute from '@/lib/app-route'
 import { LoginCredentials } from '@/lib/auth'
+import AppRoute from '@/lib/routing/app-route'
 
 import { loginInitialValues, loginValidationSchema } from './constants'
 

@@ -7,6 +7,7 @@ enum AppRoute {
   REGISTER = '/register',
   LOGIN = '/login',
   ADMIN_DASHBOARD = '/admin',
+  ABOUT = '/about',
   ANY = '*',
 }
 

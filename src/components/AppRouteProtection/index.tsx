@@ -3,28 +3,15 @@ import { FC } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router'
 
 import { useAuth } from '@/hooks'
-import AppRoute from '@/lib/app-route'
-import AppRouteType from '@/lib/app-route-type'
-
-const ROUTE_TYPE_MAP: Record<AppRouteType, (AppRoute | string)[]> = {
-  [AppRouteType.UNAUTHORIZED]: [
-    AppRoute.HOME,
-    AppRoute.LOGIN,
-    AppRoute.REGISTER,
-  ],
-  [AppRouteType.AUTHORIZED]: [
-    AppRoute.LISTINGS,
-    AppRoute.PROFILE,
-    AppRoute.NEW_LISTING,
-    AppRoute.LISTING_DETAILS,
-    AppRoute.ADMIN_DASHBOARD,
-  ],
-  [AppRouteType.ADMIN]: [AppRoute.ADMIN_DASHBOARD],
-}
+import AppRoute from '@/lib/routing/app-route'
+import AppRouteType from '@/lib/routing/app-route-type'
+import ROUTE_TYPE_MAP from '@/lib/routing/route-type-map'
 
 const AppRouteProtection: FC = () => {
   const location = useLocation()
   const { isAuthorized, isAdmin, refresh, expiresAt } = useAuth()
+
+  const path = location.pathname
 
   if (expiresAt && expiresAt < new Date()) {
     refresh()
@@ -43,22 +30,15 @@ const AppRouteProtection: FC = () => {
     )
   }
 
-  const isOnUnauthorizedPage = ROUTE_TYPE_MAP[
-    AppRouteType.UNAUTHORIZED
-  ].includes(location.pathname)
-  const isOnAuthorizedPage = ROUTE_TYPE_MAP[AppRouteType.AUTHORIZED].includes(
-    location.pathname,
-  )
-  const isOnAdminPage = ROUTE_TYPE_MAP[AppRouteType.ADMIN].includes(
-    location.pathname,
-  )
+  const isOnAuthorizedPage =
+    ROUTE_TYPE_MAP[AppRouteType.AUTH_PROTECTED].includes(path)
+  const isOnAdminPage =
+    ROUTE_TYPE_MAP[AppRouteType.ADMIN_PROTECTED].includes(path)
 
-  if (!isOnUnauthorizedPage && !isAuthorized)
+  if (!isOnAuthorizedPage && !isAuthorized)
     return <Navigate to={AppRoute.LOGIN} />
-  else if (!isOnAuthorizedPage && isAuthorized)
-    return <Navigate to={AppRoute.HOME} />
-  else if (isOnAdminPage && !isAdmin) return <Navigate to={AppRoute.HOME} />
-  else return <Outlet />
+  if (isOnAdminPage && !isAdmin) return <Navigate to={AppRoute.HOME} />
+  return <Outlet />
 }
 
 export default AppRouteProtection

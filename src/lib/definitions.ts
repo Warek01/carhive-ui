@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import type AppRoute from '@/lib/app-route'
+import type AppRoute from '@/lib/routing/app-route'
 
 export interface AppEnv {
   NODE_ENV: 'development' | 'production'

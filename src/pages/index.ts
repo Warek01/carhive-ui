@@ -1,3 +1,4 @@
+import AboutPage from './AboutPage'
 import AdminDashboardPage from './AdminDashboardPage'
 import CarDetailsPage from './CarDetailsPage'
 import HomePage from './HomePage'
@@ -18,4 +19,5 @@ export {
   LoginPage,
   RegisterPage,
   AdminDashboardPage,
+  AboutPage,
 }

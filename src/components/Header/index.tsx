@@ -20,7 +20,7 @@ import {
 import { Link as RouterLink } from 'react-router-dom'
 
 import { useAuth } from '@/hooks'
-import AppRoute from '@/lib/app-route'
+import AppRoute from '@/lib/routing/app-route'
 
 interface Props {
   isDarkTheme: boolean
@@ -90,6 +90,13 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
               sx={{ color: 'inherit' }}
             >
               Post a deal
+            </Typography>
+            <Typography
+              component={RouterLink}
+              to={AppRoute.ABOUT}
+              sx={{ color: 'inherit' }}
+            >
+              About
             </Typography>
             {isAdmin && (
               <Typography

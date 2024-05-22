@@ -35,7 +35,7 @@ const AppRouteProtection: FC = () => {
   const isOnAdminPage =
     ROUTE_TYPE_MAP[AppRouteType.ADMIN_PROTECTED].includes(path)
 
-  if (!isOnAuthorizedPage && !isAuthorized)
+  if (isOnAuthorizedPage && !isAuthorized)
     return <Navigate to={AppRoute.LOGIN} />
   if (isOnAdminPage && !isAdmin) return <Navigate to={AppRoute.HOME} />
   return <Outlet />

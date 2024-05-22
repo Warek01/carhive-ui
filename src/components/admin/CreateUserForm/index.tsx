@@ -15,13 +15,7 @@ const INITIAL_VALUES: CreateUserDto = {
   email: '',
   password: '',
   username: '',
-  roles: [
-    UserRole.ADMIN,
-    UserRole.REMOVE_LISTING,
-    UserRole.CREATE_LISTING,
-    UserRole.SELF_DELETE,
-    UserRole.USER,
-  ],
+  roles: [UserRole.ADMIN, UserRole.LISTING_CREATOR],
 }
 
 const VALIDATION_SCHEMA = Yup.object().shape({
@@ -70,32 +64,14 @@ const CreateUserForm: FC<Props> = ({ onSubmit }) => {
           <FormControlLabel
             control={
               <Switch
-                checked={formik.values.roles.includes(UserRole.REMOVE_LISTING)}
+                checked={formik.values.roles.includes(UserRole.LISTING_CREATOR)}
                 inputProps={{ 'aria-label': 'controlled' }}
                 onChange={() =>
                   formik.setFieldValue(
                     'roles',
                     toggleArrayItem(
                       formik.values.roles,
-                      UserRole.REMOVE_LISTING,
-                    ),
-                  )
-                }
-              />
-            }
-            label="Remove listing"
-          />
-          <FormControlLabel
-            control={
-              <Switch
-                checked={formik.values.roles.includes(UserRole.CREATE_LISTING)}
-                inputProps={{ 'aria-label': 'controlled' }}
-                onChange={() =>
-                  formik.setFieldValue(
-                    'roles',
-                    toggleArrayItem(
-                      formik.values.roles,
-                      UserRole.CREATE_LISTING,
+                      UserRole.LISTING_CREATOR,
                     ),
                   )
                 }
@@ -118,21 +94,7 @@ const CreateUserForm: FC<Props> = ({ onSubmit }) => {
             }
             label="Admin"
           />
-          <FormControlLabel
-            control={
-              <Switch
-                checked={formik.values.roles.includes(UserRole.SELF_DELETE)}
-                inputProps={{ 'aria-label': 'controlled' }}
-                onChange={() =>
-                  formik.setFieldValue(
-                    'roles',
-                    toggleArrayItem(formik.values.roles, UserRole.SELF_DELETE),
-                  )
-                }
-              />
-            }
-            label="Self delete"
-          />
+          abel="Self delete"
         </Stack>
 
         <Button type="submit">Create</Button>

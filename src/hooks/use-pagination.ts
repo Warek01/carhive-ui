@@ -1,20 +1,13 @@
 import { useCallback, useId } from 'react'
 import { useSessionStorage } from 'usehooks-ts'
 
-import type { PaginationData } from '@/lib/definitions'
-
-const INITIAL: PaginationData = {
-  page: 0,
-  size: 10,
-  count: 0,
-  items: 0,
-}
+import { DEFAULT_PAGINATION_DATA, PaginationData } from '@/lib/paginationData'
 
 export default function usePagination(key?: string) {
   const id = useId()
   const [paginationData, setPaginationData] = useSessionStorage<PaginationData>(
     key ?? id,
-    INITIAL,
+    DEFAULT_PAGINATION_DATA,
   )
 
   const setPage = useCallback((page: number) => {
@@ -37,7 +30,7 @@ export default function usePagination(key?: string) {
   }, [])
 
   const reset = useCallback(() => {
-    setPaginationData(INITIAL)
+    setPaginationData(DEFAULT_PAGINATION_DATA)
   }, [])
 
   return {

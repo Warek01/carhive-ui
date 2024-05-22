@@ -1,6 +1,6 @@
+import { Box, CircularProgress, Typography } from '@mui/material'
 import { FC } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router'
-import { toast } from 'react-toastify'
 
 import { useAuth } from '@/hooks'
 import AppRoute from '@/lib/app-route'
@@ -22,15 +22,23 @@ const ROUTE_TYPE_MAP: Record<AppRouteType, (AppRoute | string)[]> = {
 
 const AppRouteProtection: FC = () => {
   const location = useLocation()
-  const { isAuthorized, user, logout, expiresAt } = useAuth()
+  const { isAuthorized, user, refresh, expiresAt } = useAuth()
 
   if (expiresAt && expiresAt < new Date()) {
-    logout()
-    toast('Session has expired.', {
-      toastId: 'session-expire',
-      type: 'warning',
-    })
-    return <Navigate to={AppRoute.LOGIN} />
+    refresh()
+
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        height="100%"
+        alignItems="center"
+        gap={1}
+      >
+        <Typography>Refreshing token</Typography>
+        <CircularProgress />
+      </Box>
+    )
   }
 
   const isOnUnauthorizedPage = ROUTE_TYPE_MAP[

@@ -1,6 +1,8 @@
 import { amber } from '@mui/material/colors'
 import { ThemeOptions, createTheme } from '@mui/material/styles'
 
+import { deepCopy } from '@/lib/utils'
+
 const shared: ThemeOptions = {
   typography: {
     fontFamily: `Montserrat, sans-serif, serif`,
@@ -14,10 +16,10 @@ const shared: ThemeOptions = {
   direction: 'ltr',
 }
 
-const dark = { ...shared }
+const dark = deepCopy(shared)
 dark.palette!.mode = 'dark'
 
-const light = { ...shared }
+const light = deepCopy(shared)
 light.palette!.mode = 'light'
 
 export const darkTheme = createTheme(dark)

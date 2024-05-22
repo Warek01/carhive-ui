@@ -2,21 +2,18 @@ import axios, { AxiosInstance } from 'axios'
 import qs from 'qs'
 
 import type { JwtResponse, LoginDto, RegisterDto } from '@/lib/auth'
-import type { PaginatedResponse } from '@/lib/definitions'
 import type { CreateListingDto, Listing } from '@/lib/listings'
-import LocalStorageKey from '@/lib/local-storage-key'
+import type { PaginatedResponse } from '@/lib/paginationData'
 import { UpdateUserDto, User } from '@/lib/user'
 import { getUserRoles } from '@/lib/utils'
 
 export default class HttpService {
   private readonly _axiosInstance: AxiosInstance
 
-  constructor() {
+  constructor(token: string | null) {
     const headers: HeadersInit = {}
 
-    const authToken = localStorage.getItem(LocalStorageKey.AUTH_TOKEN)
-    if (authToken?.length)
-      headers.Authorization = `Bearer ${JSON.parse(authToken)}`
+    if (token !== null) headers.Authorization = `Bearer ${token}`
 
     this._axiosInstance = axios.create({
       baseURL: import.meta.env.VITE_API_BASENAME,
@@ -51,6 +48,14 @@ export default class HttpService {
 
   public async register(registerDto: RegisterDto): Promise<JwtResponse> {
     const res = await this._axiosInstance.post('auth/register', registerDto)
+    return res.data
+  }
+
+  public async refresh(jwtRes: JwtResponse): Promise<JwtResponse> {
+    const res = await this._axiosInstance.post<JwtResponse>(
+      'auth/refresh',
+      jwtRes,
+    )
     return res.data
   }
 

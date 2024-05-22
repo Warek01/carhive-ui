@@ -18,27 +18,23 @@ import { useLocalStorage } from 'usehooks-ts'
 import { CreateUserForm, UsersList } from '@/components'
 import { useHttpService, useWatchLoading } from '@/hooks'
 import type { RegisterDto } from '@/lib/auth'
-import { PaginationData } from '@/lib/definitions'
 import LocalStorageKey from '@/lib/local-storage-key'
+import { DEFAULT_PAGINATION_DATA, PaginationData } from '@/lib/paginationData'
 import QueryKey from '@/lib/query-key'
 import { CreateUserDto, UpdateUserDto, User } from '@/lib/user'
 
 const AdminDashboardPage: FC = () => {
-  const [paginationData, setPaginationData] = useLocalStorage<PaginationData>(
+  const [pagination, setPagination] = useLocalStorage<PaginationData>(
     LocalStorageKey.ADMIN_DASHBOARD_USERS_LIST_PAGINATION_DATA,
-    {
-      size: 10,
-      count: 1,
-      page: 0,
-    },
+    DEFAULT_PAGINATION_DATA,
   )
 
   const http = useHttpService()
   const queryClient = useQueryClient()
-  const usersQuery = useQuery([QueryKey.USERS_LIST, paginationData], () =>
+  const usersQuery = useQuery([QueryKey.USERS_LIST, pagination], () =>
     http.getUsers({
-      take: paginationData.size,
-      page: paginationData.page,
+      take: pagination.size,
+      page: pagination.page,
     }),
   )
   const deleteUserMutation = useMutation(
@@ -105,7 +101,7 @@ const AdminDashboardPage: FC = () => {
 
   useEffect(() => {
     if (usersQuery.data)
-      setPaginationData((p) => ({
+      setPagination((p) => ({
         ...p,
         count: Math.ceil(usersQuery.data.totalItems / p.size),
       }))
@@ -157,10 +153,10 @@ const AdminDashboardPage: FC = () => {
                 onUpdate={handleUserUpdate}
               />
               <Pagination
-                page={paginationData.page + 1}
-                count={paginationData.count}
+                page={pagination.page + 1}
+                count={pagination.count}
                 onChange={(_, page) =>
-                  setPaginationData((p) => ({ ...p, page: page - 1 }))
+                  setPagination((p) => ({ ...p, page: page - 1 }))
                 }
               />
             </>

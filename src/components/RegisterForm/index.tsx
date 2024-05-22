@@ -32,7 +32,7 @@ const RegisterForm: FC = () => {
           password: values.password,
           username: values.username,
         })
-        login(res.token)
+        login(res)
       } catch (err) {
         console.error(err)
 

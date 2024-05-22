@@ -23,7 +23,7 @@ const LoginForm: FC = () => {
 
       try {
         const res = await http.login({ ...values })
-        login(res.token)
+        login(res)
       } catch (err) {
         console.error(err)
 

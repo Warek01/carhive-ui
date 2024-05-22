@@ -25,6 +25,7 @@ export interface RegisterCredentials {
 
 export interface JwtResponse {
   token: string
+  refreshToken: string
 }
 
 export interface AppJwtPayload extends JwtPayload {

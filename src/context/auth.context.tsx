@@ -4,70 +4,107 @@ import {
   PropsWithChildren,
   createContext,
   useCallback,
-  useEffect,
-  useState,
+  useMemo,
 } from 'react'
+import { toast } from 'react-toastify'
 import { useLocalStorage } from 'usehooks-ts'
 
-import type { AppJwtPayload } from '@/lib/auth'
+import type { AppJwtPayload, JwtResponse } from '@/lib/auth'
 import LocalStorageKey from '@/lib/local-storage-key'
 import type { User } from '@/lib/user'
 import getUserRole from '@/lib/utils/get-user-role'
+import HttpService from '@/services/http.service'
 
 export interface AuthContextProps {
   user: User | null
-  authToken: string | null
+  token: string | null
+  refreshToken: string | null
   expiresAt: Date | null
-  login(token: string): void
+  isAuthorized: boolean
+  login(data: JwtResponse): void
   logout(): void
+  refresh(): Promise<void>
 }
 
 const AuthContext = createContext<AuthContextProps>(null!)
 export default AuthContext
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null)
-
-  const [expiresAt, setExpiresAt] = useState<Date | null>(null)
-
-  const [authToken, setAuthToken] = useLocalStorage<string | null>(
-    LocalStorageKey.AUTH_TOKEN,
+  const [authData, setAuthData] = useLocalStorage<JwtResponse | null>(
+    LocalStorageKey.AUTH_DATA,
     null,
   )
 
-  const login = useCallback((token: string) => {
-    setAuthToken(token)
+  const token = useMemo<string | null>(
+    () => authData?.token ?? null,
+    [authData],
+  )
+
+  const isAuthorized = useMemo<boolean>(() => !!token, [token])
+
+  const refreshToken = useMemo<string | null>(
+    () => authData?.refreshToken ?? null,
+    [authData],
+  )
+
+  const decoded = useMemo<AppJwtPayload | null>(
+    () => (token ? jwtDecode<AppJwtPayload>(token) : null),
+    [token],
+  )
+
+  const user = useMemo<User | null>(
+    () =>
+      decoded
+        ? {
+            id: decoded.sub!,
+            phone: decoded.phone,
+            username: decoded.name,
+            email: decoded.email,
+            roles: getUserRole(decoded.role),
+          }
+        : null,
+    [decoded],
+  )
+
+  const expiresAt = useMemo<Date | null>(
+    () => (decoded ? new Date(decoded.exp! * 1000) : null),
+    [decoded],
+  )
+
+  const login = useCallback((data: JwtResponse) => {
+    setAuthData(data)
   }, [])
 
   const logout = useCallback(() => {
-    setAuthToken(null)
+    setAuthData(null)
   }, [])
 
-  useEffect(() => {
-    if (!authToken) {
-      setUser(null)
-      setExpiresAt(null)
-      return
+  const refresh = useCallback(async () => {
+    if (!authData) return
+
+    try {
+      const http = new HttpService(null)
+      const res = await http.refresh(authData)
+      login(res)
+    } catch (err) {
+      console.error(err)
+      toast('Session has expired.', {
+        toastId: 'session-expire',
+        type: 'warning',
+      })
+      logout()
     }
-
-    const decoded = jwtDecode<AppJwtPayload>(authToken)
-
-    setExpiresAt(new Date(decoded.exp! * 1000))
-    setUser({
-      id: decoded.sub!,
-      phone: decoded.phone,
-      username: decoded.name,
-      email: decoded.email,
-      roles: getUserRole(decoded.role),
-    })
-  }, [authToken])
+  }, [authData, login, logout])
 
   const context: AuthContextProps = {
     user,
-    authToken,
+    isAuthorized,
+    token,
+    refreshToken,
     login,
     logout,
     expiresAt,
+    refresh,
   }
 
   return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>

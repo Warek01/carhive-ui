@@ -11,7 +11,7 @@ import { useLocalStorage } from 'usehooks-ts'
 
 import type { AppJwtPayload, JwtResponse } from '@/lib/auth'
 import LocalStorageKey from '@/lib/local-storage-key'
-import type { User } from '@/lib/user'
+import { User, UserRole } from '@/lib/user'
 import getUserRole from '@/lib/utils/get-user-role'
 import HttpService from '@/services/http.service'
 
@@ -21,6 +21,7 @@ export interface AuthContextProps {
   refreshToken: string | null
   expiresAt: Date | null
   isAuthorized: boolean
+  isAdmin: boolean
   login(data: JwtResponse): void
   logout(): void
   refresh(): Promise<void>
@@ -71,6 +72,11 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     [decoded],
   )
 
+  const isAdmin = useMemo<boolean>(
+    () => user?.roles?.includes(UserRole.ADMIN) ?? false,
+    [user],
+  )
+
   const login = useCallback((data: JwtResponse) => {
     setAuthData(data)
   }, [])
@@ -101,6 +107,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     isAuthorized,
     token,
     refreshToken,
+    isAdmin,
     login,
     logout,
     expiresAt,

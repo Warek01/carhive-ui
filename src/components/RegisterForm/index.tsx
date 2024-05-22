@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import { AxiosError } from 'axios'
 import { useFormik } from 'formik'
 import { FC, memo, useCallback } from 'react'
@@ -65,74 +65,67 @@ const RegisterForm: FC = () => {
   })
 
   return (
-    <Box>
-      <Grid
-        container
-        component="form"
-        onSubmit={formik.handleSubmit}
-        spacing={3}
-      >
+    <Grid container component="form" onSubmit={formik.handleSubmit} spacing={3}>
+      <Grid item xs={12}>
+        <Typography variant="h3" textAlign="center">
+          Register
+        </Typography>
+      </Grid>
+      <Grid item container xs={12} spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="h3" textAlign="center">
-            Register
-          </Typography>
+          <FormikTextField
+            fullWidth
+            formik={formik}
+            label="Username"
+            name="username"
+          />
         </Grid>
-        <Grid item container xs={12} spacing={2}>
-          <Grid item xs={12}>
-            <FormikTextField
-              fullWidth
-              formik={formik}
-              label="Username"
-              name="username"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormikTextField
-              fullWidth
-              formik={formik}
-              type="Email"
-              label="Email"
-              name="email"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormikTextField
-              fullWidth
-              formik={formik}
-              type="password"
-              label="Password"
-              name="password"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormikTextField
-              fullWidth
-              formik={formik}
-              type="password"
-              label="Repeat passwoed"
-              name="repeatPassword"
-            />
-          </Grid>
+        <Grid item xs={12}>
+          <FormikTextField
+            fullWidth
+            formik={formik}
+            type="Email"
+            label="Email"
+            name="email"
+          />
         </Grid>
-
-        <Grid
-          item
-          xs={12}
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          gap={2}
-        >
-          <Button variant="outlined" type="submit">
-            Register
-          </Button>
-          <Button variant="text" component={RouterLink} to={AppRoute.LOGIN}>
-            Already have an account?
-          </Button>
+        <Grid item xs={12}>
+          <FormikTextField
+            fullWidth
+            formik={formik}
+            type="password"
+            label="Password"
+            name="password"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormikTextField
+            fullWidth
+            formik={formik}
+            type="password"
+            label="Repeat passwoed"
+            name="repeatPassword"
+          />
         </Grid>
       </Grid>
-    </Box>
+
+      <Grid
+        item
+        xs={12}
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        gap={2}
+      >
+        <Button variant="outlined" type="submit">
+          Register
+        </Button>
+        <Button variant="text" component={RouterLink} to={AppRoute.LOGIN}>
+          Already have an account?
+        </Button>
+      </Grid>
+    </Grid>
   )
 }
 

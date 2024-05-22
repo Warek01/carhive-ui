@@ -14,6 +14,8 @@ const FormikTextField: FC<Props & TextFieldProps> = ({
 }) => {
   return (
     <TextField
+      variant="filled"
+      autoComplete="off"
       name={name}
       value={formik.values[name]}
       onChange={formik.handleChange}

@@ -4,7 +4,7 @@ import qs from 'qs'
 import type { JwtResponse, LoginDto, RegisterDto } from '@/lib/auth'
 import type { CreateListingDto, Listing } from '@/lib/listings'
 import type { PaginatedResponse } from '@/lib/paginationData'
-import { UpdateUserDto, User } from '@/lib/user'
+import type { UpdateUserDto, User } from '@/lib/user'
 import { getUserRoles } from '@/lib/utils'
 
 export default class HttpService {

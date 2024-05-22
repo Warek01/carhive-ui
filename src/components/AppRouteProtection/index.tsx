@@ -5,15 +5,17 @@ import { Navigate, Outlet, useLocation } from 'react-router'
 import { useAuth } from '@/hooks'
 import AppRoute from '@/lib/app-route'
 import AppRouteType from '@/lib/app-route-type'
-import { UserRole } from '@/lib/user'
 
 const ROUTE_TYPE_MAP: Record<AppRouteType, (AppRoute | string)[]> = {
-  [AppRouteType.UNAUTHORIZED]: [AppRoute.LOGIN, AppRoute.REGISTER],
+  [AppRouteType.UNAUTHORIZED]: [
+    AppRoute.HOME,
+    AppRoute.LOGIN,
+    AppRoute.REGISTER,
+  ],
   [AppRouteType.AUTHORIZED]: [
     AppRoute.LISTINGS,
     AppRoute.PROFILE,
     AppRoute.NEW_LISTING,
-    AppRoute.HOME,
     AppRoute.LISTING_DETAILS,
     AppRoute.ADMIN_DASHBOARD,
   ],
@@ -22,7 +24,7 @@ const ROUTE_TYPE_MAP: Record<AppRouteType, (AppRoute | string)[]> = {
 
 const AppRouteProtection: FC = () => {
   const location = useLocation()
-  const { isAuthorized, user, refresh, expiresAt } = useAuth()
+  const { isAuthorized, isAdmin, refresh, expiresAt } = useAuth()
 
   if (expiresAt && expiresAt < new Date()) {
     refresh()
@@ -55,8 +57,7 @@ const AppRouteProtection: FC = () => {
     return <Navigate to={AppRoute.LOGIN} />
   else if (!isOnAuthorizedPage && isAuthorized)
     return <Navigate to={AppRoute.HOME} />
-  else if (isOnAdminPage && !user?.roles?.includes(UserRole.ADMIN))
-    return <Navigate to={AppRoute.HOME} />
+  else if (isOnAdminPage && !isAdmin) return <Navigate to={AppRoute.HOME} />
   else return <Outlet />
 }
 

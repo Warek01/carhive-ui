@@ -14,6 +14,24 @@ const shared: ThemeOptions = {
     },
   },
   direction: 'ltr',
+  components: {
+    MuiInputBase: {
+      defaultProps: {
+        autoComplete: 'new-password',
+        inputProps: {
+          autoComplete: 'new-password',
+        },
+      },
+    },
+    MuiTextField: {
+      defaultProps: {
+        autoComplete: 'new-password',
+        inputProps: {
+          autoComplete: 'new-password',
+        },
+      },
+    },
+  },
 }
 
 const dark = deepCopy(shared)

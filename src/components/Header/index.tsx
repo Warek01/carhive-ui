@@ -19,9 +19,8 @@ import {
 } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
+import { useAuth } from '@/hooks'
 import AppRoute from '@/lib/app-route'
-
-import { HEADER_LINKS } from './constants'
 
 interface Props {
   isDarkTheme: boolean
@@ -29,6 +28,8 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
+  const { isAuthorized, isAdmin } = useAuth()
+
   const iconProps = useMemo<SvgIconProps>(
     () => ({
       width: 32,
@@ -76,16 +77,29 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
             FAF cars
           </Typography>
           <Stack alignItems="center" direction="row" spacing={4} pl={4}>
-            {HEADER_LINKS.map(({ content, href }, index) => (
+            <Typography
+              component={RouterLink}
+              to={AppRoute.LISTINGS}
+              sx={{ color: 'inherit' }}
+            >
+              Market
+            </Typography>
+            <Typography
+              component={RouterLink}
+              to={AppRoute.NEW_LISTING}
+              sx={{ color: 'inherit' }}
+            >
+              Post a deal
+            </Typography>
+            {isAdmin && (
               <Typography
                 component={RouterLink}
-                key={index}
-                to={href ?? '#'}
+                to={AppRoute.ADMIN_DASHBOARD}
                 sx={{ color: 'inherit' }}
               >
-                {content}
+                Dashboard
               </Typography>
-            ))}
+            )}
           </Stack>
         </Stack>
         <Stack direction="row" spacing={2} alignItems="center">
@@ -98,9 +112,19 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
             <Switch checked={isDarkTheme} onChange={handleChange} />
             {icon}
           </Stack>
-          <IconButton component={RouterLink} to={AppRoute.PROFILE}>
-            <Person fontSize="medium" />
-          </IconButton>
+          {isAuthorized ? (
+            <IconButton component={RouterLink} to={AppRoute.PROFILE}>
+              <Person fontSize="medium" />
+            </IconButton>
+          ) : (
+            <Typography
+              component={RouterLink}
+              to={AppRoute.LOGIN}
+              sx={{ color: 'inherit' }}
+            >
+              Sign in
+            </Typography>
+          )}
         </Stack>
       </Container>
     </AppBar>

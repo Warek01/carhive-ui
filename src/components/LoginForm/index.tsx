@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import { AxiosError } from 'axios'
 import { useFormik } from 'formik'
 import { FC, memo, useCallback } from 'react'
@@ -56,55 +56,41 @@ const LoginForm: FC = () => {
   })
 
   return (
-    <Box>
-      <Grid
-        container
-        component="form"
-        onSubmit={formik.handleSubmit}
-        spacing={3}
-      >
+    <Grid container component="form" onSubmit={formik.handleSubmit} spacing={3}>
+      <Grid item xs={12}>
+        <Typography variant="h3" textAlign="center">
+          Log in
+        </Typography>
+      </Grid>
+      <Grid container item xs={12} spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="h3" textAlign="center">
-            Log in
-          </Typography>
+          <FormikTextField
+            fullWidth
+            formik={formik}
+            label="Username"
+            name="username"
+          />
         </Grid>
-        <Grid container item xs={12} spacing={2}>
-          <Grid item xs={12}>
-            <FormikTextField
-              fullWidth
-              formik={formik}
-              label="Username"
-              name="username"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormikTextField
-              fullWidth
-              formik={formik}
-              type="password"
-              label="Password"
-              name="password"
-            />
-          </Grid>
-        </Grid>
-
-        <Grid
-          item
-          xs={12}
-          display="flex"
-          gap={3}
-          justifyContent="center"
-          mt={3}
-        >
-          <Button variant="outlined" type="submit">
-            Login
-          </Button>
-          <Button variant="text" component={RouterLink} to={AppRoute.REGISTER}>
-            Create account
-          </Button>
+        <Grid item xs={12}>
+          <FormikTextField
+            fullWidth
+            formik={formik}
+            type="password"
+            label="Password"
+            name="password"
+          />
         </Grid>
       </Grid>
-    </Box>
+
+      <Grid item xs={12} display="flex" gap={3} justifyContent="center" mt={3}>
+        <Button variant="outlined" type="submit">
+          Login
+        </Button>
+        <Button variant="text" component={RouterLink} to={AppRoute.REGISTER}>
+          Create account
+        </Button>
+      </Grid>
+    </Grid>
   )
 }
 

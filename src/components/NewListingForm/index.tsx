@@ -14,10 +14,10 @@ import {
 import { AxiosError } from 'axios'
 import { FormikHelpers, useFormik } from 'formik'
 import { FC, memo, useCallback, useState } from 'react'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 
-import { FileInput } from '@/components'
+import { FileInput, Image } from '@/components'
 import { useAuth, useHttpService, useWatchLoading } from '@/hooks'
 import type { ImageFile } from '@/lib/definitions'
 import {
@@ -26,6 +26,7 @@ import {
   CreateListingDto,
   ENGINE_TYPES,
 } from '@/lib/listings'
+import QueryKey from '@/lib/query-key'
 import { fileToBase64 } from '@/lib/utils'
 
 import {
@@ -36,6 +37,7 @@ import {
 const NewListingForm: FC = () => {
   const http = useHttpService()
   const { user } = useAuth()
+  const queryClient = useQueryClient()
 
   const [preview, setPreview] = useState<ImageFile | null>(null)
 
@@ -64,13 +66,16 @@ const NewListingForm: FC = () => {
         }
 
         if (preview) {
-          createDto.previewImage = {
+          createDto.preview = {
             fileName: preview.file.name,
             base64Body: preview.body!,
           }
         }
 
-        await createListingMutation.mutateAsync(createDto)
+        await createListingMutation.mutateAsync(createDto, {
+          onSuccess: () =>
+            queryClient.invalidateQueries(QueryKey.LISTINGS_LIST),
+        })
         helpers.resetForm()
         setPreview(null)
         toast('Listing created successfully.')
@@ -118,11 +123,7 @@ const NewListingForm: FC = () => {
         <Grid item container xs={12} spacing={3}>
           {preview && (
             <Grid item xs={6}>
-              <img
-                alt=""
-                src={preview.body}
-                style={{ aspectRatio: 'initial', width: '100%' }}
-              />
+              <Image src={preview.body} />
             </Grid>
           )}
           <Grid

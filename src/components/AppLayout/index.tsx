@@ -4,15 +4,15 @@ import { FC, memo, useMemo } from 'react'
 import { Outlet } from 'react-router'
 import { ToastContainer, ToastContainerProps } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useDarkMode, useLocalStorage } from 'usehooks-ts'
+import { useLocalStorage } from 'usehooks-ts'
 
 import { Header, MobileSplashScreen } from '@/components'
-import LocalStorageKey from '@/lib/local-storage-key'
+import StorageKey from '@/lib/storage-key'
 import { darkTheme, lightTheme } from '@/lib/themes'
 
 const AppLayout: FC = () => {
   const [isDarkTheme, setIsDarkTheme] = useLocalStorage<boolean>(
-    LocalStorageKey.THEME,
+    StorageKey.THEME,
     window.matchMedia('(prefers-color-scheme: dark)').matches,
   )
 

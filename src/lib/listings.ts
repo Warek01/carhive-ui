@@ -19,7 +19,8 @@ export interface Listing {
   createdAt: string
   deletedAt: string | null
   publisher: User | null
-  previewFileName: string | null
+  preview: string | null
+  images: string[]
 }
 
 export interface CreateListingDto {
@@ -36,7 +37,7 @@ export interface CreateListingDto {
   mileage: number | null
   year: number | null
   publisherId: string
-  previewImage: FileDto
+  preview: FileDto
 }
 
 export const ENGINE_TYPES: string[] = [

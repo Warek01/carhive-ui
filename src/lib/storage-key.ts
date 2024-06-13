@@ -1,12 +1,12 @@
-enum LocalStorageKey {
+enum StorageKey {
   THEME = 'is-dark-theme',
   FAVORITE_LISTINGS = 'favorite-listings',
   LISTINGS_FILTER = 'listings-filter',
   MARKET_PAGE = 'market-page',
   AUTH_DATA = 'auth-data',
-  LISTINGS_PAGINATION_DATA = 'listings-pagination-data',
+  LISTINGS_PAGINATION = 'listings-pagination',
   LISTINGS_ORDER_BY = 'listings-order-by',
-  ADMIN_DASHBOARD_USERS_LIST_PAGINATION_DATA = 'admin-dashboard-users-list-pagination-data',
+  DASHBOARD_USERS_PAGINATION = 'admin-users-pagination',
 }
 
-export default LocalStorageKey
+export default StorageKey

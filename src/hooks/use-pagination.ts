@@ -1,12 +1,12 @@
-import { useCallback, useId } from 'react'
+import { useCallback } from 'react'
 import { useSessionStorage } from 'usehooks-ts'
 
 import { DEFAULT_PAGINATION_DATA, PaginationData } from '@/lib/paginationData'
+import StorageKey from '@/lib/storage-key'
 
-export default function usePagination(key?: string) {
-  const id = useId()
+export default function usePagination(key: StorageKey | string) {
   const [paginationData, setPaginationData] = useSessionStorage<PaginationData>(
-    key ?? id,
+    key,
     DEFAULT_PAGINATION_DATA,
   )
 

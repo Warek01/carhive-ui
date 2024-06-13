@@ -3,15 +3,20 @@ import { Box, Skeleton } from '@mui/material'
 import { FC, memo, useState } from 'react'
 
 interface Props {
+  apiFile?: boolean
   src?: string | null
   width?: number | string
   height?: number | string
   alt?: string
 }
 
-const Image: FC<Props> = ({ height, src, width, alt }) => {
+const Image: FC<Props> = ({ height, src, width, alt, apiFile = false }) => {
   const [loaded, setLoaded] = useState<boolean>(false)
   const [err, setErr] = useState<boolean>(false)
+
+  const isError = !src || err
+
+  if (apiFile) src = import.meta.env.VITE_API_FILE_BASENAME + '/' + src
 
   return (
     <Box
@@ -24,7 +29,7 @@ const Image: FC<Props> = ({ height, src, width, alt }) => {
       justifyContent="center"
       sx={{ aspectRatio: !height ? '16/9' : 'initial' }}
     >
-      {!src || err ? (
+      {isError ? (
         <HideImage fontSize="large" color="inherit" />
       ) : (
         <>
@@ -35,6 +40,7 @@ const Image: FC<Props> = ({ height, src, width, alt }) => {
               width: loaded ? '100%' : 0,
               height: loaded ? 'auto' : 0,
               display: 'block',
+              aspectRatio: !height ? '16/9' : 'initial',
             }}
             loading="lazy"
             onLoad={() => setLoaded(true)}

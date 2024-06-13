@@ -18,7 +18,12 @@ export default class HttpService {
     this._axiosInstance = axios.create({
       baseURL: import.meta.env.VITE_API_BASENAME,
       timeout: 15_000,
-      paramsSerializer: (params) => qs.stringify(params),
+      paramsSerializer: (params) =>
+        qs.stringify(params, {
+          charset: 'utf-8',
+          strictNullHandling: true,
+          skipNulls: false,
+        }),
       headers,
     })
   }

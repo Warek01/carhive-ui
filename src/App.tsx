@@ -4,12 +4,13 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import { AuthContextProvider } from '@/context/auth.context'
 import { GlobalLoadingContextProvider } from '@/context/global-loading.context'
+import { QUERY_CLIENT_CONFIG } from '@/lib/query'
 import APP_ROUTES from '@/lib/routing/app-routes'
 
 import './index.css'
 
 const App: FC = () => {
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient(QUERY_CLIENT_CONFIG)
   const router = createBrowserRouter(APP_ROUTES)
 
   return (

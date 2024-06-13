@@ -14,7 +14,7 @@ export interface Link {
 }
 
 export interface FileDto {
-  fileName: string
+  fileName?: string
   base64Body: string
 }
 

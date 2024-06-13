@@ -10,7 +10,7 @@ import { toast } from 'react-toastify'
 import { useLocalStorage } from 'usehooks-ts'
 
 import type { AppJwtPayload, JwtResponse } from '@/lib/auth'
-import LocalStorageKey from '@/lib/local-storage-key'
+import StorageKey from '@/lib/storage-key'
 import { User, UserRole } from '@/lib/user'
 import getUserRole from '@/lib/utils/get-user-role'
 import HttpService from '@/services/http.service'
@@ -32,7 +32,7 @@ export default AuthContext
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [authData, setAuthData] = useLocalStorage<JwtResponse | null>(
-    LocalStorageKey.AUTH_DATA,
+    StorageKey.AUTH_DATA,
     null,
   )
 

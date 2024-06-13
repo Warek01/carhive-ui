@@ -15,22 +15,22 @@ import { useLocalStorage } from 'usehooks-ts'
 import { CarTypesFilter, ListingsList } from '@/components'
 import { useHttpService, usePagination, useWatchLoading } from '@/hooks'
 import { LISTING_ORDER_BY_VALUES } from '@/lib/listings'
-import LocalStorageKey from '@/lib/local-storage-key'
 import QueryKey from '@/lib/query-key'
+import StorageKey from '@/lib/storage-key'
 
 const MarketPage: FC = () => {
   const http = useHttpService()
   const [orderBy, setOrderBy] = useLocalStorage<string>(
-    LocalStorageKey.LISTINGS_ORDER_BY,
+    StorageKey.LISTINGS_ORDER_BY,
     'createdAtDesc',
   )
 
   const [selectedCarTypes, setSelectedCarTypes] = useLocalStorage<string[]>(
-    LocalStorageKey.LISTINGS_FILTER,
+    StorageKey.LISTINGS_FILTER,
     [],
   )
 
-  const pagination = usePagination()
+  const pagination = usePagination(StorageKey.LISTINGS_PAGINATION)
 
   const listingsListQuery = useQuery(
     [QueryKey.LISTINGS_LIST, pagination, orderBy, selectedCarTypes],
@@ -49,7 +49,11 @@ const MarketPage: FC = () => {
     if (!listingsListQuery.data) return
 
     pagination.setItems(listingsListQuery.data.totalItems)
-  }, [listingsListQuery.data, pagination])
+  }, [listingsListQuery.data])
+
+  useEffect(() => {
+    pagination.setPage(0)
+  }, [selectedCarTypes, pagination.count, pagination.size, orderBy])
 
   return (
     <Stack spacing={3}>
@@ -60,6 +64,7 @@ const MarketPage: FC = () => {
               <InputLabel>Order</InputLabel>
               <Select
                 value={orderBy}
+                size="small"
                 label="Order"
                 onChange={(e) => setOrderBy(e.target.value)}
               >
@@ -78,9 +83,11 @@ const MarketPage: FC = () => {
               <InputLabel>Items per page</InputLabel>
               <Select
                 value={pagination.size}
+                size="small"
                 label="Items per page"
                 onChange={(e) => pagination.setSize(e.target.value)}
               >
+                <MenuItem value={1}>1</MenuItem>
                 <MenuItem value={5}>5</MenuItem>
                 <MenuItem value={10}>10</MenuItem>
                 <MenuItem value={20}>20</MenuItem>
@@ -113,7 +120,7 @@ const MarketPage: FC = () => {
             count={pagination.count}
             size="large"
             page={pagination.page + 1}
-            onChange={(e, page) => pagination.setPage(page + 1)}
+            onChange={(e, page) => pagination.setPage(page - 1)}
           />
         )}
       </Box>

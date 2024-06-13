@@ -53,9 +53,7 @@ const ListingItem: FC<Props> = ({ listing }) => {
       }}
     >
       <Box mb={2}>
-        <Image
-          src={`${import.meta.env.VITE_API_FILE_BASENAME}/${listing.previewFileName}`}
-        />
+        <Image apiFile src={listing.preview} />
       </Box>
       <Typography
         variant="body1"

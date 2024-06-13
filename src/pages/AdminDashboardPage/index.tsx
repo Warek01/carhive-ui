@@ -18,14 +18,14 @@ import { useLocalStorage } from 'usehooks-ts'
 import { CreateUserForm, UsersList } from '@/components'
 import { useHttpService, useWatchLoading } from '@/hooks'
 import type { RegisterDto } from '@/lib/auth'
-import LocalStorageKey from '@/lib/local-storage-key'
 import { DEFAULT_PAGINATION_DATA, PaginationData } from '@/lib/paginationData'
 import QueryKey from '@/lib/query-key'
+import StorageKey from '@/lib/storage-key'
 import { CreateUserDto, UpdateUserDto, User } from '@/lib/user'
 
 const AdminDashboardPage: FC = () => {
   const [pagination, setPagination] = useLocalStorage<PaginationData>(
-    LocalStorageKey.ADMIN_DASHBOARD_USERS_LIST_PAGINATION_DATA,
+    StorageKey.DASHBOARD_USERS_PAGINATION,
     DEFAULT_PAGINATION_DATA,
   )
 

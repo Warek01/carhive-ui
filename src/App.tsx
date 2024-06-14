@@ -13,6 +13,8 @@ const App: FC = () => {
   const queryClient = new QueryClient(QUERY_CLIENT_CONFIG)
   const router = createBrowserRouter(APP_ROUTES)
 
+  console.log('App')
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>

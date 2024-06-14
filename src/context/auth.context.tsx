@@ -6,6 +6,7 @@ import {
   useCallback,
   useMemo,
 } from 'react'
+import { useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { useLocalStorage } from 'usehooks-ts'
 
@@ -31,6 +32,8 @@ const AuthContext = createContext<AuthContextProps>(null!)
 export default AuthContext
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
+  const queryClient = useQueryClient()
+
   const [authData, setAuthData] = useLocalStorage<JwtResponse | null>(
     StorageKey.AUTH_DATA,
     null,
@@ -82,7 +85,14 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [])
 
   const logout = useCallback(() => {
+    queryClient.clear()
+    queryClient.invalidateQueries()
+    const theme = localStorage.getItem(StorageKey.THEME)
+    localStorage.clear()
+    sessionStorage.clear()
     setAuthData(null)
+
+    if (theme) localStorage.setItem(StorageKey.THEME, theme)
   }, [])
 
   const refresh = useCallback(async () => {

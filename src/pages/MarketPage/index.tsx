@@ -15,7 +15,12 @@ import { useQuery } from 'react-query'
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
 
 import { CarTypesFilter, ListingsList } from '@/components'
-import { useHttpService, usePagination, useWatchLoading } from '@/hooks'
+import {
+  useAuth,
+  useHttpService,
+  usePagination,
+  useWatchLoading,
+} from '@/hooks'
 import { LISTING_ORDER_BY_VALUES, Listing } from '@/lib/listings'
 import { PaginatedResponse } from '@/lib/paginationData'
 import QueryKey from '@/lib/query-key'
@@ -24,6 +29,7 @@ import { LISTING_TABS, ListingsTab } from '@/pages/MarketPage/constants'
 
 const MarketPage: FC = () => {
   const http = useHttpService()
+  const { user } = useAuth()
   const [orderBy, setOrderBy] = useLocalStorage<string>(
     StorageKey.LISTINGS_ORDER_BY,
     'createdAtDesc',
@@ -51,15 +57,20 @@ const MarketPage: FC = () => {
       carTypes: selectedCarTypes,
     }
 
-    switch (selectedTab) {
-      case ListingsTab.ALL:
-        return http.getListings(params)
-      case ListingsTab.FAVORITES:
-        return http.getFavoriteListings(params)
-      case ListingsTab.MY:
-        // TODO: implement
-        throw new Error('Not implemented')
+    const tabFetchFnMap: Record<
+      ListingsTab,
+      Promise<PaginatedResponse<Listing>>
+    > = {
+      [ListingsTab.ALL]: http.getListings(params),
+      [ListingsTab.FAVORITES]: http.getListings({
+        ...params,
+        userId: user!.id,
+        favorites: true,
+      }),
+      [ListingsTab.MY]: http.getListings({ ...params, userId: user!.id }),
     }
+
+    return tabFetchFnMap[selectedTab]
   }, [selectedTab, pagination, orderBy, selectedCarTypes])
 
   const listingsListQuery = useQuery(

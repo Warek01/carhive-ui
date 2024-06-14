@@ -5,14 +5,15 @@ import { generatePath } from 'react-router'
 import { Link as RouterLink } from 'react-router-dom'
 
 import { Image } from '@/components'
-import { Listing } from '@/lib/listings'
+import type { Listing } from '@/lib/listings'
 import AppRoute from '@/lib/routing/app-route'
 
 interface Props {
   listing: Listing
+  lazy: boolean
 }
 
-const ListingItem: FC<Props> = ({ listing }) => {
+const ListingItem: FC<Props> = ({ listing, lazy }) => {
   return (
     <Card
       component="div"
@@ -31,7 +32,15 @@ const ListingItem: FC<Props> = ({ listing }) => {
           component={RouterLink}
           to={generatePath(AppRoute.LISTING_DETAILS, { listingId: listing.id })}
         >
-          <Image apiFile src={listing.preview} />
+          <Image
+            apiFile
+            alt="Listing"
+            src={listing.preview}
+            lazy={lazy}
+            aspectRatio="16/9"
+            objectFit="cover"
+            objectPosition="center"
+          />
         </Link>
       </Box>
       <Typography

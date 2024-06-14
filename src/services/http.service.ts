@@ -59,19 +59,6 @@ export default class HttpService {
     return data
   }
 
-  public async getFavoriteListings(
-    params?: Object,
-  ): Promise<PaginatedResponse<Listing>> {
-    const { data } = await this._axiosInstance.get<PaginatedResponse<Listing>>(
-      'listing/favorites',
-      {
-        params,
-      },
-    )
-
-    return data
-  }
-
   public async mutateFavoriteListings(
     action: FavoriteListingActionDto,
     params?: Object,

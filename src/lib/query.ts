@@ -8,7 +8,7 @@ export const QUERY_CLIENT_CONFIG: QueryClientConfig = {
       refetchOnReconnect: true,
       refetchInterval: false,
       refetchIntervalInBackground: false,
-      staleTime: Infinity,
+      staleTime: 60_000,
       keepPreviousData: true,
       retry: false,
       retryOnMount: false,

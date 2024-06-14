@@ -1,4 +1,4 @@
-import { Favorite } from '@mui/icons-material'
+import { Clear, Favorite } from '@mui/icons-material'
 import { Box, Button, Typography } from '@mui/material'
 import { AxiosError } from 'axios'
 import { FC, MouseEventHandler, useCallback } from 'react'
@@ -27,13 +27,16 @@ const ListingDetailsPage: FC = () => {
   const listingDetailsQuery = useQuery(
     [QueryKey.LISTING_DETAILS, listingId],
     () => http.getListingDetails(listingId!),
-    { enabled: !!listingId },
   )
 
   const favoritesMutation = useMutation(
     (action: FavoriteListingActionDto) => http.mutateFavoriteListings(action),
     {
-      onSuccess: () => queryClient.invalidateQueries(QueryKey.LISTING_DETAILS),
+      onSuccess: () =>
+        Promise.all([
+          queryClient.invalidateQueries(QueryKey.LISTING_DETAILS),
+          queryClient.invalidateQueries(QueryKey.LISTINGS_LIST),
+        ]),
     },
   )
 
@@ -69,7 +72,7 @@ const ListingDetailsPage: FC = () => {
     <Box>
       <Typography variant="body1">{listingId}</Typography>
       <Button
-        startIcon={<Favorite fontSize="medium" />}
+        startIcon={listing?.isFavorite ? <Clear /> : <Favorite />}
         onClick={handleFavoritesClick}
       >
         {listing?.isFavorite ? 'Remove from favorites' : 'Add to favorites'}

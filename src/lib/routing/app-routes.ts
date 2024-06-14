@@ -5,8 +5,8 @@ import AppRoute from '@/lib/routing/app-route'
 import {
   AboutPage,
   AdminDashboardPage,
-  CarDetailsPage,
   HomePage,
+  ListingDetailsPage,
   LoginPage,
   MarketPage,
   NewListingPage,
@@ -33,7 +33,7 @@ const APP_ROUTES: RouteObject[] = [
           },
           {
             path: AppRoute.LISTING_DETAILS,
-            Component: CarDetailsPage,
+            Component: ListingDetailsPage,
           },
           {
             path: AppRoute.PROFILE,

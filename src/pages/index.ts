@@ -1,7 +1,7 @@
 import AboutPage from './AboutPage'
 import AdminDashboardPage from './AdminDashboardPage'
-import CarDetailsPage from './CarDetailsPage'
 import HomePage from './HomePage'
+import ListingDetailsPage from './ListingDetailsPage'
 import LoginPage from './LoginPage'
 import MarketPage from './MarketPage'
 import NewListingPage from './NewListingPage'
@@ -13,7 +13,7 @@ export {
   HomePage,
   MarketPage,
   NotFoundPage,
-  CarDetailsPage,
+  ListingDetailsPage,
   NewListingPage,
   ProfilePage,
   LoginPage,

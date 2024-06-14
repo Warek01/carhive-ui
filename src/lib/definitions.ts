@@ -1,3 +1,4 @@
+import type { SvgIconComponent } from '@mui/icons-material'
 import type { ReactNode } from 'react'
 
 import type AppRoute from '@/lib/routing/app-route'
@@ -21,4 +22,10 @@ export interface FileDto {
 export interface ImageFile {
   file: File
   body: string
+}
+
+export interface IconButton<T> {
+  Icon: SvgIconComponent
+  text: string
+  value: T
 }

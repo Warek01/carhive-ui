@@ -94,7 +94,6 @@ const CreateUserForm: FC<Props> = ({ onSubmit }) => {
             }
             label="Admin"
           />
-          abel="Self delete"
         </Stack>
 
         <Button type="submit">Create</Button>

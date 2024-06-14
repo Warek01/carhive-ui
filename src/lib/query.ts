@@ -10,9 +10,8 @@ export const QUERY_CLIENT_CONFIG: QueryClientConfig = {
       refetchIntervalInBackground: false,
       staleTime: Infinity,
       keepPreviousData: true,
-      retry: true,
-      retryDelay: 1000,
-      retryOnMount: true,
+      retry: false,
+      retryOnMount: false,
     },
   },
 }

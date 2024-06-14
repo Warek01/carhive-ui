@@ -1,44 +1,18 @@
-import { Star } from '@mui/icons-material'
-import {
-  Box,
-  Button,
-  Card,
-  IconButton,
-  Link,
-  Stack,
-  Typography,
-} from '@mui/material'
-import { amber } from '@mui/material/colors'
+import { Box, Button, Card, Link, Stack, Typography } from '@mui/material'
 import dayjs from 'dayjs'
-import { FC, memo, useCallback, useMemo } from 'react'
+import { FC, memo } from 'react'
 import { generatePath } from 'react-router'
 import { Link as RouterLink } from 'react-router-dom'
-import { useLocalStorage } from 'usehooks-ts'
 
 import { Image } from '@/components'
 import { Listing } from '@/lib/listings'
 import AppRoute from '@/lib/routing/app-route'
-import { toggleArrayItem } from '@/lib/utils'
 
 interface Props {
   listing: Listing
 }
 
 const ListingItem: FC<Props> = ({ listing }) => {
-  const [favoriteCarIds, setFavoriteCarIds] = useLocalStorage<string[]>(
-    'favorite-car-ids',
-    [],
-  )
-
-  const isFavorite = useMemo(
-    () => favoriteCarIds.includes(listing.id),
-    [favoriteCarIds, listing.id],
-  )
-
-  const handleFavoriteToggle = useCallback(() => {
-    setFavoriteCarIds((favs) => toggleArrayItem(favs, listing.id))
-  }, [favoriteCarIds, isFavorite])
-
   return (
     <Card
       component="div"
@@ -53,7 +27,12 @@ const ListingItem: FC<Props> = ({ listing }) => {
       }}
     >
       <Box mb={2}>
-        <Image apiFile src={listing.preview} />
+        <Link
+          component={RouterLink}
+          to={generatePath(AppRoute.LISTING_DETAILS, { listingId: listing.id })}
+        >
+          <Image apiFile src={listing.preview} />
+        </Link>
       </Box>
       <Typography
         variant="body1"
@@ -91,12 +70,6 @@ const ListingItem: FC<Props> = ({ listing }) => {
         >
           <Button variant="outlined">Details</Button>
         </Link>
-        <IconButton onClick={handleFavoriteToggle}>
-          <Star
-            fontSize="medium"
-            sx={{ color: isFavorite ? amber[500] : 'default' }}
-          />
-        </IconButton>
       </Box>
     </Card>
   )

@@ -2,7 +2,11 @@ import axios, { AxiosInstance } from 'axios'
 import qs from 'qs'
 
 import type { JwtResponse, LoginDto, RegisterDto } from '@/lib/auth'
-import type { CreateListingDto, Listing } from '@/lib/listings'
+import type {
+  CreateListingDto,
+  FavoriteListingActionDto,
+  Listing,
+} from '@/lib/listings'
 import type { PaginatedResponse } from '@/lib/paginationData'
 import type { UpdateUserDto, User } from '@/lib/user'
 import { getUserRoles } from '@/lib/utils'
@@ -29,12 +33,11 @@ export default class HttpService {
   }
 
   public async getListings(
-    params: Object,
+    params?: Object,
   ): Promise<PaginatedResponse<Listing>> {
     const { data } = await this._axiosInstance.get<PaginatedResponse<Listing>>(
       'listing',
       {
-        method: 'GET',
         params,
       },
     )
@@ -42,30 +45,97 @@ export default class HttpService {
     return data
   }
 
-  public async createListing(createDto: CreateListingDto): Promise<void> {
-    await this._axiosInstance.post('listing', createDto)
+  public async getListingDetails(
+    listingId: string,
+    params?: Object,
+  ): Promise<Listing> {
+    const { data } = await this._axiosInstance.get<Listing>(
+      `listing/${listingId}`,
+      {
+        params,
+      },
+    )
+
+    return data
   }
 
-  public async login(loginDto: LoginDto): Promise<JwtResponse> {
-    const res = await this._axiosInstance.post('auth/login', loginDto)
+  public async getFavoriteListings(
+    params?: Object,
+  ): Promise<PaginatedResponse<Listing>> {
+    const { data } = await this._axiosInstance.get<PaginatedResponse<Listing>>(
+      'listing/favorites',
+      {
+        params,
+      },
+    )
+
+    return data
+  }
+
+  public async mutateFavoriteListings(
+    action: FavoriteListingActionDto,
+    params?: Object,
+  ): Promise<void> {
+    const { data } = await this._axiosInstance.post<void>(
+      'listing/favorites',
+      action,
+      {
+        params,
+      },
+    )
+
+    return data
+  }
+
+  public async createListing(
+    createDto: CreateListingDto,
+    params?: Object,
+  ): Promise<void> {
+    await this._axiosInstance.post<void>('listing', createDto, {
+      params,
+    })
+  }
+
+  public async login(
+    loginDto: LoginDto,
+    params?: Object,
+  ): Promise<JwtResponse> {
+    const res = await this._axiosInstance.post<JwtResponse>(
+      'auth/login',
+      loginDto,
+      { params },
+    )
     return res.data
   }
 
-  public async register(registerDto: RegisterDto): Promise<JwtResponse> {
-    const res = await this._axiosInstance.post('auth/register', registerDto)
+  public async register(
+    registerDto: RegisterDto,
+    params?: Object,
+  ): Promise<JwtResponse> {
+    const res = await this._axiosInstance.post<JwtResponse>(
+      'auth/register',
+      registerDto,
+      { params },
+    )
     return res.data
   }
 
-  public async refresh(jwtRes: JwtResponse): Promise<JwtResponse> {
+  public async refresh(
+    jwtRes: JwtResponse,
+    params?: Object,
+  ): Promise<JwtResponse> {
     const res = await this._axiosInstance.post<JwtResponse>(
       'auth/refresh',
       jwtRes,
+      { params },
     )
     return res.data
   }
 
   public async getUsers(params?: Object): Promise<PaginatedResponse<User>> {
-    const res = await this._axiosInstance.get('user', { params })
+    const res = await this._axiosInstance.get<PaginatedResponse<User>>('user', {
+      params,
+    })
     res.data.items.forEach((u: any) => (u.role = getUserRoles(u.role as any)))
     return res.data
   }
@@ -73,13 +143,20 @@ export default class HttpService {
   public async updateUser(
     userId: string,
     updateDto: UpdateUserDto,
+    params?: Object,
   ): Promise<PaginatedResponse<User>> {
-    const res = await this._axiosInstance.patch(`user/${userId}`, updateDto)
+    const res = await this._axiosInstance.patch<PaginatedResponse<User>>(
+      `user/${userId}`,
+      updateDto,
+      { params },
+    )
     return res.data
   }
 
-  public async deleteUser(userId: string): Promise<void> {
-    const res = await this._axiosInstance.delete(`user/${userId}`)
+  public async deleteUser(userId: string, params?: Object): Promise<void> {
+    const res = await this._axiosInstance.delete<void>(`user/${userId}`, {
+      params,
+    })
     return res.data
   }
 }

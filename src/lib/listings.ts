@@ -21,6 +21,7 @@ export interface Listing {
   publisher: User | null
   preview: string | null
   images: string[]
+  isFavorite: boolean
 }
 
 export interface CreateListingDto {
@@ -129,4 +130,15 @@ export const LISTING_ORDER_BY_VALUES: Record<string, string> = {
   createdAtAsc: 'Old first',
   priceAsc: 'Cheap first',
   priceDesc: 'Expensive first',
+}
+
+export enum FavoriteListingAction {
+  ADD,
+  REMOVE,
+  REMOVE_ALL,
+}
+
+export interface FavoriteListingActionDto {
+  type: FavoriteListingAction
+  listingId?: string
 }

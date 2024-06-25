@@ -1,9 +1,12 @@
+import type { SvgIconComponent } from '@mui/icons-material'
 import type { ReactNode } from 'react'
 
-import type { AppRoute } from '@/routing/AppRoute'
+import type AppRoute from '@/lib/routing/app-route'
 
 export interface AppEnv {
-  readonly NODE_ENV: 'development' | 'production'
+  NODE_ENV: 'development' | 'production'
+  VITE_API_BASENAME: string
+  VITE_API_FILE_BASENAME: string
 }
 
 export interface Link {
@@ -11,12 +14,18 @@ export interface Link {
   href?: string | AppRoute
 }
 
-export interface PaginationData {
-  currentPage: number
-  totalPages: number
-  itemsPerPage: number
+export interface FileDto {
+  fileName?: string
+  base64Body: string
 }
 
-export type Nullable<T> = {
-  [P in keyof T]: T[P] | null
+export interface ImageFile {
+  file: File
+  body: string
+}
+
+export interface IconButton<T> {
+  Icon: SvgIconComponent
+  text: string
+  value: T
 }

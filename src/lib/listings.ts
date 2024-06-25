@@ -1,26 +1,55 @@
-import type { Nullable } from '@/lib/definitions'
+import type { FileDto } from '@/lib/definitions'
+import { User } from '@/lib/user'
 
 export interface Listing {
   id: string
   brandName: string
-  model: string
+  modelName: string
   price: number
-  type: number
+  type: string
   horsepower: number | null
-  engineType: number | null
+  engineType: string | null
   engineVolume: number | null
   color: string | null
   clearance: number | null
   wheelSize: number | null
   mileage: number | null
   year: number | null
+  updatedAt: string
+  createdAt: string
+  deletedAt: string | null
+  publisher: User | null
+  preview: string | null
+  images: string[]
+  isFavorite: boolean
 }
 
-export interface CreateListingDTO extends Nullable<Omit<Listing, 'id'>> {}
+export interface CreateListingDto {
+  brandName: string
+  modelName: string
+  price: number
+  type: string
+  horsepower: number | null
+  engineType: string | null
+  engineVolume: number | null
+  color: string | null
+  clearance: number | null
+  wheelSize: number | null
+  mileage: number | null
+  year: number | null
+  publisherId: string
+  preview: FileDto
+}
 
-export const engineTypes: string[] = ['Gas', 'Diesel', 'Hybrid', 'Electric', 'Other']
+export const ENGINE_TYPES: string[] = [
+  'Gas',
+  'Diesel',
+  'Hybrid',
+  'Electric',
+  'Other',
+]
 
-export const carTypes: string[] = [
+export const CAR_TYPES: string[] = [
   'Sedan',
   'SUV',
   'Crossover',
@@ -34,7 +63,7 @@ export const carTypes: string[] = [
   'Other',
 ]
 
-export const carBrands: string[] = [
+export const CAR_BRANDS: string[] = [
   'Acura',
   'Alfa Romeo',
   'Audi',
@@ -95,3 +124,21 @@ export const carBrands: string[] = [
   'Volkswagen',
   'Volvo',
 ]
+
+export const LISTING_ORDER_BY_VALUES: Record<string, string> = {
+  createdAtDesc: 'New first',
+  createdAtAsc: 'Old first',
+  priceAsc: 'Cheap first',
+  priceDesc: 'Expensive first',
+}
+
+export enum FavoriteListingAction {
+  ADD,
+  REMOVE,
+  REMOVE_ALL,
+}
+
+export interface FavoriteListingActionDto {
+  type: FavoriteListingAction
+  listingId?: string
+}

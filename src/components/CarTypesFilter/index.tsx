@@ -1,45 +1,52 @@
-import { FC, memo, useCallback, useState } from 'react'
-import { Chip } from '@mui/material'
+import { Box, Chip, Stack } from '@mui/material'
+import { FC, memo, useCallback } from 'react'
 
-import { carTypes } from '@/lib/listings'
+import { CAR_TYPES } from '@/lib/listings'
 
 interface Props {
-  initialSelected: number[]
-  onChange(selected: number[]): void
+  selected: string[]
+  onChange(selected: string[]): void
 }
 
-export const CarTypesFilter: FC<Props> = ({ onChange, initialSelected }) => {
-  const [selected, setSelected] = useState<number[]>(initialSelected)
-
+export const CarTypesFilter: FC<Props> = ({ onChange, selected }) => {
   const handleChipClick = useCallback(
-    (type: number) => {
+    (type: string) => {
       return () => {
         const newSelected = selected.includes(type)
           ? selected.filter((t) => t !== type)
           : [...selected, type]
 
-        setSelected(newSelected)
         onChange(newSelected)
       }
     },
-    [selected],
+    [selected, onChange],
   )
 
+  const handleClear = useCallback(() => {
+    onChange([])
+  }, [onChange])
+
   return (
-    <div>
-      <ul className="flex gap-3">
-        {carTypes.map((type, index) => (
-          <li key={index}>
-            <Chip
-              clickable
-              color={selected.includes(index) ? 'success' : 'primary'}
-              label={type}
-              onClick={handleChipClick(index)}
-            />
-          </li>
+    <Box>
+      <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+        {CAR_TYPES.map((type) => (
+          <Chip
+            key={type}
+            clickable
+            color={selected.includes(type) ? 'primary' : 'default'}
+            label={type}
+            size="small"
+            onClick={handleChipClick(type)}
+          />
         ))}
-      </ul>
-    </div>
+        <Chip
+          color="secondary"
+          size="small"
+          onDelete={handleClear}
+          label="Clear"
+        />
+      </Stack>
+    </Box>
   )
 }
 

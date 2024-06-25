@@ -1,33 +1,36 @@
-import { FC, memo } from 'react'
-import { Grid } from '@mui/material'
+import { Grid, Skeleton } from '@mui/material'
+import { FC, memo, useState } from 'react'
 
-import type { PaginationData } from '@/lib/definitions'
 import { ListingItem } from '@/components'
 import { type Listing } from '@/lib/listings'
 
 interface Props {
-  paginationData: PaginationData
-  items: Listing[]
+  items?: Listing[]
+  skeletonCount: number
 }
 
-const ListingsList: FC<Props> = ({ items, paginationData }) => {
+const ListingsList: FC<Props> = ({ items, skeletonCount }) => {
+  const shouldDisplaySkeletons = !items
+  const arr = items ?? Array(skeletonCount).fill(null)
+  const [lazyLoadedCount, setLazyLoadedCount] = useState<number>(6)
+
   return (
-    <div>
-      <Grid
-        spacing={2}
-        container
-      >
-        {items.map((car, index) => (
-          <Grid
-            xs={4}
-            key={index}
-            item
-          >
-            <ListingItem listing={car} />
-          </Grid>
-        ))}
-      </Grid>
-    </div>
+    <Grid spacing={2} container alignItems="stretch">
+      {arr.map((car, index) => (
+        <Grid
+          xs={4}
+          key={index}
+          item
+          sx={{ aspectRatio: { xs: '9/16', lg: '9/12' } }}
+        >
+          {shouldDisplaySkeletons ? (
+            <Skeleton height="100%" variant="rectangular" width="100%" />
+          ) : (
+            <ListingItem listing={car} lazy={index > lazyLoadedCount - 1} />
+          )}
+        </Grid>
+      ))}
+    </Grid>
   )
 }
 

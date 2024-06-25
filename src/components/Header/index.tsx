@@ -1,19 +1,26 @@
+import { DarkMode, LightMode, Person, TimeToLeave } from '@mui/icons-material'
+import {
+  AppBar,
+  Container,
+  IconButton,
+  Stack,
+  SvgIconProps,
+  Switch,
+  Typography,
+} from '@mui/material'
 import {
   ChangeEventHandler,
   Dispatch,
   FC,
-  memo,
   SetStateAction,
+  memo,
   useCallback,
-  useEffect,
   useMemo,
 } from 'react'
-import Switch from '@mui/material/Switch'
-import * as icons from '@mui/icons-material'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 
-import { AppRoute } from 'routing/AppRoute'
-import { headerLinks } from './constants'
+import { useAuth } from '@/hooks'
+import AppRoute from '@/lib/routing/app-route'
 
 interface Props {
   isDarkTheme: boolean
@@ -21,54 +28,113 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
+  const { isAuthorized, isAdmin } = useAuth()
+
+  const iconProps = useMemo<SvgIconProps>(
+    () => ({
+      width: 32,
+      height: 32,
+    }),
+    [],
+  )
+
   const icon = useMemo(
     () =>
-      isDarkTheme ? (
-        <icons.DarkMode
-          width={32}
-          height={32}
-        />
-      ) : (
-        <icons.LightMode
-          width={32}
-          height={32}
-        />
-      ),
+      isDarkTheme ? <DarkMode {...iconProps} /> : <LightMode {...iconProps} />,
     [isDarkTheme],
   )
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => setIsDarkTheme(event.target.checked),
-    [setIsDarkTheme],
+    [],
   )
 
   return (
-    <header className="flex flex-row justify-between border-b border-b-black px-12">
-      <Link
-        to={AppRoute.HOME}
-        className="custom flex gap-3"
+    <AppBar>
+      <Container
+        fixed
+        maxWidth="lg"
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          height: 64,
+        }}
       >
-        <icons.TimeToLeave fontSize="large" />
-        <h3>FAF cars</h3>
-      </Link>
-      <nav className="flex gap-4">
-        {headerLinks.map(({ content, href }, index) => (
-          <Link
-            key={index}
-            to={href ?? '#'}
+        <Stack direction="row" gap={3}>
+          <Typography
+            component={RouterLink}
+            variant="h6"
+            to={AppRoute.HOME}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              justifyContent: 'center',
+              color: 'inherit',
+            }}
           >
-            {content}
-          </Link>
-        ))}
-      </nav>
-      <label>
-        <Switch
-          checked={isDarkTheme}
-          onChange={handleChange}
-        />
-        {icon}
-      </label>
-    </header>
+            <TimeToLeave sx={{ width: 32, height: 32 }} />
+            FAF cars
+          </Typography>
+          <Stack alignItems="center" direction="row" spacing={4} pl={4}>
+            <Typography
+              component={RouterLink}
+              to={AppRoute.LISTINGS}
+              sx={{ color: 'inherit' }}
+            >
+              Market
+            </Typography>
+            <Typography
+              component={RouterLink}
+              to={AppRoute.NEW_LISTING}
+              sx={{ color: 'inherit' }}
+            >
+              Post a deal
+            </Typography>
+            <Typography
+              component={RouterLink}
+              to={AppRoute.ABOUT}
+              sx={{ color: 'inherit' }}
+            >
+              About
+            </Typography>
+            {isAdmin && (
+              <Typography
+                component={RouterLink}
+                to={AppRoute.ADMIN_DASHBOARD}
+                sx={{ color: 'inherit' }}
+              >
+                Dashboard
+              </Typography>
+            )}
+          </Stack>
+        </Stack>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Stack
+            component="label"
+            direction="row"
+            spacing={0}
+            alignItems="center"
+          >
+            <Switch checked={isDarkTheme} onChange={handleChange} />
+            {icon}
+          </Stack>
+          {isAuthorized ? (
+            <IconButton component={RouterLink} to={AppRoute.PROFILE}>
+              <Person fontSize="medium" />
+            </IconButton>
+          ) : (
+            <Typography
+              component={RouterLink}
+              to={AppRoute.LOGIN}
+              sx={{ color: 'inherit' }}
+            >
+              Sign in
+            </Typography>
+          )}
+        </Stack>
+      </Container>
+    </AppBar>
   )
 }
 

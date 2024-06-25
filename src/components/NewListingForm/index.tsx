@@ -27,6 +27,7 @@ import {
   ENGINE_TYPE_STRING_MAP,
 } from '@/lib/listings'
 import QueryKey from '@/lib/query-key'
+import { ToastId } from '@/lib/toast'
 import { fileToBase64 } from '@/lib/utils'
 
 import {
@@ -73,23 +74,37 @@ const NewListingForm: FC = () => {
         })
         helpers.resetForm()
         setPreview(null)
-        toast('Listing created successfully.')
+        toast('Listing created successfully.', {
+          toastId: ToastId.ListingCreate,
+        })
       } catch (err) {
         console.error(err)
 
         if (err instanceof AxiosError) {
           switch (err.response?.status) {
             case 400:
-              toast('Validation error.', { type: 'error' })
+              toast('Validation error.', {
+                type: 'error',
+                toastId: ToastId.ListingCreate,
+              })
               break
             case 401:
-              toast('Unauthorized.', { type: 'error' })
+              toast('Unauthorized.', {
+                type: 'error',
+                toastId: ToastId.ListingCreate,
+              })
               break
             case 403:
-              toast('Not allowed.', { type: 'error' })
+              toast('Not allowed.', {
+                type: 'error',
+                toastId: ToastId.ListingCreate,
+              })
               break
             default:
-              toast('Not allowed.', { type: 'error' })
+              toast('Not allowed.', {
+                type: 'error',
+                toastId: ToastId.ListingCreate,
+              })
               break
           }
         }

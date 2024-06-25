@@ -13,6 +13,7 @@ import { useLocalStorage } from 'usehooks-ts'
 import type { AppJwtPayload, JwtResponse } from '@/lib/auth'
 import QueryKey from '@/lib/query-key'
 import StorageKey from '@/lib/storage-key'
+import { ToastId } from '@/lib/toast'
 import { User, UserRole } from '@/lib/user'
 import HttpService from '@/services/http.service'
 
@@ -112,7 +113,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     } catch (err) {
       console.error(err)
       toast('Session has expired.', {
-        toastId: 'session-expire',
+        toastId: ToastId.SessionExpire,
         type: 'warning',
       })
       logout()

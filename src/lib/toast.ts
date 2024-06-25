@@ -3,7 +3,16 @@ import { ToastContainerProps } from 'react-toastify'
 
 import useTheme from '@/hooks/use-theme'
 
-export enum ToastId {}
+export enum ToastId {
+  UserDelete = 'user-delete',
+  UserUpdate = 'user-update',
+  UserCreate = 'user-create',
+  SessionExpire = 'session-expire',
+  ListingNotFound = 'listing-not-found',
+  ListingCreate = 'listing-create',
+  Login = 'login',
+  Register = 'register',
+}
 
 export function useGetToastProps() {
   const theme = useTheme()

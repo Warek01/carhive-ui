@@ -9,6 +9,7 @@ import { FormikTextField } from '@/components'
 import { useAuth, useHttpService, useLoading } from '@/hooks'
 import type { RegisterCredentials } from '@/lib/auth'
 import AppRoute from '@/lib/routing/app-route'
+import { ToastId } from '@/lib/toast'
 
 import { registerInitialValues, registerValidationSchema } from './constants'
 
@@ -39,14 +40,20 @@ const RegisterForm: FC = () => {
         if (err instanceof AxiosError) {
           switch (err.response?.status) {
             case 401:
-              toast('Invalid password.', { type: 'error' })
+              toast('Invalid password.', {
+                type: 'error',
+                toastId: ToastId.Register,
+              })
               break
             case 404:
-              toast('User does not exist.', { type: 'error' })
+              toast('User does not exist.', {
+                type: 'error',
+                toastId: ToastId.Register,
+              })
               break
           }
         } else {
-          toast('Error.', { type: 'error' })
+          toast('Error.', { type: 'error', toastId: ToastId.Register })
         }
       }
 

@@ -14,6 +14,7 @@ import {
 } from '@/lib/listings'
 import QueryKey from '@/lib/query-key'
 import AppRoute from '@/lib/routing/app-route'
+import { ToastId } from '@/lib/toast'
 
 interface Params extends Record<string, string> {
   listingId: string
@@ -60,7 +61,7 @@ const ListingDetailsPage: FC = () => {
     if (error instanceof AxiosError && error.response?.status === 404) {
       toast('Listing not found', {
         type: 'error',
-        toastId: 'listing-not-found',
+        toastId: ToastId.ListingNotFound,
       })
       return <Navigate to={AppRoute.Listings} />
     }

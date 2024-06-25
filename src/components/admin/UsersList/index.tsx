@@ -53,13 +53,13 @@ const UsersList: FC<Props> = ({ users, onUpdate, onDelete }) => {
                     <FormControlLabel
                       control={
                         <Switch
-                          disabled={u.id === fetchedUser!.id}
-                          checked={u.roles.includes(role)}
+                          disabled={u!.id === fetchedUser!.id}
+                          checked={u.roles!.includes(role)}
                           inputProps={{ 'aria-label': 'controlled' }}
                           onChange={() =>
-                            onUpdate(u.id, {
-                              ...u,
-                              roles: toggleArrayItem(u.roles, role),
+                            onUpdate(u!.id, {
+                              ...u!,
+                              roles: toggleArrayItem(u!.roles!, role),
                             })
                           }
                         />

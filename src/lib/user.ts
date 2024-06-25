@@ -1,8 +1,8 @@
 export interface User {
   id: string
   username: string
-  email: string | null
-  phone: string | null
+  email: string
+  phoneNumber: string | null
   roles: UserRole[] | null
   createdAt: string | null
 }

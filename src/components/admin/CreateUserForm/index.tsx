@@ -4,14 +4,14 @@ import { FC, memo } from 'react'
 import * as Yup from 'yup'
 
 import { FormikTextField } from '@/components'
-import { CreateUserDto, UserRole } from '@/lib/user'
+import { CreateUser, UserRole } from '@/lib/user'
 import { toggleArrayItem } from '@/lib/utils'
 
 interface Props {
-  onSubmit(createDto: CreateUserDto, helpers: FormikHelpers<CreateUserDto>): any
+  onSubmit(createDto: CreateUser, helpers: FormikHelpers<CreateUser>): any
 }
 
-const INITIAL_VALUES: CreateUserDto = {
+const INITIAL_VALUES: CreateUser = {
   email: '',
   password: '',
   username: '',

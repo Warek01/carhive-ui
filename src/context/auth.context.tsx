@@ -17,7 +17,8 @@ import { User, UserRole } from '@/lib/user'
 import HttpService from '@/services/http.service'
 
 export interface AuthContextProps {
-  user: User | null
+  fetchedUser: User | null
+  userId: string | null
   token: string | null
   refreshToken: string | null
   expiresAt: Date | null
@@ -66,7 +67,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     },
   )
 
-  const user = useMemo<User | null>(
+  const fetchedUser = useMemo<User | null>(
     () => userQuery.data ?? null,
     [userQuery.data],
   )
@@ -77,8 +78,13 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   )
 
   const isAdmin = useMemo<boolean>(
-    () => user?.roles?.includes(UserRole.Admin) ?? false,
-    [user],
+    () => fetchedUser?.roles?.includes(UserRole.Admin) ?? false,
+    [fetchedUser],
+  )
+
+  const userId = useMemo<string | null>(
+    () => (token === null ? null : decoded!.sub!),
+    [decoded],
   )
 
   const login = useCallback((data: JwtResponse) => {
@@ -114,7 +120,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [authData, login, logout])
 
   const context: AuthContextProps = {
-    user,
+    fetchedUser: fetchedUser,
     isAuthorized,
     token,
     refreshToken,
@@ -123,6 +129,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     logout,
     expiresAt,
     refresh,
+    userId,
   }
 
   return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>

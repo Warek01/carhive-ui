@@ -10,7 +10,7 @@ import {
   Tab,
   Tabs,
 } from '@mui/material'
-import { FC, useCallback, useEffect, useMemo } from 'react'
+import { FC, ReactElement, useCallback, useEffect, useMemo } from 'react'
 import { useQuery } from 'react-query'
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
 
@@ -34,7 +34,7 @@ import { LISTING_TABS, ListingsTab } from '@/pages/MarketPage/constants'
 
 const MarketPage: FC = () => {
   const http = useHttpService()
-  const { user } = useAuth()
+  const { userId } = useAuth()
   const [orderBy, setOrderBy] = useLocalStorage<ListingOrderBy>(
     StorageKey.ListingsOrderBy,
     ListingOrderBy.CreatedAtAsc,
@@ -68,14 +68,14 @@ const MarketPage: FC = () => {
       [ListingsTab.All]: http.getListings(params),
       [ListingsTab.Favorites]: http.getListings({
         ...params,
-        user: user!.id,
+        user: userId,
         favorites: true,
       }),
-      [ListingsTab.My]: http.getListings({ ...params, user: user!.id }),
+      [ListingsTab.My]: http.getListings({ ...params, user: userId }),
     }
 
     return tabFetchFnMap[selectedTab]
-  }, [selectedTab, pagination, orderBy, selectedBodyStyles])
+  }, [selectedTab, pagination, orderBy, selectedBodyStyles, userId])
 
   const listingsListQuery = useQuery(
     [
@@ -143,8 +143,8 @@ const MarketPage: FC = () => {
     selectedTab,
   ])
 
-  return (
-    <Stack spacing={3}>
+  const filteringSection = useMemo<ReactElement>(
+    () => (
       <Box component="section">
         <Grid container spacing={3} py={3}>
           <Grid item xs={6}>
@@ -175,6 +175,12 @@ const MarketPage: FC = () => {
           {tabsElements}
         </Tabs>
       </Box>
+    ),
+    [selectedTab, tabsElements, pagination, orderByElement, selectedBodyStyles],
+  )
+
+  const listSection = useMemo<ReactElement>(
+    () => (
       <Box
         component="section"
         display="flex"
@@ -194,6 +200,14 @@ const MarketPage: FC = () => {
           />
         )}
       </Box>
+    ),
+    [pagination, listings],
+  )
+
+  return (
+    <Stack spacing={3}>
+      {filteringSection}
+      {listSection}
     </Stack>
   )
 }

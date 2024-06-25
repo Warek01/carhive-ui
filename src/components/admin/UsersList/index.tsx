@@ -27,7 +27,7 @@ const ROLES_MAP: [UserRole, string][] = [
 ]
 
 const UsersList: FC<Props> = ({ users, onUpdate, onDelete }) => {
-  const { user } = useAuth()
+  const { fetchedUser } = useAuth()
 
   return (
     <Stack spacing={1} alignSelf="stretch">
@@ -53,7 +53,7 @@ const UsersList: FC<Props> = ({ users, onUpdate, onDelete }) => {
                     <FormControlLabel
                       control={
                         <Switch
-                          disabled={u.id === user!.id}
+                          disabled={u.id === fetchedUser!.id}
                           checked={u.roles.includes(role)}
                           inputProps={{ 'aria-label': 'controlled' }}
                           onChange={() =>
@@ -72,7 +72,7 @@ const UsersList: FC<Props> = ({ users, onUpdate, onDelete }) => {
               <IconButton
                 color="error"
                 onClick={() => onDelete(u)}
-                disabled={u.id === user!.id}
+                disabled={u.id === fetchedUser!.id}
               >
                 <Delete />
               </IconButton>

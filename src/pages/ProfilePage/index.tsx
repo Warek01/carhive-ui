@@ -7,7 +7,7 @@ import { useAuth } from '@/hooks'
 import AppRoute from '@/lib/routing/app-route'
 
 const ProfilePage: FC = () => {
-  const { user, logout } = useAuth()
+  const { fetchedUser, logout } = useAuth()
   const navigate = useNavigate()
 
   const handleLogout = useCallback(() => {
@@ -18,7 +18,7 @@ const ProfilePage: FC = () => {
   return (
     <Box>
       <Container maxWidth="xs" sx={{ pt: 10 }}>
-        {user && <UserCard user={user} />}
+        {fetchedUser && <UserCard user={fetchedUser} />}
         <Button onClick={handleLogout}>
           <Typography variant="h6">Log out</Typography>
         </Button>

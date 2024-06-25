@@ -21,17 +21,17 @@ import type { RegisterDto } from '@/lib/auth'
 import { DEFAULT_PAGINATION_DATA, PaginationData } from '@/lib/paginationData'
 import QueryKey from '@/lib/query-key'
 import StorageKey from '@/lib/storage-key'
-import { CreateUserDto, UpdateUserDto, User } from '@/lib/user'
+import { CreateUserDto, UpdateUser, User } from '@/lib/user'
 
 const AdminDashboardPage: FC = () => {
   const [pagination, setPagination] = useLocalStorage<PaginationData>(
-    StorageKey.DASHBOARD_USERS_PAGINATION,
+    StorageKey.DashboardUserPagination,
     DEFAULT_PAGINATION_DATA,
   )
 
   const http = useHttpService()
   const queryClient = useQueryClient()
-  const usersQuery = useQuery([QueryKey.USERS_LIST, pagination], () =>
+  const usersQuery = useQuery([QueryKey.UsersList, pagination], () =>
     http.getUsers({
       take: pagination.size,
       page: pagination.page,
@@ -40,18 +40,18 @@ const AdminDashboardPage: FC = () => {
   const deleteUserMutation = useMutation(
     (userId: string) => http.deleteUser(userId),
     {
-      onSuccess: () => queryClient.invalidateQueries(QueryKey.USERS_LIST),
+      onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
     },
   )
   const updateUserMutation = useMutation({
-    mutationFn: ([userId, updateDto]: [string, UpdateUserDto]) =>
+    mutationFn: ([userId, updateDto]: [string, UpdateUser]) =>
       http.updateUser(userId, updateDto),
-    onSuccess: () => queryClient.invalidateQueries(QueryKey.USERS_LIST),
+    onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
   })
   const createUserMutation = useMutation(
     (registerDto: RegisterDto) => http.register(registerDto),
     {
-      onSuccess: () => queryClient.invalidateQueries(QueryKey.USERS_LIST),
+      onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
     },
   )
 
@@ -71,7 +71,7 @@ const AdminDashboardPage: FC = () => {
   }, [])
 
   const handleUserUpdate = useCallback(
-    async (userId: string, updateDto: UpdateUserDto) => {
+    async (userId: string, updateDto: UpdateUser) => {
       try {
         await updateUserMutation.mutateAsync([userId, updateDto])
         toast('User updated.', { toastId: 'user-update' })

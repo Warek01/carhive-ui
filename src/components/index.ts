@@ -1,6 +1,6 @@
 import AppLayout from './AppLayout'
 import AppRouteProtection from './AppRouteProtection'
-import CarTypesFilter from './CarTypesFilter'
+import CarTypesFilter from './BodyStylesFilter'
 import FileInput from './FileInput'
 import FormikTextField from './FormikTextField'
 import Header from './Header'

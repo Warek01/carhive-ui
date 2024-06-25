@@ -29,8 +29,5 @@ export interface JwtResponse {
 }
 
 export interface AppJwtPayload extends JwtPayload {
-  name: string
-  email: string
   role?: string | string[]
-  phone?: string
 }

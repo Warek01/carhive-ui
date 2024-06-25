@@ -86,7 +86,7 @@ const LoginForm: FC = () => {
         <Button variant="outlined" type="submit">
           Login
         </Button>
-        <Button variant="text" component={RouterLink} to={AppRoute.REGISTER}>
+        <Button variant="text" component={RouterLink} to={AppRoute.Register}>
           Create account
         </Button>
       </Grid>

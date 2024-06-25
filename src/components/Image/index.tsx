@@ -3,8 +3,6 @@ import { Box, Skeleton } from '@mui/material'
 import { CSSProperties, HTMLProps, forwardRef, memo, useState } from 'react'
 
 interface Props {
-  /** Should add api suffix to src */
-  apiFile?: boolean
   src?: string | null
   width?: number | string
   height?: number | string
@@ -25,7 +23,6 @@ const Image = forwardRef<HTMLImageElement, Props>(
       alt,
       imgProps,
       aspectRatio = 'initial',
-      apiFile = false,
       lazy = true,
       objectFit = 'cover',
       objectPosition = 'center',
@@ -36,8 +33,6 @@ const Image = forwardRef<HTMLImageElement, Props>(
     const [err, setErr] = useState<boolean>(false)
 
     const isError = !src || err
-
-    if (apiFile) src = `${import.meta.env.VITE_API_FILE_BASENAME}/${src}`
 
     return (
       <Box

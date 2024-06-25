@@ -9,7 +9,7 @@ import { toast } from 'react-toastify'
 import { useHttpService, useWatchLoading } from '@/hooks'
 import {
   FavoriteListingAction,
-  FavoriteListingActionDto,
+  FavoriteListingActionType,
   Listing,
 } from '@/lib/listings'
 import QueryKey from '@/lib/query-key'
@@ -25,17 +25,17 @@ const ListingDetailsPage: FC = () => {
   const queryClient = useQueryClient()
 
   const listingDetailsQuery = useQuery(
-    [QueryKey.LISTING_DETAILS, listingId],
+    [QueryKey.ListingDetails, listingId],
     () => http.getListingDetails(listingId!),
   )
 
   const favoritesMutation = useMutation(
-    (action: FavoriteListingActionDto) => http.mutateFavoriteListings(action),
+    (action: FavoriteListingAction) => http.mutateFavoriteListings(action),
     {
       onSuccess: () =>
         Promise.all([
-          queryClient.invalidateQueries(QueryKey.LISTING_DETAILS),
-          queryClient.invalidateQueries(QueryKey.LISTINGS_LIST),
+          queryClient.invalidateQueries(QueryKey.ListingDetails),
+          queryClient.invalidateQueries(QueryKey.ListingsList),
         ]),
     },
   )
@@ -47,8 +47,8 @@ const ListingDetailsPage: FC = () => {
   const handleFavoritesClick: MouseEventHandler = useCallback(async () => {
     favoritesMutation.mutate({
       type: listing?.isFavorite
-        ? FavoriteListingAction.REMOVE
-        : FavoriteListingAction.ADD,
+        ? FavoriteListingActionType.Remove
+        : FavoriteListingActionType.Add,
       listingId,
     })
   }, [listing, listingId])
@@ -62,7 +62,7 @@ const ListingDetailsPage: FC = () => {
         type: 'error',
         toastId: 'listing-not-found',
       })
-      return <Navigate to={AppRoute.LISTINGS} />
+      return <Navigate to={AppRoute.Listings} />
     }
   }
 

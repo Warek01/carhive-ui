@@ -1,18 +1,20 @@
 export interface User {
   id: string
   username: string
-  email: string
-  roles: UserRole[]
-  phone?: string
+  email: string | null
+  phone: string | null
+  roles: UserRole[] | null
+  createdAt: string | null
 }
 
-export interface UpdateUserDto {
+export interface UpdateUser {
   username: string
   email: string
   roles: UserRole[]
 }
 
-export interface CreateUserDto {
+/** Creation of user by admin */
+export interface CreateUser {
   username: string
   password: string
   email: string
@@ -20,11 +22,11 @@ export interface CreateUserDto {
 }
 
 export enum UserRole {
-  ADMIN,
-  LISTING_CREATOR,
+  Admin,
+  ListingCreator,
 }
 
 export const USER_ROLE_STRING_MAP: Record<string, UserRole> = {
-  Admin: UserRole.ADMIN,
-  ListingCreator: UserRole.LISTING_CREATOR,
+  Admin: UserRole.Admin,
+  ListingCreator: UserRole.ListingCreator,
 }

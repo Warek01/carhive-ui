@@ -17,7 +17,7 @@ import {
 
 const APP_ROUTES: RouteObject[] = [
   {
-    path: AppRoute.HOME,
+    path: AppRoute.Home,
     Component: AppLayout,
     children: [
       {
@@ -28,42 +28,42 @@ const APP_ROUTES: RouteObject[] = [
             Component: HomePage,
           },
           {
-            path: AppRoute.LISTINGS,
+            path: AppRoute.Listings,
             Component: MarketPage,
           },
           {
-            path: AppRoute.LISTING_DETAILS,
+            path: AppRoute.ListingDetails,
             Component: ListingDetailsPage,
           },
           {
-            path: AppRoute.PROFILE,
+            path: AppRoute.Profile,
             Component: ProfilePage,
           },
           {
-            path: AppRoute.NEW_LISTING,
+            path: AppRoute.NewListing,
             Component: NewListingPage,
           },
           {
-            path: AppRoute.REGISTER,
+            path: AppRoute.Register,
             Component: RegisterPage,
           },
           {
-            path: AppRoute.LOGIN,
+            path: AppRoute.Login,
             Component: LoginPage,
           },
           {
-            path: AppRoute.ABOUT,
+            path: AppRoute.About,
             Component: AboutPage,
           },
           {
-            path: AppRoute.ADMIN_DASHBOARD,
+            path: AppRoute.AdminDashboard,
             Component: AdminDashboardPage,
           },
         ],
       },
 
       {
-        path: AppRoute.ANY,
+        path: AppRoute.Any,
         Component: NotFoundPage,
       },
     ],

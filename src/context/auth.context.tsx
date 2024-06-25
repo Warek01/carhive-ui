@@ -6,14 +6,14 @@ import {
   useCallback,
   useMemo,
 } from 'react'
-import { useQueryClient } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { useLocalStorage } from 'usehooks-ts'
 
 import type { AppJwtPayload, JwtResponse } from '@/lib/auth'
+import QueryKey from '@/lib/query-key'
 import StorageKey from '@/lib/storage-key'
 import { User, UserRole } from '@/lib/user'
-import getUserRole from '@/lib/utils/get-user-role'
 import HttpService from '@/services/http.service'
 
 export interface AuthContextProps {
@@ -35,7 +35,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const queryClient = useQueryClient()
 
   const [authData, setAuthData] = useLocalStorage<JwtResponse | null>(
-    StorageKey.AUTH_DATA,
+    StorageKey.AuthData,
     null,
   )
 
@@ -56,18 +56,19 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     [token],
   )
 
+  const http = useMemo<HttpService>(() => new HttpService(token), [token])
+
+  const userQuery = useQuery(
+    [QueryKey.User, token],
+    () => http.getUser(decoded!.sub!),
+    {
+      enabled: isAuthorized,
+    },
+  )
+
   const user = useMemo<User | null>(
-    () =>
-      decoded
-        ? {
-            id: decoded.sub!,
-            phone: decoded.phone,
-            username: decoded.name,
-            email: decoded.email,
-            roles: getUserRole(decoded.role),
-          }
-        : null,
-    [decoded],
+    () => userQuery.data ?? null,
+    [userQuery.data],
   )
 
   const expiresAt = useMemo<Date | null>(
@@ -76,7 +77,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   )
 
   const isAdmin = useMemo<boolean>(
-    () => user?.roles?.includes(UserRole.ADMIN) ?? false,
+    () => user?.roles?.includes(UserRole.Admin) ?? false,
     [user],
   )
 
@@ -87,12 +88,12 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const logout = useCallback(() => {
     queryClient.clear()
     queryClient.invalidateQueries()
-    const theme = localStorage.getItem(StorageKey.THEME)
+    const theme = localStorage.getItem(StorageKey.Theme)
     localStorage.clear()
     sessionStorage.clear()
     setAuthData(null)
 
-    if (theme) localStorage.setItem(StorageKey.THEME, theme)
+    if (theme) localStorage.setItem(StorageKey.Theme, theme)
   }, [])
 
   const refresh = useCallback(async () => {

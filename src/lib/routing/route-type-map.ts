@@ -3,19 +3,19 @@ import AppRouteType from '@/lib/routing/app-route-type'
 
 const ROUTE_TYPE_MAP: Record<AppRouteType, (AppRoute | string)[]> = {
   [AppRouteType.UNPROTECTED]: [
-    AppRoute.HOME,
-    AppRoute.ABOUT,
-    AppRoute.LOGIN,
-    AppRoute.REGISTER,
+    AppRoute.Home,
+    AppRoute.About,
+    AppRoute.Login,
+    AppRoute.Register,
   ],
   [AppRouteType.AUTH_PROTECTED]: [
-    AppRoute.LISTINGS,
-    AppRoute.PROFILE,
-    AppRoute.NEW_LISTING,
-    AppRoute.LISTING_DETAILS,
-    AppRoute.ADMIN_DASHBOARD,
+    AppRoute.Listings,
+    AppRoute.Profile,
+    AppRoute.NewListing,
+    AppRoute.ListingDetails,
+    AppRoute.AdminDashboard,
   ],
-  [AppRouteType.ADMIN_PROTECTED]: [AppRoute.ADMIN_DASHBOARD],
+  [AppRouteType.ADMIN_PROTECTED]: [AppRoute.AdminDashboard],
 }
 
 export default ROUTE_TYPE_MAP

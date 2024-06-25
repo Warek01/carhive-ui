@@ -3,12 +3,12 @@ import qs from 'qs'
 
 import type { JwtResponse, LoginDto, RegisterDto } from '@/lib/auth'
 import type {
-  CreateListingDto,
-  FavoriteListingActionDto,
+  CreateListing,
+  FavoriteListingAction,
   Listing,
 } from '@/lib/listings'
 import type { PaginatedResponse } from '@/lib/paginationData'
-import type { UpdateUserDto, User } from '@/lib/user'
+import type { UpdateUser, User } from '@/lib/user'
 import { getUserRoles } from '@/lib/utils'
 
 export default class HttpService {
@@ -60,7 +60,7 @@ export default class HttpService {
   }
 
   public async mutateFavoriteListings(
-    action: FavoriteListingActionDto,
+    action: FavoriteListingAction,
     params?: Object,
   ): Promise<void> {
     const { data } = await this._axiosInstance.post<void>(
@@ -75,7 +75,7 @@ export default class HttpService {
   }
 
   public async createListing(
-    createDto: CreateListingDto,
+    createDto: CreateListing,
     params?: Object,
   ): Promise<void> {
     await this._axiosInstance.post<void>('listing', createDto, {
@@ -119,6 +119,13 @@ export default class HttpService {
     return res.data
   }
 
+  public async getUser(userId: string, params?: Object): Promise<User> {
+    const res = await this._axiosInstance.get<User>('user/' + userId, {
+      params,
+    })
+    return res.data
+  }
+
   public async getUsers(params?: Object): Promise<PaginatedResponse<User>> {
     const res = await this._axiosInstance.get<PaginatedResponse<User>>('user', {
       params,
@@ -129,7 +136,7 @@ export default class HttpService {
 
   public async updateUser(
     userId: string,
-    updateDto: UpdateUserDto,
+    updateDto: UpdateUser,
     params?: Object,
   ): Promise<PaginatedResponse<User>> {
     const res = await this._axiosInstance.patch<PaginatedResponse<User>>(

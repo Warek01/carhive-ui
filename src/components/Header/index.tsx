@@ -64,7 +64,7 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
           <Typography
             component={RouterLink}
             variant="h6"
-            to={AppRoute.HOME}
+            to={AppRoute.Home}
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -79,21 +79,21 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
           <Stack alignItems="center" direction="row" spacing={4} pl={4}>
             <Typography
               component={RouterLink}
-              to={AppRoute.LISTINGS}
+              to={AppRoute.Listings}
               sx={{ color: 'inherit' }}
             >
               Market
             </Typography>
             <Typography
               component={RouterLink}
-              to={AppRoute.NEW_LISTING}
+              to={AppRoute.NewListing}
               sx={{ color: 'inherit' }}
             >
               Post a deal
             </Typography>
             <Typography
               component={RouterLink}
-              to={AppRoute.ABOUT}
+              to={AppRoute.About}
               sx={{ color: 'inherit' }}
             >
               About
@@ -101,7 +101,7 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
             {isAdmin && (
               <Typography
                 component={RouterLink}
-                to={AppRoute.ADMIN_DASHBOARD}
+                to={AppRoute.AdminDashboard}
                 sx={{ color: 'inherit' }}
               >
                 Dashboard
@@ -120,13 +120,13 @@ const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
             {icon}
           </Stack>
           {isAuthorized ? (
-            <IconButton component={RouterLink} to={AppRoute.PROFILE}>
+            <IconButton component={RouterLink} to={AppRoute.Profile}>
               <Person fontSize="medium" />
             </IconButton>
           ) : (
             <Typography
               component={RouterLink}
-              to={AppRoute.LOGIN}
+              to={AppRoute.Login}
               sx={{ color: 'inherit' }}
             >
               Sign in

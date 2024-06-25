@@ -21,7 +21,12 @@ import {
   usePagination,
   useWatchLoading,
 } from '@/hooks'
-import { LISTING_ORDER_BY_VALUES, Listing } from '@/lib/listings'
+import {
+  BodyStyle,
+  LISTING_ORDER_BY_VALUES,
+  Listing,
+  ListingOrderBy,
+} from '@/lib/listings'
 import { PaginatedResponse } from '@/lib/paginationData'
 import QueryKey from '@/lib/query-key'
 import StorageKey from '@/lib/storage-key'
@@ -30,22 +35,21 @@ import { LISTING_TABS, ListingsTab } from '@/pages/MarketPage/constants'
 const MarketPage: FC = () => {
   const http = useHttpService()
   const { user } = useAuth()
-  const [orderBy, setOrderBy] = useLocalStorage<string>(
-    StorageKey.LISTINGS_ORDER_BY,
-    'createdAtDesc',
+  const [orderBy, setOrderBy] = useLocalStorage<ListingOrderBy>(
+    StorageKey.ListingsOrderBy,
+    ListingOrderBy.CreatedAtAsc,
   )
 
-  const [selectedCarTypes, setSelectedCarTypes] = useLocalStorage<string[]>(
-    StorageKey.LISTINGS_FILTER,
-    [],
-  )
+  const [selectedBodyStyles, setSelectedBodyStyles] = useLocalStorage<
+    BodyStyle[]
+  >(StorageKey.ListingsFilter, [])
 
   const [selectedTab, setSelectedTab] = useSessionStorage<ListingsTab>(
-    StorageKey.LISTINGS_TAB,
-    ListingsTab.ALL,
+    StorageKey.ListingsTab,
+    ListingsTab.All,
   )
 
-  const pagination = usePagination(StorageKey.LISTINGS_PAGINATION)
+  const pagination = usePagination(StorageKey.ListingsPagination)
 
   const fetchListingsFn = useCallback((): Promise<
     PaginatedResponse<Listing>
@@ -54,31 +58,31 @@ const MarketPage: FC = () => {
       take: pagination.size,
       page: pagination.page,
       order: orderBy,
-      carTypes: selectedCarTypes,
+      body: selectedBodyStyles,
     }
 
     const tabFetchFnMap: Record<
       ListingsTab,
       Promise<PaginatedResponse<Listing>>
     > = {
-      [ListingsTab.ALL]: http.getListings(params),
-      [ListingsTab.FAVORITES]: http.getListings({
+      [ListingsTab.All]: http.getListings(params),
+      [ListingsTab.Favorites]: http.getListings({
         ...params,
-        userId: user!.id,
+        user: user!.id,
         favorites: true,
       }),
-      [ListingsTab.MY]: http.getListings({ ...params, userId: user!.id }),
+      [ListingsTab.My]: http.getListings({ ...params, user: user!.id }),
     }
 
     return tabFetchFnMap[selectedTab]
-  }, [selectedTab, pagination, orderBy, selectedCarTypes])
+  }, [selectedTab, pagination, orderBy, selectedBodyStyles])
 
   const listingsListQuery = useQuery(
     [
-      QueryKey.LISTINGS_LIST,
+      QueryKey.ListingsList,
       pagination,
       orderBy,
-      selectedCarTypes,
+      selectedBodyStyles,
       selectedTab,
     ],
     fetchListingsFn,
@@ -108,9 +112,9 @@ const MarketPage: FC = () => {
           value={orderBy}
           size="small"
           label="Order"
-          onChange={(e) => setOrderBy(e.target.value)}
+          onChange={(e) => setOrderBy(e.target.value as ListingOrderBy)}
         >
-          {Object.entries(LISTING_ORDER_BY_VALUES).map(([value, text]) => (
+          {Array.from(LISTING_ORDER_BY_VALUES).map(([value, text]) => (
             <MenuItem value={value} key={value}>
               {text}
             </MenuItem>
@@ -118,7 +122,7 @@ const MarketPage: FC = () => {
         </Select>
       </FormControl>
     ),
-    [],
+    [orderBy],
   )
 
   useWatchLoading(listingsListQuery.isLoading)
@@ -132,7 +136,7 @@ const MarketPage: FC = () => {
   useEffect(() => {
     pagination.setPage(0)
   }, [
-    selectedCarTypes,
+    selectedBodyStyles,
     pagination.count,
     pagination.size,
     orderBy,
@@ -164,8 +168,8 @@ const MarketPage: FC = () => {
           </Grid>
         </Grid>
         <CarTypesFilter
-          onChange={setSelectedCarTypes}
-          selected={selectedCarTypes}
+          onChange={setSelectedBodyStyles}
+          selected={selectedBodyStyles}
         />
         <Tabs value={selectedTab} onChange={(e, tab) => setSelectedTab(tab)}>
           {tabsElements}

@@ -1,11 +1,15 @@
 import { Box, Button, Card, Link, Stack, Typography } from '@mui/material'
-import dayjs from 'dayjs'
 import { FC, memo } from 'react'
 import { generatePath } from 'react-router'
 import { Link as RouterLink } from 'react-router-dom'
 
 import { Image } from '@/components'
-import type { Listing } from '@/lib/listings'
+import {
+  BODY_STYLE_STRING_MAP,
+  CAR_COLOR_HEX_MAP,
+  CAR_COLOR_NAME_MAP,
+  Listing,
+} from '@/lib/listings'
 import AppRoute from '@/lib/routing/app-route'
 
 interface Props {
@@ -30,12 +34,11 @@ const ListingItem: FC<Props> = ({ listing, lazy }) => {
       <Box mb={2}>
         <Link
           component={RouterLink}
-          to={generatePath(AppRoute.LISTING_DETAILS, { listingId: listing.id })}
+          to={generatePath(AppRoute.ListingDetails, { listingId: listing.id })}
         >
           <Image
-            apiFile
             alt="Listing"
-            src={listing.preview}
+            src={import.meta.env.VITE_API_BASENAME + listing.previewUrl}
             lazy={lazy}
             aspectRatio="16/9"
             objectFit="cover"
@@ -51,19 +54,21 @@ const ListingItem: FC<Props> = ({ listing, lazy }) => {
       >
         {listing.brandName} {listing.modelName}
       </Typography>
-      <Typography variant="body1">Type: {listing.type}</Typography>
       <Typography variant="body1">
-        Year: {dayjs(listing.year).format('DD-MM-YYYY')}
+        {BODY_STYLE_STRING_MAP.get(listing.bodyStyle)}
       </Typography>
+      <Typography variant="body1">{listing.productionYear}</Typography>
 
-      {listing.color && (
+      {listing.color !== null && (
         <Stack direction="row" spacing={1} alignItems="center">
-          <Typography variant="body1">Color: </Typography>
+          <Typography variant="body1">
+            {CAR_COLOR_NAME_MAP.get(listing.color)}
+          </Typography>
           <Box
             sx={{
               width: 16,
               height: 16,
-              bgcolor: listing.color,
+              bgcolor: CAR_COLOR_HEX_MAP.get(listing.color),
               borderRadius: 50,
             }}
           ></Box>
@@ -75,7 +80,7 @@ const ListingItem: FC<Props> = ({ listing, lazy }) => {
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Link
           component={RouterLink}
-          to={generatePath(AppRoute.LISTING_DETAILS, { listingId: listing.id })}
+          to={generatePath(AppRoute.ListingDetails, { listingId: listing.id })}
         >
           <Button variant="outlined">Details</Button>
         </Link>

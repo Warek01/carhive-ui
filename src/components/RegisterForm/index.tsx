@@ -121,7 +121,7 @@ const RegisterForm: FC = () => {
         <Button variant="outlined" type="submit">
           Register
         </Button>
-        <Button variant="text" component={RouterLink} to={AppRoute.LOGIN}>
+        <Button variant="text" component={RouterLink} to={AppRoute.Login}>
           Already have an account?
         </Button>
       </Grid>

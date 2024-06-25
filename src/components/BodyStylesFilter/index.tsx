@@ -1,21 +1,19 @@
 import { Box, Chip, Stack } from '@mui/material'
 import { FC, memo, useCallback } from 'react'
 
-import { CAR_TYPES } from '@/lib/listings'
+import { BODY_STYLE_STRING_MAP, BodyStyle } from '@/lib/listings'
+import { toggleArrayItem } from '@/lib/utils'
 
 interface Props {
-  selected: string[]
-  onChange(selected: string[]): void
+  selected: BodyStyle[]
+  onChange(selected: BodyStyle[]): void
 }
 
-export const CarTypesFilter: FC<Props> = ({ onChange, selected }) => {
+export const BodyStylesFilter: FC<Props> = ({ onChange, selected }) => {
   const handleChipClick = useCallback(
-    (type: string) => {
+    (bodyStyle: BodyStyle) => {
       return () => {
-        const newSelected = selected.includes(type)
-          ? selected.filter((t) => t !== type)
-          : [...selected, type]
-
+        const newSelected = toggleArrayItem(selected, bodyStyle)
         onChange(newSelected)
       }
     },
@@ -29,14 +27,14 @@ export const CarTypesFilter: FC<Props> = ({ onChange, selected }) => {
   return (
     <Box>
       <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
-        {CAR_TYPES.map((type) => (
+        {Array.from(BODY_STYLE_STRING_MAP).map(([bodyStyle, text]) => (
           <Chip
-            key={type}
+            key={bodyStyle}
             clickable
-            color={selected.includes(type) ? 'primary' : 'default'}
-            label={type}
+            color={selected.includes(bodyStyle) ? 'primary' : 'default'}
+            label={text}
             size="small"
-            onClick={handleChipClick(type)}
+            onClick={handleChipClick(bodyStyle)}
           />
         ))}
         <Chip
@@ -50,4 +48,4 @@ export const CarTypesFilter: FC<Props> = ({ onChange, selected }) => {
   )
 }
 
-export default memo(CarTypesFilter)
+export default memo(BodyStylesFilter)

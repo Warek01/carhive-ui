@@ -1,14 +1,14 @@
 enum AppRoute {
-  HOME = '/',
-  LISTINGS = '/listings',
-  NEW_LISTING = '/listings/new',
-  LISTING_DETAILS = '/listings/details/:listingId',
-  PROFILE = '/me',
-  REGISTER = '/register',
-  LOGIN = '/login',
-  ADMIN_DASHBOARD = '/admin',
-  ABOUT = '/about',
-  ANY = '*',
+  Home = '/',
+  Listings = '/listings',
+  NewListing = '/listings/new',
+  ListingDetails = '/listings/details/:listingId',
+  Profile = '/me',
+  Register = '/register',
+  Login = '/login',
+  AdminDashboard = '/admin',
+  About = '/about',
+  Any = '*',
 }
 
 export default AppRoute

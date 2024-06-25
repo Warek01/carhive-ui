@@ -15,7 +15,7 @@ const INITIAL_VALUES: CreateUserDto = {
   email: '',
   password: '',
   username: '',
-  roles: [UserRole.ADMIN, UserRole.LISTING_CREATOR],
+  roles: [UserRole.Admin, UserRole.ListingCreator],
 }
 
 const VALIDATION_SCHEMA = Yup.object().shape({
@@ -64,14 +64,14 @@ const CreateUserForm: FC<Props> = ({ onSubmit }) => {
           <FormControlLabel
             control={
               <Switch
-                checked={formik.values.roles.includes(UserRole.LISTING_CREATOR)}
+                checked={formik.values.roles.includes(UserRole.ListingCreator)}
                 inputProps={{ 'aria-label': 'controlled' }}
                 onChange={() =>
                   formik.setFieldValue(
                     'roles',
                     toggleArrayItem(
                       formik.values.roles,
-                      UserRole.LISTING_CREATOR,
+                      UserRole.ListingCreator,
                     ),
                   )
                 }
@@ -82,12 +82,12 @@ const CreateUserForm: FC<Props> = ({ onSubmit }) => {
           <FormControlLabel
             control={
               <Switch
-                checked={formik.values.roles.includes(UserRole.ADMIN)}
+                checked={formik.values.roles.includes(UserRole.Admin)}
                 inputProps={{ 'aria-label': 'controlled' }}
                 onChange={() =>
                   formik.setFieldValue(
                     'roles',
-                    toggleArrayItem(formik.values.roles, UserRole.ADMIN),
+                    toggleArrayItem(formik.values.roles, UserRole.Admin),
                   )
                 }
               />

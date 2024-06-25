@@ -12,7 +12,7 @@ const ProfilePage: FC = () => {
 
   const handleLogout = useCallback(() => {
     logout()
-    navigate(AppRoute.LOGIN)
+    navigate(AppRoute.Login)
   }, [])
 
   return (

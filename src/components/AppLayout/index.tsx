@@ -12,7 +12,7 @@ import { darkTheme, lightTheme } from '@/lib/themes'
 
 const AppLayout: FC = () => {
   const [isDarkTheme, setIsDarkTheme] = useLocalStorage<boolean>(
-    StorageKey.THEME,
+    StorageKey.Theme,
     window.matchMedia('(prefers-color-scheme: dark)').matches,
   )
 

@@ -12,18 +12,18 @@ import {
 import { FC, memo } from 'react'
 
 import { useAuth } from '@/hooks'
-import { UpdateUserDto, User, UserRole } from '@/lib/user'
+import { UpdateUser, User, UserRole } from '@/lib/user'
 import { toggleArrayItem } from '@/lib/utils'
 
 interface Props {
   users: User[]
   onDelete(user: User): void | Promise<void>
-  onUpdate(userId: string, updateDto: UpdateUserDto): void | Promise<void>
+  onUpdate(userId: string, updateDto: UpdateUser): void | Promise<void>
 }
 
 const ROLES_MAP: [UserRole, string][] = [
-  [UserRole.ADMIN, 'Admin'],
-  [UserRole.LISTING_CREATOR, 'Listing creator'],
+  [UserRole.Admin, 'Admin'],
+  [UserRole.ListingCreator, 'Listing creator'],
 ]
 
 const UsersList: FC<Props> = ({ users, onUpdate, onDelete }) => {

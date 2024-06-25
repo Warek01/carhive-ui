@@ -1,10 +1,10 @@
 enum QueryKey {
-  LISTINGS_LIST = 'listings-list',
-  LISTING_DETAILS = 'listing-details',
+  User = 'user',
 
-  FAVORITE_LISTINGS_LIST = 'favorite-listings-list',
+  ListingsList = 'listings-list',
+  ListingDetails = 'listing-details',
 
-  USERS_LIST = 'users-list',
+  UsersList = 'users-list',
 }
 
 export default QueryKey

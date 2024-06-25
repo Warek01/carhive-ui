@@ -3,25 +3,25 @@ import { Favorite, ShoppingCart, TimeToLeave } from '@mui/icons-material'
 import { IconButton } from '@/lib/definitions'
 
 export enum ListingsTab {
-  ALL,
-  FAVORITES,
-  MY,
+  All,
+  Favorites,
+  My,
 }
 
 export const LISTING_TABS: IconButton<ListingsTab>[] = [
   {
     Icon: ShoppingCart,
     text: 'All',
-    value: ListingsTab.ALL,
+    value: ListingsTab.All,
   },
   {
     Icon: Favorite,
     text: 'Favorites',
-    value: ListingsTab.FAVORITES,
+    value: ListingsTab.Favorites,
   },
   {
     Icon: TimeToLeave,
     text: 'My',
-    value: ListingsTab.MY,
+    value: ListingsTab.My,
   },
 ]

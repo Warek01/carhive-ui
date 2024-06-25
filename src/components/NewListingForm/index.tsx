@@ -18,13 +18,13 @@ import { useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 
 import { FileInput, Image } from '@/components'
-import { useAuth, useHttpService, useWatchLoading } from '@/hooks'
+import { useHttpService, useWatchLoading } from '@/hooks'
 import type { ImageFile } from '@/lib/definitions'
 import {
-  CAR_BRANDS,
-  CAR_TYPES,
-  CreateListingDto,
-  ENGINE_TYPES,
+  BODY_STYLE_STRING_MAP,
+  CAR_BRANDS_TEMP,
+  CreateListing,
+  ENGINE_TYPE_STRING_MAP,
 } from '@/lib/listings'
 import QueryKey from '@/lib/query-key'
 import { fileToBase64 } from '@/lib/utils'
@@ -36,12 +36,11 @@ import {
 
 const NewListingForm: FC = () => {
   const http = useHttpService()
-  const { user } = useAuth()
   const queryClient = useQueryClient()
 
   const [preview, setPreview] = useState<ImageFile | null>(null)
 
-  const createListingMutation = useMutation((createDto: CreateListingDto) =>
+  const createListingMutation = useMutation((createDto: CreateListing) =>
     http.createListing(createDto),
   )
 
@@ -56,25 +55,21 @@ const NewListingForm: FC = () => {
 
   const handleSubmit = useCallback(
     async (
-      formObject: CreateListingDto,
-      helpers: FormikHelpers<CreateListingDto>,
+      formObject: CreateListing,
+      helpers: FormikHelpers<CreateListing>,
     ) => {
       try {
-        const createDto: CreateListingDto = {
-          ...formObject,
-          publisherId: user!.id,
-        }
+        const createDto: CreateListing = { ...formObject }
 
         if (preview) {
-          createDto.preview = {
+          createDto.previewFile = {
             fileName: preview.file.name,
             base64Body: preview.body!,
           }
         }
 
         await createListingMutation.mutateAsync(createDto, {
-          onSuccess: () =>
-            queryClient.invalidateQueries(QueryKey.LISTINGS_LIST),
+          onSuccess: () => queryClient.invalidateQueries(QueryKey.ListingsList),
         })
         helpers.resetForm()
         setPreview(null)
@@ -153,7 +148,7 @@ const NewListingForm: FC = () => {
               }
               error={!!formik.errors?.brandName}
             >
-              {CAR_BRANDS.map((brandName) => (
+              {CAR_BRANDS_TEMP.map((brandName) => (
                 <MenuItem value={brandName} key={brandName}>
                   {brandName}
                 </MenuItem>
@@ -166,23 +161,25 @@ const NewListingForm: FC = () => {
         </Grid>
 
         <Grid item xs={4}>
-          <FormControl fullWidth error={!!formik.errors.type}>
+          <FormControl fullWidth error={!!formik.errors.bodyStyle}>
             <InputLabel id="carType-label">Type</InputLabel>
             <Select
               label="Type"
               labelId="carType-label"
-              value={formik.values.type ?? ''}
-              error={!!formik.errors.type}
-              onChange={(e) => formik.setFieldValue('type', e.target.value)}
+              value={formik.values.bodyStyle ?? ''}
+              error={!!formik.errors.bodyStyle}
+              onChange={(e) =>
+                formik.setFieldValue('bodyStyle', e.target.value)
+              }
             >
-              {CAR_TYPES.map((type) => (
-                <MenuItem value={type} key={type}>
-                  {type}
+              {Array.from(BODY_STYLE_STRING_MAP).map(([bodyStyle, text]) => (
+                <MenuItem value={bodyStyle} key={bodyStyle}>
+                  {text}
                 </MenuItem>
               ))}
             </Select>
-            {formik.errors.type && (
-              <FormHelperText>{formik.errors.type}</FormHelperText>
+            {formik.errors.bodyStyle && (
+              <FormHelperText>{formik.errors.bodyStyle}</FormHelperText>
             )}
           </FormControl>
         </Grid>
@@ -199,9 +196,9 @@ const NewListingForm: FC = () => {
               }
               error={!!formik.errors.engineType}
             >
-              {ENGINE_TYPES.map((type) => (
-                <MenuItem value={type} key={type}>
-                  {type}
+              {Array.from(ENGINE_TYPE_STRING_MAP).map(([engineType, text]) => (
+                <MenuItem value={engineType} key={engineType}>
+                  {text}
                 </MenuItem>
               ))}
             </Select>
@@ -229,18 +226,18 @@ const NewListingForm: FC = () => {
         </Grid>
 
         <Grid item xs={3}>
-          <FormControl fullWidth error={!!formik.errors.color}>
-            <TextField
-              type="color"
-              value={formik.values.color}
-              label="Color"
-              onChange={(e) => formik.setFieldValue('color', e.target.value)}
-              error={!!formik.errors.color}
-            />
-            {formik.errors.color && (
-              <FormHelperText>{formik.errors.color}</FormHelperText>
-            )}
-          </FormControl>
+          {/*<FormControl fullWidth error={!!formik.errors.color}>*/}
+          {/*  <TextField*/}
+          {/*    type="number"*/}
+          {/*    value={formik.values.color}*/}
+          {/*    label="Color"*/}
+          {/*    onChange={(e) => formik.setFieldValue('color', e.target.value)}*/}
+          {/*    error={!!formik.errors.color}*/}
+          {/*  />*/}
+          {/*  {formik.errors.color && (*/}
+          {/*    <FormHelperText>{formik.errors.color}</FormHelperText>*/}
+          {/*  )}*/}
+          {/*</FormControl>*/}
         </Grid>
 
         <Grid item xs={3}>
@@ -260,17 +257,17 @@ const NewListingForm: FC = () => {
         </Grid>
 
         <Grid item xs={3}>
-          <FormControl fullWidth error={!!formik.errors.year}>
+          <FormControl fullWidth error={!!formik.errors.productionYear}>
             <TextField
               type="number"
-              value={formik.values.year ?? ''}
+              value={formik.values.productionYear ?? ''}
               inputProps={{ min: 0 }}
               label="Year"
               onChange={(e) => formik.setFieldValue('year', e.target.value)}
-              error={!!formik.errors.year}
+              error={!!formik.errors.productionYear}
             />
-            {formik.errors.year && (
-              <FormHelperText>{formik.errors.year}</FormHelperText>
+            {formik.errors.productionYear && (
+              <FormHelperText>{formik.errors.productionYear}</FormHelperText>
             )}
           </FormControl>
         </Grid>

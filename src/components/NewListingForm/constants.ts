@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-import type { CreateListingDto } from '@/lib/listings'
+import type { CreateListing } from '@/lib/listings'
 
 export const createListingInitialValues = {
   brandName: '',
@@ -16,7 +16,7 @@ export const createListingInitialValues = {
   engineVolume: null,
   horsepower: null,
   publisherId: null,
-} as unknown as CreateListingDto
+} as unknown as CreateListing
 
 export const createListingValidationSchema = Yup.object().shape({
   brandName: Yup.string().min(1).required('Brand is required.'),
@@ -25,10 +25,10 @@ export const createListingValidationSchema = Yup.object().shape({
     .positive('Price most be positive.')
     .integer()
     .required('Price is required.'),
-  type: Yup.string().min(1).required('Car type is required.'),
-  year: Yup.number().positive('Year must be possible').nullable(),
-  engineType: Yup.string().min(1).nullable(),
-  color: Yup.string().nullable(),
+  bodyStyle: Yup.number().positive().required('Car type is required.'),
+  productionYear: Yup.number().positive('Year must be possible').nullable(),
+  engineType: Yup.number().positive(),
+  color: Yup.number().positive(),
   clearance: Yup.number()
     .integer()
     .positive('Clearance must be positive.')
@@ -46,4 +46,6 @@ export const createListingValidationSchema = Yup.object().shape({
     .integer()
     .positive('Mileage must be positive')
     .nullable(),
-} as Record<keyof CreateListingDto, any>)
+  countryCode: Yup.string().length(2).required('Country is required'),
+  sellAddress: Yup.string().max(255),
+} as Record<keyof CreateListing, any>)

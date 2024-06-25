@@ -9,7 +9,7 @@ import AppRoute from '@/lib/routing/app-route'
 const RegisterPage: FC = () => {
   const { isAuthorized } = useAuth()
 
-  if (isAuthorized) return <Navigate to={AppRoute.HOME} />
+  if (isAuthorized) return <Navigate to={AppRoute.Home} />
 
   return (
     <Box

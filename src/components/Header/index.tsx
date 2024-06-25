@@ -8,26 +8,14 @@ import {
   Switch,
   Typography,
 } from '@mui/material'
-import {
-  ChangeEventHandler,
-  Dispatch,
-  FC,
-  SetStateAction,
-  memo,
-  useCallback,
-  useMemo,
-} from 'react'
+import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
-import { useAuth } from '@/hooks'
+import { useAuth, useIsDarkTheme } from '@/hooks'
 import AppRoute from '@/lib/routing/app-route'
 
-interface Props {
-  isDarkTheme: boolean
-  setIsDarkTheme: Dispatch<SetStateAction<boolean>>
-}
-
-const Header: FC<Props> = ({ setIsDarkTheme, isDarkTheme }) => {
+const Header: FC = () => {
+  const [isDarkTheme, setIsDarkTheme] = useIsDarkTheme()
   const { isAuthorized, isAdmin } = useAuth()
 
   const iconProps = useMemo<SvgIconProps>(

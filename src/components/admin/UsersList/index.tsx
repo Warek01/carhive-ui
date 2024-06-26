@@ -1,5 +1,6 @@
 import { Delete } from '@mui/icons-material'
 import {
+  CircularProgress,
   FormControlLabel,
   FormGroup,
   Grid,
@@ -17,16 +18,22 @@ import { toggleArrayItem } from '@/lib/utils'
 
 interface Props {
   users: User[]
+  loadingUserIds: string[]
   onDelete(user: User): void | Promise<void>
   onUpdate(userId: string, updateDto: UpdateUser): void | Promise<void>
 }
 
-const ROLES_MAP: [UserRole, string][] = [
+const ROLES_STRING_MAP: [UserRole, string][] = [
   [UserRole.Admin, 'Admin'],
   [UserRole.ListingCreator, 'Listing creator'],
 ]
 
-const UsersList: FC<Props> = ({ users, onUpdate, onDelete }) => {
+const UsersList: FC<Props> = ({
+  users,
+  onUpdate,
+  onDelete,
+  loadingUserIds,
+}) => {
   const { fetchedUser } = useAuth()
 
   return (
@@ -48,12 +55,15 @@ const UsersList: FC<Props> = ({ users, onUpdate, onDelete }) => {
               alignItems="center"
             >
               <Stack direction="row">
-                {ROLES_MAP.map(([role, text]) => (
+                {ROLES_STRING_MAP.map(([role, text]) => (
                   <FormGroup key={role}>
                     <FormControlLabel
                       control={
                         <Switch
-                          disabled={u!.id === fetchedUser!.id}
+                          disabled={
+                            u!.id === fetchedUser!.id ||
+                            loadingUserIds.includes(u.id)
+                          }
                           checked={u.roles!.includes(role)}
                           inputProps={{ 'aria-label': 'controlled' }}
                           onChange={() =>
@@ -69,13 +79,20 @@ const UsersList: FC<Props> = ({ users, onUpdate, onDelete }) => {
                   </FormGroup>
                 ))}
               </Stack>
-              <IconButton
-                color="error"
-                onClick={() => onDelete(u)}
-                disabled={u.id === fetchedUser!.id}
-              >
-                <Delete />
-              </IconButton>
+              <Stack direction="row" spacing={1} alignItems="center">
+                {loadingUserIds.includes(u.id) && (
+                  <CircularProgress size={24} />
+                )}
+                <IconButton
+                  color="error"
+                  onClick={() => onDelete(u)}
+                  disabled={
+                    u.id === fetchedUser!.id || loadingUserIds.includes(u.id)
+                  }
+                >
+                  <Delete />
+                </IconButton>
+              </Stack>
             </Grid>
           </Grid>
         </Paper>

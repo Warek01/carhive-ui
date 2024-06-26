@@ -10,14 +10,15 @@ import {
   Typography,
 } from '@mui/material'
 import { FormikHelpers } from 'formik'
-import { FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { CreateUserForm, UsersList } from '@/components'
 import { useHttpService, useWatchLoading } from '@/hooks'
-import type { RegisterDto } from '@/lib/auth'
+import type { CreateUserDto, RegisterDto } from '@/lib/auth'
+import dev_delay from '@/lib/dev/delay'
 import { DEFAULT_PAGINATION_DATA, PaginationData } from '@/lib/paginationData'
 import QueryKey from '@/lib/query-key'
 import StorageKey from '@/lib/storage-key'
@@ -50,7 +51,7 @@ const AdminDashboardPage: FC = () => {
     onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
   })
   const createUserMutation = useMutation(
-    (registerDto: RegisterDto) => http.register(registerDto),
+    (createDto: CreateUserDto) => http.createUser(createDto),
     {
       onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
     },
@@ -60,25 +61,48 @@ const AdminDashboardPage: FC = () => {
 
   const [isCreatingUser, setIsCreatingUser] = useState<boolean>(false)
   const [registerDto, setRegisterDto] = useState<RegisterDto>({} as RegisterDto)
+  const [loadingUserIds, setLoadingUserIds] = useState<string[]>([])
+  const loadingUserTimeoutIds = useRef<Record<string, NodeJS.Timeout>>({})
+
+  const startLoadingUser = useCallback((userId: string) => {
+    loadingUserTimeoutIds.current[userId] = setTimeout(
+      () => setLoadingUserIds((ids) => ids.concat(userId)),
+      250,
+    )
+  }, [])
+
+  const stopLoadingUser = useCallback((userId: string) => {
+    setLoadingUserIds((ids) => ids.filter((id) => id !== userId))
+    clearTimeout(loadingUserTimeoutIds.current[userId])
+  }, [])
 
   const handleUserDelete = useCallback(async (user: User) => {
+    startLoadingUser(user.id)
+
     try {
       await deleteUserMutation.mutateAsync(user.id)
       toast('User deleted.', { toastId: ToastId.UserDelete })
     } catch (err) {
       console.error(err)
       toast('Error deleting.', { type: 'error' })
+    } finally {
+      stopLoadingUser(user.id)
     }
   }, [])
 
   const handleUserUpdate = useCallback(
     async (userId: string, updateDto: UpdateUser) => {
+      startLoadingUser(userId)
+
       try {
+        await dev_delay(2500)
         await updateUserMutation.mutateAsync([userId, updateDto])
         toast('User updated.', { toastId: ToastId.UserUpdate })
       } catch (err) {
         console.error(err)
         toast('Error updating.', { type: 'error', toastId: ToastId.UserUpdate })
+      } finally {
+        stopLoadingUser(userId)
       }
     },
     [],
@@ -152,6 +176,7 @@ const AdminDashboardPage: FC = () => {
                 users={usersQuery.data.items}
                 onDelete={handleUserDelete}
                 onUpdate={handleUserUpdate}
+                loadingUserIds={loadingUserIds}
               />
               <Pagination
                 page={pagination.page + 1}

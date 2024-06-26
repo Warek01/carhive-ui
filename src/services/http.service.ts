@@ -1,7 +1,12 @@
 import axios, { AxiosInstance } from 'axios'
 import qs from 'qs'
 
-import type { JwtResponse, LoginDto, RegisterDto } from '@/lib/auth'
+import type {
+  CreateUserDto,
+  JwtResponse,
+  LoginDto,
+  RegisterDto,
+} from '@/lib/auth'
 import type {
   CreateListing,
   FavoriteListingAction,
@@ -9,7 +14,6 @@ import type {
 } from '@/lib/listings'
 import type { PaginatedResponse } from '@/lib/paginationData'
 import type { UpdateUser, User } from '@/lib/user'
-import { getUserRoles } from '@/lib/utils'
 
 export default class HttpService {
   private readonly _axiosInstance: AxiosInstance
@@ -130,7 +134,6 @@ export default class HttpService {
     const res = await this._axiosInstance.get<PaginatedResponse<User>>('user', {
       params,
     })
-    res.data.items.forEach((u: any) => (u.role = getUserRoles(u.role as any)))
     return res.data
   }
 
@@ -149,6 +152,16 @@ export default class HttpService {
 
   public async deleteUser(userId: string, params?: Object): Promise<void> {
     const res = await this._axiosInstance.delete<void>(`user/${userId}`, {
+      params,
+    })
+    return res.data
+  }
+
+  public async createUser(
+    createDto: CreateUserDto,
+    params?: Object,
+  ): Promise<void> {
+    const res = await this._axiosInstance.post<void>('user', createDto, {
       params,
     })
     return res.data

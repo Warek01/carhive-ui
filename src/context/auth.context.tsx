@@ -24,6 +24,7 @@ export interface AuthContextProps {
   refreshToken: string | null
   expiresAt: Date | null
   isAuthorized: boolean
+  isListingCreator: boolean
   isAdmin: boolean
   login(data: JwtResponse): void
   logout(): void
@@ -73,18 +74,25 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     [userQuery.data],
   )
 
-  const expiresAt = useMemo<Date | null>(
-    () => (decoded ? new Date(decoded.exp! * 1000) : null),
+  const roles = useMemo<string[]>(
+    () =>
+      !decoded?.role
+        ? []
+        : Array.isArray(decoded.role)
+          ? decoded.role
+          : [decoded.role],
     [decoded],
   )
 
-  const isAdmin = useMemo<boolean>(
-    () => fetchedUser?.roles?.includes(UserRole.Admin) ?? false,
-    [fetchedUser],
-  )
-
-  const userId = useMemo<string | null>(
-    () => (token === null ? null : decoded!.sub!),
+  // groups the props derived from decoded jwt token
+  const jwtDecodedData = useMemo(
+    () => ({
+      expiresAt: decoded === null ? null : new Date(decoded.exp! * 1000),
+      isAdmin: roles.includes(UserRole[UserRole.Admin]) ?? false,
+      isListingCreator:
+        roles.includes(UserRole[UserRole.ListingCreator]) ?? false,
+      userId: decoded?.sub! ?? null,
+    }),
     [decoded],
   )
 
@@ -121,16 +129,14 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [authData, login, logout])
 
   const context: AuthContextProps = {
-    fetchedUser: fetchedUser,
+    ...jwtDecodedData,
+    fetchedUser,
     isAuthorized,
     token,
     refreshToken,
-    isAdmin,
     login,
     logout,
-    expiresAt,
     refresh,
-    userId,
   }
 
   return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>

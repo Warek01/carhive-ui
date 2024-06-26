@@ -15,7 +15,7 @@ const INITIAL_VALUES: CreateUser = {
   email: '',
   password: '',
   username: '',
-  roles: [UserRole.Admin, UserRole.ListingCreator],
+  roles: [],
 }
 
 const VALIDATION_SCHEMA = Yup.object().shape({

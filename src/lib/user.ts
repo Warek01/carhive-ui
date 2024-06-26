@@ -25,8 +25,3 @@ export enum UserRole {
   Admin,
   ListingCreator,
 }
-
-export const USER_ROLE_STRING_MAP: Record<string, UserRole> = {
-  Admin: UserRole.Admin,
-  ListingCreator: UserRole.ListingCreator,
-}

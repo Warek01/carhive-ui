@@ -1,8 +1,8 @@
 import { Grid, Skeleton } from '@mui/material'
 import { FC, memo, useState } from 'react'
 
-import { ListingItem } from '@/components'
-import { type Listing } from '@/lib/listings'
+import { ListingItem } from '@faf-cars/components'
+import { type Listing } from '@faf-cars/lib/listings'
 
 interface Props {
   items?: Listing[]
@@ -12,7 +12,7 @@ interface Props {
 const ListingsList: FC<Props> = ({ items, skeletonCount }) => {
   const shouldDisplaySkeletons = !items
   const arr = items ?? Array(skeletonCount).fill(null)
-  const [lazyLoadedCount, setLazyLoadedCount] = useState<number>(6)
+  const [lazyLoadedCount] = useState<number>(6)
 
   return (
     <Grid spacing={2} container alignItems="stretch">

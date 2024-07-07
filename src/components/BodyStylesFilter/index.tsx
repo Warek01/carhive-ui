@@ -1,8 +1,8 @@
 import { Box, Chip, Stack } from '@mui/material'
 import { FC, memo, useCallback } from 'react'
 
-import { BODY_STYLE_STRING_MAP, BodyStyle } from '@/lib/listings'
-import { toggleArrayItem } from '@/lib/utils'
+import { BODY_STYLE_STRING_MAP, BodyStyle } from '@faf-cars/lib/listings'
+import { toggleArrayItem } from '@faf-cars/lib/utils'
 
 interface Props {
   selected: BodyStyle[]

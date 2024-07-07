@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
-import useAuth from '@/hooks/use-auth'
-import HttpService from '@/services/http.service'
+import useAuth from '@faf-cars/hooks/use-auth'
+import HttpService from '@faf-cars/services/http.service'
 
 const useHttpService = () => {
   const { token } = useAuth()

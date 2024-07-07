@@ -1,4 +1,4 @@
-import { UserRole } from '@/lib/user'
+import { UserRole } from '@faf-cars/lib/user'
 
 export default function getUserRoles(
   roles: string | string[] | undefined | null,

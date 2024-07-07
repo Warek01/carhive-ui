@@ -5,9 +5,9 @@ import { Outlet } from 'react-router'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Header, MobileSplashScreen } from '@/components'
-import { useTheme } from '@/hooks'
-import { useGetToastProps } from '@/lib/toast'
+import { Header, MobileSplashScreen } from '@faf-cars/components'
+import { useTheme } from '@faf-cars/hooks'
+import { useGetToastProps } from '@faf-cars/lib/toast'
 
 const AppLayout: FC = () => {
   const theme = useTheme()

@@ -1,5 +1,5 @@
-import AppRoute from '@/lib/routing/app-route'
-import AppRouteType from '@/lib/routing/app-route-type'
+import AppRoute from '@faf-cars/lib/routing/app-route'
+import AppRouteType from '@faf-cars/lib/routing/app-route-type'
 
 const ROUTE_TYPE_MAP: Record<AppRouteType, (AppRoute | string)[]> = {
   [AppRouteType.UNPROTECTED]: [

@@ -17,18 +17,18 @@ import { FC, memo, useCallback, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 
-import { FileInput, Image } from '@/components'
-import { useHttpService, useWatchLoading } from '@/hooks'
-import type { ImageFile } from '@/lib/definitions'
+import { FileInput, Image } from '@faf-cars/components'
+import { useHttpService, useWatchLoading } from '@faf-cars/hooks'
+import type { ImageFile } from '@faf-cars/lib/definitions'
 import {
   BODY_STYLE_STRING_MAP,
   CAR_BRANDS_TEMP,
   CreateListing,
   ENGINE_TYPE_STRING_MAP,
-} from '@/lib/listings'
-import QueryKey from '@/lib/query-key'
-import { ToastId } from '@/lib/toast'
-import { fileToBase64 } from '@/lib/utils'
+} from '@faf-cars/lib/listings'
+import QueryKey from '@faf-cars/lib/query-key'
+import { ToastId } from '@faf-cars/lib/toast'
+import { fileToBase64 } from '@faf-cars/lib/utils'
 
 import {
   createListingInitialValues,

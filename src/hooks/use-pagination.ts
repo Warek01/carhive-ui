@@ -1,8 +1,11 @@
 import { useCallback } from 'react'
 import { useSessionStorage } from 'usehooks-ts'
 
-import { DEFAULT_PAGINATION_DATA, PaginationData } from '@/lib/paginationData'
-import StorageKey from '@/lib/storage-key'
+import {
+  DEFAULT_PAGINATION_DATA,
+  PaginationData,
+} from '@faf-cars/lib/paginationData'
+import StorageKey from '@faf-cars/lib/storage-key'
 
 export default function usePagination(key: StorageKey | string) {
   const [paginationData, setPaginationData] = useSessionStorage<PaginationData>(

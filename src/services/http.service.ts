@@ -6,14 +6,14 @@ import type {
   JwtResponse,
   LoginDto,
   RegisterDto,
-} from '@/lib/auth'
+} from '@faf-cars/lib/auth'
 import type {
   CreateListing,
   FavoriteListingAction,
   Listing,
-} from '@/lib/listings'
-import type { PaginatedResponse } from '@/lib/paginationData'
-import type { UpdateUser, User } from '@/lib/user'
+} from '@faf-cars/lib/listings'
+import type { PaginatedResponse } from '@faf-cars/lib/paginationData'
+import type { UpdateUser, User } from '@faf-cars/lib/user'
 
 export default class HttpService {
   private readonly _axiosInstance: AxiosInstance
@@ -37,7 +37,7 @@ export default class HttpService {
   }
 
   public async getListings(
-    params?: Object,
+    params?: object,
   ): Promise<PaginatedResponse<Listing>> {
     const { data } = await this._axiosInstance.get<PaginatedResponse<Listing>>(
       'listing',
@@ -51,7 +51,7 @@ export default class HttpService {
 
   public async getListingDetails(
     listingId: string,
-    params?: Object,
+    params?: object,
   ): Promise<Listing> {
     const { data } = await this._axiosInstance.get<Listing>(
       `listing/${listingId}`,
@@ -65,7 +65,7 @@ export default class HttpService {
 
   public async mutateFavoriteListings(
     action: FavoriteListingAction,
-    params?: Object,
+    params?: object,
   ): Promise<void> {
     const { data } = await this._axiosInstance.post<void>(
       'listing/favorites',
@@ -80,7 +80,7 @@ export default class HttpService {
 
   public async createListing(
     createDto: CreateListing,
-    params?: Object,
+    params?: object,
   ): Promise<void> {
     await this._axiosInstance.post<void>('listing', createDto, {
       params,
@@ -89,7 +89,7 @@ export default class HttpService {
 
   public async login(
     loginDto: LoginDto,
-    params?: Object,
+    params?: object,
   ): Promise<JwtResponse> {
     const res = await this._axiosInstance.post<JwtResponse>(
       'auth/login',
@@ -101,7 +101,7 @@ export default class HttpService {
 
   public async register(
     registerDto: RegisterDto,
-    params?: Object,
+    params?: object,
   ): Promise<JwtResponse> {
     const res = await this._axiosInstance.post<JwtResponse>(
       'auth/register',
@@ -113,7 +113,7 @@ export default class HttpService {
 
   public async refresh(
     jwtRes: JwtResponse,
-    params?: Object,
+    params?: object,
   ): Promise<JwtResponse> {
     const res = await this._axiosInstance.post<JwtResponse>(
       'auth/refresh',
@@ -123,14 +123,14 @@ export default class HttpService {
     return res.data
   }
 
-  public async getUser(userId: string, params?: Object): Promise<User> {
+  public async getUser(userId: string, params?: object): Promise<User> {
     const res = await this._axiosInstance.get<User>('user/' + userId, {
       params,
     })
     return res.data
   }
 
-  public async getUsers(params?: Object): Promise<PaginatedResponse<User>> {
+  public async getUsers(params?: object): Promise<PaginatedResponse<User>> {
     const res = await this._axiosInstance.get<PaginatedResponse<User>>('user', {
       params,
     })
@@ -140,7 +140,7 @@ export default class HttpService {
   public async updateUser(
     userId: string,
     updateDto: UpdateUser,
-    params?: Object,
+    params?: object,
   ): Promise<PaginatedResponse<User>> {
     const res = await this._axiosInstance.patch<PaginatedResponse<User>>(
       `user/${userId}`,
@@ -150,7 +150,7 @@ export default class HttpService {
     return res.data
   }
 
-  public async deleteUser(userId: string, params?: Object): Promise<void> {
+  public async deleteUser(userId: string, params?: object): Promise<void> {
     const res = await this._axiosInstance.delete<void>(`user/${userId}`, {
       params,
     })
@@ -159,7 +159,7 @@ export default class HttpService {
 
   public async createUser(
     createDto: CreateUserDto,
-    params?: Object,
+    params?: object,
   ): Promise<void> {
     const res = await this._axiosInstance.post<void>('user', createDto, {
       params,

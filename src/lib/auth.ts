@@ -1,6 +1,6 @@
 import type { JwtPayload } from 'jwt-decode'
 
-import type { UserRole } from '@/lib/user'
+import type { UserRole } from '@faf-cars/lib/user'
 
 export interface LoginDto {
   username: string

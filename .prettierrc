@@ -9,9 +9,5 @@
   "bracketSpacing": true,
   "printWidth": 80,
   "jsxSingleQuote": false,
-  "bracketSameLine": false,
-  "importOrderSeparation": true,
-  "importOrder": ["^@/(.*)$", "^[./]"],
-  "importOrderSortSpecifiers": true,
-  "plugins": ["@trivago/prettier-plugin-sort-imports"]
+  "bracketSameLine": false
 }

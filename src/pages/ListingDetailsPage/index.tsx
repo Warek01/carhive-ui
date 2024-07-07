@@ -6,15 +6,15 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { Navigate, useParams } from 'react-router'
 import { toast } from 'react-toastify'
 
-import { useHttpService, useWatchLoading } from '@/hooks'
+import { useHttpService, useWatchLoading } from '@faf-cars/hooks'
 import {
   FavoriteListingAction,
   FavoriteListingActionType,
   Listing,
-} from '@/lib/listings'
-import QueryKey from '@/lib/query-key'
-import AppRoute from '@/lib/routing/app-route'
-import { ToastId } from '@/lib/toast'
+} from '@faf-cars/lib/listings'
+import QueryKey from '@faf-cars/lib/query-key'
+import AppRoute from '@faf-cars/lib/routing/app-route'
+import { ToastId } from '@faf-cars/lib/toast'
 
 interface Params extends Record<string, string> {
   listingId: string

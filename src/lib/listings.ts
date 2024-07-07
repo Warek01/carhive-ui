@@ -1,5 +1,5 @@
-import type { FileDto } from '@/lib/definitions'
-import { User } from '@/lib/user'
+import type { FileDto } from '@faf-cars/lib/definitions'
+import { User } from '@faf-cars/lib/user'
 
 export interface Listing {
   id: string

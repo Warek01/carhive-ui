@@ -14,23 +14,23 @@ import { FC, ReactElement, useCallback, useEffect, useMemo } from 'react'
 import { useQuery } from 'react-query'
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
 
-import { CarTypesFilter, ListingsList } from '@/components'
+import { CarTypesFilter, ListingsList } from '@faf-cars/components'
 import {
   useAuth,
   useHttpService,
   usePagination,
   useWatchLoading,
-} from '@/hooks'
+} from '@faf-cars/hooks'
 import {
   BodyStyle,
-  LISTING_ORDER_BY_VALUES,
   Listing,
+  LISTING_ORDER_BY_VALUES,
   ListingOrderBy,
-} from '@/lib/listings'
-import { PaginatedResponse } from '@/lib/paginationData'
-import QueryKey from '@/lib/query-key'
-import StorageKey from '@/lib/storage-key'
-import { LISTING_TABS, ListingsTab } from '@/pages/MarketPage/constants'
+} from '@faf-cars/lib/listings'
+import { PaginatedResponse } from '@faf-cars/lib/paginationData'
+import QueryKey from '@faf-cars/lib/query-key'
+import StorageKey from '@faf-cars/lib/storage-key'
+import { LISTING_TABS, ListingsTab } from '@faf-cars/pages/MarketPage/constants'
 
 const MarketPage: FC = () => {
   const http = useHttpService()

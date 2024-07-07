@@ -2,9 +2,9 @@ import { Box, Button, Container, Typography } from '@mui/material'
 import { FC, useCallback } from 'react'
 import { useNavigate } from 'react-router'
 
-import { UserCard } from '@/components'
-import { useAuth } from '@/hooks'
-import AppRoute from '@/lib/routing/app-route'
+import { UserCard } from '@faf-cars/components'
+import { useAuth } from '@faf-cars/hooks'
+import AppRoute from '@faf-cars/lib/routing/app-route'
 
 const ProfilePage: FC = () => {
   const { fetchedUser, logout } = useAuth()

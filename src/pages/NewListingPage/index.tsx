@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import { FC } from 'react'
 
-import { NewListingForm } from '@/components'
+import { NewListingForm } from '@faf-cars/components'
 
 const NewDealPage: FC = () => {
   return (

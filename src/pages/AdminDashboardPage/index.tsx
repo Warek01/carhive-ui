@@ -15,15 +15,18 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { CreateUserForm, UsersList } from '@/components'
-import { useHttpService, useWatchLoading } from '@/hooks'
-import type { CreateUserDto, RegisterDto } from '@/lib/auth'
-import dev_delay from '@/lib/dev/delay'
-import { DEFAULT_PAGINATION_DATA, PaginationData } from '@/lib/paginationData'
-import QueryKey from '@/lib/query-key'
-import StorageKey from '@/lib/storage-key'
-import { ToastId } from '@/lib/toast'
-import { CreateUser, UpdateUser, User } from '@/lib/user'
+import { CreateUserForm, UsersList } from '@faf-cars/components'
+import { useHttpService, useWatchLoading } from '@faf-cars/hooks'
+import type { CreateUserDto, RegisterDto } from '@faf-cars/lib/auth'
+import dev_delay from '@faf-cars/lib/dev/delay'
+import {
+  DEFAULT_PAGINATION_DATA,
+  PaginationData,
+} from '@faf-cars/lib/paginationData'
+import QueryKey from '@faf-cars/lib/query-key'
+import StorageKey from '@faf-cars/lib/storage-key'
+import { ToastId } from '@faf-cars/lib/toast'
+import { CreateUser, UpdateUser, User } from '@faf-cars/lib/user'
 
 const AdminDashboardPage: FC = () => {
   const [pagination, setPagination] = useLocalStorage<PaginationData>(
@@ -138,7 +141,7 @@ const AdminDashboardPage: FC = () => {
         <Container
           fixed
           sx={{
-            position: 'absolute' as 'absolute',
+            position: 'absolute' as const,
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',

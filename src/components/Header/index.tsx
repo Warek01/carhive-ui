@@ -11,8 +11,8 @@ import {
 import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
-import { useAuth, useIsDarkTheme } from '@/hooks'
-import AppRoute from '@/lib/routing/app-route'
+import { useAuth, useIsDarkTheme } from '@faf-cars/hooks'
+import AppRoute from '@faf-cars/lib/routing/app-route'
 
 const Header: FC = () => {
   const [isDarkTheme, setIsDarkTheme] = useIsDarkTheme()

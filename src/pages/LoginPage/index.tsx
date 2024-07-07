@@ -2,9 +2,9 @@ import { Box, Container } from '@mui/material'
 import { FC } from 'react'
 import { Navigate } from 'react-router'
 
-import { LoginForm } from '@/components'
-import { useAuth } from '@/hooks'
-import AppRoute from '@/lib/routing/app-route'
+import { LoginForm } from '@faf-cars/components'
+import { useAuth } from '@faf-cars/hooks'
+import AppRoute from '@faf-cars/lib/routing/app-route'
 
 const LoginPage: FC = () => {
   const { isAuthorized } = useAuth()

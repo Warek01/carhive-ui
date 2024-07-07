@@ -1,6 +1,6 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 
-import GlobalLoadingContext from '@/context/global-loading.context'
+import GlobalLoadingContext from '@faf-cars/context/global-loading.context'
 
 const useLoading = () => {
   const { unsetLoading, setLoading } = useContext(GlobalLoadingContext)

@@ -12,9 +12,9 @@ import {
 } from '@mui/material'
 import { FC, memo } from 'react'
 
-import { useAuth } from '@/hooks'
-import { UpdateUser, User, UserRole } from '@/lib/user'
-import { toggleArrayItem } from '@/lib/utils'
+import { useAuth } from '@faf-cars/hooks'
+import { UpdateUser, User, UserRole } from '@faf-cars/lib/user'
+import { toggleArrayItem } from '@faf-cars/lib/utils'
 
 interface Props {
   users: User[]

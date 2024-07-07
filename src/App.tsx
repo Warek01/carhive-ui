@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import { AuthContextProvider } from '@/context/auth.context'
-import { GlobalLoadingContextProvider } from '@/context/global-loading.context'
-import { QUERY_CLIENT_CONFIG } from '@/lib/query'
-import APP_ROUTES from '@/lib/routing/app-routes'
+import { AuthContextProvider } from '@faf-cars/context/auth.context'
+import { GlobalLoadingContextProvider } from '@faf-cars/context/global-loading.context'
+import { QUERY_CLIENT_CONFIG } from '@faf-cars/lib/query'
+import APP_ROUTES from '@faf-cars/lib/routing/app-routes'
 
 import './index.css'
 

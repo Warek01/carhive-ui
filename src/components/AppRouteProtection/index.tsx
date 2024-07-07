@@ -2,10 +2,10 @@ import { Box, CircularProgress, Typography } from '@mui/material'
 import { FC } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router'
 
-import { useAuth } from '@/hooks'
-import AppRoute from '@/lib/routing/app-route'
-import AppRouteType from '@/lib/routing/app-route-type'
-import ROUTE_TYPE_MAP from '@/lib/routing/route-type-map'
+import { useAuth } from '@faf-cars/hooks'
+import AppRoute from '@faf-cars/lib/routing/app-route'
+import AppRouteType from '@faf-cars/lib/routing/app-route-type'
+import ROUTE_TYPE_MAP from '@faf-cars/lib/routing/route-type-map'
 
 const AppRouteProtection: FC = () => {
   const location = useLocation()

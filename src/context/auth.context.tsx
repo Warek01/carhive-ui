@@ -1,8 +1,8 @@
 import { jwtDecode } from 'jwt-decode'
 import {
+  createContext,
   FC,
   PropsWithChildren,
-  createContext,
   useCallback,
   useMemo,
 } from 'react'
@@ -10,12 +10,12 @@ import { useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { useLocalStorage } from 'usehooks-ts'
 
-import type { AppJwtPayload, JwtResponse } from '@/lib/auth'
-import QueryKey from '@/lib/query-key'
-import StorageKey from '@/lib/storage-key'
-import { ToastId } from '@/lib/toast'
-import { User, UserRole } from '@/lib/user'
-import HttpService from '@/services/http.service'
+import type { AppJwtPayload, JwtResponse } from '@faf-cars/lib/auth'
+import QueryKey from '@faf-cars/lib/query-key'
+import StorageKey from '@faf-cars/lib/storage-key'
+import { ToastId } from '@faf-cars/lib/toast'
+import { User, UserRole } from '@faf-cars/lib/user'
+import HttpService from '@faf-cars/services/http.service'
 
 export interface AuthContextProps {
   fetchedUser: User | null
@@ -91,7 +91,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
       isAdmin: roles.includes(UserRole[UserRole.Admin]) ?? false,
       isListingCreator:
         roles.includes(UserRole[UserRole.ListingCreator]) ?? false,
-      userId: decoded?.sub! ?? null,
+      userId: decoded?.sub ?? null,
     }),
     [decoded],
   )

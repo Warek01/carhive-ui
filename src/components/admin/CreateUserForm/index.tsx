@@ -3,9 +3,9 @@ import { FormikHelpers, useFormik } from 'formik'
 import { FC, memo } from 'react'
 import * as Yup from 'yup'
 
-import { FormikTextField } from '@/components'
-import { CreateUser, UserRole } from '@/lib/user'
-import { toggleArrayItem } from '@/lib/utils'
+import { FormikTextField } from '@faf-cars/components'
+import { CreateUser, UserRole } from '@faf-cars/lib/user'
+import { toggleArrayItem } from '@faf-cars/lib/utils'
 
 interface Props {
   onSubmit(createDto: CreateUser, helpers: FormikHelpers<CreateUser>): any

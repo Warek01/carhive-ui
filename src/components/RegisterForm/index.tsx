@@ -1,41 +1,41 @@
-import { Button, Grid, Typography } from '@mui/material'
-import { AxiosError } from 'axios'
-import { useFormik } from 'formik'
-import { FC, memo, useCallback } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { Button, Grid, Typography } from '@mui/material';
+import { AxiosError } from 'axios';
+import { useFormik } from 'formik';
+import { FC, memo, useCallback } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-import { FormikTextField } from '@faf-cars/components'
-import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks'
-import type { RegisterCredentials } from '@faf-cars/lib/auth'
-import { AppRoute } from '@faf-cars/lib/routing/app-route'
-import { ToastId } from '@faf-cars/lib/toast'
+import { FormikTextField } from '@faf-cars/components';
+import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks';
+import type { RegisterCredentials } from '@faf-cars/lib/auth';
+import { AppRoute } from '@faf-cars/lib/routing/app-route';
+import { ToastId } from '@faf-cars/lib/toast';
 
-import { registerInitialValues, registerValidationSchema } from './constants'
+import { registerInitialValues, registerValidationSchema } from './constants';
 
 const RegisterForm: FC = () => {
-  const { login } = useAuth()
-  const { setLoading, unsetLoading } = useLoading()
-  const http = useHttpService()
+  const { login } = useAuth();
+  const { setLoading, unsetLoading } = useLoading();
+  const http = useHttpService();
 
   const handleSubmit = useCallback(
     async (values: RegisterCredentials) => {
       if (values.password !== values.repeatPassword) {
-        formik.setFieldError('passwordRepeat', 'Password mismatch')
-        return
+        formik.setFieldError('passwordRepeat', 'Password mismatch');
+        return;
       }
 
-      setLoading()
+      setLoading();
 
       try {
         const res = await http.register({
           email: values.email,
           password: values.password,
           username: values.username,
-        })
-        login(res)
+        });
+        login(res);
       } catch (err) {
-        console.error(err)
+        console.error(err);
 
         if (err instanceof AxiosError) {
           switch (err.response?.status) {
@@ -43,24 +43,24 @@ const RegisterForm: FC = () => {
               toast('Invalid password.', {
                 type: 'error',
                 toastId: ToastId.Register,
-              })
-              break
+              });
+              break;
             case 404:
               toast('User does not exist.', {
                 type: 'error',
                 toastId: ToastId.Register,
-              })
-              break
+              });
+              break;
           }
         } else {
-          toast('Error.', { type: 'error', toastId: ToastId.Register })
+          toast('Error.', { type: 'error', toastId: ToastId.Register });
         }
       }
 
-      unsetLoading()
+      unsetLoading();
     },
     [login],
-  )
+  );
 
   const formik = useFormik({
     initialValues: registerInitialValues,
@@ -69,7 +69,7 @@ const RegisterForm: FC = () => {
     validateOnChange: false,
     validateOnMount: false,
     validateOnBlur: true,
-  })
+  });
 
   return (
     <Grid container component="form" onSubmit={formik.handleSubmit} spacing={3}>
@@ -133,7 +133,7 @@ const RegisterForm: FC = () => {
         </Button>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default memo(RegisterForm)
+export default memo(RegisterForm);

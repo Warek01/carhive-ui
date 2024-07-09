@@ -1,65 +1,65 @@
-import { jwtDecode } from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode';
 import {
   FC,
   PropsWithChildren,
   createContext,
   useCallback,
   useMemo,
-} from 'react'
-import { useQuery, useQueryClient } from 'react-query'
-import { toast } from 'react-toastify'
-import { useLocalStorage } from 'usehooks-ts'
+} from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
+import { useLocalStorage } from 'usehooks-ts';
 
-import type { AppJwtPayload, JwtResponse } from '@faf-cars/lib/auth'
-import { QueryKey } from '@faf-cars/lib/query-key'
-import { StorageKey } from '@faf-cars/lib/storage-key'
-import { ToastId } from '@faf-cars/lib/toast'
-import { User, UserRole } from '@faf-cars/lib/user'
-import { HttpService } from '@faf-cars/services/http.service'
+import type { AppJwtPayload, JwtResponse } from '@faf-cars/lib/auth';
+import { QueryKey } from '@faf-cars/lib/query-key';
+import { StorageKey } from '@faf-cars/lib/storage-key';
+import { ToastId } from '@faf-cars/lib/toast';
+import { User, UserRole } from '@faf-cars/lib/user';
+import { HttpService } from '@faf-cars/services/http.service';
 
 export interface AuthContextProps {
-  fetchedUser: User | null
-  userId: string | null
-  token: string | null
-  refreshToken: string | null
-  expiresAt: Date | null
-  isAuthorized: boolean
-  isListingCreator: boolean
-  isAdmin: boolean
-  login(data: JwtResponse): void
-  logout(): void
-  refresh(): Promise<void>
+  fetchedUser: User | null;
+  userId: string | null;
+  token: string | null;
+  refreshToken: string | null;
+  expiresAt: Date | null;
+  isAuthorized: boolean;
+  isListingCreator: boolean;
+  isAdmin: boolean;
+  login(data: JwtResponse): void;
+  logout(): void;
+  refresh(): Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextProps>(null!)
-export default AuthContext
+const AuthContext = createContext<AuthContextProps>(null!);
+export default AuthContext;
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const [authData, setAuthData] = useLocalStorage<JwtResponse | null>(
     StorageKey.AuthData,
     null,
-  )
+  );
 
   const token = useMemo<string | null>(
     () => authData?.token ?? null,
     [authData],
-  )
+  );
 
-  const isAuthorized = useMemo<boolean>(() => !!token, [token])
+  const isAuthorized = useMemo<boolean>(() => !!token, [token]);
 
   const refreshToken = useMemo<string | null>(
     () => authData?.refreshToken ?? null,
     [authData],
-  )
+  );
 
   const decoded = useMemo<AppJwtPayload | null>(
     () => (token ? jwtDecode<AppJwtPayload>(token) : null),
     [token],
-  )
+  );
 
-  const http = useMemo<HttpService>(() => new HttpService(token), [token])
+  const http = useMemo<HttpService>(() => new HttpService(token), [token]);
 
   const userQuery = useQuery(
     [QueryKey.User, token],
@@ -67,12 +67,12 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     {
       enabled: isAuthorized,
     },
-  )
+  );
 
   const fetchedUser = useMemo<User | null>(
     () => userQuery.data ?? null,
     [userQuery.data],
-  )
+  );
 
   const roles = useMemo<string[]>(
     () =>
@@ -82,7 +82,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
           ? decoded.role
           : [decoded.role],
     [decoded],
-  )
+  );
 
   // groups the props derived from decoded jwt token
   const jwtDecodedData = useMemo(
@@ -94,39 +94,41 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
       userId: decoded?.sub ?? null,
     }),
     [decoded],
-  )
+  );
 
   const login = useCallback((data: JwtResponse) => {
-    setAuthData(data)
-  }, [])
+    setAuthData(data);
+  }, []);
 
   const logout = useCallback(() => {
-    queryClient.clear()
-    queryClient.invalidateQueries()
-    const theme = localStorage.getItem(StorageKey.Theme)
-    localStorage.clear()
-    sessionStorage.clear()
-    setAuthData(null)
+    queryClient.clear();
+    queryClient.invalidateQueries();
+    const theme = localStorage.getItem(StorageKey.Theme);
+    localStorage.clear();
+    sessionStorage.clear();
+    setAuthData(null);
 
-    if (theme) localStorage.setItem(StorageKey.Theme, theme)
-  }, [])
+    if (theme) localStorage.setItem(StorageKey.Theme, theme);
+  }, []);
 
   const refresh = useCallback(async () => {
-    if (!authData) return
+    if (!authData) {
+      return;
+    }
 
     try {
-      const http = new HttpService(null)
-      const res = await http.refresh(authData)
-      login(res)
+      const http = new HttpService(null);
+      const res = await http.refresh(authData);
+      login(res);
     } catch (err) {
-      console.error(err)
+      console.error(err);
       toast('Session has expired.', {
         toastId: ToastId.SessionExpire,
         type: 'warning',
-      })
-      logout()
+      });
+      logout();
     }
-  }, [authData, login, logout])
+  }, [authData, login, logout]);
 
   const context: AuthContextProps = {
     ...jwtDecodedData,
@@ -137,7 +139,9 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     login,
     logout,
     refresh,
-  }
+  };
 
-  return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
-}
+  return (
+    <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
+  );
+};

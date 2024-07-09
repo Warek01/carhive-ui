@@ -1,32 +1,32 @@
-import axios, { AxiosInstance } from 'axios'
-import qs from 'qs'
+import axios, { AxiosInstance } from 'axios';
+import qs from 'qs';
 
 import {
   CreateUserDto,
   JwtResponse,
   LoginDto,
   RegisterDto,
-} from '@faf-cars/lib/auth'
+} from '@faf-cars/lib/auth';
 import {
   CreateListing,
   FavoriteListingAction,
   Listing,
-} from '@faf-cars/lib/listings'
-import { PaginatedResponse } from '@faf-cars/lib/paginationData'
+} from '@faf-cars/lib/listings';
+import { PaginatedResponse } from '@faf-cars/lib/paginationData';
 import {
   MarketStatistics,
   MarketStatisticsQuery,
-} from '@faf-cars/lib/statistics'
-import { UpdateUser, User } from '@faf-cars/lib/user'
+} from '@faf-cars/lib/statistics';
+import { UpdateUser, User } from '@faf-cars/lib/user';
 
 export class HttpService {
-  private readonly _axiosInstance: AxiosInstance
+  private readonly _axiosInstance: AxiosInstance;
 
   constructor(token: string | null) {
-    const headers: HeadersInit = {}
+    const headers: HeadersInit = {};
 
     if (token !== null) {
-      headers.Authorization = `Bearer ${token}`
+      headers.Authorization = `Bearer ${token}`;
     }
 
     this._axiosInstance = axios.create({
@@ -39,7 +39,7 @@ export class HttpService {
           skipNulls: false,
         }),
       headers,
-    })
+    });
   }
 
   async getListings(params?: object): Promise<PaginatedResponse<Listing>> {
@@ -48,9 +48,9 @@ export class HttpService {
       {
         params,
       },
-    )
+    );
 
-    return data
+    return data;
   }
 
   async getListingDetails(
@@ -62,9 +62,9 @@ export class HttpService {
       {
         params,
       },
-    )
+    );
 
-    return data
+    return data;
   }
 
   async mutateFavoriteListings(
@@ -77,9 +77,9 @@ export class HttpService {
       {
         params,
       },
-    )
+    );
 
-    return data
+    return data;
   }
 
   async createListing(
@@ -88,7 +88,7 @@ export class HttpService {
   ): Promise<void> {
     await this._axiosInstance.post<void>('listing', createDto, {
       params,
-    })
+    });
   }
 
   async login(loginDto: LoginDto, params?: object): Promise<JwtResponse> {
@@ -96,8 +96,8 @@ export class HttpService {
       'auth/login',
       loginDto,
       { params },
-    )
-    return res.data
+    );
+    return res.data;
   }
 
   async register(
@@ -108,8 +108,8 @@ export class HttpService {
       'auth/register',
       registerDto,
       { params },
-    )
-    return res.data
+    );
+    return res.data;
   }
 
   async refresh(jwtRes: JwtResponse, params?: object): Promise<JwtResponse> {
@@ -117,22 +117,22 @@ export class HttpService {
       'auth/refresh',
       jwtRes,
       { params },
-    )
-    return res.data
+    );
+    return res.data;
   }
 
   async getUser(userId: string, params?: object): Promise<User> {
     const res = await this._axiosInstance.get<User>('user/' + userId, {
       params,
-    })
-    return res.data
+    });
+    return res.data;
   }
 
   async getUsers(params?: object): Promise<PaginatedResponse<User>> {
     const res = await this._axiosInstance.get<PaginatedResponse<User>>('user', {
       params,
-    })
-    return res.data
+    });
+    return res.data;
   }
 
   async updateUser(
@@ -144,22 +144,22 @@ export class HttpService {
       `user/${userId}`,
       updateDto,
       { params },
-    )
-    return res.data
+    );
+    return res.data;
   }
 
   async deleteUser(userId: string, params?: object): Promise<void> {
     const res = await this._axiosInstance.delete<void>(`user/${userId}`, {
       params,
-    })
-    return res.data
+    });
+    return res.data;
   }
 
   async createUser(createDto: CreateUserDto, params?: object): Promise<void> {
     const res = await this._axiosInstance.post<void>('user', createDto, {
       params,
-    })
-    return res.data
+    });
+    return res.data;
   }
 
   async getListingsStats(
@@ -174,7 +174,7 @@ export class HttpService {
           ...additionalParams,
         },
       },
-    )
-    return res.data
+    );
+    return res.data;
   }
 }

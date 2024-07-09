@@ -1,4 +1,4 @@
-import { Add } from '@mui/icons-material'
+import { Add } from '@mui/icons-material';
 import {
   Box,
   Container,
@@ -8,21 +8,21 @@ import {
   Tab,
   Tabs,
   Typography,
-} from '@mui/material'
-import { FormikHelpers } from 'formik'
-import { FC, useCallback, useMemo, useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
-import { toast } from 'react-toastify'
-import { useSessionStorage } from 'usehooks-ts'
+} from '@mui/material';
+import { FormikHelpers } from 'formik';
+import { FC, useCallback, useMemo, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
+import { useSessionStorage } from 'usehooks-ts';
 
-import { CreateUserForm, UsersList } from '@faf-cars/components'
-import ListingsCharts from '@faf-cars/components/admin/ListingsCharts'
-import { useHttpService, useWatchLoading } from '@faf-cars/hooks'
-import type { CreateUserDto, RegisterDto } from '@faf-cars/lib/auth'
-import { QueryKey } from '@faf-cars/lib/query-key'
-import { StorageKey } from '@faf-cars/lib/storage-key'
-import { ToastId } from '@faf-cars/lib/toast'
-import { CreateUser } from '@faf-cars/lib/user'
+import { CreateUserForm, UsersList } from '@faf-cars/components';
+import ListingsCharts from '@faf-cars/components/admin/ListingsCharts';
+import { useHttpService, useWatchLoading } from '@faf-cars/hooks';
+import type { CreateUserDto, RegisterDto } from '@faf-cars/lib/auth';
+import { QueryKey } from '@faf-cars/lib/query-key';
+import { StorageKey } from '@faf-cars/lib/storage-key';
+import { ToastId } from '@faf-cars/lib/toast';
+import { CreateUser } from '@faf-cars/lib/user';
 
 enum AdminTab {
   UsersList = 'users',
@@ -32,44 +32,49 @@ enum AdminTab {
 const ADMIN_TABS: Record<AdminTab, string> = {
   [AdminTab.UsersList]: 'Users',
   [AdminTab.ListingsStats]: 'Listings',
-}
+};
 
 const AdminDashboardPage: FC = () => {
   const [selectedTab, setSelectedTab] = useSessionStorage(
     StorageKey.AdminTab,
     AdminTab.UsersList,
-  )
+  );
 
-  const http = useHttpService()
-  const queryClient = useQueryClient()
+  const http = useHttpService();
+  const queryClient = useQueryClient();
 
   const createUserMutation = useMutation(
     (createDto: CreateUserDto) => http.createUser(createDto),
     {
       onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
     },
-  )
+  );
 
-  useWatchLoading(createUserMutation.isLoading)
+  useWatchLoading(createUserMutation.isLoading);
 
-  const [isCreatingUser, setIsCreatingUser] = useState<boolean>(false)
-  const [registerDto, setRegisterDto] = useState<RegisterDto>({} as RegisterDto)
+  const [isCreatingUser, setIsCreatingUser] = useState<boolean>(false);
+  const [registerDto, setRegisterDto] = useState<RegisterDto>(
+    {} as RegisterDto,
+  );
 
   const handleUserCreate = useCallback(
     async (createDto: CreateUser, helpers: FormikHelpers<CreateUser>) => {
-      setIsCreatingUser(false)
+      setIsCreatingUser(false);
       try {
-        await createUserMutation.mutateAsync(createDto)
-        toast('User created.', { toastId: ToastId.UserCreate })
+        await createUserMutation.mutateAsync(createDto);
+        toast('User created.', { toastId: ToastId.UserCreate });
       } catch (err) {
-        console.error(err)
-        toast('Error creating.', { type: 'error', toastId: ToastId.UserCreate })
+        console.error(err);
+        toast('Error creating.', {
+          type: 'error',
+          toastId: ToastId.UserCreate,
+        });
       }
-      helpers.resetForm()
-      setRegisterDto({} as RegisterDto)
+      helpers.resetForm();
+      setRegisterDto({} as RegisterDto);
     },
     [registerDto],
-  )
+  );
 
   const modalElement = useMemo(
     () => (
@@ -94,7 +99,7 @@ const AdminDashboardPage: FC = () => {
       </Modal>
     ),
     [isCreatingUser, registerDto],
-  )
+  );
 
   const addUserElement = useMemo(
     () => (
@@ -117,7 +122,7 @@ const AdminDashboardPage: FC = () => {
       </Fab>
     ),
     [],
-  )
+  );
 
   const tabsElement = useMemo(
     () => (
@@ -132,12 +137,12 @@ const AdminDashboardPage: FC = () => {
       </Tabs>
     ),
     [selectedTab],
-  )
+  );
 
   const renderedTabElement = {
     [AdminTab.UsersList]: <UsersList />,
     [AdminTab.ListingsStats]: <ListingsCharts />,
-  }[selectedTab]
+  }[selectedTab];
 
   return (
     <>
@@ -148,7 +153,7 @@ const AdminDashboardPage: FC = () => {
         {addUserElement}
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default AdminDashboardPage
+export default AdminDashboardPage;

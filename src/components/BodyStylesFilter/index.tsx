@@ -1,28 +1,28 @@
-import { Box, Chip, Stack } from '@mui/material'
-import { FC, memo, useCallback } from 'react'
+import { Box, Chip, Stack } from '@mui/material';
+import { FC, memo, useCallback } from 'react';
 
-import { BODY_STYLE_STRING_MAP, BodyStyle } from '@faf-cars/lib/listings'
-import { toggleArrayItem } from '@faf-cars/lib/utils'
+import { BODY_STYLE_STRING_MAP, BodyStyle } from '@faf-cars/lib/listings';
+import { toggleArrayItem } from '@faf-cars/lib/utils';
 
 interface Props {
-  selected: BodyStyle[]
-  onChange(selected: BodyStyle[]): void
+  selected: BodyStyle[];
+  onChange(selected: BodyStyle[]): void;
 }
 
 export const BodyStylesFilter: FC<Props> = ({ onChange, selected }) => {
   const handleChipClick = useCallback(
     (bodyStyle: BodyStyle) => {
       return () => {
-        const newSelected = toggleArrayItem(selected, bodyStyle)
-        onChange(newSelected)
-      }
+        const newSelected = toggleArrayItem(selected, bodyStyle);
+        onChange(newSelected);
+      };
     },
     [selected, onChange],
-  )
+  );
 
   const handleClear = useCallback(() => {
-    onChange([])
-  }, [onChange])
+    onChange([]);
+  }, [onChange]);
 
   return (
     <Box>
@@ -45,7 +45,7 @@ export const BodyStylesFilter: FC<Props> = ({ onChange, selected }) => {
         />
       </Stack>
     </Box>
-  )
-}
+  );
+};
 
-export default memo(BodyStylesFilter)
+export default memo(BodyStylesFilter);

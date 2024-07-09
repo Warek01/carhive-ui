@@ -4,4 +4,4 @@ enum AppRouteType {
   ADMIN_PROTECTED,
 }
 
-export default AppRouteType
+export default AppRouteType;

@@ -1,4 +1,4 @@
-import { Delete } from '@mui/icons-material'
+import { Delete } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -10,49 +10,49 @@ import {
   MenuItem,
   Select,
   TextField,
-} from '@mui/material'
-import { AxiosError } from 'axios'
-import { FormikHelpers, useFormik } from 'formik'
-import { FC, memo, useCallback, useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
-import { toast } from 'react-toastify'
+} from '@mui/material';
+import { AxiosError } from 'axios';
+import { FormikHelpers, useFormik } from 'formik';
+import { FC, memo, useCallback, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
 
-import { FileInput, Image } from '@faf-cars/components'
-import { useHttpService, useWatchLoading } from '@faf-cars/hooks'
-import type { ImageFile } from '@faf-cars/lib/definitions'
+import { FileInput, Image } from '@faf-cars/components';
+import { useHttpService, useWatchLoading } from '@faf-cars/hooks';
+import type { ImageFile } from '@faf-cars/lib/definitions';
 import {
   BODY_STYLE_STRING_MAP,
   CAR_BRANDS_TEMP,
   CreateListing,
   ENGINE_TYPE_STRING_MAP,
-} from '@faf-cars/lib/listings'
-import { QueryKey } from '@faf-cars/lib/query-key'
-import { ToastId } from '@faf-cars/lib/toast'
-import { fileToBase64 } from '@faf-cars/lib/utils'
+} from '@faf-cars/lib/listings';
+import { QueryKey } from '@faf-cars/lib/query-key';
+import { ToastId } from '@faf-cars/lib/toast';
+import { fileToBase64 } from '@faf-cars/lib/utils';
 
 import {
   createListingInitialValues,
   createListingValidationSchema,
-} from './constants'
+} from './constants';
 
 const NewListingForm: FC = () => {
-  const http = useHttpService()
-  const queryClient = useQueryClient()
+  const http = useHttpService();
+  const queryClient = useQueryClient();
 
-  const [preview, setPreview] = useState<ImageFile | null>(null)
+  const [preview, setPreview] = useState<ImageFile | null>(null);
 
   const createListingMutation = useMutation((createDto: CreateListing) =>
     http.createListing(createDto),
-  )
+  );
 
-  useWatchLoading(createListingMutation.isLoading)
+  useWatchLoading(createListingMutation.isLoading);
 
   const handlePreviewChange = useCallback(async (file: File) => {
     setPreview({
       file,
       body: await fileToBase64(file),
-    })
-  }, [])
+    });
+  }, []);
 
   const handleSubmit = useCallback(
     async (
@@ -60,25 +60,25 @@ const NewListingForm: FC = () => {
       helpers: FormikHelpers<CreateListing>,
     ) => {
       try {
-        const createDto: CreateListing = { ...formObject }
+        const createDto: CreateListing = { ...formObject };
 
         if (preview) {
           createDto.previewFile = {
             fileName: preview.file.name,
             base64Body: preview.body!,
-          }
+          };
         }
 
         await createListingMutation.mutateAsync(createDto, {
           onSuccess: () => queryClient.invalidateQueries(QueryKey.ListingsList),
-        })
-        helpers.resetForm()
-        setPreview(null)
+        });
+        helpers.resetForm();
+        setPreview(null);
         toast('Listing created successfully.', {
           toastId: ToastId.ListingCreate,
-        })
+        });
       } catch (err) {
-        console.error(err)
+        console.error(err);
 
         if (err instanceof AxiosError) {
           switch (err.response?.status) {
@@ -86,32 +86,32 @@ const NewListingForm: FC = () => {
               toast('Validation error.', {
                 type: 'error',
                 toastId: ToastId.ListingCreate,
-              })
-              break
+              });
+              break;
             case 401:
               toast('Unauthorized.', {
                 type: 'error',
                 toastId: ToastId.ListingCreate,
-              })
-              break
+              });
+              break;
             case 403:
               toast('Not allowed.', {
                 type: 'error',
                 toastId: ToastId.ListingCreate,
-              })
-              break
+              });
+              break;
             default:
               toast('Not allowed.', {
                 type: 'error',
                 toastId: ToastId.ListingCreate,
-              })
-              break
+              });
+              break;
           }
         }
       }
     },
     [preview],
-  )
+  );
 
   const formik = useFormik({
     initialValues: createListingInitialValues,
@@ -120,7 +120,7 @@ const NewListingForm: FC = () => {
     validateOnChange: false,
     validateOnMount: false,
     validateOnBlur: true,
-  })
+  });
 
   return (
     <Box>
@@ -382,7 +382,7 @@ const NewListingForm: FC = () => {
         </Grid>
       </Grid>
     </Box>
-  )
-}
+  );
+};
 
-export default memo(NewListingForm)
+export default memo(NewListingForm);

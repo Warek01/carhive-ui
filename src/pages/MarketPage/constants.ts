@@ -1,6 +1,6 @@
-import { Favorite, ShoppingCart, TimeToLeave } from '@mui/icons-material'
+import { Favorite, ShoppingCart, TimeToLeave } from '@mui/icons-material';
 
-import { IconButton } from '@faf-cars/lib/definitions'
+import { IconButton } from '@faf-cars/lib/definitions';
 
 export enum ListingsTab {
   All,
@@ -24,4 +24,4 @@ export const LISTING_TABS: IconButton<ListingsTab>[] = [
     text: 'My',
     value: ListingsTab.My,
   },
-]
+];

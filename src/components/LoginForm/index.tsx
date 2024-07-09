@@ -1,32 +1,32 @@
-import { Button, Grid, Typography } from '@mui/material'
-import { AxiosError } from 'axios'
-import { useFormik } from 'formik'
-import { FC, memo, useCallback } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { Button, Grid, Typography } from '@mui/material';
+import { AxiosError } from 'axios';
+import { useFormik } from 'formik';
+import { FC, memo, useCallback } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-import { FormikTextField } from '@faf-cars/components'
-import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks'
-import { LoginCredentials } from '@faf-cars/lib/auth'
-import { AppRoute } from '@faf-cars/lib/routing/app-route'
-import { ToastId } from '@faf-cars/lib/toast'
+import { FormikTextField } from '@faf-cars/components';
+import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks';
+import { LoginCredentials } from '@faf-cars/lib/auth';
+import { AppRoute } from '@faf-cars/lib/routing/app-route';
+import { ToastId } from '@faf-cars/lib/toast';
 
-import { loginInitialValues, loginValidationSchema } from './constants'
+import { loginInitialValues, loginValidationSchema } from './constants';
 
 const LoginForm: FC = () => {
-  const { login } = useAuth()
-  const http = useHttpService()
-  const { setLoading, unsetLoading } = useLoading()
+  const { login } = useAuth();
+  const http = useHttpService();
+  const { setLoading, unsetLoading } = useLoading();
 
   const handleSubmit = useCallback(
     async (values: LoginCredentials) => {
-      setLoading()
+      setLoading();
 
       try {
-        const res = await http.login({ ...values })
-        login(res)
+        const res = await http.login({ ...values });
+        login(res);
       } catch (err) {
-        console.error(err)
+        console.error(err);
 
         if (err instanceof AxiosError) {
           switch (err.response?.status) {
@@ -34,24 +34,24 @@ const LoginForm: FC = () => {
               toast('Invalid password.', {
                 type: 'error',
                 toastId: ToastId.Login,
-              })
-              break
+              });
+              break;
             case 404:
               toast('User does not exist.', {
                 type: 'error',
                 toastId: ToastId.Login,
-              })
-              break
+              });
+              break;
           }
         } else {
-          toast('Error.', { type: 'error', toastId: ToastId.Login })
+          toast('Error.', { type: 'error', toastId: ToastId.Login });
         }
       }
 
-      unsetLoading()
+      unsetLoading();
     },
     [login],
-  )
+  );
 
   const formik = useFormik({
     initialValues: loginInitialValues,
@@ -60,7 +60,7 @@ const LoginForm: FC = () => {
     validateOnChange: false,
     validateOnMount: false,
     validateOnBlur: true,
-  })
+  });
 
   return (
     <Grid container component="form" onSubmit={formik.handleSubmit} spacing={3}>
@@ -98,7 +98,7 @@ const LoginForm: FC = () => {
         </Button>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default memo(LoginForm)
+export default memo(LoginForm);

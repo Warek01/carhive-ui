@@ -1,4 +1,4 @@
-import { Delete } from '@mui/icons-material'
+import { Delete } from '@mui/icons-material';
 import {
   Box,
   CircularProgress,
@@ -11,111 +11,114 @@ import {
   Stack,
   Switch,
   Typography,
-} from '@mui/material'
-import { FC, memo, useCallback, useEffect, useRef, useState } from 'react'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { toast } from 'react-toastify'
-import { useLocalStorage } from 'usehooks-ts'
+} from '@mui/material';
+import { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
+import { useLocalStorage } from 'usehooks-ts';
 
-import { useAuth, useHttpService } from '@faf-cars/hooks'
-import dev_delay from '@faf-cars/lib/dev/delay'
+import { useAuth, useHttpService } from '@faf-cars/hooks';
+import dev_delay from '@faf-cars/lib/dev/delay';
 import {
   DEFAULT_PAGINATION_DATA,
   PaginationData,
-} from '@faf-cars/lib/paginationData'
-import { QueryKey } from '@faf-cars/lib/query-key'
-import { StorageKey } from '@faf-cars/lib/storage-key'
-import { ToastId } from '@faf-cars/lib/toast'
-import { UpdateUser, User, UserRole } from '@faf-cars/lib/user'
-import { toggleArrayItem } from '@faf-cars/lib/utils'
+} from '@faf-cars/lib/paginationData';
+import { QueryKey } from '@faf-cars/lib/query-key';
+import { StorageKey } from '@faf-cars/lib/storage-key';
+import { ToastId } from '@faf-cars/lib/toast';
+import { UpdateUser, User, UserRole } from '@faf-cars/lib/user';
+import { toggleArrayItem } from '@faf-cars/lib/utils';
 
 const ROLES_STRING_MAP: [UserRole, string][] = [
   [UserRole.Admin, 'Admin'],
   [UserRole.ListingCreator, 'Listing creator'],
-]
+];
 
 const UsersList: FC = () => {
-  const { fetchedUser } = useAuth()
-  const http = useHttpService()
-  const queryClient = useQueryClient()
+  const { fetchedUser } = useAuth();
+  const http = useHttpService();
+  const queryClient = useQueryClient();
 
   const [pagination, setPagination] = useLocalStorage<PaginationData>(
     StorageKey.DashboardUserPagination,
     DEFAULT_PAGINATION_DATA,
-  )
+  );
 
-  const [loadingUserIds, setLoadingUserIds] = useState<string[]>([])
-  const loadingUserTimeoutIds = useRef<Record<string, NodeJS.Timeout>>({})
+  const [loadingUserIds, setLoadingUserIds] = useState<string[]>([]);
+  const loadingUserTimeoutIds = useRef<Record<string, NodeJS.Timeout>>({});
 
   const startLoadingUser = useCallback((userId: string) => {
     loadingUserTimeoutIds.current[userId] = setTimeout(
       () => setLoadingUserIds((ids) => ids.concat(userId)),
       250,
-    )
-  }, [])
+    );
+  }, []);
 
   const stopLoadingUser = useCallback((userId: string) => {
-    setLoadingUserIds((ids) => ids.filter((id) => id !== userId))
-    clearTimeout(loadingUserTimeoutIds.current[userId])
-  }, [])
+    setLoadingUserIds((ids) => ids.filter((id) => id !== userId));
+    clearTimeout(loadingUserTimeoutIds.current[userId]);
+  }, []);
 
   const usersQuery = useQuery([QueryKey.UsersList, pagination], () =>
     http.getUsers({
       take: pagination.size,
       page: pagination.page,
     }),
-  )
+  );
   const deleteUserMutation = useMutation(
     (userId: string) => http.deleteUser(userId),
     {
       onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
     },
-  )
+  );
   const updateUserMutation = useMutation({
     mutationFn: ([userId, updateDto]: [string, UpdateUser]) =>
       http.updateUser(userId, updateDto),
     onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
-  })
+  });
 
   const handleUserDelete = useCallback(async (user: User) => {
-    startLoadingUser(user.id)
+    startLoadingUser(user.id);
 
     try {
-      await deleteUserMutation.mutateAsync(user.id)
-      toast('User deleted.', { toastId: ToastId.UserDelete })
+      await deleteUserMutation.mutateAsync(user.id);
+      toast('User deleted.', { toastId: ToastId.UserDelete });
     } catch (err) {
-      console.error(err)
-      toast('Error deleting.', { type: 'error' })
+      console.error(err);
+      toast('Error deleting.', { type: 'error' });
     } finally {
-      stopLoadingUser(user.id)
+      stopLoadingUser(user.id);
     }
-  }, [])
+  }, []);
 
   const handleUserUpdate = useCallback(
     async (userId: string, updateDto: UpdateUser) => {
-      startLoadingUser(userId)
+      startLoadingUser(userId);
 
       try {
-        await dev_delay(2500)
-        await updateUserMutation.mutateAsync([userId, updateDto])
-        toast('User updated.', { toastId: ToastId.UserUpdate })
+        await dev_delay(2500);
+        await updateUserMutation.mutateAsync([userId, updateDto]);
+        toast('User updated.', { toastId: ToastId.UserUpdate });
       } catch (err) {
-        console.error(err)
-        toast('Error updating.', { type: 'error', toastId: ToastId.UserUpdate })
+        console.error(err);
+        toast('Error updating.', {
+          type: 'error',
+          toastId: ToastId.UserUpdate,
+        });
       } finally {
-        stopLoadingUser(userId)
+        stopLoadingUser(userId);
       }
     },
     [],
-  )
+  );
 
   useEffect(() => {
     if (usersQuery.data)
       setPagination((p) => ({
         ...p,
         count: Math.ceil(usersQuery.data.totalItems / p.size),
-      }))
-  }, [usersQuery.data])
+      }));
+  }, [usersQuery.data]);
 
   return (
     <Box
@@ -204,7 +207,7 @@ const UsersList: FC = () => {
         <CircularProgress />
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default memo(UsersList)
+export default memo(UsersList);

@@ -1,5 +1,5 @@
-import { Box, Typography } from '@mui/material'
-import { FC } from 'react'
+import { Box, Typography } from '@mui/material';
+import { FC } from 'react';
 
 const AboutPage: FC = () => {
   return (
@@ -12,7 +12,7 @@ const AboutPage: FC = () => {
         front-end and .NET and postgres for back-end.
       </Typography>
     </Box>
-  )
-}
+  );
+};
 
-export default AboutPage
+export default AboutPage;

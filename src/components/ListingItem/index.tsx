@@ -1,20 +1,20 @@
-import { Box, Button, Card, Link, Stack, Typography } from '@mui/material'
-import { FC, memo } from 'react'
-import { generatePath } from 'react-router'
-import { Link as RouterLink } from 'react-router-dom'
+import { Box, Button, Card, Link, Stack, Typography } from '@mui/material';
+import { FC, memo } from 'react';
+import { generatePath } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 
-import { Image } from '@faf-cars/components'
+import { Image } from '@faf-cars/components';
 import {
   BODY_STYLE_STRING_MAP,
   CAR_COLOR_HEX_MAP,
   CAR_COLOR_NAME_MAP,
   Listing,
-} from '@faf-cars/lib/listings'
-import { AppRoute } from '@faf-cars/lib/routing/app-route'
+} from '@faf-cars/lib/listings';
+import { AppRoute } from '@faf-cars/lib/routing/app-route';
 
 interface Props {
-  listing: Listing
-  lazy: boolean
+  listing: Listing;
+  lazy: boolean;
 }
 
 const ListingItem: FC<Props> = ({ listing, lazy }) => {
@@ -86,7 +86,7 @@ const ListingItem: FC<Props> = ({ listing, lazy }) => {
         </Link>
       </Box>
     </Card>
-  )
-}
+  );
+};
 
-export default memo(ListingItem)
+export default memo(ListingItem);

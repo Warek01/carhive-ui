@@ -1,4 +1,4 @@
-import { DarkMode, LightMode, Person, TimeToLeave } from '@mui/icons-material'
+import { DarkMode, LightMode, Person, TimeToLeave } from '@mui/icons-material';
 import {
   AppBar,
   Container,
@@ -7,17 +7,17 @@ import {
   SvgIconProps,
   Switch,
   Typography,
-} from '@mui/material'
-import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+} from '@mui/material';
+import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
-import { useAuth, useIsDarkTheme } from '@faf-cars/hooks'
-import { AppRoute } from '@faf-cars/lib/routing/app-route'
-import { GLOBAL_CONTAINER_MAX_WIDTH } from '@faf-cars/lib/themes'
+import { useAuth, useIsDarkTheme } from '@faf-cars/hooks';
+import { AppRoute } from '@faf-cars/lib/routing/app-route';
+import { GLOBAL_CONTAINER_MAX_WIDTH } from '@faf-cars/lib/themes';
 
 const Header: FC = () => {
-  const [isDarkTheme, setIsDarkTheme] = useIsDarkTheme()
-  const { isAuthorized, isAdmin } = useAuth()
+  const [isDarkTheme, setIsDarkTheme] = useIsDarkTheme();
+  const { isAuthorized, isAdmin } = useAuth();
 
   const iconProps = useMemo<SvgIconProps>(
     () => ({
@@ -25,18 +25,18 @@ const Header: FC = () => {
       height: 32,
     }),
     [],
-  )
+  );
 
   const icon = useMemo(
     () =>
       isDarkTheme ? <DarkMode {...iconProps} /> : <LightMode {...iconProps} />,
     [isDarkTheme],
-  )
+  );
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => setIsDarkTheme(event.target.checked),
     [],
-  )
+  );
 
   return (
     <AppBar>
@@ -124,7 +124,7 @@ const Header: FC = () => {
         </Stack>
       </Container>
     </AppBar>
-  )
-}
+  );
+};
 
-export default memo(Header)
+export default memo(Header);

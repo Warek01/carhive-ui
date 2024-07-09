@@ -5,7 +5,7 @@
   "endOfLine": "crlf",
   "trailingComma": "all",
   "singleQuote": true,
-  "semi": false,
+  "semi": true,
   "bracketSpacing": true,
   "printWidth": 80,
   "jsxSingleQuote": false,

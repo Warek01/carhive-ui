@@ -1,6 +1,6 @@
-import { Breakpoint } from '@mui/material'
-import { amber } from '@mui/material/colors'
-import { ThemeOptions, createTheme } from '@mui/material/styles'
+import { Breakpoint } from '@mui/material';
+import { amber } from '@mui/material/colors';
+import { ThemeOptions, createTheme } from '@mui/material/styles';
 
 const shared: ThemeOptions = {
   typography: {
@@ -31,16 +31,16 @@ const shared: ThemeOptions = {
       },
     },
   },
-}
+};
 
-const dark = structuredClone(shared)
-dark.palette!.mode = 'dark'
+const dark = structuredClone(shared);
+dark.palette!.mode = 'dark';
 
-const light = structuredClone(shared)
-light.palette!.mode = 'light'
+const light = structuredClone(shared);
+light.palette!.mode = 'light';
 
-export const darkTheme = createTheme(dark)
+export const darkTheme = createTheme(dark);
 
-export const lightTheme = createTheme(light)
+export const lightTheme = createTheme(light);
 
-export const GLOBAL_CONTAINER_MAX_WIDTH: Breakpoint = 'xl'
+export const GLOBAL_CONTAINER_MAX_WIDTH: Breakpoint = 'xl';

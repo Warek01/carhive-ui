@@ -88,4 +88,4 @@ export default [
       'react/display-name': 'off',
     },
   },
-]
+];

@@ -1,22 +1,22 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
-import { useLoading } from './index'
+import { useLoading } from './index';
 
 const useWatchLoading = (...values: boolean[]) => {
-  const { unsetLoading, setLoading } = useLoading()
+  const { unsetLoading, setLoading } = useLoading();
 
   useEffect(() => {
-    let loading = false
+    let loading = false;
 
     for (const v of values) {
       if (v) {
-        loading = true
-        break
+        loading = true;
+        break;
       }
     }
 
-    loading ? setLoading() : unsetLoading()
-  }, values)
-}
+    loading ? setLoading() : unsetLoading();
+  }, values);
+};
 
-export default useWatchLoading
+export default useWatchLoading;

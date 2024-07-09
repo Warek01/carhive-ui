@@ -1,4 +1,4 @@
-import { QueryClientConfig } from 'react-query'
+import { QueryClientConfig } from 'react-query';
 
 export const QUERY_CLIENT_CONFIG: QueryClientConfig = {
   defaultOptions: {
@@ -14,4 +14,4 @@ export const QUERY_CLIENT_CONFIG: QueryClientConfig = {
       retryOnMount: false,
     },
   },
-}
+};

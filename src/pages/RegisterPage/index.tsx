@@ -1,15 +1,15 @@
-import { Box, Container } from '@mui/material'
-import { FC } from 'react'
-import { Navigate } from 'react-router'
+import { Box, Container } from '@mui/material';
+import { FC } from 'react';
+import { Navigate } from 'react-router';
 
-import { RegisterForm } from '@faf-cars/components'
-import { useAuth } from '@faf-cars/hooks'
-import { AppRoute } from '@faf-cars/lib/routing/app-route'
+import { RegisterForm } from '@faf-cars/components';
+import { useAuth } from '@faf-cars/hooks';
+import { AppRoute } from '@faf-cars/lib/routing/app-route';
 
 const RegisterPage: FC = () => {
-  const { isAuthorized } = useAuth()
+  const { isAuthorized } = useAuth();
 
-  if (isAuthorized) return <Navigate to={AppRoute.Home} />
+  if (isAuthorized) return <Navigate to={AppRoute.Home} />;
 
   return (
     <Box
@@ -23,7 +23,7 @@ const RegisterPage: FC = () => {
         <RegisterForm />
       </Container>
     </Box>
-  )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;

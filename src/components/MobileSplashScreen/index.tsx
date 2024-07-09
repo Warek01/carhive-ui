@@ -1,6 +1,6 @@
-import { MobileOff } from '@mui/icons-material'
-import { Box } from '@mui/material'
-import { FC, PropsWithChildren, memo } from 'react'
+import { MobileOff } from '@mui/icons-material';
+import { Box } from '@mui/material';
+import { FC, PropsWithChildren, memo } from 'react';
 
 const MobileSplashScreen: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -17,7 +17,7 @@ const MobileSplashScreen: FC<PropsWithChildren> = ({ children }) => {
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'block' } }}>{children}</Box>
     </>
-  )
-}
+  );
+};
 
-export default memo(MobileSplashScreen)
+export default memo(MobileSplashScreen);

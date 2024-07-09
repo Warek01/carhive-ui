@@ -1,47 +1,47 @@
-import type { FileDto } from '@faf-cars/lib/definitions'
-import { User } from '@faf-cars/lib/user'
+import type { FileDto } from '@faf-cars/lib/definitions';
+import { User } from '@faf-cars/lib/user';
 
 export interface Listing {
-  id: string
-  brandName: string
-  modelName: string
-  price: number
-  bodyStyle: BodyStyle
-  horsepower: number | null
-  engineType: EngineType
-  engineVolume: number | null
-  color: CarColor
-  clearance: number | null
-  wheelSize: number | null
-  mileage: number | null
-  productionYear: number | null
-  updatedAt: string
-  createdAt: string
-  publisher: User | null
-  previewUrl: string | null
-  imagesUrls: string[]
-  countryCode: string
-  sellAddress: string | null
-  isFavorite: boolean | null
+  id: string;
+  brandName: string;
+  modelName: string;
+  price: number;
+  bodyStyle: BodyStyle;
+  horsepower: number | null;
+  engineType: EngineType;
+  engineVolume: number | null;
+  color: CarColor;
+  clearance: number | null;
+  wheelSize: number | null;
+  mileage: number | null;
+  productionYear: number | null;
+  updatedAt: string;
+  createdAt: string;
+  publisher: User | null;
+  previewUrl: string | null;
+  imagesUrls: string[];
+  countryCode: string;
+  sellAddress: string | null;
+  isFavorite: boolean | null;
 }
 
 export interface CreateListing {
-  brandName: string
-  modelName: string
-  price: number
-  bodyStyle: BodyStyle
-  horsepower: number | null
-  engineType: EngineType
-  engineVolume: number | null
-  color: CarColor
-  clearance: number | null
-  wheelSize: number | null
-  mileage: number | null
-  productionYear: number | null
-  countryCode: string
-  sellAddress: string | null
-  previewFile: FileDto | null
-  imagesFiles: FileDto[]
+  brandName: string;
+  modelName: string;
+  price: number;
+  bodyStyle: BodyStyle;
+  horsepower: number | null;
+  engineType: EngineType;
+  engineVolume: number | null;
+  color: CarColor;
+  clearance: number | null;
+  wheelSize: number | null;
+  mileage: number | null;
+  productionYear: number | null;
+  countryCode: string;
+  sellAddress: string | null;
+  previewFile: FileDto | null;
+  imagesFiles: FileDto[];
 }
 
 export const CAR_BRANDS_TEMP: string[] = [
@@ -104,7 +104,7 @@ export const CAR_BRANDS_TEMP: string[] = [
   'Toyota',
   'Volkswagen',
   'Volvo',
-]
+];
 
 export enum CarColor {
   Black,
@@ -150,7 +150,7 @@ export const CAR_COLOR_HEX_MAP = new Map<CarColor, string>([
   [CarColor.Bronze, '#CD7F32'],
   [CarColor.Teal, '#008080'],
   [CarColor.Navy, '#000080'],
-])
+]);
 
 export const CAR_COLOR_NAME_MAP = new Map<CarColor, string>([
   [CarColor.Black, 'Black'],
@@ -173,7 +173,7 @@ export const CAR_COLOR_NAME_MAP = new Map<CarColor, string>([
   [CarColor.Bronze, 'Bronze'],
   [CarColor.Teal, 'Teal'],
   [CarColor.Navy, 'Navy'],
-])
+]);
 
 export enum BodyStyle {
   Sedan,
@@ -201,7 +201,7 @@ export const BODY_STYLE_STRING_MAP = new Map<BodyStyle, string>([
   [BodyStyle.PickupTruck, 'Pickup'],
   [BodyStyle.Convertible, 'Convertible'],
   [BodyStyle.Other, 'Other'],
-])
+]);
 
 enum EngineType {
   Petrol,
@@ -217,7 +217,7 @@ export const ENGINE_TYPE_STRING_MAP = new Map<EngineType, string>([
   [EngineType.Hybrid, 'Hybrid'],
   [EngineType.Electric, 'Electric'],
   [EngineType.Other, 'Other'],
-])
+]);
 
 export enum ListingOrderBy {
   CreatedAtAsc = 'createdAtAsc',
@@ -235,7 +235,7 @@ export const LISTING_ORDER_BY_VALUES = new Map<ListingOrderBy, string>([
   [ListingOrderBy.CreatedAtAsc, 'Old listings first'],
   [ListingOrderBy.YearDesc, 'New cars first'],
   [ListingOrderBy.YearAsc, 'Old cars first'],
-])
+]);
 
 export enum FavoriteListingActionType {
   Add,
@@ -244,6 +244,6 @@ export enum FavoriteListingActionType {
 }
 
 export interface FavoriteListingAction {
-  type: FavoriteListingActionType
-  listingId?: string
+  type: FavoriteListingActionType;
+  listingId?: string;
 }

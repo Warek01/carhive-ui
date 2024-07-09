@@ -1,10 +1,10 @@
-import { TextField, TextFieldProps } from '@mui/material'
-import type { FormikProps } from 'formik'
-import { FC, memo } from 'react'
+import { TextField, TextFieldProps } from '@mui/material';
+import type { FormikProps } from 'formik';
+import { FC, memo } from 'react';
 
 interface Props {
-  formik: FormikProps<any>
-  name: string
+  formik: FormikProps<any>;
+  name: string;
 }
 
 const FormikTextField: FC<Props & TextFieldProps> = ({
@@ -24,7 +24,7 @@ const FormikTextField: FC<Props & TextFieldProps> = ({
       helperText={formik.touched[name] && (formik.errors[name] as string)}
       {...props}
     />
-  )
-}
+  );
+};
 
-export default memo(FormikTextField)
+export default memo(FormikTextField);

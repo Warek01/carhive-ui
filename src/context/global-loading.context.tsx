@@ -1,33 +1,33 @@
-import { Backdrop, CircularProgress } from '@mui/material'
+import { Backdrop, CircularProgress } from '@mui/material';
 import {
   FC,
   PropsWithChildren,
   createContext,
   useCallback,
   useState,
-} from 'react'
+} from 'react';
 
 export interface GlobalLoadingContextProps {
-  setLoading(): void
-  unsetLoading(): void
+  setLoading(): void;
+  unsetLoading(): void;
 }
 
-const GlobalLoadingContext = createContext<GlobalLoadingContextProps>(null!)
+const GlobalLoadingContext = createContext<GlobalLoadingContextProps>(null!);
 
-export default GlobalLoadingContext
+export default GlobalLoadingContext;
 
 export const GlobalLoadingContextProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const setLoading = useCallback(() => {
-    setIsLoading(true)
-  }, [])
+    setIsLoading(true);
+  }, []);
 
   const unsetLoading = useCallback(() => {
-    setIsLoading(false)
-  }, [])
+    setIsLoading(false);
+  }, []);
 
   return (
     <GlobalLoadingContext.Provider
@@ -44,5 +44,5 @@ export const GlobalLoadingContextProvider: FC<PropsWithChildren> = ({
       </Backdrop>
       {children}
     </GlobalLoadingContext.Provider>
-  )
-}
+  );
+};

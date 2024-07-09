@@ -1,10 +1,10 @@
-import { CloudUpload } from '@mui/icons-material'
-import { Button, FormControl, styled } from '@mui/material'
-import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react'
+import { CloudUpload } from '@mui/icons-material';
+import { Button, FormControl, styled } from '@mui/material';
+import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react';
 
 interface Props {
-  file: File | null | undefined
-  onChange(file: File | null): void
+  file: File | null | undefined;
+  onChange(file: File | null): void;
 }
 
 const VisuallyHiddenInput = styled('input')({
@@ -17,23 +17,23 @@ const VisuallyHiddenInput = styled('input')({
   left: 0,
   whiteSpace: 'nowrap',
   width: 1,
-})
+});
 
-const supportedTypes = ['png', 'jpeg', 'avif', 'webp', 'gif']
+const supportedTypes = ['png', 'jpeg', 'avif', 'webp', 'gif'];
 
 const FileInput: FC<Props> = ({ onChange, file }) => {
   const accept = useMemo(
     () => supportedTypes.map((t) => `image/${t}`).join(','),
     [],
-  )
+  );
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
-      const f = e.target.files
-      onChange(f?.length ? f[0] : null)
+      const f = e.target.files;
+      onChange(f?.length ? f[0] : null);
     },
     [],
-  )
+  );
 
   return (
     <FormControl fullWidth>
@@ -52,7 +52,7 @@ const FileInput: FC<Props> = ({ onChange, file }) => {
         />
       </Button>
     </FormControl>
-  )
-}
+  );
+};
 
-export default memo(FileInput)
+export default memo(FileInput);

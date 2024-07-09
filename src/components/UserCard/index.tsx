@@ -1,11 +1,11 @@
-import { AccountCircle } from '@mui/icons-material'
-import { Avatar, Card, CardContent, Typography } from '@mui/material'
-import { FC, memo } from 'react'
+import { AccountCircle } from '@mui/icons-material';
+import { Avatar, Card, CardContent, Typography } from '@mui/material';
+import { FC, memo } from 'react';
 
-import { User } from '@faf-cars/lib/user'
+import { User } from '@faf-cars/lib/user';
 
 interface Props {
-  user: User
+  user: User;
 }
 
 const UserCard: FC<Props> = ({ user }) => {
@@ -26,7 +26,7 @@ const UserCard: FC<Props> = ({ user }) => {
         <Typography color="textSecondary">Email: {user.email}</Typography>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default memo(UserCard)
+export default memo(UserCard);

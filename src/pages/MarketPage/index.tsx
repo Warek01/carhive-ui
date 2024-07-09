@@ -9,47 +9,50 @@ import {
   Stack,
   Tab,
   Tabs,
-} from '@mui/material'
-import { FC, ReactElement, useCallback, useEffect, useMemo } from 'react'
-import { useQuery } from 'react-query'
-import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
+} from '@mui/material';
+import { FC, ReactElement, useCallback, useEffect, useMemo } from 'react';
+import { useQuery } from 'react-query';
+import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
 
-import { CarTypesFilter, ListingsList } from '@faf-cars/components'
+import { CarTypesFilter, ListingsList } from '@faf-cars/components';
 import {
   useAuth,
   useHttpService,
   usePagination,
   useWatchLoading,
-} from '@faf-cars/hooks'
+} from '@faf-cars/hooks';
 import {
   BodyStyle,
   LISTING_ORDER_BY_VALUES,
   Listing,
   ListingOrderBy,
-} from '@faf-cars/lib/listings'
-import { PaginatedResponse } from '@faf-cars/lib/paginationData'
-import { QueryKey } from '@faf-cars/lib/query-key'
-import { StorageKey } from '@faf-cars/lib/storage-key'
-import { LISTING_TABS, ListingsTab } from '@faf-cars/pages/MarketPage/constants'
+} from '@faf-cars/lib/listings';
+import { PaginatedResponse } from '@faf-cars/lib/paginationData';
+import { QueryKey } from '@faf-cars/lib/query-key';
+import { StorageKey } from '@faf-cars/lib/storage-key';
+import {
+  LISTING_TABS,
+  ListingsTab,
+} from '@faf-cars/pages/MarketPage/constants';
 
 const MarketPage: FC = () => {
-  const http = useHttpService()
-  const { userId } = useAuth()
+  const http = useHttpService();
+  const { userId } = useAuth();
   const [orderBy, setOrderBy] = useLocalStorage<ListingOrderBy>(
     StorageKey.ListingsOrderBy,
     ListingOrderBy.CreatedAtAsc,
-  )
+  );
 
   const [selectedBodyStyles, setSelectedBodyStyles] = useLocalStorage<
     BodyStyle[]
-  >(StorageKey.ListingsFilter, [])
+  >(StorageKey.ListingsFilter, []);
 
   const [selectedTab, setSelectedTab] = useSessionStorage<ListingsTab>(
     StorageKey.ListingsTab,
     ListingsTab.All,
-  )
+  );
 
-  const pagination = usePagination(StorageKey.ListingsPagination)
+  const pagination = usePagination(StorageKey.ListingsPagination);
 
   const fetchListingsFn = useCallback((): Promise<
     PaginatedResponse<Listing>
@@ -59,7 +62,7 @@ const MarketPage: FC = () => {
       page: pagination.page,
       order: orderBy,
       body: selectedBodyStyles,
-    }
+    };
 
     const tabFetchFnMap: Record<
       ListingsTab,
@@ -72,10 +75,10 @@ const MarketPage: FC = () => {
         favorites: true,
       }),
       [ListingsTab.My]: http.getListings({ ...params, user: userId }),
-    }
+    };
 
-    return tabFetchFnMap[selectedTab]
-  }, [selectedTab, pagination, orderBy, selectedBodyStyles, userId])
+    return tabFetchFnMap[selectedTab];
+  }, [selectedTab, pagination, orderBy, selectedBodyStyles, userId]);
 
   const listingsListQuery = useQuery(
     [
@@ -86,9 +89,9 @@ const MarketPage: FC = () => {
       selectedTab,
     ],
     fetchListingsFn,
-  )
+  );
 
-  const listings = listingsListQuery.data?.items ?? []
+  const listings = listingsListQuery.data?.items ?? [];
 
   const tabsElements = useMemo(
     () =>
@@ -102,7 +105,7 @@ const MarketPage: FC = () => {
         />
       )),
     [],
-  )
+  );
 
   const orderByElement = useMemo(
     () => (
@@ -123,25 +126,25 @@ const MarketPage: FC = () => {
       </FormControl>
     ),
     [orderBy],
-  )
+  );
 
-  useWatchLoading(listingsListQuery.isLoading)
-
-  useEffect(() => {
-    if (!listingsListQuery.data) return
-
-    pagination.setItems(listingsListQuery.data.totalItems)
-  }, [listingsListQuery.data])
+  useWatchLoading(listingsListQuery.isLoading);
 
   useEffect(() => {
-    pagination.setPage(0)
+    if (!listingsListQuery.data) return;
+
+    pagination.setItems(listingsListQuery.data.totalItems);
+  }, [listingsListQuery.data]);
+
+  useEffect(() => {
+    pagination.setPage(0);
   }, [
     selectedBodyStyles,
     pagination.count,
     pagination.size,
     orderBy,
     selectedTab,
-  ])
+  ]);
 
   const filteringSection = useMemo<ReactElement>(
     () => (
@@ -177,7 +180,7 @@ const MarketPage: FC = () => {
       </Box>
     ),
     [selectedTab, tabsElements, pagination, orderByElement, selectedBodyStyles],
-  )
+  );
 
   const listSection = useMemo<ReactElement>(
     () => (
@@ -202,14 +205,14 @@ const MarketPage: FC = () => {
       </Box>
     ),
     [pagination, listings],
-  )
+  );
 
   return (
     <Stack spacing={3}>
       {filteringSection}
       {listSection}
     </Stack>
-  )
-}
+  );
+};
 
-export default MarketPage
+export default MarketPage;

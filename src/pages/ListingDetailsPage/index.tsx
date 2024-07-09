@@ -1,34 +1,34 @@
-import { Clear, Favorite } from '@mui/icons-material'
-import { Box, Button, Typography } from '@mui/material'
-import { AxiosError } from 'axios'
-import { FC, MouseEventHandler, useCallback } from 'react'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { Navigate, useParams } from 'react-router'
-import { toast } from 'react-toastify'
+import { Clear, Favorite } from '@mui/icons-material';
+import { Box, Button, Typography } from '@mui/material';
+import { AxiosError } from 'axios';
+import { FC, MouseEventHandler, useCallback } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { Navigate, useParams } from 'react-router';
+import { toast } from 'react-toastify';
 
-import { useHttpService, useWatchLoading } from '@faf-cars/hooks'
+import { useHttpService, useWatchLoading } from '@faf-cars/hooks';
 import {
   FavoriteListingAction,
   FavoriteListingActionType,
   Listing,
-} from '@faf-cars/lib/listings'
-import { QueryKey } from '@faf-cars/lib/query-key'
-import { AppRoute } from '@faf-cars/lib/routing/app-route'
-import { ToastId } from '@faf-cars/lib/toast'
+} from '@faf-cars/lib/listings';
+import { QueryKey } from '@faf-cars/lib/query-key';
+import { AppRoute } from '@faf-cars/lib/routing/app-route';
+import { ToastId } from '@faf-cars/lib/toast';
 
 interface Params extends Record<string, string> {
-  listingId: string
+  listingId: string;
 }
 
 const ListingDetailsPage: FC = () => {
-  const { listingId } = useParams<Params>()
-  const http = useHttpService()
-  const queryClient = useQueryClient()
+  const { listingId } = useParams<Params>();
+  const http = useHttpService();
+  const queryClient = useQueryClient();
 
   const listingDetailsQuery = useQuery(
     [QueryKey.ListingDetails, listingId],
     () => http.getListingDetails(listingId!),
-  )
+  );
 
   const favoritesMutation = useMutation(
     (action: FavoriteListingAction) => http.mutateFavoriteListings(action),
@@ -39,11 +39,11 @@ const ListingDetailsPage: FC = () => {
           queryClient.invalidateQueries(QueryKey.ListingsList),
         ]),
     },
-  )
+  );
 
-  useWatchLoading(listingDetailsQuery.isLoading)
+  useWatchLoading(listingDetailsQuery.isLoading);
 
-  const listing: Listing | undefined = listingDetailsQuery.data
+  const listing: Listing | undefined = listingDetailsQuery.data;
 
   const handleFavoritesClick: MouseEventHandler = useCallback(async () => {
     favoritesMutation.mutate({
@@ -51,19 +51,19 @@ const ListingDetailsPage: FC = () => {
         ? FavoriteListingActionType.Remove
         : FavoriteListingActionType.Add,
       listingId,
-    })
-  }, [listing, listingId])
+    });
+  }, [listing, listingId]);
 
   if (listingDetailsQuery.error) {
-    const error: unknown = listingDetailsQuery.error
-    console.error(error)
+    const error: unknown = listingDetailsQuery.error;
+    console.error(error);
 
     if (error instanceof AxiosError && error.response?.status === 404) {
       toast('Listing not found', {
         type: 'error',
         toastId: ToastId.ListingNotFound,
-      })
-      return <Navigate to={AppRoute.Listings} />
+      });
+      return <Navigate to={AppRoute.Listings} />;
     }
   }
 
@@ -79,7 +79,7 @@ const ListingDetailsPage: FC = () => {
         {listing?.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
       </Button>
     </Box>
-  )
-}
+  );
+};
 
-export default ListingDetailsPage
+export default ListingDetailsPage;

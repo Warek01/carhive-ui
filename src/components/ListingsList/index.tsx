@@ -1,18 +1,18 @@
-import { Grid, Skeleton } from '@mui/material'
-import { FC, memo, useState } from 'react'
+import { Grid, Skeleton } from '@mui/material';
+import { FC, memo, useState } from 'react';
 
-import { ListingItem } from '@faf-cars/components'
-import { type Listing } from '@faf-cars/lib/listings'
+import { ListingItem } from '@faf-cars/components';
+import { type Listing } from '@faf-cars/lib/listings';
 
 interface Props {
-  items?: Listing[]
-  skeletonCount: number
+  items?: Listing[];
+  skeletonCount: number;
 }
 
 const ListingsList: FC<Props> = ({ items, skeletonCount }) => {
-  const shouldDisplaySkeletons = !items
-  const arr = items ?? Array(skeletonCount).fill(null)
-  const [lazyLoadedCount] = useState<number>(6)
+  const shouldDisplaySkeletons = !items;
+  const arr = items ?? Array(skeletonCount).fill(null);
+  const [lazyLoadedCount] = useState<number>(6);
 
   return (
     <Grid spacing={2} container alignItems="stretch">
@@ -31,7 +31,7 @@ const ListingsList: FC<Props> = ({ items, skeletonCount }) => {
         </Grid>
       ))}
     </Grid>
-  )
-}
+  );
+};
 
-export default memo(ListingsList)
+export default memo(ListingsList);

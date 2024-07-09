@@ -1,17 +1,17 @@
-import { HideImage } from '@mui/icons-material'
-import { Box, Skeleton } from '@mui/material'
-import { CSSProperties, HTMLProps, forwardRef, memo, useState } from 'react'
+import { HideImage } from '@mui/icons-material';
+import { Box, Skeleton } from '@mui/material';
+import { CSSProperties, HTMLProps, forwardRef, memo, useState } from 'react';
 
 interface Props {
-  src?: string | null
-  width?: number | string
-  height?: number | string
-  alt?: string
-  lazy?: boolean
-  aspectRatio?: CSSProperties['aspectRatio']
-  objectFit?: CSSProperties['objectFit']
-  objectPosition?: CSSProperties['objectPosition']
-  imgProps?: HTMLProps<HTMLImageElement>
+  src?: string | null;
+  width?: number | string;
+  height?: number | string;
+  alt?: string;
+  lazy?: boolean;
+  aspectRatio?: CSSProperties['aspectRatio'];
+  objectFit?: CSSProperties['objectFit'];
+  objectPosition?: CSSProperties['objectPosition'];
+  imgProps?: HTMLProps<HTMLImageElement>;
 }
 
 const Image = forwardRef<HTMLImageElement, Props>(
@@ -29,10 +29,10 @@ const Image = forwardRef<HTMLImageElement, Props>(
     },
     ref,
   ) => {
-    const [loaded, setLoaded] = useState<boolean>(false)
-    const [err, setErr] = useState<boolean>(false)
+    const [loaded, setLoaded] = useState<boolean>(false);
+    const [err, setErr] = useState<boolean>(false);
 
-    const isError = !src || err
+    const isError = !src || err;
 
     return (
       <Box
@@ -77,8 +77,8 @@ const Image = forwardRef<HTMLImageElement, Props>(
           </>
         )}
       </Box>
-    )
+    );
   },
-)
+);
 
-export default memo(Image)
+export default memo(Image);

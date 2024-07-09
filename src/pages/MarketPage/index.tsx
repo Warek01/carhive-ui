@@ -1,8 +1,13 @@
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import {
   Box,
+  Button,
+  Collapse,
   FormControl,
   Grid,
   InputLabel,
+  List,
+  ListItem,
   MenuItem,
   Pagination,
   Select,
@@ -10,7 +15,14 @@ import {
   Tab,
   Tabs,
 } from '@mui/material';
-import { FC, ReactElement, useCallback, useEffect, useMemo } from 'react';
+import {
+  FC,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useQuery } from 'react-query';
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
 
@@ -42,6 +54,7 @@ const MarketPage: FC = () => {
     StorageKey.ListingsOrderBy,
     ListingOrderBy.CreatedAtAsc,
   );
+  const [isFilterListOpen, setIsFilterListOpen] = useState(false);
 
   const [selectedBodyStyles, setSelectedBodyStyles] = useLocalStorage<
     BodyStyle[]
@@ -149,34 +162,65 @@ const MarketPage: FC = () => {
   const filteringSection = useMemo<ReactElement>(
     () => (
       <Box component="section">
-        <Grid container spacing={3} py={3}>
-          <Grid item xs={6}>
-            {orderByElement}
-          </Grid>
-          <Grid item xs={6}>
-            <FormControl fullWidth>
-              <InputLabel>Items per page</InputLabel>
-              <Select
-                value={pagination.size}
-                size="small"
-                label="Items per page"
-                onChange={(e) => pagination.setSize(e.target.value)}
+        <List component="nav">
+          <ListItem>
+            <Grid container spacing={3}>
+              <Grid item xs={6}>
+                <Tabs
+                  value={selectedTab}
+                  onChange={(e, tab) => setSelectedTab(tab)}
+                >
+                  {tabsElements}
+                </Tabs>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                display="flex"
+                alignItems="center"
+                justifyContent="end"
               >
-                <MenuItem value={10}>10</MenuItem>
-                <MenuItem value={20}>20</MenuItem>
-                <MenuItem value={50}>50</MenuItem>
-                <MenuItem value={100}>100</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
-        <CarTypesFilter
-          onChange={setSelectedBodyStyles}
-          selected={selectedBodyStyles}
-        />
-        <Tabs value={selectedTab} onChange={(e, tab) => setSelectedTab(tab)}>
-          {tabsElements}
-        </Tabs>
+                <Button
+                  endIcon={isFilterListOpen ? <ExpandLess /> : <ExpandMore />}
+                  onClick={() => setIsFilterListOpen((v) => !v)}
+                >
+                  {isFilterListOpen ? 'Collapse' : 'Open'}
+                </Button>
+              </Grid>
+            </Grid>
+          </ListItem>
+          <Collapse in={isFilterListOpen}>
+            <ListItem>
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  {orderByElement}
+                </Grid>
+                <Grid item xs={6}>
+                  <FormControl fullWidth>
+                    <InputLabel>Items per page</InputLabel>
+                    <Select
+                      value={pagination.size}
+                      size="small"
+                      label="Items per page"
+                      onChange={(e) => pagination.setSize(e.target.value)}
+                    >
+                      <MenuItem value={10}>10</MenuItem>
+                      <MenuItem value={20}>20</MenuItem>
+                      <MenuItem value={50}>50</MenuItem>
+                      <MenuItem value={100}>100</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+            </ListItem>
+            <ListItem>
+              <CarTypesFilter
+                onChange={setSelectedBodyStyles}
+                selected={selectedBodyStyles}
+              />
+            </ListItem>
+          </Collapse>
+        </List>
       </Box>
     ),
     [selectedTab, tabsElements, pagination, orderByElement, selectedBodyStyles],

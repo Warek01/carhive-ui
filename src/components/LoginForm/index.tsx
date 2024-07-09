@@ -1,10 +1,10 @@
+import { Visibility } from '@mui/icons-material';
 import { Button, Grid, IconButton, Tooltip, Typography } from '@mui/material';
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { FC, memo, useCallback, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Visibility } from '@mui/icons-material';
 
 import { FormikTextField } from '@faf-cars/components';
 import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks';

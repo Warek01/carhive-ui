@@ -52,7 +52,7 @@ const Image = forwardRef<HTMLImageElement, Props>(
             {!lazy && src && <link rel="preload" as="image" href={src} />}
             <img
               alt={alt}
-              src={src ?? ''}
+              src={src}
               ref={ref}
               style={{
                 width: loaded ? '100%' : 0,

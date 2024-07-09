@@ -38,7 +38,11 @@ const ListingItem: FC<Props> = ({ listing, lazy }) => {
         >
           <Image
             alt="Listing"
-            src={import.meta.env.VITE_API_BASENAME + listing.previewUrl}
+            src={
+              listing.previewUrl
+                ? import.meta.env.VITE_API_BASENAME + listing.previewUrl
+                : null
+            }
             lazy={lazy}
             aspectRatio="16/9"
             objectFit="cover"

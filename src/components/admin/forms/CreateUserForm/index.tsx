@@ -8,7 +8,10 @@ import { CreateUserDto, UserRole } from '@faf-cars/lib/user';
 import { toggleArrayItem } from '@faf-cars/lib/utils';
 
 interface Props {
-  onSubmit(createDto: CreateUserDto, helpers: FormikHelpers<CreateUserDto>): any;
+  onSubmit(
+    createDto: CreateUserDto,
+    helpers: FormikHelpers<CreateUserDto>,
+  ): any;
 }
 
 const INITIAL_VALUES: CreateUserDto = {

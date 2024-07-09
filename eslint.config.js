@@ -1,12 +1,12 @@
-import { fixupConfigRules } from '@eslint/compat'
-import pluginJs from '@eslint/js'
-import importPlugin from 'eslint-plugin-import'
-import prettier from 'eslint-plugin-prettier'
-import pluginReactConfig from 'eslint-plugin-react/configs/recommended.js'
-import importSort from 'eslint-plugin-simple-import-sort'
-import unusedImports from 'eslint-plugin-unused-imports'
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
+import { fixupConfigRules } from '@eslint/compat';
+import pluginJs from '@eslint/js';
+import importPlugin from 'eslint-plugin-import';
+import prettier from 'eslint-plugin-prettier';
+import pluginReactConfig from 'eslint-plugin-react/configs/recommended.js';
+import importSort from 'eslint-plugin-simple-import-sort';
+import unusedImports from 'eslint-plugin-unused-imports';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default [
   { files: ['src/**/*.{js,mjs,cjs,ts,jsx,tsx}'] },

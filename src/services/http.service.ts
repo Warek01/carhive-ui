@@ -38,12 +38,11 @@ export class HttpService {
   }
 
   async getListings(params?: object): Promise<PaginatedResponse<ListingDto>> {
-    const { data } = await this._axiosInstance.get<PaginatedResponse<ListingDto>>(
-      'listing',
-      {
-        params,
-      },
-    );
+    const { data } = await this._axiosInstance.get<
+      PaginatedResponse<ListingDto>
+    >('listing', {
+      params,
+    });
 
     return data;
   }
@@ -95,10 +94,7 @@ export class HttpService {
     return res.data;
   }
 
-  async register(
-    registerDto: RegisterDto,
-    params?: object,
-  ): Promise<AuthDto> {
+  async register(registerDto: RegisterDto, params?: object): Promise<AuthDto> {
     const res = await this._axiosInstance.post<AuthDto>(
       'auth/register',
       registerDto,

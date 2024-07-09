@@ -1,4 +1,4 @@
-import type { MonthYearPair } from '@faf-cars/lib/date';
+import { MonthYearPair } from '@faf-cars/lib/date';
 
 export interface MarketStatistics {
   totalListings: number;

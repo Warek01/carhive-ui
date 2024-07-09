@@ -36,12 +36,12 @@ import {
 import {
   BodyStyle,
   LISTING_ORDER_BY_VALUES,
-  Listing,
+  ListingDto,
   ListingOrderBy,
 } from '@faf-cars/lib/listings';
-import { PaginatedResponse } from '@faf-cars/lib/paginationData';
-import { QueryKey } from '@faf-cars/lib/query-key';
-import { StorageKey } from '@faf-cars/lib/storage-key';
+import { PaginatedResponse } from '@faf-cars/lib/pagination';
+import { QueryKey } from '@faf-cars/lib/query';
+import { StorageKey } from '@faf-cars/lib/storage';
 import {
   LISTING_TABS,
   ListingsTab,
@@ -68,7 +68,7 @@ const MarketPage: FC = () => {
   const pagination = usePagination(StorageKey.ListingsPagination);
 
   const fetchListingsFn = useCallback((): Promise<
-    PaginatedResponse<Listing>
+    PaginatedResponse<ListingDto>
   > => {
     const params = {
       take: pagination.size,
@@ -79,7 +79,7 @@ const MarketPage: FC = () => {
 
     const tabFetchFnMap: Record<
       ListingsTab,
-      Promise<PaginatedResponse<Listing>>
+      Promise<PaginatedResponse<ListingDto>>
     > = {
       [ListingsTab.All]: http.getListings(params),
       [ListingsTab.Favorites]: http.getListings({

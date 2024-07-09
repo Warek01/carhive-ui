@@ -3,9 +3,8 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router';
 
 import { useAuth } from '@faf-cars/hooks';
-import { AppRoute } from '@faf-cars/lib/routing/app-route';
-import AppRouteType from '@faf-cars/lib/routing/app-route-type';
-import ROUTE_TYPE_MAP from '@faf-cars/lib/routing/route-type-map';
+import { AppRouteProtectionLevel, ROUTE_TYPE_MAP } from '@faf-cars/lib/routing';
+import { AppRoute } from '@faf-cars/lib/routing';
 
 const AppRouteProtection: FC = () => {
   const location = useLocation();
@@ -46,9 +45,9 @@ const AppRouteProtection: FC = () => {
   }, []);
 
   const isOnAuthorizedPage =
-    ROUTE_TYPE_MAP[AppRouteType.AUTH_PROTECTED].includes(path);
+    ROUTE_TYPE_MAP[AppRouteProtectionLevel.AuthProtected].includes(path);
   const isOnAdminPage =
-    ROUTE_TYPE_MAP[AppRouteType.ADMIN_PROTECTED].includes(path);
+    ROUTE_TYPE_MAP[AppRouteProtectionLevel.AdminProtected].includes(path);
 
   if (isRefreshing) {
     return (

@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
-import type { AppEnv } from '@faf-cars/lib/definitions';
+
+import { AppEnv } from '@faf-cars/lib/env';
 
 interface ImportMetaEnv extends Readonly<AppEnv> {}

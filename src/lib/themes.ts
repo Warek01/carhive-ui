@@ -2,7 +2,7 @@ import { Breakpoint } from '@mui/material';
 import { amber } from '@mui/material/colors';
 import { ThemeOptions, createTheme } from '@mui/material/styles';
 
-const shared: ThemeOptions = {
+const SHARED: ThemeOptions = {
   typography: {
     fontFamily: `Montserrat, sans-serif, serif`,
     fontSize: 16,
@@ -33,14 +33,12 @@ const shared: ThemeOptions = {
   },
 };
 
-const dark = structuredClone(shared);
+const dark = structuredClone(SHARED);
 dark.palette!.mode = 'dark';
+export const DARK_THEME = createTheme(dark);
 
-const light = structuredClone(shared);
+const light = structuredClone(SHARED);
 light.palette!.mode = 'light';
-
-export const darkTheme = createTheme(dark);
-
-export const lightTheme = createTheme(light);
+export const LIGHT_THEME = createTheme(light);
 
 export const GLOBAL_CONTAINER_MAX_WIDTH: Breakpoint = 'xl';

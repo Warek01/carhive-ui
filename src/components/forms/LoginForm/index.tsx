@@ -6,10 +6,10 @@ import { FC, memo, useCallback, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { FormikTextField } from '@faf-cars/components';
+import { FormikTextField } from '@faf-cars/components/inputs';
 import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks';
-import { LoginCredentials } from '@faf-cars/lib/auth';
-import { AppRoute } from '@faf-cars/lib/routing/app-route';
+import { LoginData } from '@faf-cars/lib/auth';
+import { AppRoute } from '@faf-cars/lib/routing';
 import { ToastId } from '@faf-cars/lib/toast';
 
 import { loginInitialValues, loginValidationSchema } from './constants';
@@ -21,7 +21,7 @@ const LoginForm: FC = () => {
   const [passwordShown, setPasswordShown] = useState(false);
 
   const handleSubmit = useCallback(
-    async (values: LoginCredentials) => {
+    async (values: LoginData) => {
       setLoading();
 
       try {

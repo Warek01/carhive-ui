@@ -1,9 +1,4 @@
-import type { SvgIconComponent } from '@mui/icons-material';
-
-export interface AppEnv {
-  NODE_ENV: 'development' | 'production';
-  VITE_API_BASENAME: string;
-}
+import { SvgIconComponent } from '@mui/icons-material';
 
 export interface FileDto {
   fileName?: string;

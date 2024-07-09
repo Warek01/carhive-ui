@@ -10,9 +10,9 @@ import { useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useLocalStorage } from 'usehooks-ts';
 
-import type { AppJwtPayload, JwtResponse } from '@faf-cars/lib/auth';
-import { QueryKey } from '@faf-cars/lib/query-key';
-import { StorageKey } from '@faf-cars/lib/storage-key';
+import { AppJwtPayload, AuthDto } from '@faf-cars/lib/auth';
+import { QueryKey } from '@faf-cars/lib/query';
+import { StorageKey } from '@faf-cars/lib/storage';
 import { ToastId } from '@faf-cars/lib/toast';
 import { User, UserRole } from '@faf-cars/lib/user';
 import { HttpService } from '@faf-cars/services/http.service';
@@ -26,7 +26,7 @@ export interface AuthContextProps {
   isAuthorized: boolean;
   isListingCreator: boolean;
   isAdmin: boolean;
-  login(data: JwtResponse): void;
+  login(data: AuthDto): void;
   logout(): void;
   refresh(): Promise<void>;
 }
@@ -37,7 +37,7 @@ export default AuthContext;
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const queryClient = useQueryClient();
 
-  const [authData, setAuthData] = useLocalStorage<JwtResponse | null>(
+  const [authData, setAuthData] = useLocalStorage<AuthDto | null>(
     StorageKey.AuthData,
     null,
   );
@@ -88,15 +88,14 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const jwtDecodedData = useMemo(
     () => ({
       expiresAt: decoded === null ? null : new Date(decoded.exp! * 1000),
-      isAdmin: roles.includes(UserRole[UserRole.Admin]) ?? false,
-      isListingCreator:
-        roles.includes(UserRole[UserRole.ListingCreator]) ?? false,
+      isAdmin: roles.includes(UserRole.Admin) ?? false,
+      isListingCreator: roles.includes(UserRole.ListingCreator) ?? false,
       userId: decoded?.sub ?? null,
     }),
     [decoded],
   );
 
-  const login = useCallback((data: JwtResponse) => {
+  const login = useCallback((data: AuthDto) => {
     setAuthData(data);
   }, []);
 

@@ -1,23 +1,18 @@
 import axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
 
+import { AuthDto, LoginDto, RegisterDto } from '@faf-cars/lib/auth';
 import {
-  CreateUserDto,
-  JwtResponse,
-  LoginDto,
-  RegisterDto,
-} from '@faf-cars/lib/auth';
-import {
-  CreateListing,
+  CreateListingDto,
   FavoriteListingAction,
-  Listing,
+  ListingDto,
 } from '@faf-cars/lib/listings';
-import { PaginatedResponse } from '@faf-cars/lib/paginationData';
+import { PaginatedResponse } from '@faf-cars/lib/pagination';
 import {
   MarketStatistics,
   MarketStatisticsQuery,
 } from '@faf-cars/lib/statistics';
-import { UpdateUser, User } from '@faf-cars/lib/user';
+import { CreateUserDto, UpdateUserDto, User } from '@faf-cars/lib/user';
 
 export class HttpService {
   private readonly _axiosInstance: AxiosInstance;
@@ -42,8 +37,8 @@ export class HttpService {
     });
   }
 
-  async getListings(params?: object): Promise<PaginatedResponse<Listing>> {
-    const { data } = await this._axiosInstance.get<PaginatedResponse<Listing>>(
+  async getListings(params?: object): Promise<PaginatedResponse<ListingDto>> {
+    const { data } = await this._axiosInstance.get<PaginatedResponse<ListingDto>>(
       'listing',
       {
         params,
@@ -56,8 +51,8 @@ export class HttpService {
   async getListingDetails(
     listingId: string,
     params?: object,
-  ): Promise<Listing> {
-    const { data } = await this._axiosInstance.get<Listing>(
+  ): Promise<ListingDto> {
+    const { data } = await this._axiosInstance.get<ListingDto>(
       `listing/${listingId}`,
       {
         params,
@@ -83,7 +78,7 @@ export class HttpService {
   }
 
   async createListing(
-    createDto: CreateListing,
+    createDto: CreateListingDto,
     params?: object,
   ): Promise<void> {
     await this._axiosInstance.post<void>('listing', createDto, {
@@ -91,8 +86,8 @@ export class HttpService {
     });
   }
 
-  async login(loginDto: LoginDto, params?: object): Promise<JwtResponse> {
-    const res = await this._axiosInstance.post<JwtResponse>(
+  async login(loginDto: LoginDto, params?: object): Promise<AuthDto> {
+    const res = await this._axiosInstance.post<AuthDto>(
       'auth/login',
       loginDto,
       { params },
@@ -103,8 +98,8 @@ export class HttpService {
   async register(
     registerDto: RegisterDto,
     params?: object,
-  ): Promise<JwtResponse> {
-    const res = await this._axiosInstance.post<JwtResponse>(
+  ): Promise<AuthDto> {
+    const res = await this._axiosInstance.post<AuthDto>(
       'auth/register',
       registerDto,
       { params },
@@ -112,8 +107,8 @@ export class HttpService {
     return res.data;
   }
 
-  async refresh(jwtRes: JwtResponse, params?: object): Promise<JwtResponse> {
-    const res = await this._axiosInstance.post<JwtResponse>(
+  async refresh(jwtRes: AuthDto, params?: object): Promise<AuthDto> {
+    const res = await this._axiosInstance.post<AuthDto>(
       'auth/refresh',
       jwtRes,
       { params },
@@ -137,7 +132,7 @@ export class HttpService {
 
   async updateUser(
     userId: string,
-    updateDto: UpdateUser,
+    updateDto: UpdateUserDto,
     params?: object,
   ): Promise<PaginatedResponse<User>> {
     const res = await this._axiosInstance.patch<PaginatedResponse<User>>(

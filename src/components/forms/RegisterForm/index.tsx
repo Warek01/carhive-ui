@@ -5,10 +5,10 @@ import { FC, memo, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { FormikTextField } from '@faf-cars/components';
+import { FormikTextField } from '@faf-cars/components/inputs';
 import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks';
-import type { RegisterCredentials } from '@faf-cars/lib/auth';
-import { AppRoute } from '@faf-cars/lib/routing/app-route';
+import { RegisterData } from '@faf-cars/lib/auth';
+import { AppRoute } from '@faf-cars/lib/routing';
 import { ToastId } from '@faf-cars/lib/toast';
 
 import { registerInitialValues, registerValidationSchema } from './constants';
@@ -19,7 +19,7 @@ const RegisterForm: FC = () => {
   const http = useHttpService();
 
   const handleSubmit = useCallback(
-    async (values: RegisterCredentials) => {
+    async (values: RegisterData) => {
       if (values.password !== values.repeatPassword) {
         formik.setFieldError('passwordRepeat', 'Password mismatch');
         return;

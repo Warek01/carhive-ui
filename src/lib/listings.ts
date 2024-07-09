@@ -1,7 +1,7 @@
-import type { FileDto } from '@faf-cars/lib/definitions';
+import { FileDto } from '@faf-cars/lib/definitions';
 import { User } from '@faf-cars/lib/user';
 
-export interface Listing {
+export interface ListingDto {
   id: string;
   brandName: string;
   modelName: string;
@@ -25,7 +25,7 @@ export interface Listing {
   isFavorite: boolean | null;
 }
 
-export interface CreateListing {
+export interface CreateListingDto {
   brandName: string;
   modelName: string;
   price: number;
@@ -106,7 +106,7 @@ export const CAR_BRANDS_TEMP: string[] = [
   'Volvo',
 ];
 
-export enum CarColor {
+export const enum CarColor {
   Black,
   White,
   Silver,
@@ -175,7 +175,7 @@ export const CAR_COLOR_NAME_MAP = new Map<CarColor, string>([
   [CarColor.Navy, 'Navy'],
 ]);
 
-export enum BodyStyle {
+export const enum BodyStyle {
   Sedan,
   SUV,
   Crossover,
@@ -203,7 +203,7 @@ export const BODY_STYLE_STRING_MAP = new Map<BodyStyle, string>([
   [BodyStyle.Other, 'Other'],
 ]);
 
-enum EngineType {
+export const enum EngineType {
   Petrol,
   Diesel,
   Hybrid,
@@ -219,7 +219,7 @@ export const ENGINE_TYPE_STRING_MAP = new Map<EngineType, string>([
   [EngineType.Other, 'Other'],
 ]);
 
-export enum ListingOrderBy {
+export const enum ListingOrderBy {
   CreatedAtAsc = 'createdAtAsc',
   CreatedAtDesc = 'createdAtDesc',
   YearAsc = 'yearAsc',
@@ -237,7 +237,7 @@ export const LISTING_ORDER_BY_VALUES = new Map<ListingOrderBy, string>([
   [ListingOrderBy.YearAsc, 'Old cars first'],
 ]);
 
-export enum FavoriteListingActionType {
+export const enum FavoriteListingActionType {
   Add,
   Remove,
   RemoveAll,

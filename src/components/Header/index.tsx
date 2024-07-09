@@ -12,7 +12,7 @@ import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { useAuth, useIsDarkTheme } from '@faf-cars/hooks';
-import { AppRoute } from '@faf-cars/lib/routing/app-route';
+import { AppRoute } from '@faf-cars/lib/routing';
 import { GLOBAL_CONTAINER_MAX_WIDTH } from '@faf-cars/lib/themes';
 
 const Header: FC = () => {

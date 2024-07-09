@@ -10,10 +10,10 @@ import { useHttpService, useWatchLoading } from '@faf-cars/hooks';
 import {
   FavoriteListingAction,
   FavoriteListingActionType,
-  Listing,
+  ListingDto,
 } from '@faf-cars/lib/listings';
-import { QueryKey } from '@faf-cars/lib/query-key';
-import { AppRoute } from '@faf-cars/lib/routing/app-route';
+import { QueryKey } from '@faf-cars/lib/query';
+import { AppRoute } from '@faf-cars/lib/routing';
 import { ToastId } from '@faf-cars/lib/toast';
 
 interface Params extends Record<string, string> {
@@ -43,7 +43,7 @@ const ListingDetailsPage: FC = () => {
 
   useWatchLoading(listingDetailsQuery.isLoading);
 
-  const listing: Listing | undefined = listingDetailsQuery.data;
+  const listing: ListingDto | undefined = listingDetailsQuery.data;
 
   const handleFavoritesClick: MouseEventHandler = useCallback(async () => {
     favoritesMutation.mutate({

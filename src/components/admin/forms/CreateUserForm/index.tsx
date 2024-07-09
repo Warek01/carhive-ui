@@ -3,15 +3,15 @@ import { FormikHelpers, useFormik } from 'formik';
 import { FC, memo } from 'react';
 import * as Yup from 'yup';
 
-import { FormikTextField } from '@faf-cars/components';
-import { CreateUser, UserRole } from '@faf-cars/lib/user';
+import { FormikTextField } from '@faf-cars/components/inputs';
+import { CreateUserDto, UserRole } from '@faf-cars/lib/user';
 import { toggleArrayItem } from '@faf-cars/lib/utils';
 
 interface Props {
-  onSubmit(createDto: CreateUser, helpers: FormikHelpers<CreateUser>): any;
+  onSubmit(createDto: CreateUserDto, helpers: FormikHelpers<CreateUserDto>): any;
 }
 
-const INITIAL_VALUES: CreateUser = {
+const INITIAL_VALUES: CreateUserDto = {
   email: '',
   password: '',
   username: '',

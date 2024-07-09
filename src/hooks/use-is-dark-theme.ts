@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 
-import { StorageKey } from '@faf-cars/lib/storage-key';
+import { StorageKey } from '@faf-cars/lib/storage';
 
 type ReturnValue = [boolean, Dispatch<SetStateAction<boolean>>];
 

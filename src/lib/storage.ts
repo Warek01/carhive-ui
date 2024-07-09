@@ -1,4 +1,4 @@
-export enum StorageKey {
+export const enum StorageKey {
   AuthData = 'auth-data',
   Theme = 'is-dark-theme',
 

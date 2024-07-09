@@ -7,21 +7,21 @@ export interface User {
   createdAt: string | null;
 }
 
-export interface UpdateUser {
+export interface UpdateUserDto {
   username: string;
   email: string;
   roles: UserRole[];
 }
 
 /** Creation of user by admin */
-export interface CreateUser {
+export interface CreateUserDto {
   username: string;
   password: string;
   email: string;
   roles: UserRole[];
 }
 
-export enum UserRole {
-  Admin,
-  ListingCreator,
+export const enum UserRole {
+  Admin = 'Admin',
+  ListingCreator = 'ListingCreator',
 }

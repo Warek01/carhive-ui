@@ -1,6 +1,4 @@
-import type { JwtPayload } from 'jwt-decode';
-
-import type { UserRole } from '@faf-cars/lib/user';
+import { JwtPayload } from 'jwt-decode';
 
 export interface LoginDto {
   username: string;
@@ -13,26 +11,19 @@ export interface RegisterDto {
   email: string;
 }
 
-export interface CreateUserDto {
-  email: string;
-  password: string;
-  username: string;
-  roles: UserRole[];
-}
-
-export interface LoginCredentials {
+export interface LoginData {
   username: string;
   password: string;
 }
 
-export interface RegisterCredentials {
+export interface RegisterData {
   username: string;
   password: string;
   repeatPassword: string;
   email: string;
 }
 
-export interface JwtResponse {
+export interface AuthDto {
   token: string;
   refreshToken: string;
 }

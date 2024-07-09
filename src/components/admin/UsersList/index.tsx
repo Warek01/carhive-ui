@@ -18,15 +18,14 @@ import { toast } from 'react-toastify';
 import { useLocalStorage } from 'usehooks-ts';
 
 import { useAuth, useHttpService } from '@faf-cars/hooks';
-import dev_delay from '@faf-cars/lib/dev/delay';
 import {
   DEFAULT_PAGINATION_DATA,
   PaginationData,
-} from '@faf-cars/lib/paginationData';
-import { QueryKey } from '@faf-cars/lib/query-key';
-import { StorageKey } from '@faf-cars/lib/storage-key';
+} from '@faf-cars/lib/pagination';
+import { QueryKey } from '@faf-cars/lib/query';
+import { StorageKey } from '@faf-cars/lib/storage';
 import { ToastId } from '@faf-cars/lib/toast';
-import { UpdateUser, User, UserRole } from '@faf-cars/lib/user';
+import { UpdateUserDto, User, UserRole } from '@faf-cars/lib/user';
 import { toggleArrayItem } from '@faf-cars/lib/utils';
 
 const ROLES_STRING_MAP: [UserRole, string][] = [
@@ -72,7 +71,7 @@ const UsersList: FC = () => {
     },
   );
   const updateUserMutation = useMutation({
-    mutationFn: ([userId, updateDto]: [string, UpdateUser]) =>
+    mutationFn: ([userId, updateDto]: [string, UpdateUserDto]) =>
       http.updateUser(userId, updateDto),
     onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
   });
@@ -92,11 +91,10 @@ const UsersList: FC = () => {
   }, []);
 
   const handleUserUpdate = useCallback(
-    async (userId: string, updateDto: UpdateUser) => {
+    async (userId: string, updateDto: UpdateUserDto) => {
       startLoadingUser(userId);
 
       try {
-        await dev_delay(2500);
         await updateUserMutation.mutateAsync([userId, updateDto]);
         toast('User updated.', { toastId: ToastId.UserUpdate });
       } catch (err) {

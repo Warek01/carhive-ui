@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import type { CreateListing } from '@faf-cars/lib/listings';
+import { CreateListingDto } from '@faf-cars/lib/listings';
 
 export const createListingInitialValues = {
   brandName: '',
@@ -16,7 +16,7 @@ export const createListingInitialValues = {
   engineVolume: null,
   horsepower: null,
   publisherId: null,
-} as unknown as CreateListing;
+} as unknown as CreateListingDto;
 
 export const createListingValidationSchema = Yup.object().shape({
   brandName: Yup.string().min(1).required('Brand is required.'),
@@ -48,4 +48,4 @@ export const createListingValidationSchema = Yup.object().shape({
     .nullable(),
   countryCode: Yup.string().length(2).required('Country is required'),
   sellAddress: Yup.string().max(255),
-} as Record<keyof CreateListing, any>);
+} as Record<keyof CreateListingDto, any>);

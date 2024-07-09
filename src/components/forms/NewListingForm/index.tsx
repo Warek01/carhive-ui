@@ -17,16 +17,17 @@ import { FC, memo, useCallback, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
-import { FileInput, Image } from '@faf-cars/components';
+import { Image } from '@faf-cars/components';
+import { FileInput } from '@faf-cars/components/inputs';
 import { useHttpService, useWatchLoading } from '@faf-cars/hooks';
-import type { ImageFile } from '@faf-cars/lib/definitions';
+import { ImageFile } from '@faf-cars/lib/definitions';
 import {
   BODY_STYLE_STRING_MAP,
   CAR_BRANDS_TEMP,
-  CreateListing,
+  CreateListingDto,
   ENGINE_TYPE_STRING_MAP,
 } from '@faf-cars/lib/listings';
-import { QueryKey } from '@faf-cars/lib/query-key';
+import { QueryKey } from '@faf-cars/lib/query';
 import { ToastId } from '@faf-cars/lib/toast';
 import { fileToBase64 } from '@faf-cars/lib/utils';
 
@@ -41,7 +42,7 @@ const NewListingForm: FC = () => {
 
   const [preview, setPreview] = useState<ImageFile | null>(null);
 
-  const createListingMutation = useMutation((createDto: CreateListing) =>
+  const createListingMutation = useMutation((createDto: CreateListingDto) =>
     http.createListing(createDto),
   );
 
@@ -56,11 +57,11 @@ const NewListingForm: FC = () => {
 
   const handleSubmit = useCallback(
     async (
-      formObject: CreateListing,
-      helpers: FormikHelpers<CreateListing>,
+      formObject: CreateListingDto,
+      helpers: FormikHelpers<CreateListingDto>,
     ) => {
       try {
-        const createDto: CreateListing = { ...formObject };
+        const createDto: CreateListingDto = { ...formObject };
 
         if (preview) {
           createDto.previewFile = {

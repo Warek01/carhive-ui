@@ -1,5 +1,5 @@
 import { TextField, TextFieldProps } from '@mui/material';
-import type { FormikProps } from 'formik';
+import { FormikProps } from 'formik';
 import { FC, memo } from 'react';
 
 interface Props {

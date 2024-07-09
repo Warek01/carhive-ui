@@ -3,7 +3,7 @@ import { ToastContainerProps } from 'react-toastify';
 
 import useTheme from '@faf-cars/hooks/use-theme';
 
-export enum ToastId {
+export const enum ToastId {
   UserDelete = 'user-delete',
   UserUpdate = 'user-update',
   UserCreate = 'user-create',
@@ -14,7 +14,7 @@ export enum ToastId {
   Register = 'register',
 }
 
-export function useGetToastProps() {
+export function useGetToastProps(): ToastContainerProps {
   const theme = useTheme();
 
   return useMemo<ToastContainerProps>(

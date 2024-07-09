@@ -8,12 +8,12 @@ import {
   BODY_STYLE_STRING_MAP,
   CAR_COLOR_HEX_MAP,
   CAR_COLOR_NAME_MAP,
-  Listing,
+  ListingDto,
 } from '@faf-cars/lib/listings';
-import { AppRoute } from '@faf-cars/lib/routing/app-route';
+import { AppRoute } from '@faf-cars/lib/routing';
 
 interface Props {
-  listing: Listing;
+  listing: ListingDto;
   lazy: boolean;
 }
 

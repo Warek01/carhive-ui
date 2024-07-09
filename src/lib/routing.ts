@@ -1,7 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 
 import { AppLayout, AppRouteProtection } from '@faf-cars/components';
-import { AppRoute } from '@faf-cars/lib/routing/app-route';
 import {
   AboutPage,
   AdminDashboardPage,
@@ -15,7 +14,26 @@ import {
   RegisterPage,
 } from '@faf-cars/pages';
 
-const APP_ROUTES: RouteObject[] = [
+export const enum AppRoute {
+  Home = '/',
+  Listings = '/listings',
+  NewListing = '/listings/new',
+  ListingDetails = '/listings/details/:listingId',
+  Profile = '/me',
+  Register = '/register',
+  Login = '/login',
+  AdminDashboard = '/admin',
+  About = '/about',
+  Any = '*',
+}
+
+export const enum AppRouteProtectionLevel {
+  Unprotected,
+  AuthProtected,
+  AdminProtected,
+}
+
+export const APP_ROUTES: RouteObject[] = [
   {
     path: AppRoute.Home,
     Component: AppLayout,
@@ -70,4 +88,22 @@ const APP_ROUTES: RouteObject[] = [
   },
 ];
 
-export default APP_ROUTES;
+export const ROUTE_TYPE_MAP: Record<
+  AppRouteProtectionLevel,
+  Array<AppRoute | string>
+> = {
+  [AppRouteProtectionLevel.Unprotected]: [
+    AppRoute.Home,
+    AppRoute.About,
+    AppRoute.Login,
+    AppRoute.Register,
+  ],
+  [AppRouteProtectionLevel.AuthProtected]: [
+    AppRoute.Listings,
+    AppRoute.Profile,
+    AppRoute.NewListing,
+    AppRoute.ListingDetails,
+    AppRoute.AdminDashboard,
+  ],
+  [AppRouteProtectionLevel.AdminProtected]: [AppRoute.AdminDashboard],
+};

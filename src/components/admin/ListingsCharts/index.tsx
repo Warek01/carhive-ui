@@ -15,8 +15,8 @@ import { useSessionStorage } from 'usehooks-ts';
 
 import { useHttpService, useTheme } from '@faf-cars/hooks';
 import { MonthYearPair } from '@faf-cars/lib/date';
-import { QueryKey } from '@faf-cars/lib/query-key';
-import { StorageKey } from '@faf-cars/lib/storage-key';
+import { QueryKey } from '@faf-cars/lib/query';
+import { StorageKey } from '@faf-cars/lib/storage';
 
 const ListingsCharts: FC = () => {
   const http = useHttpService();

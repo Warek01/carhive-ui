@@ -1,9 +1,10 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid, IconButton, Tooltip, Typography } from '@mui/material';
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
-import { FC, memo, useCallback } from 'react';
+import { FC, memo, useCallback, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { Visibility } from '@mui/icons-material';
 
 import { FormikTextField } from '@faf-cars/components';
 import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks';
@@ -17,6 +18,7 @@ const LoginForm: FC = () => {
   const { login } = useAuth();
   const http = useHttpService();
   const { setLoading, unsetLoading } = useLoading();
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const handleSubmit = useCallback(
     async (values: LoginCredentials) => {
@@ -78,14 +80,29 @@ const LoginForm: FC = () => {
             name="username"
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid
+          item
+          xs={12}
+          display="flex"
+          alignItems="center"
+          position="relative"
+        >
           <FormikTextField
             fullWidth
             formik={formik}
-            type="password"
+            type={passwordShown ? 'text' : 'password'}
             label="Password"
             name="password"
           />
+          <Tooltip title="Show password" enterDelay={1000}>
+            <IconButton
+              sx={{ position: 'absolute', right: 3 }}
+              onMouseDown={() => setPasswordShown(true)}
+              onMouseUp={() => setPasswordShown(false)}
+            >
+              <Visibility />
+            </IconButton>
+          </Tooltip>
         </Grid>
       </Grid>
 

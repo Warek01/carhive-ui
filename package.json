@@ -12,7 +12,7 @@
     "lint": "eslint --fix ./*.{js,ts} ./src/**/*.{ts,tsx}"
   },
   "engines": {
-    "node": "^20.13.1"
+    "node": "~20.13.1"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

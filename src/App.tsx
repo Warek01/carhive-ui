@@ -1,6 +1,8 @@
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { FC } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import { AuthContextProvider } from '@faf-cars/context/auth.context'
 import { GlobalLoadingContextProvider } from '@faf-cars/context/global-loading.context'
@@ -17,7 +19,9 @@ const App: FC = () => {
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
         <GlobalLoadingContextProvider>
-          <RouterProvider router={router} />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <RouterProvider router={router} />
+          </LocalizationProvider>
         </GlobalLoadingContextProvider>
       </AuthContextProvider>
     </QueryClientProvider>

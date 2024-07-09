@@ -23,13 +23,13 @@ import {
 } from '@faf-cars/hooks'
 import {
   BodyStyle,
-  Listing,
   LISTING_ORDER_BY_VALUES,
+  Listing,
   ListingOrderBy,
 } from '@faf-cars/lib/listings'
 import { PaginatedResponse } from '@faf-cars/lib/paginationData'
-import QueryKey from '@faf-cars/lib/query-key'
-import StorageKey from '@faf-cars/lib/storage-key'
+import { QueryKey } from '@faf-cars/lib/query-key'
+import { StorageKey } from '@faf-cars/lib/storage-key'
 import { LISTING_TABS, ListingsTab } from '@faf-cars/pages/MarketPage/constants'
 
 const MarketPage: FC = () => {

@@ -26,7 +26,7 @@ import {
   CreateListing,
   ENGINE_TYPE_STRING_MAP,
 } from '@faf-cars/lib/listings'
-import QueryKey from '@faf-cars/lib/query-key'
+import { QueryKey } from '@faf-cars/lib/query-key'
 import { ToastId } from '@faf-cars/lib/toast'
 import { fileToBase64 } from '@faf-cars/lib/utils'
 

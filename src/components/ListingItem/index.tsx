@@ -10,7 +10,7 @@ import {
   CAR_COLOR_NAME_MAP,
   Listing,
 } from '@faf-cars/lib/listings'
-import AppRoute from '@faf-cars/lib/routing/app-route'
+import { AppRoute } from '@faf-cars/lib/routing/app-route'
 
 interface Props {
   listing: Listing

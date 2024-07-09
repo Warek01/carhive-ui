@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { Header, MobileSplashScreen } from '@faf-cars/components'
 import { useTheme } from '@faf-cars/hooks'
+import { GLOBAL_CONTAINER_MAX_WIDTH } from '@faf-cars/lib/themes'
 import { useGetToastProps } from '@faf-cars/lib/toast'
 
 const AppLayout: FC = () => {
@@ -21,7 +22,7 @@ const AppLayout: FC = () => {
         <Header />
         <Container
           fixed
-          maxWidth="lg"
+          maxWidth={GLOBAL_CONTAINER_MAX_WIDTH}
           sx={{ pt: 8, minHeight: '100vh', height: '100vh' }}
         >
           <Outlet />

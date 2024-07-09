@@ -1,4 +1,4 @@
-enum AppRoute {
+export enum AppRoute {
   Home = '/',
   Listings = '/listings',
   NewListing = '/listings/new',
@@ -10,5 +10,3 @@ enum AppRoute {
   About = '/about',
   Any = '*',
 }
-
-export default AppRoute

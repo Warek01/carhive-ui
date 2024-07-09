@@ -1,3 +1,4 @@
+import { Breakpoint } from '@mui/material'
 import { amber } from '@mui/material/colors'
 import { ThemeOptions, createTheme } from '@mui/material/styles'
 
@@ -41,3 +42,5 @@ light.palette!.mode = 'light'
 export const darkTheme = createTheme(dark)
 
 export const lightTheme = createTheme(light)
+
+export const GLOBAL_CONTAINER_MAX_WIDTH: Breakpoint = 'xl'

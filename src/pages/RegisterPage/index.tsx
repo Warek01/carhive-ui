@@ -4,7 +4,7 @@ import { Navigate } from 'react-router'
 
 import { RegisterForm } from '@faf-cars/components'
 import { useAuth } from '@faf-cars/hooks'
-import AppRoute from '@faf-cars/lib/routing/app-route'
+import { AppRoute } from '@faf-cars/lib/routing/app-route'
 
 const RegisterPage: FC = () => {
   const { isAuthorized } = useAuth()

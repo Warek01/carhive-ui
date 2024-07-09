@@ -1,4 +1,4 @@
-enum StorageKey {
+export enum StorageKey {
   AuthData = 'auth-data',
   Theme = 'is-dark-theme',
 
@@ -8,6 +8,7 @@ enum StorageKey {
   ListingsTab = 'listings-tab',
 
   DashboardUserPagination = 'admin-users-pagination',
-}
+  AdminTab = 'admin-tab',
 
-export default StorageKey
+  StatsDate = 'stats-date',
+}

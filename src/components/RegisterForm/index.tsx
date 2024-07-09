@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 import { FormikTextField } from '@faf-cars/components'
 import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks'
 import type { RegisterCredentials } from '@faf-cars/lib/auth'
-import AppRoute from '@faf-cars/lib/routing/app-route'
+import { AppRoute } from '@faf-cars/lib/routing/app-route'
 import { ToastId } from '@faf-cars/lib/toast'
 
 import { registerInitialValues, registerValidationSchema } from './constants'

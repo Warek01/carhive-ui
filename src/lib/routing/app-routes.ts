@@ -1,7 +1,7 @@
 import { RouteObject } from 'react-router-dom'
 
 import { AppLayout, AppRouteProtection } from '@faf-cars/components'
-import AppRoute from '@faf-cars/lib/routing/app-route'
+import { AppRoute } from '@faf-cars/lib/routing/app-route'
 import {
   AboutPage,
   AdminDashboardPage,

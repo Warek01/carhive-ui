@@ -12,8 +12,8 @@ import {
   FavoriteListingActionType,
   Listing,
 } from '@faf-cars/lib/listings'
-import QueryKey from '@faf-cars/lib/query-key'
-import AppRoute from '@faf-cars/lib/routing/app-route'
+import { QueryKey } from '@faf-cars/lib/query-key'
+import { AppRoute } from '@faf-cars/lib/routing/app-route'
 import { ToastId } from '@faf-cars/lib/toast'
 
 interface Params extends Record<string, string> {

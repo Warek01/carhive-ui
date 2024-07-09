@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router'
 
 import { useAuth } from '@faf-cars/hooks'
-import AppRoute from '@faf-cars/lib/routing/app-route'
+import { AppRoute } from '@faf-cars/lib/routing/app-route'
 import AppRouteType from '@faf-cars/lib/routing/app-route-type'
 import ROUTE_TYPE_MAP from '@faf-cars/lib/routing/route-type-map'
 

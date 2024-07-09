@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "format": "prettier --write ./*.{js,ts} ./src/**/*.{ts,tsx}",
-    "prepare": "husky install",
+    "prepare": "husky",
     "lint": "eslint --fix ./*.{js,ts} ./src/**/*.{ts,tsx}"
   },
   "engines": {

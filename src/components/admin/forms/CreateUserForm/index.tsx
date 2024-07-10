@@ -1,9 +1,9 @@
-import { Button, FormControlLabel, Stack, Switch } from '@mui/material';
-import { FormikHelpers, useFormik } from 'formik';
+import { Box, Button, FormControlLabel, Stack, Switch } from '@mui/material';
+import { FormikHelpers, FormikProvider, useFormik } from 'formik';
 import { FC, memo } from 'react';
 import * as Yup from 'yup';
 
-import { FormikTextField } from '@faf-cars/components/inputs';
+import { AppTextField } from '@faf-cars/components/inputs';
 import { CreateUserDto, UserRole } from '@faf-cars/lib/user';
 import { toggleArrayItem } from '@faf-cars/lib/utils';
 
@@ -40,68 +40,65 @@ const CreateUserForm: FC<Props> = ({ onSubmit }) => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <Stack spacing={2}>
-        <FormikTextField
-          formik={formik}
-          name="username"
-          placeholder="Username"
-          fullWidth
-        />
-        <FormikTextField
-          formik={formik}
-          type="email"
-          name="email"
-          placeholder="Email"
-          fullWidth
-        />
-        <FormikTextField
-          formik={formik}
-          type="password"
-          name="password"
-          placeholder="Password"
-          fullWidth
-        />
+    <FormikProvider value={formik}>
+      <Box component="form" onSubmit={formik.handleSubmit}>
+        <Stack spacing={2}>
+          <AppTextField name="username" placeholder="Username" fullWidth />
+          <AppTextField
+            type="email"
+            name="email"
+            placeholder="Email"
+            fullWidth
+          />
+          <AppTextField
+            type="password"
+            name="password"
+            placeholder="Password"
+            fullWidth
+          />
 
-        <Stack direction="row">
-          <FormControlLabel
-            control={
-              <Switch
-                checked={formik.values.roles.includes(UserRole.ListingCreator)}
-                inputProps={{ 'aria-label': 'controlled' }}
-                onChange={() =>
-                  formik.setFieldValue(
-                    'roles',
-                    toggleArrayItem(
-                      formik.values.roles,
-                      UserRole.ListingCreator,
-                    ),
-                  )
-                }
-              />
-            }
-            label="Create listing"
-          />
-          <FormControlLabel
-            control={
-              <Switch
-                checked={formik.values.roles.includes(UserRole.Admin)}
-                inputProps={{ 'aria-label': 'controlled' }}
-                onChange={() =>
-                  formik.setFieldValue(
-                    'roles',
-                    toggleArrayItem(formik.values.roles, UserRole.Admin),
-                  )
-                }
-              />
-            }
-            label="Admin"
-          />
+          <Stack direction="row">
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={formik.values.roles.includes(
+                    UserRole.ListingCreator,
+                  )}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                  onChange={() =>
+                    formik.setFieldValue(
+                      'roles',
+                      toggleArrayItem(
+                        formik.values.roles,
+                        UserRole.ListingCreator,
+                      ),
+                    )
+                  }
+                />
+              }
+              label="Create listing"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={formik.values.roles.includes(UserRole.Admin)}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                  onChange={() =>
+                    formik.setFieldValue(
+                      'roles',
+                      toggleArrayItem(formik.values.roles, UserRole.Admin),
+                    )
+                  }
+                />
+              }
+              label="Admin"
+            />
+          </Stack>
+
+          <Button type="submit">Create</Button>
         </Stack>
-
-        <Button type="submit">Create</Button>
-      </Stack>
-    </form>
+      </Box>
+    </FormikProvider>
   );
 };
 

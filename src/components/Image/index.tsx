@@ -37,13 +37,15 @@ const Image = forwardRef<HTMLImageElement, Props>(
     return (
       <Box
         component="div"
-        width="100%"
-        height="100%"
+        width={width}
+        maxWidth={width}
+        height={height}
+        maxHeight={height}
         position="relative"
         display="flex"
         alignItems="center"
         justifyContent="center"
-        sx={{ aspectRatio: !height ? '16/9' : 'initial' }}
+        sx={{ aspectRatio }}
       >
         {isError ? (
           <HideImage fontSize="large" color="inherit" />
@@ -56,7 +58,9 @@ const Image = forwardRef<HTMLImageElement, Props>(
               ref={ref}
               style={{
                 width: loaded ? '100%' : 0,
-                height: loaded ? 'auto' : 0,
+                height: loaded ? '100%' : 0,
+                maxWidth: '100%',
+                maxHeight: '100%',
                 display: 'block',
                 aspectRatio,
                 objectFit,

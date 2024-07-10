@@ -1,27 +1,29 @@
 import { CloudUpload } from '@mui/icons-material';
-import { Button, FormControl, styled } from '@mui/material';
+import { Button, FormControl, Typography, styled } from '@mui/material';
 import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react';
 
 interface Props {
   file: File | null | undefined;
+  placeholderText?: string;
+  size?: 'small' | 'medium' | 'large';
   onChange(file: File | null): void;
 }
 
 const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
-  height: 1,
+  height: 0,
+  width: 0,
   overflow: 'hidden',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  whiteSpace: 'nowrap',
-  width: 1,
+  hidden: true,
 });
 
 const supportedTypes = ['png', 'jpeg', 'avif', 'webp', 'gif'];
 
-const FileInput: FC<Props> = ({ onChange, file }) => {
+const AppFileField: FC<Props> = ({
+  onChange,
+  file,
+  placeholderText = 'Upload an image',
+  size = 'small',
+}) => {
   const accept = useMemo(
     () => supportedTypes.map((t) => `image/${t}`).join(','),
     [],
@@ -40,11 +42,19 @@ const FileInput: FC<Props> = ({ onChange, file }) => {
       <Button
         component="label"
         role={undefined}
+        size={size}
         variant="contained"
         tabIndex={-1}
         startIcon={<CloudUpload />}
       >
-        {file?.name ?? 'Upload an image'}
+        <Typography
+          overflow="hidden"
+          whiteSpace="nowrap"
+          textOverflow="ellipsis"
+          fontSize={size}
+        >
+          {file?.name ?? placeholderText}
+        </Typography>
         <VisuallyHiddenInput
           accept={accept}
           type="file"
@@ -55,4 +65,4 @@ const FileInput: FC<Props> = ({ onChange, file }) => {
   );
 };
 
-export default memo(FileInput);
+export default memo(AppFileField);

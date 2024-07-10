@@ -2,11 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
 
 import { AuthDto, LoginDto, RegisterDto } from '@faf-cars/lib/auth';
-import {
-  CreateListingDto,
-  FavoriteListingAction,
-  ListingDto,
-} from '@faf-cars/lib/listings';
+import { FavoriteListingAction, ListingDto } from '@faf-cars/lib/listings';
 import { PaginatedResponse } from '@faf-cars/lib/pagination';
 import {
   MarketStatistics,
@@ -76,11 +72,8 @@ export class HttpService {
     return data;
   }
 
-  async createListing(
-    createDto: CreateListingDto,
-    params?: object,
-  ): Promise<void> {
-    await this._axiosInstance.post<void>('listing', createDto, {
+  async createListing(formData: FormData, params?: object): Promise<void> {
+    await this._axiosInstance.post<void>('listing', formData, {
       params,
     });
   }

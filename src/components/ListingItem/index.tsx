@@ -5,7 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { Image } from '@faf-cars/components';
 import {
-  BODY_STYLE_STRING_MAP,
+  BODY_STYLE_NAME_MAP,
   CAR_COLOR_HEX_MAP,
   CAR_COLOR_NAME_MAP,
   ListingDto,
@@ -45,8 +45,6 @@ const ListingItem: FC<Props> = ({ listing, lazy }) => {
             }
             lazy={lazy}
             aspectRatio="16/9"
-            objectFit="cover"
-            objectPosition="center"
           />
         </Link>
       </Box>
@@ -59,7 +57,7 @@ const ListingItem: FC<Props> = ({ listing, lazy }) => {
         {listing.brandName} {listing.modelName}
       </Typography>
       <Typography variant="body1">
-        {BODY_STYLE_STRING_MAP.get(listing.bodyStyle)}
+        {BODY_STYLE_NAME_MAP.get(listing.bodyStyle)}
       </Typography>
       <Typography variant="body1">{listing.productionYear}</Typography>
 

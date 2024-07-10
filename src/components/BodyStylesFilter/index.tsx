@@ -1,7 +1,7 @@
 import { Box, Chip, Stack } from '@mui/material';
 import { FC, memo, useCallback } from 'react';
 
-import { BODY_STYLE_STRING_MAP, BodyStyle } from '@faf-cars/lib/listings';
+import { BODY_STYLE_NAME_MAP, BodyStyle } from '@faf-cars/lib/listings';
 import { toggleArrayItem } from '@faf-cars/lib/utils';
 
 interface Props {
@@ -27,7 +27,7 @@ export const BodyStylesFilter: FC<Props> = ({ onChange, selected }) => {
   return (
     <Box>
       <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
-        {Array.from(BODY_STYLE_STRING_MAP).map(([bodyStyle, text]) => (
+        {Array.from(BODY_STYLE_NAME_MAP).map(([bodyStyle, text]) => (
           <Chip
             key={bodyStyle}
             clickable

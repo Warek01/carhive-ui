@@ -1,24 +1,16 @@
-import { UserRole } from '@faf-cars/lib/user';
-
-export async function fileToBase64(file: File): Promise<string> {
+export function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.readAsDataURL(file);
 
     reader.onload = () => {
       if (typeof reader.result === 'string') resolve(reader.result);
-      else reject(new Error('Failed to read file as base64'));
+      else reject(new Error(`Failed to read file "${file.name}" as base64`));
     };
 
     reader.onerror = (error) => reject(error);
-  });
-}
 
-export function getUserRoles(
-  roles: string | string[] | undefined | null,
-): UserRole[] {
-  if (!roles) return [];
-  return (typeof roles === 'string' ? [roles] : roles) as unknown as UserRole[];
+    reader.readAsDataURL(file);
+  });
 }
 
 /**

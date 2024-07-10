@@ -1,16 +1,15 @@
-import { FileDto } from '@faf-cars/lib/definitions';
 import { User } from '@faf-cars/lib/user';
 
 export interface ListingDto {
   id: string;
   brandName: string;
   modelName: string;
-  price: number;
+  price: number | null;
   bodyStyle: BodyStyle;
   horsepower: number | null;
-  engineType: EngineType;
+  fuelType: FuelType | null;
   engineVolume: number | null;
-  color: CarColor;
+  color: CarColor | null;
   clearance: number | null;
   wheelSize: number | null;
   mileage: number | null;
@@ -20,7 +19,7 @@ export interface ListingDto {
   publisher: User | null;
   previewUrl: string | null;
   imagesUrls: string[];
-  countryCode: string;
+  countryCode: string | null;
   sellAddress: string | null;
   isFavorite: boolean | null;
 }
@@ -28,20 +27,20 @@ export interface ListingDto {
 export interface CreateListingDto {
   brandName: string;
   modelName: string;
-  price: number;
-  bodyStyle: BodyStyle;
+  countryCode: string;
+  price: number | null;
+  bodyStyle: BodyStyle | null;
   horsepower: number | null;
-  engineType: EngineType;
+  fuelType: FuelType | null;
   engineVolume: number | null;
-  color: CarColor;
+  color: CarColor | null;
   clearance: number | null;
   wheelSize: number | null;
   mileage: number | null;
   productionYear: number | null;
-  countryCode: string;
   sellAddress: string | null;
-  previewFile: FileDto | null;
-  imagesFiles: FileDto[];
+  preview: File | null;
+  images: File[];
 }
 
 export const CAR_BRANDS_TEMP: string[] = [
@@ -129,6 +128,29 @@ export const enum CarColor {
   Navy,
 }
 
+export const CAR_COLORS: CarColor[] = [
+  CarColor.Black,
+  CarColor.White,
+  CarColor.Silver,
+  CarColor.Gray,
+  CarColor.Blue,
+  CarColor.Red,
+  CarColor.Brown,
+  CarColor.Green,
+  CarColor.Beige,
+  CarColor.Yellow,
+  CarColor.Gold,
+  CarColor.Orange,
+  CarColor.Purple,
+  CarColor.Pink,
+  CarColor.Burgundy,
+  CarColor.Turquoise,
+  CarColor.Ivory,
+  CarColor.Bronze,
+  CarColor.Teal,
+  CarColor.Navy,
+];
+
 export const CAR_COLOR_HEX_MAP = new Map<CarColor, string>([
   [CarColor.Black, '#000000'],
   [CarColor.White, '#FFFFFF'],
@@ -189,7 +211,21 @@ export const enum BodyStyle {
   Other,
 }
 
-export const BODY_STYLE_STRING_MAP = new Map<BodyStyle, string>([
+export const BODY_STYLES: BodyStyle[] = [
+  BodyStyle.Sedan,
+  BodyStyle.SUV,
+  BodyStyle.Crossover,
+  BodyStyle.Van,
+  BodyStyle.Minivan,
+  BodyStyle.Hatchback,
+  BodyStyle.Wagon,
+  BodyStyle.Coupe,
+  BodyStyle.PickupTruck,
+  BodyStyle.Convertible,
+  BodyStyle.Other,
+];
+
+export const BODY_STYLE_NAME_MAP = new Map<BodyStyle, string>([
   [BodyStyle.Sedan, 'Sedan'],
   [BodyStyle.SUV, 'SUV'],
   [BodyStyle.Crossover, 'Crossover'],
@@ -203,7 +239,7 @@ export const BODY_STYLE_STRING_MAP = new Map<BodyStyle, string>([
   [BodyStyle.Other, 'Other'],
 ]);
 
-export const enum EngineType {
+export const enum FuelType {
   Petrol,
   Diesel,
   Hybrid,
@@ -211,12 +247,20 @@ export const enum EngineType {
   Other,
 }
 
-export const ENGINE_TYPE_STRING_MAP = new Map<EngineType, string>([
-  [EngineType.Petrol, 'Petrol'],
-  [EngineType.Diesel, 'Diesel'],
-  [EngineType.Hybrid, 'Hybrid'],
-  [EngineType.Electric, 'Electric'],
-  [EngineType.Other, 'Other'],
+export const FUEL_TYPES: FuelType[] = [
+  FuelType.Petrol,
+  FuelType.Diesel,
+  FuelType.Hybrid,
+  FuelType.Electric,
+  FuelType.Other,
+];
+
+export const FUEL_TYPE_NAME_MAP = new Map<FuelType, string>([
+  [FuelType.Petrol, 'Petrol'],
+  [FuelType.Diesel, 'Diesel'],
+  [FuelType.Hybrid, 'Hybrid'],
+  [FuelType.Electric, 'Electric'],
+  [FuelType.Other, 'Other'],
 ]);
 
 export const enum ListingOrderBy {

@@ -1,11 +1,11 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { AxiosError } from 'axios';
-import { useFormik } from 'formik';
+import { FormikProvider, useFormik } from 'formik';
 import { FC, memo, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { FormikTextField } from '@faf-cars/components/inputs';
+import { AppTextField } from '@faf-cars/components/inputs';
 import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks';
 import { RegisterData } from '@faf-cars/lib/auth';
 import { AppRoute } from '@faf-cars/lib/routing';
@@ -72,67 +72,61 @@ const RegisterForm: FC = () => {
   });
 
   return (
-    <Grid container component="form" onSubmit={formik.handleSubmit} spacing={3}>
-      <Grid item xs={12}>
-        <Typography variant="h3" textAlign="center">
-          Register
-        </Typography>
-      </Grid>
-      <Grid item container xs={12} spacing={2}>
-        <Grid item xs={12}>
-          <FormikTextField
-            fullWidth
-            formik={formik}
-            label="Username"
-            name="username"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormikTextField
-            fullWidth
-            formik={formik}
-            type="Email"
-            label="Email"
-            name="email"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormikTextField
-            fullWidth
-            formik={formik}
-            type="password"
-            label="Password"
-            name="password"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormikTextField
-            fullWidth
-            formik={formik}
-            type="password"
-            label="Repeat passwoed"
-            name="repeatPassword"
-          />
-        </Grid>
-      </Grid>
-
+    <FormikProvider value={formik}>
       <Grid
-        item
-        xs={12}
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        gap={2}
+        container
+        component="form"
+        onSubmit={formik.handleSubmit}
+        spacing={3}
       >
-        <Button variant="outlined" type="submit">
-          Register
-        </Button>
-        <Button variant="text" component={RouterLink} to={AppRoute.Login}>
-          Already have an account?
-        </Button>
+        <Grid item xs={12}>
+          <Typography variant="h3" textAlign="center">
+            Register
+          </Typography>
+        </Grid>
+        <Grid item container xs={12} spacing={2}>
+          <Grid item xs={12}>
+            <AppTextField fullWidth label="Username" name="username" />
+          </Grid>
+          <Grid item xs={12}>
+            <AppTextField fullWidth type="Email" label="Email" name="email" />
+          </Grid>
+          <Grid item xs={12}>
+            <AppTextField
+              fullWidth
+              type="password"
+              label="Password"
+              name="password"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <AppTextField
+              fullWidth
+              type="password"
+              label="Repeat passwoed"
+              name="repeatPassword"
+            />
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          gap={2}
+        >
+          <Button variant="outlined" type="submit">
+            Register
+          </Button>
+          <Button variant="text" component={RouterLink} to={AppRoute.Login}>
+            Already have an account?
+          </Button>
+        </Grid>
       </Grid>
-    </Grid>
+    </FormikProvider>
   );
 };
 

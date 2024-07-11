@@ -12,9 +12,7 @@ export interface GlobalLoadingContextProps {
   unsetLoading(): void;
 }
 
-const GlobalLoadingContext = createContext<GlobalLoadingContextProps>(null!);
-
-export default GlobalLoadingContext;
+export const GlobalLoadingContext = createContext<GlobalLoadingContextProps>(null!);
 
 export const GlobalLoadingContextProvider: FC<PropsWithChildren> = ({
   children,

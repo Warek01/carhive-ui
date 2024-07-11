@@ -10,7 +10,7 @@ import {
 import { useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
-import { HttpContext } from '@faf-cars/context/http.context';
+import { HttpContext } from '@faf-cars/contexts/http';
 import { AppJwtPayload, AuthDto } from '@faf-cars/lib/auth';
 import { QueryKey } from '@faf-cars/lib/query';
 import { StorageKey } from '@faf-cars/lib/storage';
@@ -29,8 +29,7 @@ export interface AuthContextProps {
   expireSession(): void;
 }
 
-const AuthContext = createContext<AuthContextProps>(null!);
-export default AuthContext;
+export const AuthContext = createContext<AuthContextProps>(null!);
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const queryClient = useQueryClient();

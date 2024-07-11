@@ -6,7 +6,7 @@ import axios, {
 } from 'axios';
 import qs from 'qs';
 
-import { HttpContextProps } from '@faf-cars/context/http.context';
+import { HttpContextProps } from '@faf-cars/contexts/http';
 import { AuthDto, LoginDto, RegisterDto } from '@faf-cars/lib/auth';
 import { FavoriteListingAction, ListingDto } from '@faf-cars/lib/listings';
 import { PaginatedResponse } from '@faf-cars/lib/pagination';

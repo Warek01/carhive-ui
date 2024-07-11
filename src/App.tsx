@@ -4,9 +4,9 @@ import { FC } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { AuthContextProvider } from '@faf-cars/context/auth.context';
-import { GlobalLoadingContextProvider } from '@faf-cars/context/global-loading.context';
-import { HttpContextProvider } from '@faf-cars/context/http.context';
+import { AuthContextProvider } from '@faf-cars/contexts/auth';
+import { GlobalLoadingContextProvider } from '@faf-cars/contexts/global-loading';
+import { HttpContextProvider } from '@faf-cars/contexts/http';
 import { QUERY_CLIENT_CONFIG } from '@faf-cars/lib/query';
 import { APP_ROUTES } from '@faf-cars/lib/routing';
 

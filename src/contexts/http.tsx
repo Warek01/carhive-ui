@@ -10,9 +10,9 @@ import {
 import { useLocalStorage } from 'usehooks-ts';
 
 import { StorageKey } from '@faf-cars/lib/storage';
-import { HttpService } from '@faf-cars/services/http.service';
+import { HttpService } from '@faf-cars/services/http';
 
-// this context acts as a storage for auth tokens and provides http service
+// this contexts acts as a storage for auth tokens and provides http service
 // the service will use refresh token when encounters 401 Unauthorized and set
 // new token or expire it
 

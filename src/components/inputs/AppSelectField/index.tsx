@@ -14,7 +14,7 @@ type Props = SelectProps<any> & {
   getItemContent: (value: any) => ReactNode;
 };
 
-/** Must be placed in Formik context */
+/** Must be placed in Formik contexts */
 const AppSelectField: FC<Props> = ({
   values,
   getItemContent,

@@ -2,7 +2,7 @@ import { TextField, TextFieldProps } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { FC, memo } from 'react';
 
-/** Must be placed in Formik context */
+/** Must be placed in Formik contexts */
 const AppTextField: FC<TextFieldProps> = ({ name, ...props }) => {
   const formik = useFormikContext<any>();
 

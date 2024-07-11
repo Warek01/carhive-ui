@@ -243,6 +243,7 @@ export const enum FuelType {
   Petrol,
   Diesel,
   Hybrid,
+  PluginHybrid,
   Electric,
   Other,
 }
@@ -251,6 +252,7 @@ export const FUEL_TYPES: FuelType[] = [
   FuelType.Petrol,
   FuelType.Diesel,
   FuelType.Hybrid,
+  FuelType.PluginHybrid,
   FuelType.Electric,
   FuelType.Other,
 ];
@@ -259,6 +261,7 @@ export const FUEL_TYPE_NAME_MAP = new Map<FuelType, string>([
   [FuelType.Petrol, 'Petrol'],
   [FuelType.Diesel, 'Diesel'],
   [FuelType.Hybrid, 'Hybrid'],
+  [FuelType.PluginHybrid, 'Plug-in Hybrid'],
   [FuelType.Electric, 'Electric'],
   [FuelType.Other, 'Other'],
 ]);

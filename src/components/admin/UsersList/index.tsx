@@ -17,7 +17,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useLocalStorage } from 'usehooks-ts';
 
-import { useAuth, useHttpService } from '@faf-cars/hooks';
+import { useAuth, useHttp } from '@faf-cars/hooks';
 import {
   DEFAULT_PAGINATION_DATA,
   PaginationData,
@@ -35,7 +35,7 @@ const ROLES_STRING_MAP: [UserRole, string][] = [
 
 const UsersList: FC = () => {
   const { fetchedUser } = useAuth();
-  const http = useHttpService();
+  const httpService = useHttp();
   const queryClient = useQueryClient();
 
   const [pagination, setPagination] = useLocalStorage<PaginationData>(
@@ -59,20 +59,20 @@ const UsersList: FC = () => {
   }, []);
 
   const usersQuery = useQuery([QueryKey.UsersList, pagination], () =>
-    http.getUsers({
+    httpService.getUsers({
       take: pagination.size,
       page: pagination.page,
     }),
   );
   const deleteUserMutation = useMutation(
-    (userId: string) => http.deleteUser(userId),
+    (userId: string) => httpService.deleteUser(userId),
     {
       onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
     },
   );
   const updateUserMutation = useMutation({
     mutationFn: ([userId, updateDto]: [string, UpdateUserDto]) =>
-      http.updateUser(userId, updateDto),
+      httpService.updateUser(userId, updateDto),
     onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
   });
 

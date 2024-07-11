@@ -4,31 +4,29 @@ import {
   PropsWithChildren,
   createContext,
   useCallback,
-  useMemo,
+  useContext,
+  useEffect,
 } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { useLocalStorage } from 'usehooks-ts';
 
+import { HttpContext } from '@faf-cars/context/http.context';
 import { AppJwtPayload, AuthDto } from '@faf-cars/lib/auth';
 import { QueryKey } from '@faf-cars/lib/query';
 import { StorageKey } from '@faf-cars/lib/storage';
 import { ToastId } from '@faf-cars/lib/toast';
 import { User, UserRole } from '@faf-cars/lib/user';
-import { HttpService } from '@faf-cars/services/http.service';
 
 export interface AuthContextProps {
   fetchedUser: User | null;
   userId: string | null;
-  token: string | null;
-  refreshToken: string | null;
   expiresAt: Date | null;
   isAuthorized: boolean;
   isListingCreator: boolean;
   isAdmin: boolean;
   login(data: AuthDto): void;
   logout(): void;
-  refresh(): Promise<void>;
+  expireSession(): void;
 }
 
 const AuthContext = createContext<AuthContextProps>(null!);
@@ -36,108 +34,79 @@ export default AuthContext;
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const queryClient = useQueryClient();
+  const {
+    httpService,
+    accessToken,
+    sessionExpired,
+    setAccessToken,
+    setRefreshToken,
+    setSessionExpired,
+  } = useContext(HttpContext);
 
-  const [authData, setAuthData] = useLocalStorage<AuthDto | null>(
-    StorageKey.AuthData,
-    null,
-  );
-
-  const token = useMemo<string | null>(
-    () => authData?.token ?? null,
-    [authData],
-  );
-
-  const isAuthorized = useMemo<boolean>(() => !!token, [token]);
-
-  const refreshToken = useMemo<string | null>(
-    () => authData?.refreshToken ?? null,
-    [authData],
-  );
-
-  const decoded = useMemo<AppJwtPayload | null>(
-    () => (token ? jwtDecode<AppJwtPayload>(token) : null),
-    [token],
-  );
-
-  const http = useMemo<HttpService>(() => new HttpService(token), [token]);
+  const decodedJwt = accessToken ? jwtDecode<AppJwtPayload>(accessToken) : null;
 
   const userQuery = useQuery(
-    [QueryKey.User, token],
-    () => http.getUser(decoded!.sub!),
+    [QueryKey.User, accessToken],
+    () => httpService.getUser(decodedJwt!.sub!),
     {
-      enabled: isAuthorized,
+      enabled: !!decodedJwt,
     },
   );
 
-  const fetchedUser = useMemo<User | null>(
-    () => userQuery.data ?? null,
-    [userQuery.data],
-  );
-
-  const roles = useMemo<string[]>(
-    () =>
-      !decoded?.role
-        ? []
-        : Array.isArray(decoded.role)
-          ? decoded.role
-          : [decoded.role],
-    [decoded],
-  );
-
-  // groups the props derived from decoded jwt token
-  const jwtDecodedData = useMemo(
-    () => ({
-      expiresAt: decoded === null ? null : new Date(decoded.exp! * 1000),
-      isAdmin: roles.includes(UserRole.Admin) ?? false,
-      isListingCreator: roles.includes(UserRole.ListingCreator) ?? false,
-      userId: decoded?.sub ?? null,
-    }),
-    [decoded],
-  );
+  const roles = !decodedJwt?.role
+    ? []
+    : Array.isArray(decodedJwt.role)
+      ? decodedJwt.role
+      : [decodedJwt.role];
 
   const login = useCallback((data: AuthDto) => {
-    setAuthData(data);
+    setAccessToken(data.token);
+    setRefreshToken(data.refreshToken);
   }, []);
 
   const logout = useCallback(() => {
+    setAccessToken(null);
+    setRefreshToken(null);
+
     queryClient.clear();
     queryClient.invalidateQueries();
+
     const theme = localStorage.getItem(StorageKey.Theme);
     localStorage.clear();
     sessionStorage.clear();
-    setAuthData(null);
 
-    if (theme) localStorage.setItem(StorageKey.Theme, theme);
+    if (theme) {
+      localStorage.setItem(StorageKey.Theme, theme);
+    }
   }, []);
 
-  const refresh = useCallback(async () => {
-    if (!authData) {
-      return;
-    }
+  const expireSession = useCallback(() => {
+    setSessionExpired(true);
+    setAccessToken(null);
+    setRefreshToken(null);
+  }, []);
 
-    try {
-      const http = new HttpService(null);
-      const res = await http.refresh(authData);
-      login(res);
-    } catch (err) {
-      console.error(err);
+  useEffect(() => {
+    if (sessionExpired) {
+      logout();
+
       toast('Session has expired.', {
-        toastId: ToastId.SessionExpire,
+        toastId: ToastId.AuthError,
         type: 'warning',
       });
-      logout();
     }
-  }, [authData, login, logout]);
+  }, [sessionExpired]);
 
   const context: AuthContextProps = {
-    ...jwtDecodedData,
-    fetchedUser,
-    isAuthorized,
-    token,
-    refreshToken,
+    expiresAt: decodedJwt === null ? null : new Date(decodedJwt.exp! * 1000),
+    isAdmin: roles.includes(UserRole.Admin) ?? false,
+    isListingCreator: roles.includes(UserRole.ListingCreator) ?? false,
+    userId: decodedJwt?.sub ?? null,
+    fetchedUser: userQuery.data ?? null,
+    isAuthorized: !!accessToken,
     login,
     logout,
-    refresh,
+    expireSession,
   };
 
   return (

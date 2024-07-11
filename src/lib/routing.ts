@@ -29,6 +29,7 @@ export const enum AppRoute {
 
 export const enum AppRouteProtectionLevel {
   Unprotected,
+  OnlyUnauthorized,
   AuthProtected,
   AdminProtected,
 }
@@ -92,9 +93,8 @@ export const ROUTE_TYPE_MAP: Record<
   AppRouteProtectionLevel,
   Array<AppRoute | string>
 > = {
-  [AppRouteProtectionLevel.Unprotected]: [
-    AppRoute.Home,
-    AppRoute.About,
+  [AppRouteProtectionLevel.Unprotected]: [AppRoute.Home, AppRoute.About],
+  [AppRouteProtectionLevel.OnlyUnauthorized]: [
     AppRoute.Login,
     AppRoute.Register,
   ],

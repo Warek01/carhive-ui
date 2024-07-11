@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { AppTextField } from '@faf-cars/components/inputs';
-import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks';
+import { useAuth, useHttp, useLoading } from '@faf-cars/hooks';
 import { RegisterData } from '@faf-cars/lib/auth';
 import { AppRoute } from '@faf-cars/lib/routing';
 import { ToastId } from '@faf-cars/lib/toast';
@@ -16,51 +16,48 @@ import { registerInitialValues, registerValidationSchema } from './constants';
 const RegisterForm: FC = () => {
   const { login } = useAuth();
   const { setLoading, unsetLoading } = useLoading();
-  const http = useHttpService();
+  const httpService = useHttp();
 
-  const handleSubmit = useCallback(
-    async (values: RegisterData) => {
-      if (values.password !== values.repeatPassword) {
-        formik.setFieldError('passwordRepeat', 'Password mismatch');
-        return;
-      }
+  const handleSubmit = useCallback(async (values: RegisterData) => {
+    if (values.password !== values.repeatPassword) {
+      formik.setFieldError('passwordRepeat', 'Password mismatch');
+      return;
+    }
 
-      setLoading();
+    setLoading();
 
-      try {
-        const res = await http.register({
-          email: values.email,
-          password: values.password,
-          username: values.username,
-        });
-        login(res);
-      } catch (err) {
-        console.error(err);
+    try {
+      const res = await httpService.register({
+        email: values.email,
+        password: values.password,
+        username: values.username,
+      });
+      login(res);
+    } catch (err) {
+      console.error(err);
 
-        if (err instanceof AxiosError) {
-          switch (err.response?.status) {
-            case 401:
-              toast('Invalid password.', {
-                type: 'error',
-                toastId: ToastId.Register,
-              });
-              break;
-            case 404:
-              toast('User does not exist.', {
-                type: 'error',
-                toastId: ToastId.Register,
-              });
-              break;
-          }
-        } else {
-          toast('Error.', { type: 'error', toastId: ToastId.Register });
+      if (err instanceof AxiosError) {
+        switch (err.response?.status) {
+          case 401:
+            toast('Invalid password.', {
+              type: 'error',
+              toastId: ToastId.Register,
+            });
+            break;
+          case 404:
+            toast('User does not exist.', {
+              type: 'error',
+              toastId: ToastId.Register,
+            });
+            break;
         }
+      } else {
+        toast('Error.', { type: 'error', toastId: ToastId.Register });
       }
+    }
 
-      unsetLoading();
-    },
-    [login],
-  );
+    unsetLoading();
+  }, []);
 
   const formik = useFormik({
     initialValues: registerInitialValues,

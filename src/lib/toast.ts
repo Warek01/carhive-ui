@@ -7,7 +7,7 @@ export const enum ToastId {
   UserDelete = 'user-delete',
   UserUpdate = 'user-update',
   UserCreate = 'user-create',
-  SessionExpire = 'session-expire',
+  AuthError = 'session-expire',
   ListingNotFound = 'listing-not-found',
   ListingCreate = 'listing-create',
   Login = 'login',

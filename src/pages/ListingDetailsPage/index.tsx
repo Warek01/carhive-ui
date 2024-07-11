@@ -6,7 +6,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Navigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 
-import { useHttpService, useWatchLoading } from '@faf-cars/hooks';
+import { useHttp, useWatchLoading } from '@faf-cars/hooks';
 import {
   FavoriteListingAction,
   FavoriteListingActionType,
@@ -22,16 +22,17 @@ interface Params extends Record<string, string> {
 
 const ListingDetailsPage: FC = () => {
   const { listingId } = useParams<Params>();
-  const http = useHttpService();
+  const httpService = useHttp();
   const queryClient = useQueryClient();
 
   const listingDetailsQuery = useQuery(
     [QueryKey.ListingDetails, listingId],
-    () => http.getListingDetails(listingId!),
+    () => httpService.getListingDetails(listingId!),
   );
 
   const favoritesMutation = useMutation(
-    (action: FavoriteListingAction) => http.mutateFavoriteListings(action),
+    (action: FavoriteListingAction) =>
+      httpService.mutateFavoriteListings(action),
     {
       onSuccess: () =>
         Promise.all([

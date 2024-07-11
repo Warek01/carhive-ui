@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { AuthContextProvider } from '@faf-cars/context/auth.context';
 import { GlobalLoadingContextProvider } from '@faf-cars/context/global-loading.context';
+import { HttpContextProvider } from '@faf-cars/context/http.context';
 import { QUERY_CLIENT_CONFIG } from '@faf-cars/lib/query';
 import { APP_ROUTES } from '@faf-cars/lib/routing';
 
@@ -17,13 +18,15 @@ const App: FC = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthContextProvider>
-        <GlobalLoadingContextProvider>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <RouterProvider router={router} />
-          </LocalizationProvider>
-        </GlobalLoadingContextProvider>
-      </AuthContextProvider>
+      <HttpContextProvider>
+        <AuthContextProvider>
+          <GlobalLoadingContextProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <RouterProvider router={router} />
+            </LocalizationProvider>
+          </GlobalLoadingContextProvider>
+        </AuthContextProvider>
+      </HttpContextProvider>
     </QueryClientProvider>
   );
 };

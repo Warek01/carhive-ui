@@ -16,7 +16,7 @@ import { FC, ReactElement, memo, useCallback, useMemo, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
-import { useHttpService, useWatchLoading } from '@faf-cars/hooks';
+import { useHttp, useWatchLoading } from '@faf-cars/hooks';
 import { CreateListingDto } from '@faf-cars/lib/listings';
 import { QueryKey } from '@faf-cars/lib/query';
 import { ToastId } from '@faf-cars/lib/toast';
@@ -35,13 +35,13 @@ interface FormSection {
 }
 
 const NewListingForm: FC = () => {
-  const http = useHttpService();
+  const httpService = useHttp();
   const queryClient = useQueryClient();
 
   const [openedSections, setOpenedSections] = useState([true, false, false]);
 
   const createListingMutation = useMutation((formData: FormData) =>
-    http.createListing(formData),
+    httpService.createListing(formData),
   );
 
   useWatchLoading(createListingMutation.isLoading);

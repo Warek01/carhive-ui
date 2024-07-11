@@ -17,7 +17,7 @@ import { useSessionStorage } from 'usehooks-ts';
 
 import { ListingsCharts, UsersList } from '@faf-cars/components/admin';
 import { CreateUserForm } from '@faf-cars/components/admin/forms';
-import { useHttpService, useWatchLoading } from '@faf-cars/hooks';
+import { useHttp, useWatchLoading } from '@faf-cars/hooks';
 import { RegisterDto } from '@faf-cars/lib/auth';
 import { QueryKey } from '@faf-cars/lib/query';
 import { StorageKey } from '@faf-cars/lib/storage';
@@ -40,11 +40,11 @@ const AdminDashboardPage: FC = () => {
     AdminTab.UsersList,
   );
 
-  const http = useHttpService();
+  const httpService = useHttp();
   const queryClient = useQueryClient();
 
   const createUserMutation = useMutation(
-    (createDto: CreateUserDto) => http.createUser(createDto),
+    (createDto: CreateUserDto) => httpService.createUser(createDto),
     {
       onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
     },

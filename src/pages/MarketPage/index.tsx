@@ -29,7 +29,7 @@ import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { CarTypesFilter, ListingsList } from '@faf-cars/components';
 import {
   useAuth,
-  useHttpService,
+  useHttp,
   usePagination,
   useWatchLoading,
 } from '@faf-cars/hooks';
@@ -48,7 +48,7 @@ import {
 } from '@faf-cars/pages/MarketPage/constants';
 
 const MarketPage: FC = () => {
-  const http = useHttpService();
+  const httpService = useHttp();
   const { userId } = useAuth();
   const [orderBy, setOrderBy] = useLocalStorage<ListingOrderBy>(
     StorageKey.ListingsOrderBy,
@@ -81,13 +81,13 @@ const MarketPage: FC = () => {
       ListingsTab,
       Promise<PaginatedResponse<ListingDto>>
     > = {
-      [ListingsTab.All]: http.getListings(params),
-      [ListingsTab.Favorites]: http.getListings({
+      [ListingsTab.All]: httpService.getListings(params),
+      [ListingsTab.Favorites]: httpService.getListings({
         ...params,
         user: userId,
         favorites: true,
       }),
-      [ListingsTab.My]: http.getListings({ ...params, user: userId }),
+      [ListingsTab.My]: httpService.getListings({ ...params, user: userId }),
     };
 
     return tabFetchFnMap[selectedTab];

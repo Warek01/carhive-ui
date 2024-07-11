@@ -1,72 +1,49 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router';
 
-import { useAuth } from '@faf-cars/hooks';
+import { useAuth, useHttp } from '@faf-cars/hooks';
 import { AppRouteProtectionLevel, ROUTE_TYPE_MAP } from '@faf-cars/lib/routing';
 import { AppRoute } from '@faf-cars/lib/routing';
 
 const AppRouteProtection: FC = () => {
   const location = useLocation();
-  const { isAuthorized, isAdmin, refresh, expiresAt } = useAuth();
+  const { isAuthorized, isAdmin, expiresAt, login, expireSession } = useAuth();
+  const httpService = useHttp();
 
   const path = location.pathname;
-  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const expiredRef = useRef(false);
-  expiredRef.current = !!expiresAt && expiresAt < new Date();
-
-  const refreshWithBackdropTimeout = useCallback(() => {
-    // do not show the spinner if the request took less than 0,5 seconds
-    const backdropTimeout = setTimeout(() => setIsRefreshing(true), 500);
-    refresh().finally(() => {
-      clearTimeout(backdropTimeout);
-      setIsRefreshing(false);
-    });
-  }, []);
-
-  if (expiredRef.current) {
-    refreshWithBackdropTimeout();
-  }
-
-  // check if token expired every 60 seconds
   useEffect(() => {
-    const refreshInterval = setInterval(() => {
-      if (!expiredRef.current || isRefreshing) {
-        return;
-      }
-
-      refreshWithBackdropTimeout();
-    }, 60_000);
-
-    return () => {
-      clearInterval(refreshInterval);
-    };
-  }, []);
+    if (expiresAt && expiresAt <= new Date()) {
+      httpService
+        .refresh()
+        .then((res) => {
+          login(res);
+        })
+        .catch(() => {
+          expireSession();
+        });
+    }
+  }, [path]);
 
   const isOnAuthorizedPage =
     ROUTE_TYPE_MAP[AppRouteProtectionLevel.AuthProtected].includes(path);
   const isOnAdminPage =
     ROUTE_TYPE_MAP[AppRouteProtectionLevel.AdminProtected].includes(path);
+  const isOnOnlyUnauthorizedPage =
+    ROUTE_TYPE_MAP[AppRouteProtectionLevel.OnlyUnauthorized].includes(path);
 
-  if (isRefreshing) {
-    return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        height="100%"
-        alignItems="center"
-        gap={1}
-      >
-        <Typography>Refreshing token</Typography>
-        <CircularProgress />
-      </Box>
-    );
+  if (isOnOnlyUnauthorizedPage && isAuthorized) {
+    return <Navigate to={AppRoute.Home} />;
   }
 
-  if (isOnAuthorizedPage && !isAuthorized)
+  if (isOnAuthorizedPage && !isAuthorized) {
     return <Navigate to={AppRoute.Login} />;
-  if (isOnAdminPage && !isAdmin) return <Navigate to={AppRoute.Home} />;
+  }
+
+  if (isOnAdminPage && !isAdmin) {
+    return <Navigate to={AppRoute.Home} />;
+  }
+
   return <Outlet />;
 };
 

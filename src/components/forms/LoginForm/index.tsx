@@ -7,7 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { AppTextField } from '@faf-cars/components/inputs';
-import { useAuth, useHttpService, useLoading } from '@faf-cars/hooks';
+import { useAuth, useHttp, useLoading } from '@faf-cars/hooks';
 import { LoginData } from '@faf-cars/lib/auth';
 import { AppRoute } from '@faf-cars/lib/routing';
 import { ToastId } from '@faf-cars/lib/toast';
@@ -15,45 +15,42 @@ import { ToastId } from '@faf-cars/lib/toast';
 import { loginInitialValues, loginValidationSchema } from './constants';
 
 const LoginForm: FC = () => {
+  const httpService = useHttp();
   const { login } = useAuth();
-  const http = useHttpService();
   const { setLoading, unsetLoading } = useLoading();
   const [passwordShown, setPasswordShown] = useState(false);
 
-  const handleSubmit = useCallback(
-    async (values: LoginData) => {
-      setLoading();
+  const handleSubmit = useCallback(async (values: LoginData) => {
+    setLoading();
 
-      try {
-        const res = await http.login({ ...values });
-        login(res);
-      } catch (err) {
-        console.error(err);
+    try {
+      const res = await httpService.login({ ...values });
+      login(res);
+    } catch (err) {
+      console.error(err);
 
-        if (err instanceof AxiosError) {
-          switch (err.response?.status) {
-            case 401:
-              toast('Invalid password.', {
-                type: 'error',
-                toastId: ToastId.Login,
-              });
-              break;
-            case 404:
-              toast('User does not exist.', {
-                type: 'error',
-                toastId: ToastId.Login,
-              });
-              break;
-          }
-        } else {
-          toast('Error.', { type: 'error', toastId: ToastId.Login });
+      if (err instanceof AxiosError) {
+        switch (err.response?.status) {
+          case 401:
+            toast('Invalid password.', {
+              type: 'error',
+              toastId: ToastId.Login,
+            });
+            break;
+          case 404:
+            toast('User does not exist.', {
+              type: 'error',
+              toastId: ToastId.Login,
+            });
+            break;
         }
+      } else {
+        toast('Error.', { type: 'error', toastId: ToastId.Login });
       }
+    }
 
-      unsetLoading();
-    },
-    [login],
-  );
+    unsetLoading();
+  }, []);
 
   const formik = useFormik({
     initialValues: loginInitialValues,

@@ -13,13 +13,13 @@ import { FC, memo, useCallback, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { useSessionStorage } from 'usehooks-ts';
 
-import { useHttpService, useTheme } from '@faf-cars/hooks';
+import { useHttp, useTheme } from '@faf-cars/hooks';
 import { MonthYearPair } from '@faf-cars/lib/date';
 import { QueryKey } from '@faf-cars/lib/query';
 import { StorageKey } from '@faf-cars/lib/storage';
 
 const ListingsCharts: FC = () => {
-  const http = useHttpService();
+  const httpService = useHttp();
   const theme = useTheme();
 
   const isXl = useMediaQuery(theme.breakpoints.up('xl'));
@@ -47,7 +47,7 @@ const ListingsCharts: FC = () => {
   const listingStatsQuery = useQuery(
     [QueryKey.ListingsStats, statsDate],
     () =>
-      http.getListingsStats({
+      httpService.getListingsStats({
         includeStats: true,
         year: statsDate.year,
         month: statsDate.month + 1,

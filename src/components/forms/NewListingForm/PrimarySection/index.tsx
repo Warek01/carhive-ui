@@ -1,7 +1,7 @@
 import { Delete } from '@mui/icons-material';
 import { Button, Grid, Stack } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { FC, memo, useCallback, useState } from 'react';
+import { FC, memo, useCallback, useEffect, useState } from 'react';
 
 import { Image } from '@faf-cars/components';
 import {
@@ -24,15 +24,19 @@ const PrimarySection: FC = () => {
 
   const [previewDataUrl, setPreviewDataUrl] = useState<string | null>(null);
 
-  const handlePreviewChange = useCallback(async (file: File) => {
-    await formik.setFieldValue('preview', file);
-    setPreviewDataUrl(await fileToBase64(file));
-  }, []);
-
   const resetPreview = useCallback(async () => {
-    setPreviewDataUrl(null);
     await formik.setFieldValue('preview', null);
   }, []);
+
+  useEffect(() => {
+    const { preview } = formik.values;
+
+    if (preview) {
+      fileToBase64(preview).then(setPreviewDataUrl);
+    } else {
+      setPreviewDataUrl(null);
+    }
+  }, [formik.values.preview]);
 
   return (
     <Grid container spacing={1}>
@@ -49,7 +53,7 @@ const PrimarySection: FC = () => {
           <AppFileField
             placeholderText="Select preview"
             file={formik.values.preview}
-            onChange={handlePreviewChange}
+            onChange={(file) => formik.setFieldValue('preview', file)}
           />
           <Button
             disabled={!formik.values.preview}

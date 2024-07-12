@@ -4,11 +4,12 @@ import {
   BODY_STYLES,
   CAR_BRANDS_TEMP,
   CAR_COLORS,
+  CAR_STATUSES,
   CreateListingDto,
   FUEL_TYPES,
 } from '@faf-cars/lib/listings';
 
-export const createListingInitialValues = {
+export const createListingInitialValues: CreateListingDto = {
   brandName: '',
   modelName: '',
   countryCode: 'DE',
@@ -25,12 +26,14 @@ export const createListingInitialValues = {
   sellAddress: null,
   images: [],
   preview: null,
-} as CreateListingDto;
+  carStatus: null,
+  description: null,
+};
 
 export const createListingValidationSchema = Yup.object().shape({
   brandName: Yup.string().oneOf(CAR_BRANDS_TEMP).required('Brand is required.'),
   modelName: Yup.string().required('Model is required'),
-  price: Yup.number().positive('Price most be positive.').integer().nullable(),
+  price: Yup.number().positive('Price must be positive.').integer().nullable(),
   bodyStyle: Yup.number().oneOf(BODY_STYLES).nullable(),
   productionYear: Yup.number().positive('Year must be possible').nullable(),
   fuelType: Yup.number().oneOf(FUEL_TYPES).nullable(),
@@ -52,6 +55,12 @@ export const createListingValidationSchema = Yup.object().shape({
     .integer()
     .positive('Mileage must be positive')
     .nullable(),
-  countryCode: Yup.string().length(2).nullable(),
-  sellAddress: Yup.string().max(255).nullable(),
+  countryCode: Yup.string()
+    .length(2, 'Country code must be of type XX')
+    .nullable(),
+  sellAddress: Yup.string().max(255, 'Address is too long').nullable(),
+  description: Yup.string().max(5000, 'Description is too long').nullable(),
+  images: Yup.array().of(Yup.mixed()),
+  preview: Yup.mixed().nullable(),
+  carStatus: Yup.number().oneOf(CAR_STATUSES).nullable(),
 } as Record<keyof CreateListingDto, any>);

@@ -22,6 +22,8 @@ export interface ListingDto {
   countryCode: string | null;
   sellAddress: string | null;
   isFavorite: boolean | null;
+  description: string | null;
+  carStatus: CarStatus | null;
 }
 
 export interface CreateListingDto {
@@ -41,6 +43,8 @@ export interface CreateListingDto {
   sellAddress: string | null;
   preview: File | null;
   images: File[];
+  description: string | null;
+  carStatus: CarStatus | null;
 }
 
 export const CAR_BRANDS_TEMP: string[] = [
@@ -294,3 +298,15 @@ export interface FavoriteListingAction {
   type: FavoriteListingActionType;
   listingId?: string;
 }
+
+export enum CarStatus {
+  New,
+  Used,
+  Rent,
+}
+
+export const CAR_STATUSES: CarStatus[] = [
+  CarStatus.New,
+  CarStatus.Used,
+  CarStatus.Rent,
+];

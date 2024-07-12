@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { GlobalLoadingContext } from '@faf-cars/contexts/global-loading';
 
-const useLoading = () => {
+export const useLoading = () => {
   const { unsetLoading, setLoading } = useContext(GlobalLoadingContext);
 
   return {
@@ -10,5 +10,3 @@ const useLoading = () => {
     unsetLoading,
   };
 };
-
-export default useLoading;

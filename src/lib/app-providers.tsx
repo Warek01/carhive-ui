@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { AuthContextProvider } from '@faf-cars/contexts/auth';
 import { GlobalLoadingContextProvider } from '@faf-cars/contexts/global-loading';
 import { HttpContextProvider } from '@faf-cars/contexts/http';
+import { LogContextProvider } from '@faf-cars/contexts/log';
 import { QUERY_CLIENT_CONFIG } from '@faf-cars/lib/query';
 import { APP_ROUTES } from '@faf-cars/lib/routing';
 
@@ -21,6 +22,10 @@ export const PROVIDERS: ProvidersArray = [
     props: {
       client: new QueryClient(QUERY_CLIENT_CONFIG),
     },
+  },
+  {
+    Provider: LogContextProvider,
+    props: {},
   },
   {
     Provider: HttpContextProvider,

@@ -27,8 +27,6 @@ const LoginForm: FC = () => {
       const res = await httpService.login({ ...values });
       login(res);
     } catch (err) {
-      console.error(err);
-
       if (err instanceof AxiosError) {
         switch (err.response?.status) {
           case 401:

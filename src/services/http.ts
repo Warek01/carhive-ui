@@ -210,7 +210,6 @@ export class HttpService {
         originalRequest.headers.Authorization = `Bearer ${token}`;
         return axios(originalRequest);
       } catch (error) {
-        console.error(error);
         if (error instanceof AxiosError && error.response?.status === 401) {
           this.ctx.setAccessToken(null);
           this.ctx.setRefreshToken(null);

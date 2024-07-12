@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 
+import { useLogger } from '@faf-cars/hooks';
 import { StorageKey } from '@faf-cars/lib/storage';
 import { HttpService } from '@faf-cars/services/http';
 
@@ -29,6 +30,8 @@ export interface HttpContextProps {
 export const HttpContext = createContext<HttpContextProps>(null!);
 
 export const HttpContextProvider: FC<PropsWithChildren> = ({ children }) => {
+  const logger = useLogger();
+
   const [accessToken, setAccessToken] = useLocalStorage<string | null>(
     StorageKey.AccessToken,
     null,
@@ -40,6 +43,15 @@ export const HttpContextProvider: FC<PropsWithChildren> = ({ children }) => {
     { initializeWithValue: true },
   );
   const [sessionExpired, setSessionExpired] = useState(false);
+
+  useEffect(() => {
+    logger.debug(
+      'Access token:',
+      accessToken ?? 'null',
+      'Refresh token:',
+      refreshToken ?? 'null',
+    );
+  }, [accessToken, refreshToken]);
 
   useEffect(() => {
     if (sessionExpired) {

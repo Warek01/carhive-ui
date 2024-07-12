@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router';
 
-import { useAuth, useHttp } from '@faf-cars/hooks';
+import { useAuth, useHttp, useLogger } from '@faf-cars/hooks';
 import { AppRouteProtectionLevel, ROUTE_TYPE_MAP } from '@faf-cars/lib/routing';
 import { AppRoute } from '@faf-cars/lib/routing';
 
@@ -9,11 +9,14 @@ const AppRouteProtection: FC = () => {
   const location = useLocation();
   const { isAuthorized, isAdmin, expiresAt, login, expireSession } = useAuth();
   const httpService = useHttp();
+  const logger = useLogger();
 
   const path = location.pathname;
 
   useEffect(() => {
     if (expiresAt && expiresAt <= new Date()) {
+      logger.debug(`Token expired at ${expiresAt}`);
+
       httpService
         .refresh()
         .then((res) => {

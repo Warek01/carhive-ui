@@ -7,7 +7,7 @@ import {
 } from '@faf-cars/lib/pagination';
 import { StorageKey } from '@faf-cars/lib/storage';
 
-export default function usePagination(key: StorageKey | string) {
+export const usePagination = (key: StorageKey | string) => {
   const [paginationData, setPaginationData] = useSessionStorage<PaginationData>(
     key,
     DEFAULT_PAGINATION_DATA,
@@ -43,4 +43,4 @@ export default function usePagination(key: StorageKey | string) {
     setItems,
     reset,
   };
-}
+};

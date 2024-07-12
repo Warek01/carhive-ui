@@ -57,7 +57,6 @@ const ListingDetailsPage: FC = () => {
 
   if (listingDetailsQuery.error) {
     const error: unknown = listingDetailsQuery.error;
-    console.error(error);
 
     if (error instanceof AxiosError && error.response?.status === 404) {
       toast('Listing not found', {

@@ -5,11 +5,11 @@ import { StorageKey } from '@faf-cars/lib/storage';
 
 type ReturnValue = [boolean, Dispatch<SetStateAction<boolean>>];
 
-export default function useIsDakTheme(): ReturnValue {
+export const useIsDarkTheme = (): ReturnValue => {
   const [isDarkTheme, setIsDarkTheme] = useLocalStorage<boolean>(
     StorageKey.Theme,
     window.matchMedia('(prefers-color-scheme: dark)').matches,
   );
 
   return [isDarkTheme, setIsDarkTheme];
-}
+};

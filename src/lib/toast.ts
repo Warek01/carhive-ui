@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { ToastContainerProps } from 'react-toastify';
 
-import useTheme from '@faf-cars/hooks/use-theme';
+import { useTheme } from '@faf-cars/hooks';
 
 export const enum ToastId {
   UserDelete = 'user-delete',

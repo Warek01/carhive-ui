@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { useLoading } from './index';
 
-const useWatchLoading = (...values: boolean[]) => {
+export const useWatchLoading = (...values: boolean[]) => {
   const { unsetLoading, setLoading } = useLoading();
 
   useEffect(() => {
@@ -18,5 +18,3 @@ const useWatchLoading = (...values: boolean[]) => {
     loading ? setLoading() : unsetLoading();
   }, values);
 };
-
-export default useWatchLoading;

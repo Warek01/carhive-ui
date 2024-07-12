@@ -66,8 +66,6 @@ const NewListingForm: FC = () => {
           toastId: ToastId.ListingCreate,
         });
       } catch (err) {
-        console.error(err);
-
         if (err instanceof AxiosError) {
           switch (err.response?.status) {
             case 400:

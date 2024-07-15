@@ -19,7 +19,7 @@ import {
   MarketStatisticsQuery,
 } from '@faf-cars/lib/statistics';
 import { CreateUserDto, UpdateUserDto, User } from '@faf-cars/lib/user';
-import { objectToFormData } from "@faf-cars/lib/utils";
+import { objectToFormData } from '@faf-cars/lib/utils';
 
 export class HttpService {
   private readonly client: AxiosInstance;

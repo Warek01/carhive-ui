@@ -25,7 +25,12 @@ import {
 import { QueryKey } from '@faf-cars/lib/query';
 import { StorageKey } from '@faf-cars/lib/storage';
 import { ToastId } from '@faf-cars/lib/toast';
-import { UpdateUserDto, User, UserRole } from '@faf-cars/lib/user';
+import {
+  UpdateUserDto,
+  User,
+  UserAdminView,
+  UserRole,
+} from '@faf-cars/lib/user';
 import { toggleArrayItem } from '@faf-cars/lib/utils';
 
 const ROLES_STRING_MAP: [UserRole, string][] = [
@@ -59,7 +64,7 @@ const UsersList: FC = () => {
   }, []);
 
   const usersQuery = useQuery([QueryKey.UsersList, pagination], () =>
-    httpService.getUsers({
+    httpService.getUsers<UserAdminView>({
       take: pagination.size,
       page: pagination.page,
     }),

@@ -15,10 +15,10 @@ import { AppJwtPayload, AuthDto } from '@faf-cars/lib/auth';
 import { QueryKey } from '@faf-cars/lib/query';
 import { StorageKey } from '@faf-cars/lib/storage';
 import { ToastId } from '@faf-cars/lib/toast';
-import { User, UserRole } from '@faf-cars/lib/user';
+import { AuthenticatedUser, UserRoleAsString } from '@faf-cars/lib/user';
 
 export interface AuthContextProps {
-  fetchedUser: User | null;
+  fetchedUser: AuthenticatedUser | null;
   userId: string | null;
   expiresAt: Date | null;
   isAuthorized: boolean;
@@ -46,7 +46,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const userQuery = useQuery(
     [QueryKey.User, accessToken],
-    () => httpService.getUser(decodedJwt!.sub!),
+    () => httpService.getUser<AuthenticatedUser>(decodedJwt!.sub!),
     {
       enabled: !!decodedJwt,
     },
@@ -98,8 +98,8 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const context: AuthContextProps = {
     expiresAt: decodedJwt === null ? null : new Date(decodedJwt.exp! * 1000),
-    isAdmin: roles.includes(UserRole.Admin) ?? false,
-    isListingCreator: roles.includes(UserRole.ListingCreator) ?? false,
+    isAdmin: roles.includes(UserRoleAsString.Admin) ?? false,
+    isListingCreator: roles.includes(UserRoleAsString.ListingCreator) ?? false,
     userId: decodedJwt?.sub ?? null,
     fetchedUser: userQuery.data ?? null,
     isAuthorized: !!accessToken,

@@ -100,15 +100,17 @@ export class HttpService {
     return res.data;
   }
 
-  async getUser(userId: string, params?: object): Promise<User> {
-    const res = await this.client.get<User>('user/' + userId, {
+  async getUser<T extends User>(userId: string, params?: object): Promise<T> {
+    const res = await this.client.get<T>('user/' + userId, {
       params,
     });
     return res.data;
   }
 
-  async getUsers(params?: object): Promise<PaginatedResponse<User>> {
-    const res = await this.client.get<PaginatedResponse<User>>('user', {
+  async getUsers<T extends User>(
+    params?: object,
+  ): Promise<PaginatedResponse<T>> {
+    const res = await this.client.get<PaginatedResponse<T>>('user', {
       params,
     });
     return res.data;

@@ -15,10 +15,11 @@ const ListingsList: FC<Props> = ({ items, skeletonCount }) => {
   const [lazyLoadedCount] = useState<number>(6);
 
   return (
-    <Grid spacing={2} container alignItems="stretch">
+    <Grid spacing={1} container alignItems="stretch">
       {arr.map((car, index) => (
         <Grid
           xs={4}
+          md={3}
           key={index}
           item
           sx={{ aspectRatio: { xs: '9/16', lg: '9/12' } }}

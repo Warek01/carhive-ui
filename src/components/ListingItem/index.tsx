@@ -1,9 +1,17 @@
-import { Box, Button, Card, Link, Stack, Typography } from '@mui/material';
+import { ImageNotSupported } from '@mui/icons-material';
+import {
+  Box,
+  Button,
+  Card,
+  Divider,
+  Link,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { FC, memo } from 'react';
 import { generatePath } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Image } from '@faf-cars/components';
 import {
   BODY_STYLE_NAME_MAP,
   CAR_COLOR_HEX_MAP,
@@ -17,7 +25,7 @@ interface Props {
   lazy: boolean;
 }
 
-const ListingItem: FC<Props> = ({ listing, lazy }) => {
+const ListingItem: FC<Props> = ({ listing }) => {
   return (
     <Card
       component="div"
@@ -31,23 +39,33 @@ const ListingItem: FC<Props> = ({ listing, lazy }) => {
         gap: 0.5,
       }}
     >
-      <Box mb={2}>
-        <Link
-          component={RouterLink}
-          to={generatePath(AppRoute.ListingDetails, { listingId: listing.id })}
-        >
-          <Image
+      <Link
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          aspectRatio: '16/9',
+        }}
+        component={RouterLink}
+        to={generatePath(AppRoute.ListingDetails, { listingId: listing.id })}
+      >
+        {listing.imagesUrls.length ? (
+          <img
+            style={{
+              width: '100%',
+              aspectRatio: '16/9',
+              objectFit: 'cover',
+              objectPosition: 'center',
+            }}
             alt="Listing"
-            src={
-              listing.imagesUrls.at(0)
-                ? import.meta.env.VITE_API_BASENAME + listing.imagesUrls.at(0)
-                : null
-            }
-            lazy={lazy}
-            aspectRatio="16/9"
+            src={import.meta.env.VITE_API_BASENAME + listing.imagesUrls[0]}
           />
-        </Link>
-      </Box>
+        ) : (
+          <ImageNotSupported fontSize="large" />
+        )}
+      </Link>
+      <Divider sx={{ my: 1 }} />
       <Typography
         variant="body1"
         textOverflow="ellipsis"

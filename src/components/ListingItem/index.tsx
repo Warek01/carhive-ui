@@ -39,8 +39,8 @@ const ListingItem: FC<Props> = ({ listing, lazy }) => {
           <Image
             alt="Listing"
             src={
-              listing.previewUrl
-                ? import.meta.env.VITE_API_BASENAME + listing.previewUrl
+              listing.imagesUrls.at(0)
+                ? import.meta.env.VITE_API_BASENAME + listing.imagesUrls.at(0)
                 : null
             }
             lazy={lazy}

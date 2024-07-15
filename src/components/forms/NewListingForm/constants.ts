@@ -9,6 +9,8 @@ import {
   FUEL_TYPES,
 } from '@faf-cars/lib/listings';
 
+export const IMAGE_SIZE_LIMIT = 5 * 1024 * 1024;
+
 export const createListingInitialValues: CreateListingDto = {
   brandName: '',
   modelName: '',
@@ -25,7 +27,6 @@ export const createListingInitialValues: CreateListingDto = {
   horsepower: null,
   sellAddress: null,
   images: [],
-  preview: null,
   carStatus: null,
   description: null,
 };
@@ -61,6 +62,5 @@ export const createListingValidationSchema = Yup.object().shape({
   sellAddress: Yup.string().max(255, 'Address is too long').nullable(),
   description: Yup.string().max(5000, 'Description is too long').nullable(),
   images: Yup.array().of(Yup.mixed()),
-  preview: Yup.mixed().nullable(),
   carStatus: Yup.number().oneOf(CAR_STATUSES).nullable(),
 } as Record<keyof CreateListingDto, any>);

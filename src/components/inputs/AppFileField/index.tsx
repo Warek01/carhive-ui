@@ -1,12 +1,15 @@
 import { CloudUpload } from '@mui/icons-material';
 import { Button, FormControl, Typography, styled } from '@mui/material';
-import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react';
+import { FC, memo } from 'react';
 
 interface Props {
-  file: File | null | undefined;
-  placeholderText?: string;
+  value?: string;
+  required?: boolean;
+  text?: string;
+  accept?: string;
+  multiple?: boolean;
   size?: 'small' | 'medium' | 'large';
-  onChange(file: File | null): void;
+  onChange(files: FileList): void;
 }
 
 const VisuallyHiddenInput = styled('input')({
@@ -16,27 +19,14 @@ const VisuallyHiddenInput = styled('input')({
   hidden: true,
 });
 
-const supportedTypes = ['png', 'jpeg', 'avif', 'webp', 'gif'];
-
 const AppFileField: FC<Props> = ({
   onChange,
-  file,
-  placeholderText = 'Upload an image',
+  multiple = false,
+  accept = '*/*',
+  required = true,
+  text = 'Upload a file',
   size = 'small',
 }) => {
-  const accept = useMemo(
-    () => supportedTypes.map((t) => `image/${t}`).join(','),
-    [],
-  );
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      const f = e.target.files;
-      onChange(f?.length ? f[0] : null);
-    },
-    [],
-  );
-
   return (
     <FormControl fullWidth>
       <Button
@@ -53,12 +43,15 @@ const AppFileField: FC<Props> = ({
           textOverflow="ellipsis"
           fontSize={size}
         >
-          {file?.name ?? placeholderText}
+          {text}
         </Typography>
         <VisuallyHiddenInput
           accept={accept}
+          required={required}
+          multiple={multiple}
+          aria-label={text}
           type="file"
-          onChange={handleChange}
+          onChange={(e) => onChange(e.target.files!)}
         />
       </Button>
     </FormControl>

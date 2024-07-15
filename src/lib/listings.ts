@@ -17,7 +17,6 @@ export interface ListingDto {
   updatedAt: string;
   createdAt: string;
   publisher: User | null;
-  previewUrl: string | null;
   imagesUrls: string[];
   countryCode: string | null;
   sellAddress: string | null;
@@ -41,7 +40,6 @@ export interface CreateListingDto {
   mileage: number | null;
   productionYear: number | null;
   sellAddress: string | null;
-  preview: File | null;
   images: File[];
   description: string | null;
   carStatus: CarStatus | null;

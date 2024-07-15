@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 
 import {
   BODY_STYLES,
-  CAR_BRANDS_TEMP,
   CAR_COLORS,
   CAR_STATUSES,
   CreateListingDto,
@@ -32,7 +31,7 @@ export const createListingInitialValues: CreateListingDto = {
 };
 
 export const createListingValidationSchema = Yup.object().shape({
-  brandName: Yup.string().oneOf(CAR_BRANDS_TEMP).required('Brand is required.'),
+  brandName: Yup.string().required('Brand is required.'),
   modelName: Yup.string().required('Model is required'),
   price: Yup.number().positive('Price must be positive.').integer().nullable(),
   bodyStyle: Yup.number().oneOf(BODY_STYLES).nullable(),

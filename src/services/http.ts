@@ -166,6 +166,13 @@ export class HttpService {
     return res.data;
   }
 
+  async getBrands(params?: object): Promise<string[]> {
+    const res = await this.client.get<string[]>('brand', {
+      params,
+    });
+    return res.data;
+  }
+
   async refresh(): Promise<AuthDto> {
     const response = await axios.post<AuthDto>(
       '/auth/refresh',

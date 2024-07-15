@@ -19,7 +19,6 @@ import { useHttp, useLogger } from '@faf-cars/hooks';
 import {
   BODY_STYLES,
   BODY_STYLE_NAME_MAP,
-  CAR_BRANDS_TEMP,
   CreateListingDto,
   FUEL_TYPES,
   FUEL_TYPE_NAME_MAP,
@@ -37,6 +36,8 @@ const PrimarySection: FC = () => {
 
   const [imagesDataUrls, setImagesDataUrls] = useState<string[]>([]);
   const [isImageDataUrlLoading, setIsImageDataUrlLoading] = useState(false);
+
+  const brandsQuery = useQuery([QueryKey.CarBrands], () => http.getBrands());
 
   const brandModelsQuery = useQuery(
     [QueryKey.CarModel, formik.values.brandName],
@@ -104,8 +105,8 @@ const PrimarySection: FC = () => {
           required
           name="brandName"
           label="Brand"
-          values={CAR_BRANDS_TEMP}
-          getItemContent={(brandName) => brandName}
+          disabled={!brandsQuery.data}
+          values={brandsQuery.data ?? []}
         />
       </Grid>
       <Grid item xs={4}>
@@ -133,7 +134,6 @@ const PrimarySection: FC = () => {
           disabled={!brandModelsQuery.data}
           required
           values={brandModelsQuery.data ?? []}
-          getItemContent={(modelName) => modelName}
         />
       </Grid>
       <Grid item xs={4}>

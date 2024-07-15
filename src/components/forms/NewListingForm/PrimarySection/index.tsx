@@ -6,6 +6,7 @@ import {
   FC,
   memo,
   useCallback,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -78,6 +79,14 @@ const PrimarySection: FC = () => {
     },
     [formik],
   );
+
+  useEffect(() => {
+    const { images } = formik.values;
+
+    if (!images.length) {
+      setImagesDataUrls([]);
+    }
+  }, [formik.values.images]);
 
   return (
     <Grid container spacing={1}>

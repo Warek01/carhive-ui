@@ -8,13 +8,18 @@ import qs from 'qs';
 
 import { HttpContextProps } from '@faf-cars/contexts/http';
 import { AuthDto, LoginDto, RegisterDto } from '@faf-cars/lib/auth';
-import { FavoriteListingAction, ListingDto } from '@faf-cars/lib/listings';
+import {
+  CreateListingDto,
+  FavoriteListingAction,
+  ListingDto,
+} from '@faf-cars/lib/listings';
 import { PaginatedResponse } from '@faf-cars/lib/pagination';
 import {
   MarketStatistics,
   MarketStatisticsQuery,
 } from '@faf-cars/lib/statistics';
 import { CreateUserDto, UpdateUserDto, User } from '@faf-cars/lib/user';
+import { objectToFormData } from "@faf-cars/lib/utils";
 
 export class HttpService {
   private readonly client: AxiosInstance;
@@ -75,8 +80,8 @@ export class HttpService {
     return data;
   }
 
-  async createListing(formData: FormData, params?: object): Promise<void> {
-    await this.client.post<void>('listing', formData, {
+  async createListing(data: CreateListingDto, params?: object): Promise<void> {
+    await this.client.postForm<void>('listing', objectToFormData(data), {
       params,
     });
   }

@@ -40,7 +40,7 @@ const NewListingForm: FC = () => {
 
   const [openedSections, setOpenedSections] = useState([true, false, false]);
 
-  const createListingMutation = useMutation((formData: FormData) =>
+  const createListingMutation = useMutation((formData: CreateListingDto) =>
     httpService.createListing(formData),
   );
 
@@ -52,13 +52,7 @@ const NewListingForm: FC = () => {
       helpers: FormikHelpers<CreateListingDto>,
     ) => {
       try {
-        const formData = new FormData();
-
-        for (const [field, value] of Object.entries(objectFormData)) {
-          if (value !== null && value !== undefined) formData.set(field, value);
-        }
-
-        await createListingMutation.mutateAsync(formData, {
+        await createListingMutation.mutateAsync(objectFormData, {
           onSuccess: () => queryClient.invalidateQueries(QueryKey.ListingsList),
         });
         helpers.resetForm();

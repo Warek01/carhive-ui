@@ -22,3 +22,21 @@ export function toggleArrayItem<T>(arr: T[], item: T): T[] {
     ? arr.filter((elem) => elem !== item)
     : arr.concat(item);
 }
+
+export const objectToFormData = (obj: object) => {
+  const formData = new FormData();
+
+  for (const [field, value] of Object.entries(obj)) {
+    if (value === null || value === undefined) {
+      continue;
+    }
+
+    if (Array.isArray(value)) {
+      value.flat().forEach((v) => formData.append(field, v));
+    } else {
+      formData.append(field, value);
+    }
+  }
+
+  return formData;
+};

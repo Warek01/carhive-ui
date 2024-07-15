@@ -2,11 +2,11 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import {
   Box,
   Button,
+  Card,
   Collapse,
   FormControl,
   Grid,
   InputLabel,
-  List,
   ListItem,
   MenuItem,
   Pagination,
@@ -48,13 +48,25 @@ import {
 } from '@faf-cars/pages/MarketPage/constants';
 
 const MarketPage: FC = () => {
-  const httpService = useHttp();
+  const http = useHttp();
   const { userId } = useAuth();
+
+  const [isFilterListOpen, setIsFilterListOpen] = useState(false);
+
   const [orderBy, setOrderBy] = useLocalStorage<ListingOrderBy>(
     StorageKey.ListingsOrderBy,
     ListingOrderBy.CreatedAtAsc,
   );
-  const [isFilterListOpen, setIsFilterListOpen] = useState(false);
+
+  const [selectedBrand, setSelectedBrand] = useSessionStorage<string>(
+    StorageKey.ListingsSelectedBrand,
+    '',
+  );
+
+  const [selectedModel, setSelectedModel] = useSessionStorage<string>(
+    StorageKey.ListingsSelectedModel,
+    '',
+  );
 
   const [selectedBodyStyles, setSelectedBodyStyles] = useLocalStorage<
     BodyStyle[]
@@ -67,42 +79,66 @@ const MarketPage: FC = () => {
 
   const pagination = usePagination(StorageKey.ListingsPagination);
 
-  const fetchListingsFn = useCallback((): Promise<
-    PaginatedResponse<ListingDto>
-  > => {
-    const params = {
-      take: pagination.size,
-      page: pagination.page,
-      order: orderBy,
-      body: selectedBodyStyles,
-    };
-
-    const tabFetchFnMap: Record<
-      ListingsTab,
-      Promise<PaginatedResponse<ListingDto>>
-    > = {
-      [ListingsTab.All]: httpService.getListings(params),
-      [ListingsTab.Favorites]: httpService.getListings({
-        ...params,
-        user: userId,
-        favorites: true,
-      }),
-      [ListingsTab.My]: httpService.getListings({ ...params, user: userId }),
-    };
-
-    return tabFetchFnMap[selectedTab];
-  }, [selectedTab, pagination, orderBy, selectedBodyStyles, userId]);
-
   const listingsListQuery = useQuery(
     [
       QueryKey.ListingsList,
+      selectedTab,
       pagination,
       orderBy,
       selectedBodyStyles,
-      selectedTab,
+      userId,
+      selectedBrand,
+      selectedModel,
     ],
-    fetchListingsFn,
+    () => {
+      const params: Record<string, any> = {
+        take: pagination.size,
+        page: pagination.page,
+        order: orderBy,
+        body: selectedBodyStyles,
+      };
+
+      if (selectedBrand) {
+        params.brand = selectedBrand;
+      }
+
+      if (selectedModel) {
+        params.model = selectedModel;
+      }
+
+      const tabFetchFnMap: Record<
+        ListingsTab,
+        Promise<PaginatedResponse<ListingDto>>
+      > = {
+        [ListingsTab.All]: http.getListings(params),
+        [ListingsTab.Favorites]: http.getListings({
+          ...params,
+          user: userId,
+          favorites: true,
+        }),
+        [ListingsTab.My]: http.getListings({ ...params, user: userId }),
+      };
+
+      return tabFetchFnMap[selectedTab];
+    },
   );
+
+  const brandsQuery = useQuery([QueryKey.CarBrands], () => http.getBrands());
+
+  const selectedBrandModelsQuery = useQuery(
+    [QueryKey.CarModels, selectedBrand],
+    () => http.getBrandModels(selectedBrand as string),
+    { enabled: !!selectedBrand },
+  );
+
+  const handleBrandChange = useCallback((brandName: string) => {
+    setSelectedBrand(brandName);
+    setSelectedModel('');
+  }, []);
+
+  const handleModelChange = useCallback((modelName: string) => {
+    setSelectedModel(modelName);
+  }, []);
 
   const listings = listingsListQuery.data?.items ?? [];
 
@@ -162,7 +198,7 @@ const MarketPage: FC = () => {
   const filteringSection = useMemo<ReactElement>(
     () => (
       <Box component="section">
-        <List component="nav">
+        <Card component="nav">
           <ListItem>
             <Grid container spacing={3}>
               <Grid item xs={6}>
@@ -219,11 +255,61 @@ const MarketPage: FC = () => {
                 selected={selectedBodyStyles}
               />
             </ListItem>
+            <ListItem>
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  <FormControl fullWidth>
+                    <InputLabel>Brand</InputLabel>
+                    <Select
+                      disabled={!brandsQuery.data}
+                      value={selectedBrand}
+                      label="Brand"
+                      onChange={(e) => handleBrandChange(e.target.value)}
+                    >
+                      <MenuItem value="">-</MenuItem>
+                      {brandsQuery.data?.map((brand) => (
+                        <MenuItem value={brand} key={brand}>
+                          {brand}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={6}>
+                  <FormControl fullWidth>
+                    <InputLabel>Model</InputLabel>
+                    <Select
+                      disabled={!selectedBrandModelsQuery.data}
+                      value={selectedModel}
+                      label="Model"
+                      onChange={(e) => handleModelChange(e.target.value!)}
+                    >
+                      <MenuItem value="">-</MenuItem>
+                      {selectedBrandModelsQuery.data?.map((model) => (
+                        <MenuItem value={model} key={model}>
+                          {model}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+            </ListItem>
           </Collapse>
-        </List>
+        </Card>
       </Box>
     ),
-    [selectedTab, tabsElements, pagination, orderByElement, selectedBodyStyles],
+    [
+      selectedTab,
+      tabsElements,
+      pagination,
+      orderByElement,
+      selectedBodyStyles,
+      selectedBrand,
+      brandsQuery.data,
+      selectedModel,
+      selectedBrandModelsQuery.data,
+    ],
   );
 
   const listSection = useMemo<ReactElement>(

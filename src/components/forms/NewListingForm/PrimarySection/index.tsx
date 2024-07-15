@@ -40,7 +40,7 @@ const PrimarySection: FC = () => {
   const brandsQuery = useQuery([QueryKey.CarBrands], () => http.getBrands());
 
   const brandModelsQuery = useQuery(
-    [QueryKey.CarModel, formik.values.brandName],
+    [QueryKey.CarModels, formik.values.brandName],
     () => http.getBrandModels(formik.values.brandName),
     { enabled: !!formik.values.brandName },
   );

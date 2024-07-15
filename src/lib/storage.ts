@@ -8,6 +8,8 @@ export const enum StorageKey {
   ListingsPagination = 'listings-pagination',
   ListingsOrderBy = 'listings-order-by',
   ListingsTab = 'listings-tab',
+  ListingsSelectedBrand = 'listings-selected-brand',
+  ListingsSelectedModel = 'listings-selected-model',
 
   DashboardUserPagination = 'admin-users-pagination',
   AdminTab = 'admin-tab',

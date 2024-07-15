@@ -26,6 +26,6 @@ export enum QueryKey {
 
   ListingsStats = 'listings-stats',
 
-  CarModel = 'car-model',
+  CarModels = 'car-model',
   CarBrands = 'car-brands',
 }

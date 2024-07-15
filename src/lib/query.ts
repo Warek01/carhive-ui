@@ -25,4 +25,6 @@ export enum QueryKey {
   UsersList = 'users-list',
 
   ListingsStats = 'listings-stats',
+
+  CarModel = 'car-model',
 }

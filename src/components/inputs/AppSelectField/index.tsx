@@ -11,13 +11,13 @@ import { FC, ReactNode, memo } from 'react';
 
 type Props = SelectProps<any> & {
   values: any[];
-  getItemContent: (value: any) => ReactNode;
+  getItemContent?: (value: any) => ReactNode;
 };
 
 /** Must be placed in Formik contexts */
 const AppSelectField: FC<Props> = ({
   values,
-  getItemContent,
+  getItemContent = (v) => v,
   name,
   label,
   ...props

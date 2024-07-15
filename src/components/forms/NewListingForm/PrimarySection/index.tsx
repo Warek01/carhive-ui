@@ -10,11 +10,12 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 
 import { IMAGE_SIZE_LIMIT } from '@faf-cars/components/forms/NewListingForm/constants';
 import { AppSelectField, AppTextField } from '@faf-cars/components/inputs';
-import { useLogger } from '@faf-cars/hooks';
+import { useHttp, useLogger } from '@faf-cars/hooks';
 import {
   BODY_STYLES,
   BODY_STYLE_NAME_MAP,
@@ -23,17 +24,25 @@ import {
   FUEL_TYPES,
   FUEL_TYPE_NAME_MAP,
 } from '@faf-cars/lib/listings';
+import { QueryKey } from '@faf-cars/lib/query';
 import { ToastId } from '@faf-cars/lib/toast';
 import { fileToBase64 } from '@faf-cars/lib/utils';
 
 const PrimarySection: FC = () => {
   const formik = useFormikContext<CreateListingDto>();
   const logger = useLogger();
+  const http = useHttp();
 
   const addImageInputRef = useRef<HTMLInputElement | null>(null);
 
   const [imagesDataUrls, setImagesDataUrls] = useState<string[]>([]);
   const [isImageDataUrlLoading, setIsImageDataUrlLoading] = useState(false);
+
+  const brandModelsQuery = useQuery(
+    [QueryKey.CarModel, formik.values.brandName],
+    () => http.getBrandModels(formik.values.brandName),
+    { enabled: !!formik.values.brandName },
+  );
 
   const handleImageAdd: ChangeEventHandler<HTMLInputElement> = useCallback(
     async (event) => {
@@ -118,12 +127,13 @@ const PrimarySection: FC = () => {
         />
       </Grid>
       <Grid item xs={4}>
-        <AppTextField
-          fullWidth
-          variant="outlined"
-          required
+        <AppSelectField
           name="modelName"
           label="Model"
+          disabled={!brandModelsQuery.data}
+          required
+          values={brandModelsQuery.data ?? []}
+          getItemContent={(modelName) => modelName}
         />
       </Grid>
       <Grid item xs={4}>

@@ -19,7 +19,7 @@ const ListingsList: FC<Props> = ({ items, skeletonCount }) => {
       {arr.map((car, index) => (
         <Grid
           xs={4}
-          md={3}
+          lg={3}
           key={index}
           item
           sx={{ aspectRatio: { xs: '9/16', lg: '9/12' } }}

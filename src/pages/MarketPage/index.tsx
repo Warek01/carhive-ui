@@ -86,7 +86,7 @@ const MarketPage: FC = () => {
       pagination,
       orderBy,
       selectedBodyStyles,
-      user!.id,
+      user?.id,
       selectedBrand,
       selectedModel,
     ],
@@ -113,13 +113,16 @@ const MarketPage: FC = () => {
         [ListingsTab.All]: http.listing.list(params),
         [ListingsTab.Favorites]: http.listing.list({
           ...params,
-          user: user!.id!,
+          user: user?.id,
           favorites: true,
         }),
-        [ListingsTab.My]: http.listing.list({ ...params, user: user!.id! }),
+        [ListingsTab.My]: http.listing.list({ ...params, user: user?.id }),
       };
 
       return tabFetchFnMap[selectedTab];
+    },
+    {
+      enabled: !!user?.id,
     },
   );
 

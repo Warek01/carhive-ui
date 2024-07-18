@@ -1,11 +1,71 @@
-import { Box, Typography } from '@mui/material';
+import { Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { FC } from 'react';
+import { useQuery } from 'react-query';
+import { Link as RouterLink } from 'react-router-dom';
+
+import { useAuth, useHttp } from '@faf-cars/hooks';
+import { QueryKey } from '@faf-cars/lib/query';
+import { AppRoute } from '@faf-cars/lib/routing';
 
 const HomePage: FC = () => {
+  const { isAuthorized } = useAuth();
+  const http = useHttp();
+
+  const listingsCountQuery = useQuery(
+    [QueryKey.ListingCount],
+    () => http.listing.count(),
+    {
+      refetchInterval: 3000,
+      keepPreviousData: true,
+    },
+  );
+
+  const citiesCountQuery = useQuery(
+    [QueryKey.CityCount],
+    () => http.city.count(),
+    {
+      refetchInterval: 30000,
+      keepPreviousData: true,
+    },
+  );
+
+  const countriesCountQuery = useQuery(
+    [QueryKey.CountryCount],
+    () => http.country.count(),
+    {
+      refetchInterval: 30000,
+      keepPreviousData: true,
+    },
+  );
+
   return (
-    <Box>
-      <Typography variant="h1">Home</Typography>
-    </Box>
+    <Grid container spacing={3} alignItems="center" py={6}>
+      <Grid item xs={isAuthorized ? 12 : 9}>
+        <Typography variant="h3" display="flex" alignItems="center">
+          Browse {listingsCountQuery.data ?? <CircularProgress />} listings on
+          FAF Cars
+        </Typography>
+      </Grid>
+      {!isAuthorized && (
+        <Grid item xs={3}>
+          <Button
+            sx={{ width: { xs: 160, lg: 220 }, height: { xs: 60, lg: 90 } }}
+            size="large"
+            variant="outlined"
+            component={RouterLink}
+            to={AppRoute.Login}
+          >
+            Sign in
+          </Button>
+        </Grid>
+      )}
+      <Grid item xs={12}>
+        <Typography variant="h4" display="flex" alignItems="center">
+          {citiesCountQuery.data ?? <CircularProgress />} cities across{' '}
+          {countriesCountQuery.data ?? <CircularProgress />} Countries supported
+        </Typography>
+      </Grid>
+    </Grid>
   );
 };
 

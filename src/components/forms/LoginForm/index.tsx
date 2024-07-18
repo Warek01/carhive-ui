@@ -15,7 +15,7 @@ import { ToastId } from '@faf-cars/lib/toast';
 import { loginInitialValues, loginValidationSchema } from './constants';
 
 const LoginForm: FC = () => {
-  const httpService = useHttp();
+  const http = useHttp();
   const { login } = useAuth();
   const { setLoading, unsetLoading } = useLoading();
   const [passwordShown, setPasswordShown] = useState(false);
@@ -24,7 +24,7 @@ const LoginForm: FC = () => {
     setLoading();
 
     try {
-      const res = await httpService.login({ ...values });
+      const res = await http.auth.login({ ...values });
       login(res);
     } catch (err) {
       if (err instanceof AxiosError) {

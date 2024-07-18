@@ -16,7 +16,7 @@ import { registerInitialValues, registerValidationSchema } from './constants';
 const RegisterForm: FC = () => {
   const { login } = useAuth();
   const { setLoading, unsetLoading } = useLoading();
-  const httpService = useHttp();
+  const http = useHttp();
 
   const handleSubmit = useCallback(async (values: RegisterData) => {
     if (values.password !== values.repeatPassword) {
@@ -27,7 +27,7 @@ const RegisterForm: FC = () => {
     setLoading();
 
     try {
-      const res = await httpService.register({
+      const res = await http.auth.register({
         email: values.email,
         password: values.password,
         username: values.username,

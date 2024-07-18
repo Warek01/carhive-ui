@@ -22,22 +22,23 @@ interface Params extends Record<string, string> {
 
 const ListingDetailsPage: FC = () => {
   const { listingId } = useParams<Params>();
-  const httpService = useHttp();
+  const http = useHttp();
   const queryClient = useQueryClient();
 
   const listingDetailsQuery = useQuery(
     [QueryKey.ListingDetails, listingId],
-    () => httpService.getListingDetails(listingId!),
+    () => http.listing.find(listingId!),
   );
 
   const favoritesMutation = useMutation(
     (action: FavoriteListingAction) =>
-      httpService.mutateFavoriteListings(action),
+      // TODO: implement favorites
+      Promise.resolve(),
     {
       onSuccess: () =>
         Promise.all([
           queryClient.invalidateQueries(QueryKey.ListingDetails),
-          queryClient.invalidateQueries(QueryKey.ListingsList),
+          queryClient.invalidateQueries(QueryKey.ListingList),
         ]),
     },
   );

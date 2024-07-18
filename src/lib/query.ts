@@ -16,16 +16,23 @@ export const QUERY_CLIENT_CONFIG: QueryClientConfig = {
   },
 };
 
-export enum QueryKey {
-  User = 'user',
+export const enum QueryKey {
+  UserFind = 'user-find',
+  UserList = 'user-list',
+  UserCount = 'user-count',
 
-  ListingsList = 'listings-list',
+  ListingList = 'listings-list',
   ListingDetails = 'listing-details',
+  ListingStats = 'listings-stats',
+  ListingCount = 'listings-count',
 
   UsersList = 'users-list',
 
-  ListingsStats = 'listings-stats',
+  ModelList = 'model-list',
 
-  CarModels = 'car-model',
-  CarBrands = 'car-brands',
+  BrandList = 'brand-list',
+
+  CityCount = 'city-count',
+
+  CountryCount = 'country-count',
 }

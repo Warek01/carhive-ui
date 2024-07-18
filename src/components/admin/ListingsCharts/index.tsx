@@ -19,7 +19,7 @@ import { QueryKey } from '@faf-cars/lib/query';
 import { StorageKey } from '@faf-cars/lib/storage';
 
 const ListingsCharts: FC = () => {
-  const httpService = useHttp();
+  const http = useHttp();
   const theme = useTheme();
 
   const isXl = useMediaQuery(theme.breakpoints.up('xl'));
@@ -45,9 +45,9 @@ const ListingsCharts: FC = () => {
   }, []);
 
   const listingStatsQuery = useQuery(
-    [QueryKey.ListingsStats, statsDate],
+    [QueryKey.ListingStats, statsDate],
     () =>
-      httpService.getListingsStats({
+      http.listing.getStats({
         includeStats: true,
         year: statsDate.year,
         month: statsDate.month + 1,

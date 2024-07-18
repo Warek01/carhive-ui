@@ -40,11 +40,11 @@ const AdminDashboardPage: FC = () => {
     AdminTab.UsersList,
   );
 
-  const httpService = useHttp();
+  const http = useHttp();
   const queryClient = useQueryClient();
 
   const createUserMutation = useMutation(
-    (createDto: CreateUserDto) => httpService.createUser(createDto),
+    (createDto: CreateUserDto) => http.user.create(createDto),
     {
       onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
     },

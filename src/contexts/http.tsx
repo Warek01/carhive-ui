@@ -11,14 +11,26 @@ import { useLocalStorage } from 'usehooks-ts';
 
 import { useLogger } from '@faf-cars/hooks';
 import { StorageKey } from '@faf-cars/lib/storage';
-import { HttpService } from '@faf-cars/services/http';
+import {
+  AuthHttpService,
+  BrandHttpService,
+  CityHttpService,
+  CountryHttpService,
+  ListingHttpService,
+  UserHttpService,
+} from '@faf-cars/services/http';
 
-// this contexts acts as a storage for auth tokens and provides http service
-// the service will use refresh token when encounters 401 Unauthorized and set
+// this contexts acts as a storage for auth tokens and provides http services
+// the services will use refresh token when encounters 401 Unauthorized and set
 // new token or expire it
 
 export interface HttpContextProps {
-  httpService: HttpService;
+  auth: AuthHttpService;
+  brand: BrandHttpService;
+  city: CityHttpService;
+  country: CountryHttpService;
+  listing: ListingHttpService;
+  user: UserHttpService;
   accessToken: string | null;
   setAccessToken: Dispatch<SetStateAction<string | null>>;
   refreshToken: string | null;
@@ -60,7 +72,12 @@ export const HttpContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [sessionExpired]);
 
   const context: HttpContextProps = {
-    httpService: null!,
+    auth: null!,
+    brand: null!,
+    city: null!,
+    country: null!,
+    listing: null!,
+    user: null!,
     refreshToken,
     setRefreshToken,
     accessToken,
@@ -69,7 +86,12 @@ export const HttpContextProvider: FC<PropsWithChildren> = ({ children }) => {
     setSessionExpired,
   };
 
-  context.httpService = new HttpService(context);
+  context.auth = new AuthHttpService(context);
+  context.brand = new BrandHttpService(context);
+  context.city = new CityHttpService(context);
+  context.country = new CountryHttpService(context);
+  context.listing = new ListingHttpService(context);
+  context.user = new UserHttpService(context);
 
   return (
     <HttpContext.Provider value={context}>{children}</HttpContext.Provider>

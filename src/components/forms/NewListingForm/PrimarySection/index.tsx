@@ -37,11 +37,11 @@ const PrimarySection: FC = () => {
   const [imagesDataUrls, setImagesDataUrls] = useState<string[]>([]);
   const [isImageDataUrlLoading, setIsImageDataUrlLoading] = useState(false);
 
-  const brandsQuery = useQuery([QueryKey.CarBrands], () => http.getBrands());
+  const brandsQuery = useQuery([QueryKey.BrandList], () => http.brand.list());
 
   const brandModelsQuery = useQuery(
-    [QueryKey.CarModels, formik.values.brandName],
-    () => http.getBrandModels(formik.values.brandName),
+    [QueryKey.ModelList, formik.values.brandName],
+    () => http.brand.listModels(formik.values.brandName),
     { enabled: !!formik.values.brandName },
   );
 

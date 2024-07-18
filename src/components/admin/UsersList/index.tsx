@@ -25,22 +25,17 @@ import {
 import { QueryKey } from '@faf-cars/lib/query';
 import { StorageKey } from '@faf-cars/lib/storage';
 import { ToastId } from '@faf-cars/lib/toast';
-import {
-  UpdateUserDto,
-  User,
-  UserAdminView,
-  UserRole,
-} from '@faf-cars/lib/user';
+import { UpdateUserDto, User, UserRole } from '@faf-cars/lib/user';
 import { toggleArrayItem } from '@faf-cars/lib/utils';
 
 const ROLES_STRING_MAP: [UserRole, string][] = [
   [UserRole.Admin, 'Admin'],
-  [UserRole.ListingCreator, 'Listing creator'],
+  [UserRole.SuperAdmin, 'Super Admin'],
 ];
 
 const UsersList: FC = () => {
-  const { fetchedUser } = useAuth();
-  const httpService = useHttp();
+  const { user } = useAuth();
+  const http = useHttp();
   const queryClient = useQueryClient();
 
   const [pagination, setPagination] = useLocalStorage<PaginationData>(
@@ -64,20 +59,20 @@ const UsersList: FC = () => {
   }, []);
 
   const usersQuery = useQuery([QueryKey.UsersList, pagination], () =>
-    httpService.getUsers<UserAdminView>({
+    http.user.list({
       take: pagination.size,
       page: pagination.page,
     }),
   );
   const deleteUserMutation = useMutation(
-    (userId: string) => httpService.deleteUser(userId),
+    (userId: string) => http.user.delete(userId),
     {
       onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
     },
   );
   const updateUserMutation = useMutation({
     mutationFn: ([userId, updateDto]: [string, UpdateUserDto]) =>
-      httpService.updateUser(userId, updateDto),
+      http.user.update(userId, updateDto),
     onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
   });
 
@@ -156,7 +151,7 @@ const UsersList: FC = () => {
                             control={
                               <Switch
                                 disabled={
-                                  u!.id === fetchedUser!.id ||
+                                  u!.id === user!.id ||
                                   loadingUserIds.includes(u.id)
                                 }
                                 checked={u.roles!.includes(role)}
@@ -184,8 +179,7 @@ const UsersList: FC = () => {
                         color="error"
                         onClick={() => handleUserDelete(u)}
                         disabled={
-                          u.id === fetchedUser!.id ||
-                          loadingUserIds.includes(u.id)
+                          u.id === user!.id || loadingUserIds.includes(u.id)
                         }
                       >
                         <Delete />

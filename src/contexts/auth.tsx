@@ -15,14 +15,13 @@ import { AppJwtPayload, AuthDto } from '@faf-cars/lib/auth';
 import { QueryKey } from '@faf-cars/lib/query';
 import { StorageKey } from '@faf-cars/lib/storage';
 import { ToastId } from '@faf-cars/lib/toast';
-import { AuthenticatedUser, UserRoleAsString } from '@faf-cars/lib/user';
+import { User, UserRole } from '@faf-cars/lib/user';
 
 export interface AuthContextProps {
-  fetchedUser: AuthenticatedUser | null;
-  userId: string | null;
+  user: User | null;
   expiresAt: Date | null;
   isAuthorized: boolean;
-  isListingCreator: boolean;
+  isSuperAdmin: boolean;
   isAdmin: boolean;
   login(data: AuthDto): void;
   logout(): void;
@@ -33,30 +32,24 @@ export const AuthContext = createContext<AuthContextProps>(null!);
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const queryClient = useQueryClient();
+  const http = useContext(HttpContext);
   const {
-    httpService,
     accessToken,
-    sessionExpired,
     setAccessToken,
     setRefreshToken,
+    sessionExpired,
     setSessionExpired,
-  } = useContext(HttpContext);
+  } = http;
 
   const decodedJwt = accessToken ? jwtDecode<AppJwtPayload>(accessToken) : null;
 
   const userQuery = useQuery(
-    [QueryKey.User, accessToken],
-    () => httpService.getUser<AuthenticatedUser>(decodedJwt!.sub!),
+    [QueryKey.UserList, accessToken],
+    () => http.user.find(decodedJwt!.sub!),
     {
       enabled: !!decodedJwt,
     },
   );
-
-  const roles = !decodedJwt?.role
-    ? []
-    : Array.isArray(decodedJwt.role)
-      ? decodedJwt.role
-      : [decodedJwt.role];
 
   const login = useCallback((data: AuthDto) => {
     setAccessToken(data.token);
@@ -96,13 +89,17 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }, [sessionExpired]);
 
+  const user: User | null = userQuery.data ?? null;
+
   const context: AuthContextProps = {
     expiresAt: decodedJwt === null ? null : new Date(decodedJwt.exp! * 1000),
-    isAdmin: roles.includes(UserRoleAsString.Admin) ?? false,
-    isListingCreator: roles.includes(UserRoleAsString.ListingCreator) ?? false,
-    userId: decodedJwt?.sub ?? null,
-    fetchedUser: userQuery.data ?? null,
+    isAdmin:
+      (user?.roles!.includes(UserRole.Admin) ||
+        user?.roles!.includes(UserRole.SuperAdmin)) ??
+      false,
+    isSuperAdmin: user?.roles!.includes(UserRole.SuperAdmin) ?? false,
     isAuthorized: !!accessToken,
+    user,
     login,
     logout,
     expireSession,

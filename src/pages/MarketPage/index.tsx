@@ -49,7 +49,7 @@ import {
 
 const MarketPage: FC = () => {
   const http = useHttp();
-  const { userId } = useAuth();
+  const { user } = useAuth();
 
   const [isFilterListOpen, setIsFilterListOpen] = useState(false);
 
@@ -81,12 +81,12 @@ const MarketPage: FC = () => {
 
   const listingsListQuery = useQuery(
     [
-      QueryKey.ListingsList,
+      QueryKey.ListingList,
       selectedTab,
       pagination,
       orderBy,
       selectedBodyStyles,
-      userId,
+      user!.id,
       selectedBrand,
       selectedModel,
     ],
@@ -110,24 +110,24 @@ const MarketPage: FC = () => {
         ListingsTab,
         Promise<PaginatedResponse<ListingDto>>
       > = {
-        [ListingsTab.All]: http.getListings(params),
-        [ListingsTab.Favorites]: http.getListings({
+        [ListingsTab.All]: http.listing.list(params),
+        [ListingsTab.Favorites]: http.listing.list({
           ...params,
-          user: userId,
+          user: user!.id!,
           favorites: true,
         }),
-        [ListingsTab.My]: http.getListings({ ...params, user: userId }),
+        [ListingsTab.My]: http.listing.list({ ...params, user: user!.id! }),
       };
 
       return tabFetchFnMap[selectedTab];
     },
   );
 
-  const brandsQuery = useQuery([QueryKey.CarBrands], () => http.getBrands());
+  const brandsQuery = useQuery([QueryKey.BrandList], () => http.brand.list());
 
   const selectedBrandModelsQuery = useQuery(
-    [QueryKey.CarModels, selectedBrand],
-    () => http.getBrandModels(selectedBrand as string),
+    [QueryKey.ModelList, selectedBrand],
+    () => http.brand.listModels(selectedBrand as string),
     { enabled: !!selectedBrand },
   );
 

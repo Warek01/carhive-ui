@@ -61,17 +61,12 @@ const CreateUserForm: FC<Props> = ({ onSubmit }) => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={formik.values.roles.includes(
-                    UserRole.ListingCreator,
-                  )}
+                  checked={formik.values.roles.includes(UserRole.Admin)}
                   inputProps={{ 'aria-label': 'controlled' }}
                   onChange={() =>
                     formik.setFieldValue(
                       'roles',
-                      toggleArrayItem(
-                        formik.values.roles,
-                        UserRole.ListingCreator,
-                      ),
+                      toggleArrayItem(formik.values.roles, UserRole.Admin),
                     )
                   }
                 />
@@ -81,12 +76,12 @@ const CreateUserForm: FC<Props> = ({ onSubmit }) => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={formik.values.roles.includes(UserRole.Admin)}
+                  checked={formik.values.roles.includes(UserRole.SuperAdmin)}
                   inputProps={{ 'aria-label': 'controlled' }}
                   onChange={() =>
                     formik.setFieldValue(
                       'roles',
-                      toggleArrayItem(formik.values.roles, UserRole.Admin),
+                      toggleArrayItem(formik.values.roles, UserRole.SuperAdmin),
                     )
                   }
                 />

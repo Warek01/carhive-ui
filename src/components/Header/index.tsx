@@ -17,7 +17,7 @@ import { GLOBAL_CONTAINER_MAX_WIDTH } from '@faf-cars/lib/themes';
 
 const Header: FC = () => {
   const [isDarkTheme, setIsDarkTheme] = useIsDarkTheme();
-  const { isAuthorized, isAdmin } = useAuth();
+  const { isAuthorized, isAdmin, isSuperAdmin } = useAuth();
 
   const iconProps = useMemo<SvgIconProps>(
     () => ({

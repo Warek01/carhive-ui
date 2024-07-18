@@ -7,7 +7,7 @@ import { useAuth } from '@faf-cars/hooks';
 import { AppRoute } from '@faf-cars/lib/routing';
 
 const ProfilePage: FC = () => {
-  const { fetchedUser, logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = useCallback(() => {
@@ -18,7 +18,7 @@ const ProfilePage: FC = () => {
   return (
     <Box>
       <Container maxWidth="xs" sx={{ pt: 10 }}>
-        {fetchedUser && <UserCard user={fetchedUser} />}
+        {user && <UserCard user={user} />}
         <Button onClick={handleLogout}>
           <Typography variant="h6">Log out</Typography>
         </Button>

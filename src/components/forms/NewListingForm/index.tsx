@@ -35,13 +35,13 @@ interface FormSection {
 }
 
 const NewListingForm: FC = () => {
-  const httpService = useHttp();
+  const http = useHttp();
   const queryClient = useQueryClient();
 
   const [openedSections, setOpenedSections] = useState([true, false, false]);
 
   const createListingMutation = useMutation((formData: CreateListingDto) =>
-    httpService.createListing(formData),
+    http.listing.create(formData),
   );
 
   useWatchLoading(createListingMutation.isLoading);
@@ -53,7 +53,7 @@ const NewListingForm: FC = () => {
     ) => {
       try {
         await createListingMutation.mutateAsync(objectFormData, {
-          onSuccess: () => queryClient.invalidateQueries(QueryKey.ListingsList),
+          onSuccess: () => queryClient.invalidateQueries(QueryKey.ListingList),
         });
         helpers.resetForm();
         toast('Listing created successfully.', {

@@ -2,21 +2,9 @@ export interface User {
   id: string;
   username: string;
   email: string;
+  roles: UserRole[] | null;
   phoneNumber: string | null;
   createdAt: string | null;
-}
-
-// How a user sees other users
-export interface RegularUser extends User {}
-
-// How admin sees other users
-export interface UserAdminView extends User {
-  roles: UserRole[];
-}
-
-// The authenticated user
-export interface AuthenticatedUser extends User {
-  roles: UserRoleAsString[];
 }
 
 export interface UpdateUserDto {
@@ -33,12 +21,8 @@ export interface CreateUserDto {
   roles: UserRole[];
 }
 
-export const enum UserRoleAsString {
-  Admin = 'Admin',
-  ListingCreator = 'ListingCreator',
-}
-
 export const enum UserRole {
+  User,
   Admin,
-  ListingCreator,
+  SuperAdmin,
 }

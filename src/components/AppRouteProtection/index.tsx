@@ -8,7 +8,7 @@ import { AppRoute } from '@faf-cars/lib/routing';
 const AppRouteProtection: FC = () => {
   const location = useLocation();
   const { isAuthorized, isAdmin, expiresAt, login, expireSession } = useAuth();
-  const httpService = useHttp();
+  const http = useHttp();
   const logger = useLogger();
 
   const path = location.pathname;
@@ -17,7 +17,7 @@ const AppRouteProtection: FC = () => {
     if (expiresAt && expiresAt <= new Date()) {
       logger.debug(`Token expired at ${expiresAt}`);
 
-      httpService
+      http.auth
         .refresh()
         .then((res) => {
           login(res);

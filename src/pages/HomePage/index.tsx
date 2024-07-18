@@ -15,27 +15,17 @@ const HomePage: FC = () => {
     [QueryKey.ListingCount],
     () => http.listing.count(),
     {
-      refetchInterval: 3000,
+      refetchInterval: 15_000,
       keepPreviousData: true,
     },
   );
 
-  const citiesCountQuery = useQuery(
-    [QueryKey.CityCount],
-    () => http.city.count(),
-    {
-      refetchInterval: 30000,
-      keepPreviousData: true,
-    },
+  const citiesCountQuery = useQuery([QueryKey.CityCount], () =>
+    http.city.count(),
   );
 
-  const countriesCountQuery = useQuery(
-    [QueryKey.CountryCount],
-    () => http.country.count(),
-    {
-      refetchInterval: 30000,
-      keepPreviousData: true,
-    },
+  const countriesCountQuery = useQuery([QueryKey.CountryCount], () =>
+    http.country.count(),
   );
 
   return (

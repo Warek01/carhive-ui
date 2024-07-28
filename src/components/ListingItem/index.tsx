@@ -17,7 +17,7 @@ import {
   CAR_COLOR_HEX_MAP,
   CAR_COLOR_NAME_MAP,
   ListingDto,
-} from '@faf-cars/lib/listings';
+} from '@faf-cars/lib/listing';
 import { AppRoute } from '@faf-cars/lib/routing';
 
 interface Props {

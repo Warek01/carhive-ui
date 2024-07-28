@@ -3,10 +3,12 @@ import * as Yup from 'yup';
 import {
   BODY_STYLES,
   CAR_COLORS,
+  CAR_DRIVETRAINS,
   CAR_STATUSES,
+  CAR_TRANSMISSIONS,
   CreateListingDto,
   FUEL_TYPES,
-} from '@faf-cars/lib/listings';
+} from '@faf-cars/lib/listing';
 
 export const IMAGE_SIZE_LIMIT = 5 * 1024 * 1024;
 
@@ -29,6 +31,8 @@ export const createListingInitialValues: CreateListingDto = {
   images: [],
   carStatus: null,
   description: null,
+  drivetrain: null,
+  transmission: null,
 };
 
 export const createListingValidationSchema = Yup.object().shape({
@@ -63,4 +67,7 @@ export const createListingValidationSchema = Yup.object().shape({
   description: Yup.string().max(5000, 'Description is too long').nullable(),
   images: Yup.array().of(Yup.mixed()),
   carStatus: Yup.number().oneOf(CAR_STATUSES).nullable(),
+  sellAddress: Yup.string().min(2, 'Sell address is too short').nullable(),
+  transmission: Yup.number().oneOf(CAR_TRANSMISSIONS).nullable(),
+  drivetrain: Yup.number().oneOf(CAR_DRIVETRAINS).nullable(),
 } as Record<keyof CreateListingDto, any>);

@@ -24,6 +24,8 @@ export interface ListingDto {
   isFavorite: boolean | null;
   description: string | null;
   carStatus: CarStatus | null;
+  transmission: CarTransmission | null;
+  drivetrain: CarDrivetrain | null;
 }
 
 export interface CreateListingDto {
@@ -45,7 +47,11 @@ export interface CreateListingDto {
   images: File[];
   description: string | null;
   carStatus: CarStatus | null;
+  transmission: CarTransmission | null;
+  drivetrain: CarDrivetrain | null;
 }
+
+export type CreateListingField = keyof CreateListingDto;
 
 export const enum CarColor {
   Black,
@@ -232,12 +238,7 @@ export const enum FavoriteListingActionType {
   RemoveAll,
 }
 
-export interface FavoriteListingAction {
-  type: FavoriteListingActionType;
-  listingId?: string;
-}
-
-export enum CarStatus {
+export const enum CarStatus {
   New,
   Used,
   Rent,
@@ -248,3 +249,48 @@ export const CAR_STATUSES: CarStatus[] = [
   CarStatus.Used,
   CarStatus.Rent,
 ];
+
+export const CAR_STATUS_NAME_MAP = new Map<CarStatus, string>([
+  [CarStatus.New, 'New'],
+  [CarStatus.Used, 'Used'],
+  [CarStatus.Rent, 'Rent'],
+]);
+
+export const enum CarTransmission {
+  Manual,
+  Automatic,
+  ContinuouslyVariable,
+}
+
+export const CAR_TRANSMISSIONS: CarTransmission[] = [
+  CarTransmission.Manual,
+  CarTransmission.Automatic,
+  CarTransmission.ContinuouslyVariable,
+];
+
+export const CAR_TRANSMISSIONS_NAME_MAP = new Map<CarTransmission, string>([
+  [CarTransmission.Automatic, 'Automatic'],
+  [CarTransmission.Manual, 'Manual'],
+  [CarTransmission.ContinuouslyVariable, 'Continuously variable'],
+]);
+
+export const enum CarDrivetrain {
+  FrontWheelDrive,
+  RearWheelDrive,
+  AllWheelDrive,
+  FourWheelDrive,
+}
+
+export const CAR_DRIVETRAINS: CarDrivetrain[] = [
+  CarDrivetrain.FrontWheelDrive,
+  CarDrivetrain.RearWheelDrive,
+  CarDrivetrain.AllWheelDrive,
+  CarDrivetrain.FourWheelDrive,
+];
+
+export const CAR_DRIVETRAIN_NAME_MAP = new Map<CarDrivetrain, string>([
+  [CarDrivetrain.FrontWheelDrive, 'FWD'],
+  [CarDrivetrain.RearWheelDrive, 'RWD'],
+  [CarDrivetrain.AllWheelDrive, 'AWD'],
+  [CarDrivetrain.FourWheelDrive, '4WD'],
+]);

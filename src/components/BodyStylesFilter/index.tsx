@@ -1,7 +1,7 @@
 import { Box, Chip, Stack } from '@mui/material';
 import { FC, memo, useCallback } from 'react';
 
-import { BODY_STYLE_NAME_MAP, BodyStyle } from '@faf-cars/lib/listings';
+import { BODY_STYLE_NAME_MAP, BodyStyle } from '@faf-cars/lib/listing';
 import { toggleArrayItem } from '@faf-cars/lib/utils';
 
 interface Props {

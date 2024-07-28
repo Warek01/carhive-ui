@@ -2,7 +2,7 @@ import { Grid, Skeleton } from '@mui/material';
 import { FC, memo, useState } from 'react';
 
 import { ListingItem } from '@faf-cars/components';
-import { type ListingDto } from '@faf-cars/lib/listings';
+import { type ListingDto } from '@faf-cars/lib/listing';
 
 interface Props {
   items?: ListingDto[];

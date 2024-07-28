@@ -17,7 +17,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
 import { useHttp, useWatchLoading } from '@faf-cars/hooks';
-import { CreateListingDto } from '@faf-cars/lib/listings';
+import { CreateListingDto } from '@faf-cars/lib/listing';
 import { QueryKey } from '@faf-cars/lib/query';
 import { ToastId } from '@faf-cars/lib/toast';
 

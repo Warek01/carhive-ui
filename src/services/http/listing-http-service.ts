@@ -1,4 +1,4 @@
-import { CreateListingDto, ListingDto } from '@faf-cars/lib/listings';
+import { CreateListingDto, ListingDto } from '@faf-cars/lib/listing';
 import { PaginatedResponse } from '@faf-cars/lib/pagination';
 import {
   MarketStatistics,

@@ -7,11 +7,7 @@ import { Navigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { useHttp, useWatchLoading } from '@faf-cars/hooks';
-import {
-  FavoriteListingAction,
-  FavoriteListingActionType,
-  ListingDto,
-} from '@faf-cars/lib/listings';
+import { FavoriteListingActionType, ListingDto } from '@faf-cars/lib/listing';
 import { QueryKey } from '@faf-cars/lib/query';
 import { AppRoute } from '@faf-cars/lib/routing';
 import { ToastId } from '@faf-cars/lib/toast';
@@ -31,7 +27,7 @@ const ListingDetailsPage: FC = () => {
   );
 
   const favoritesMutation = useMutation(
-    (action: FavoriteListingAction) =>
+    (action: any) =>
       // TODO: implement favorites
       Promise.resolve(),
     {

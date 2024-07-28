@@ -8,9 +8,9 @@
     "build": "tsc && vite build",
     "typecheck": "tsc",
     "preview": "vite preview",
-    "format": "prettier --write ./*.{js,ts} ./src/**/*.{ts,tsx}",
+    "format": "prettier --cache --write ./*.{js,ts} ./src/**/*.{ts,tsx}",
     "prepare": "husky",
-    "lint": "eslint --fix ./*.{js,ts} ./src/**/*.{ts,tsx}"
+    "lint": "eslint --cache --fix ./*.{js,ts} ./src/**/*.{ts,tsx}"
   },
   "engines": {
     "node": "~20.13.1"

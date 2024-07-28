@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Grid, Typography } from '@mui/material';
+import { Button, Grid, Skeleton, Typography } from '@mui/material';
 import { FC } from 'react';
 import { useQuery } from 'react-query';
 import { Link as RouterLink } from 'react-router-dom';
@@ -32,8 +32,9 @@ const HomePage: FC = () => {
     <Grid container spacing={3} alignItems="center" py={6}>
       <Grid item xs={isAuthorized ? 12 : 9}>
         <Typography variant="h3" display="flex" alignItems="center">
-          Browse {listingsCountQuery.data ?? <CircularProgress />} listings on
-          FAF Cars
+          Browse{' '}
+          {listingsCountQuery.data ?? <Skeleton width={48} sx={{ mx: 1 }} />}{' '}
+          listings on FAF Cars
         </Typography>
       </Grid>
       {!isAuthorized && (
@@ -51,8 +52,10 @@ const HomePage: FC = () => {
       )}
       <Grid item xs={12}>
         <Typography variant="h4" display="flex" alignItems="center">
-          {citiesCountQuery.data ?? <CircularProgress />} cities across{' '}
-          {countriesCountQuery.data ?? <CircularProgress />} Countries supported
+          {citiesCountQuery.data ?? <Skeleton width={48} sx={{ mr: 1 }} />}{' '}
+          cities across{' '}
+          {countriesCountQuery.data ?? <Skeleton width={48} sx={{ mx: 1 }} />}{' '}
+          Countries supported
         </Typography>
       </Grid>
     </Grid>

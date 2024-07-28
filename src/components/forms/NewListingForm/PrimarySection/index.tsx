@@ -1,12 +1,20 @@
 import { AddAPhoto, Delete } from '@mui/icons-material';
-import { Button, CircularProgress, Grid, IconButton } from '@mui/material';
+import {
+  Autocomplete,
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  IconButton,
+  TextField,
+  debounce,
+} from '@mui/material';
 import { useFormikContext } from 'formik';
 import {
   ChangeEventHandler,
   FC,
   memo,
   useCallback,
-  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -36,8 +44,25 @@ const PrimarySection: FC = () => {
 
   const [imagesDataUrls, setImagesDataUrls] = useState<string[]>([]);
   const [isImageDataUrlLoading, setIsImageDataUrlLoading] = useState(false);
+  const [citySearchString, setCitySearchString] = useState('');
 
   const brandsQuery = useQuery([QueryKey.BrandList], () => http.brand.list());
+
+  const countriesQuery = useQuery([QueryKey.CountryList], () =>
+    http.country.list(),
+  );
+
+  const citiesQuery = useQuery(
+    [QueryKey.CityList, formik.values.countryCode, citySearchString],
+    () =>
+      http.city.list({
+        countryCode: formik.values.countryCode,
+        search: citySearchString,
+      }),
+    {
+      enabled: !!formik.values.countryCode,
+    },
+  );
 
   const brandModelsQuery = useQuery(
     [QueryKey.ModelList, formik.values.brandName],
@@ -66,7 +91,10 @@ const PrimarySection: FC = () => {
         }
 
         const { images } = formik.values;
-        await formik.setFieldValue('images', images.concat(newImage));
+        await formik.setFieldValue(
+          'images' as keyof CreateListingDto,
+          images.concat(newImage),
+        );
 
         const dataUrl = await fileToBase64(newImage);
         setImagesDataUrls((v) => v.concat(dataUrl));
@@ -83,27 +111,30 @@ const PrimarySection: FC = () => {
     (imageIndex: number) => {
       return async () => {
         const filteredImages = formik.values.images.toSpliced(imageIndex, 1);
-        await formik.setFieldValue('images', filteredImages);
+        await formik.setFieldValue(
+          'images' as keyof CreateListingDto,
+          filteredImages,
+        );
         setImagesDataUrls((v) => v.toSpliced(imageIndex, 1));
       };
     },
     [formik],
   );
 
-  useEffect(() => {
-    const { images } = formik.values;
-
-    if (!images.length) {
-      setImagesDataUrls([]);
-    }
-  }, [formik.values.images]);
+  const handleCitySearchStringChange: ChangeEventHandler<HTMLInputElement> =
+    useCallback(
+      debounce((event) => {
+        setCitySearchString(event.target.value);
+      }, 500),
+      [],
+    );
 
   return (
     <Grid container spacing={1}>
       <Grid item xs={4}>
         <AppSelectField
           required
-          name="brandName"
+          name={'brandName' as keyof CreateListingDto}
           label="Brand"
           disabled={!brandsQuery.data}
           values={brandsQuery.data ?? []}
@@ -111,7 +142,7 @@ const PrimarySection: FC = () => {
       </Grid>
       <Grid item xs={4}>
         <AppSelectField
-          name="bodyStyle"
+          name={'bodyStyle' as keyof CreateListingDto}
           label="Body style"
           values={BODY_STYLES}
           getItemContent={(bodyStyle) => BODY_STYLE_NAME_MAP.get(bodyStyle)}
@@ -121,7 +152,7 @@ const PrimarySection: FC = () => {
         <AppTextField
           fullWidth
           variant="outlined"
-          name="price"
+          name={'price' as keyof CreateListingDto}
           label="Price"
           inputProps={{ min: 0 }}
           type="number"
@@ -129,7 +160,7 @@ const PrimarySection: FC = () => {
       </Grid>
       <Grid item xs={4}>
         <AppSelectField
-          name="modelName"
+          name={'modelName' as keyof CreateListingDto}
           label="Model"
           disabled={!brandModelsQuery.data}
           required
@@ -138,7 +169,7 @@ const PrimarySection: FC = () => {
       </Grid>
       <Grid item xs={4}>
         <AppSelectField
-          name="fuelType"
+          name={'fuelType' as keyof CreateListingDto}
           label="Fuel type"
           values={FUEL_TYPES}
           getItemContent={(fuelType) => FUEL_TYPE_NAME_MAP.get(fuelType)}
@@ -148,13 +179,83 @@ const PrimarySection: FC = () => {
         <AppTextField
           variant="outlined"
           fullWidth
-          name="productionYear"
+          name={'productionYear' as keyof CreateListingDto}
           label="Production year"
           inputProps={{ min: 0, max: new Date().getFullYear() + 1 }}
           type="number"
         />
       </Grid>
-      <Grid item container spacing={1}>
+      <Grid item container xs={12} spacing={1}>
+        <Grid item xs={6}>
+          <Autocomplete
+            disabled={!countriesQuery.data}
+            options={countriesQuery.data?.items || []}
+            id="country-select"
+            onChange={(event, value) =>
+              formik.setFieldValue(
+                'countryCode' as keyof CreateListingDto,
+                value?.code,
+              )
+            }
+            getOptionLabel={(option) => option.name}
+            renderOption={(props, option) => (
+              <Box
+                {...props}
+                component="li"
+                sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                key={option.code}
+              >
+                <img
+                  loading="lazy"
+                  width={20}
+                  src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                  alt={option.name}
+                />
+                {option.name} ({option.code})
+              </Box>
+            )}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Choose a country"
+                inputProps={{
+                  ...params.inputProps,
+                  autoComplete: 'off',
+                }}
+              />
+            )}
+          />
+        </Grid>
+
+        <Grid item xs={6}>
+          <Autocomplete
+            disabled={!formik.values.countryCode}
+            options={citiesQuery.data || []}
+            filterOptions={(x) => x}
+            id="city-select"
+            onChange={(event, value) =>
+              formik.setFieldValue('cityName' as keyof CreateListingDto, value)
+            }
+            renderOption={(props, option) => (
+              <Box component="li" {...props} key={option}>
+                {option}
+              </Box>
+            )}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Choose a city"
+                onChange={handleCitySearchStringChange}
+                inputProps={{
+                  ...params.inputProps,
+                  autoComplete: 'off',
+                }}
+              />
+            )}
+          />
+        </Grid>
+      </Grid>
+      <Grid item container xs={12} spacing={1}>
         {imagesDataUrls.map((dataUrl, index) => (
           <Grid
             item

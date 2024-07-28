@@ -12,22 +12,10 @@ const SHARED: ThemeOptions = {
       main: amber[600],
     },
   },
-  direction: 'ltr',
   components: {
-    MuiInputBase: {
-      defaultProps: {
-        autoComplete: 'new-password',
-        inputProps: {
-          autoComplete: 'new-password',
-        },
-      },
-    },
     MuiTextField: {
       defaultProps: {
         autoComplete: 'new-password',
-        inputProps: {
-          autoComplete: 'new-password',
-        },
       },
     },
   },

@@ -40,3 +40,14 @@ export const objectToFormData = (obj: object) => {
 
   return formData;
 };
+
+// const debounce = <T extends Function>(cb: T, delay: number) => {
+//   let timerId: NodeJS.Timeout;
+//
+//   const callable = (...args: any) => {
+//     clearTimeout(timerId);
+//     timerId = setTimeout(() => cb(...args), delay);
+//   };
+//
+//   return <T>(<any>callable);
+// };

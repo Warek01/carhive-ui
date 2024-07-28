@@ -58,7 +58,7 @@ const UsersList: FC = () => {
     clearTimeout(loadingUserTimeoutIds.current[userId]);
   }, []);
 
-  const usersQuery = useQuery([QueryKey.UsersList, pagination], () =>
+  const usersQuery = useQuery([QueryKey.UserList, pagination], () =>
     http.user.list({
       take: pagination.size,
       page: pagination.page,
@@ -67,13 +67,13 @@ const UsersList: FC = () => {
   const deleteUserMutation = useMutation(
     (userId: string) => http.user.delete(userId),
     {
-      onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
+      onSuccess: () => queryClient.invalidateQueries(QueryKey.UserList),
     },
   );
   const updateUserMutation = useMutation({
     mutationFn: ([userId, updateDto]: [string, UpdateUserDto]) =>
       http.user.update(userId, updateDto),
-    onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
+    onSuccess: () => queryClient.invalidateQueries(QueryKey.UserList),
   });
 
   const handleUserDelete = useCallback(async (user: User) => {

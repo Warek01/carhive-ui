@@ -4,8 +4,13 @@ export interface ListingDto {
   id: string;
   brandName: string;
   modelName: string;
+  updatedAt: string;
+  createdAt: string;
+  cityName: string;
+  countryCode: string;
+  imagesUrls: string[];
   price: number | null;
-  bodyStyle: BodyStyle;
+  bodyStyle: BodyStyle | null;
   horsepower: number | null;
   fuelType: FuelType | null;
   engineVolume: number | null;
@@ -14,11 +19,7 @@ export interface ListingDto {
   wheelSize: number | null;
   mileage: number | null;
   productionYear: number | null;
-  updatedAt: string;
-  createdAt: string;
   publisher: User | null;
-  imagesUrls: string[];
-  countryCode: string | null;
   sellAddress: string | null;
   isFavorite: boolean | null;
   description: string | null;
@@ -29,6 +30,7 @@ export interface CreateListingDto {
   brandName: string;
   modelName: string;
   countryCode: string;
+  cityName: string;
   price: number | null;
   bodyStyle: BodyStyle | null;
   horsepower: number | null;

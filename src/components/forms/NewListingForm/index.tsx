@@ -38,6 +38,9 @@ const NewListingForm: FC = () => {
   const http = useHttp();
   const queryClient = useQueryClient();
 
+  // resets sections
+  const [formKey, setFormKey] = useState(0);
+
   const [openedSections, setOpenedSections] = useState([true, false, false]);
 
   const createListingMutation = useMutation((formData: CreateListingDto) =>
@@ -59,6 +62,7 @@ const NewListingForm: FC = () => {
         toast('Listing created successfully.', {
           toastId: ToastId.ListingCreate,
         });
+        setFormKey((k) => k + 1);
       } catch (err) {
         if (err instanceof AxiosError) {
           switch (err.response?.status) {
@@ -105,20 +109,22 @@ const NewListingForm: FC = () => {
   const sections = useMemo<FormSection[]>(
     () => [
       {
-        element: <PrimarySection />,
+        element: <PrimarySection key={formKey} />,
         caption: 'Primary data',
       },
       {
-        element: <SecondarySection />,
+        element: <SecondarySection key={formKey} />,
         caption: 'Secondary data',
       },
       {
-        element: <AdditionalSection />,
+        element: <AdditionalSection key={formKey} />,
         caption: 'Additional data',
       },
     ],
-    [],
+    [formKey],
   );
+
+  console.log(formKey);
 
   return (
     <Card component="form" onSubmit={formik.handleSubmit}>

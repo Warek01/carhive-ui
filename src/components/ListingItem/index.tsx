@@ -74,9 +74,11 @@ const ListingItem: FC<Props> = ({ listing }) => {
       >
         {listing.brandName} {listing.modelName}
       </Typography>
-      <Typography variant="body1">
-        {BODY_STYLE_NAME_MAP.get(listing.bodyStyle)}
-      </Typography>
+      {listing.bodyStyle && (
+        <Typography variant="body1">
+          {BODY_STYLE_NAME_MAP.get(listing.bodyStyle)}
+        </Typography>
+      )}
       <Typography variant="body1">{listing.productionYear}</Typography>
 
       {listing.color !== null && (

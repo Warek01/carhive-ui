@@ -13,7 +13,8 @@ export const IMAGE_SIZE_LIMIT = 5 * 1024 * 1024;
 export const createListingInitialValues: CreateListingDto = {
   brandName: '',
   modelName: '',
-  countryCode: 'DE',
+  countryCode: null!,
+  cityName: null!,
   price: null,
   bodyStyle: null,
   color: null,
@@ -33,6 +34,10 @@ export const createListingInitialValues: CreateListingDto = {
 export const createListingValidationSchema = Yup.object().shape({
   brandName: Yup.string().required('Brand is required.'),
   modelName: Yup.string().required('Model is required'),
+  cityName: Yup.string().required('City is required'),
+  countryCode: Yup.string()
+    .length(2, 'Country code must be of type XX')
+    .required('Country is required'),
   price: Yup.number().positive('Price must be positive.').integer().nullable(),
   bodyStyle: Yup.number().oneOf(BODY_STYLES).nullable(),
   productionYear: Yup.number().positive('Year must be possible').nullable(),
@@ -55,10 +60,6 @@ export const createListingValidationSchema = Yup.object().shape({
     .integer()
     .positive('Mileage must be positive')
     .nullable(),
-  countryCode: Yup.string()
-    .length(2, 'Country code must be of type XX')
-    .nullable(),
-  sellAddress: Yup.string().max(255, 'Address is too long').nullable(),
   description: Yup.string().max(5000, 'Description is too long').nullable(),
   images: Yup.array().of(Yup.mixed()),
   carStatus: Yup.number().oneOf(CAR_STATUSES).nullable(),

@@ -26,13 +26,13 @@ export const enum QueryKey {
   ListingStats = 'listings-stats',
   ListingCount = 'listings-count',
 
-  UsersList = 'users-list',
-
   ModelList = 'model-list',
 
   BrandList = 'brand-list',
 
   CityCount = 'city-count',
+  CityList = 'city-list',
 
   CountryCount = 'country-count',
+  CountryList = 'country-list',
 }

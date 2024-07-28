@@ -46,7 +46,7 @@ const AdminDashboardPage: FC = () => {
   const createUserMutation = useMutation(
     (createDto: CreateUserDto) => http.user.create(createDto),
     {
-      onSuccess: () => queryClient.invalidateQueries(QueryKey.UsersList),
+      onSuccess: () => queryClient.invalidateQueries(QueryKey.UserList),
     },
   );
 

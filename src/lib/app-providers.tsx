@@ -8,6 +8,7 @@ import { AuthContextProvider } from '@faf-cars/contexts/auth';
 import { GlobalLoadingContextProvider } from '@faf-cars/contexts/global-loading';
 import { HttpContextProvider } from '@faf-cars/contexts/http';
 import { LogContextProvider } from '@faf-cars/contexts/log';
+import { ThemeContextProvider } from '@faf-cars/contexts/theme';
 import { QUERY_CLIENT_CONFIG } from '@faf-cars/lib/query';
 import { APP_ROUTES } from '@faf-cars/lib/routing';
 
@@ -44,6 +45,10 @@ export const PROVIDERS: ProvidersArray = [
     props: {
       dateAdapter: AdapterDayjs,
     },
+  },
+  {
+    Provider: ThemeContextProvider,
+    props: {},
   },
   {
     Provider: RouterProvider,

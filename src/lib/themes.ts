@@ -1,8 +1,7 @@
-import { Breakpoint } from '@mui/material';
-import { amber } from '@mui/material/colors';
-import { ThemeOptions, createTheme } from '@mui/material/styles';
+import { Breakpoint, ThemeOptions } from '@mui/material';
+import { amber, grey } from '@mui/material/colors';
 
-const SHARED: ThemeOptions = {
+export const APP_THEME_OPTIONS: ThemeOptions = {
   typography: {
     fontFamily: `Montserrat, sans-serif, serif`,
     fontSize: 16,
@@ -13,20 +12,32 @@ const SHARED: ThemeOptions = {
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: (theme) => ({
+        body: {
+          scrollbarWidth: 'thin',
+          scrollbarColor:
+            theme.palette.mode === 'dark'
+              ? `${amber[600]} ${grey[800]}`
+              : `${amber[600]} ${grey[300]}`,
+        },
+      }),
+    },
     MuiTextField: {
       defaultProps: {
         autoComplete: 'new-password',
       },
     },
+    MuiTooltip: {
+      defaultProps: {
+        enterDelay: 750,
+        enterNextDelay: 750,
+        enterTouchDelay: 750,
+        leaveDelay: 250,
+        leaveTouchDelay: 250,
+      },
+    },
   },
 };
-
-const dark = structuredClone(SHARED);
-dark.palette!.mode = 'dark';
-export const DARK_THEME = createTheme(dark);
-
-const light = structuredClone(SHARED);
-light.palette!.mode = 'light';
-export const LIGHT_THEME = createTheme(light);
 
 export const GLOBAL_CONTAINER_MAX_WIDTH: Breakpoint = 'xl';

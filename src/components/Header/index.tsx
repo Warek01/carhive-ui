@@ -8,16 +8,24 @@ import {
   Switch,
   Typography,
 } from '@mui/material';
-import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react';
+import {
+  ChangeEventHandler,
+  FC,
+  memo,
+  useCallback,
+  useContext,
+  useMemo,
+} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { useAuth, useIsDarkTheme } from '@faf-cars/hooks';
+import { ThemeContext } from '@faf-cars/contexts/theme';
+import { useAuth } from '@faf-cars/hooks';
 import { AppRoute } from '@faf-cars/lib/routing';
 import { GLOBAL_CONTAINER_MAX_WIDTH } from '@faf-cars/lib/themes';
 
 const Header: FC = () => {
-  const [isDarkTheme, setIsDarkTheme] = useIsDarkTheme();
   const { isAuthorized, isAdmin } = useAuth();
+  const { setThemeMode, themeMode } = useContext(ThemeContext);
 
   const iconProps = useMemo<SvgIconProps>(
     () => ({
@@ -29,12 +37,19 @@ const Header: FC = () => {
 
   const icon = useMemo(
     () =>
-      isDarkTheme ? <DarkMode {...iconProps} /> : <LightMode {...iconProps} />,
-    [isDarkTheme],
+      themeMode === 'dark' ? (
+        <DarkMode {...iconProps} />
+      ) : (
+        <LightMode {...iconProps} />
+      ),
+    [themeMode],
   );
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (event) => setIsDarkTheme(event.target.checked),
+    (event) => {
+      const isDark = event.target.checked;
+      setThemeMode(isDark ? 'dark' : 'light');
+    },
     [],
   );
 
@@ -68,7 +83,7 @@ const Header: FC = () => {
           <Stack alignItems="center" direction="row" spacing={4} pl={4}>
             <Typography
               component={RouterLink}
-              to={AppRoute.Listings}
+              to={AppRoute.ListingList}
               sx={{ color: 'inherit' }}
             >
               Market
@@ -105,7 +120,7 @@ const Header: FC = () => {
             spacing={0}
             alignItems="center"
           >
-            <Switch checked={isDarkTheme} onChange={handleChange} />
+            <Switch checked={themeMode === 'dark'} onChange={handleChange} />
             {icon}
           </Stack>
           {isAuthorized ? (

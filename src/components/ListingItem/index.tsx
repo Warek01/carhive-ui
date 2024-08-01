@@ -6,6 +6,7 @@ import {
   Divider,
   Link,
   Stack,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { FC, memo } from 'react';
@@ -22,10 +23,15 @@ import { AppRoute } from '@faf-cars/lib/routing';
 
 interface Props {
   listing: ListingDto;
-  lazy: boolean;
 }
 
 const ListingItem: FC<Props> = ({ listing }) => {
+  let title = `${listing.brandName} ${listing.modelName}`;
+
+  if (listing.productionYear) {
+    title = `${listing.productionYear} ${title}`;
+  }
+
   return (
     <Card
       component="div"
@@ -48,7 +54,7 @@ const ListingItem: FC<Props> = ({ listing }) => {
           aspectRatio: '16/9',
         }}
         component={RouterLink}
-        to={generatePath(AppRoute.ListingDetails, { listingId: listing.id })}
+        to={generatePath(AppRoute.Listing, { listingId: listing.id })}
       >
         {listing.imagesUrls.length ? (
           <img
@@ -59,6 +65,7 @@ const ListingItem: FC<Props> = ({ listing }) => {
               objectPosition: 'center',
             }}
             alt="Listing"
+            loading="lazy"
             src={import.meta.env.VITE_API_BASENAME + listing.imagesUrls[0]}
           />
         ) : (
@@ -66,20 +73,22 @@ const ListingItem: FC<Props> = ({ listing }) => {
         )}
       </Link>
       <Divider sx={{ my: 1 }} />
-      <Typography
-        variant="body1"
-        textOverflow="ellipsis"
-        overflow="hidden"
-        maxWidth={300}
-      >
-        {listing.brandName} {listing.modelName}
-      </Typography>
-      {listing.bodyStyle && (
+      <Tooltip title={title}>
+        <Typography
+          variant="body1"
+          textOverflow="ellipsis"
+          overflow="hidden"
+          maxWidth={300}
+        >
+          {title}
+        </Typography>
+      </Tooltip>
+
+      {listing.bodyStyle !== null && (
         <Typography variant="body1">
           {BODY_STYLE_NAME_MAP.get(listing.bodyStyle)}
         </Typography>
       )}
-      <Typography variant="body1">{listing.productionYear}</Typography>
 
       {listing.color !== null && (
         <Stack direction="row" spacing={1} alignItems="center">
@@ -88,21 +97,27 @@ const ListingItem: FC<Props> = ({ listing }) => {
           </Typography>
           <Box
             sx={{
-              width: 16,
-              height: 16,
+              width: 30,
+              height: 22,
               bgcolor: CAR_COLOR_HEX_MAP.get(listing.color),
-              borderRadius: 50,
+              borderRadius: 0.75,
             }}
-          ></Box>
+          />
         </Stack>
       )}
+
+      <Tooltip
+        title={`${listing.sellAddress}, ${listing.cityName}, ${listing.countryCode}`}
+      >
+        <Typography>{listing.cityName}</Typography>
+      </Tooltip>
 
       <p>{listing.price} $</p>
 
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Link
           component={RouterLink}
-          to={generatePath(AppRoute.ListingDetails, { listingId: listing.id })}
+          to={generatePath(AppRoute.Listing, { listingId: listing.id })}
         >
           <Button variant="outlined">Details</Button>
         </Link>

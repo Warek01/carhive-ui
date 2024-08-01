@@ -2,4 +2,4 @@
 
 import { AppEnv } from '@faf-cars/lib/env';
 
-interface ImportMetaEnv extends Readonly<AppEnv> {}
+type ImportMetaEnv = Readonly<AppEnv>;

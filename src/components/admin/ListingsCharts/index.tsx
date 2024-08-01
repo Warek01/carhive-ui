@@ -5,6 +5,7 @@ import {
   Stack,
   Typography,
   useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { BarChart, BarChartProps } from '@mui/x-charts';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -13,7 +14,7 @@ import { FC, memo, useCallback, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { useSessionStorage } from 'usehooks-ts';
 
-import { useHttp, useTheme } from '@faf-cars/hooks';
+import { useHttp } from '@faf-cars/hooks';
 import { MonthYearPair } from '@faf-cars/lib/date';
 import { QueryKey } from '@faf-cars/lib/query';
 import { StorageKey } from '@faf-cars/lib/storage';

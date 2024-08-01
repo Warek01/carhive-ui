@@ -19,7 +19,7 @@ export interface ListingDto {
   wheelSize: number | null;
   mileage: number | null;
   productionYear: number | null;
-  publisher: User | null;
+  publisher: User;
   sellAddress: string | null;
   isFavorite: boolean | null;
   description: string | null;
@@ -231,12 +231,6 @@ export const LISTING_ORDER_BY_VALUES = new Map<ListingOrderBy, string>([
   [ListingOrderBy.YearDesc, 'New cars first'],
   [ListingOrderBy.YearAsc, 'Old cars first'],
 ]);
-
-export const enum FavoriteListingActionType {
-  Add,
-  Remove,
-  RemoveAll,
-}
 
 export const enum CarStatus {
   New,

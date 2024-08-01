@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { renderProviders } from '@faf-cars/lib/app-providers';
 
-import './index.css';
+import './index.scss';
 
 const App: FC = () => {
   return renderProviders(null);

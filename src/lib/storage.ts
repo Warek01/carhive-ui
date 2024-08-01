@@ -2,7 +2,7 @@ export const enum StorageKey {
   AccessToken = 'access-token',
   RefreshToken = 'refresh-token',
 
-  Theme = 'is-dark-theme',
+  Theme = 'theme',
 
   ListingsFilter = 'listings-filter',
   ListingsPagination = 'listings-pagination',

@@ -19,8 +19,8 @@ export class ListingHttpService extends BaseHttpService {
     return data;
   }
 
-  async find(listingId: string, params?: object): Promise<ListingDto> {
-    const { data } = await this.client.get<ListingDto>(`listing/${listingId}`, {
+  async find(id: string, params?: object): Promise<ListingDto> {
+    const { data } = await this.client.get<ListingDto>(`listing/${id}`, {
       params,
     });
 
@@ -31,6 +31,34 @@ export class ListingHttpService extends BaseHttpService {
     await this.client.postForm<void>('listing', objectToFormData(data), {
       params,
     });
+  }
+
+  async addToFavorites(id: string): Promise<void> {
+    await this.client.post(`listing/${id}/add-to-favorites`);
+  }
+
+  async removeFromFavorites(id: string): Promise<void> {
+    await this.client.post(`listing/${id}/remove-from-favorites`);
+  }
+
+  async incrementViews(id: string): Promise<void> {
+    await this.client.post(`listing/${id}/increment-views`);
+  }
+
+  async setStatusSold(id: string): Promise<void> {
+    await this.client.post(`listing/${id}/set-status-sold`);
+  }
+
+  async setStatusDeleted(id: string): Promise<void> {
+    await this.client.post(`listing/${id}/set-status-deleted`);
+  }
+
+  async setStatusBlocked(id: string): Promise<void> {
+    await this.client.post(`listing/${id}/set-status-blocked`);
+  }
+
+  async setStatusAvailable(id: string): Promise<void> {
+    await this.client.post(`listing/${id}/set-status-available`);
   }
 
   async getStats(

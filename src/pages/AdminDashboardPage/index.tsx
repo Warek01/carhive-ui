@@ -63,7 +63,7 @@ const AdminDashboardPage: FC = () => {
       try {
         await createUserMutation.mutateAsync(createDto);
         toast('User created.', { toastId: ToastId.UserCreate });
-      } catch (err) {
+      } catch {
         toast('Error creating.', {
           type: 'error',
           toastId: ToastId.UserCreate,

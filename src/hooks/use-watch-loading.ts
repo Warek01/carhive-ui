@@ -15,6 +15,10 @@ export const useWatchLoading = (...values: boolean[]) => {
       }
     }
 
-    loading ? setLoading() : unsetLoading();
+    if (loading) {
+      setLoading();
+    } else {
+      unsetLoading();
+    }
   }, values);
 };

@@ -27,12 +27,7 @@ import { useQuery } from 'react-query';
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
 
 import { CarTypesFilter, ListingsList } from '@faf-cars/components';
-import {
-  useAuth,
-  useHttp,
-  usePagination,
-  useWatchLoading,
-} from '@faf-cars/hooks';
+import { useAuth, useHttp, usePagination } from '@faf-cars/hooks';
 import {
   BodyStyle,
   LISTING_ORDER_BY_VALUES,
@@ -180,10 +175,10 @@ const MarketPage: FC = () => {
     [orderBy],
   );
 
-  useWatchLoading(listingsListQuery.isLoading);
-
   useEffect(() => {
-    if (!listingsListQuery.data) return;
+    if (!listingsListQuery.data) {
+      return;
+    }
 
     pagination.setItems(listingsListQuery.data.totalItems);
   }, [listingsListQuery.data]);

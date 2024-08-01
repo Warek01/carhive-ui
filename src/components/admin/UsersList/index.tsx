@@ -82,7 +82,7 @@ const UsersList: FC = () => {
     try {
       await deleteUserMutation.mutateAsync(user.id);
       toast('User deleted.', { toastId: ToastId.UserDelete });
-    } catch (err) {
+    } catch {
       toast('Error deleting.', { type: 'error' });
     } finally {
       stopLoadingUser(user.id);
@@ -96,7 +96,7 @@ const UsersList: FC = () => {
       try {
         await updateUserMutation.mutateAsync([userId, updateDto]);
         toast('User updated.', { toastId: ToastId.UserUpdate });
-      } catch (err) {
+      } catch {
         toast('Error updating.', {
           type: 'error',
           toastId: ToastId.UserUpdate,

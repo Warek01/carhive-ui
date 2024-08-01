@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, memo, useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router';
 
 import { useAuth, useHttp, useLogger } from '@faf-cars/hooks';
@@ -50,4 +50,4 @@ const AppRouteProtection: FC = () => {
   return <Outlet />;
 };
 
-export default AppRouteProtection;
+export default memo(AppRouteProtection);

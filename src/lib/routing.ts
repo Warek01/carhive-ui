@@ -16,9 +16,10 @@ import {
 
 export const enum AppRoute {
   Home = '/',
-  Listings = '/listings',
-  NewListing = '/listings/new',
-  ListingDetails = '/listings/details/:listingId',
+  ListingList = '/listing',
+  NewListing = '/listing/new',
+  Listing = '/listing/:listingId',
+  User = '/user/:userId',
   Profile = '/me',
   Register = '/register',
   Login = '/login',
@@ -47,11 +48,11 @@ export const APP_ROUTES: RouteObject[] = [
             Component: HomePage,
           },
           {
-            path: AppRoute.Listings,
+            path: AppRoute.ListingList,
             Component: MarketPage,
           },
           {
-            path: AppRoute.ListingDetails,
+            path: AppRoute.Listing,
             Component: ListingDetailsPage,
           },
           {
@@ -99,10 +100,10 @@ export const ROUTE_TYPE_MAP: Record<
     AppRoute.Register,
   ],
   [AppRouteProtectionLevel.AuthProtected]: [
-    AppRoute.Listings,
+    AppRoute.ListingList,
     AppRoute.Profile,
     AppRoute.NewListing,
-    AppRoute.ListingDetails,
+    AppRoute.Listing,
     AppRoute.AdminDashboard,
   ],
   [AppRouteProtectionLevel.AdminProtected]: [AppRoute.AdminDashboard],

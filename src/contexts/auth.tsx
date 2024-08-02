@@ -94,10 +94,11 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const context: AuthContextProps = {
     expiresAt: decodedJwt === null ? null : new Date(decodedJwt.exp! * 1000),
     isAdmin:
-      (user?.roles!.includes(UserRole.Admin) ||
-        user?.roles!.includes(UserRole.SuperAdmin)) ??
+      (decodedJwt?.role!.includes(UserRole[UserRole.Admin]) ||
+        decodedJwt?.role!.includes(UserRole[UserRole.SuperAdmin])) ??
       false,
-    isSuperAdmin: user?.roles!.includes(UserRole.SuperAdmin) ?? false,
+    isSuperAdmin:
+      decodedJwt?.role!.includes(UserRole[UserRole.SuperAdmin]) ?? false,
     isAuthorized: !!accessToken,
     user,
     login,

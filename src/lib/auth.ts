@@ -29,5 +29,5 @@ export interface AuthDto {
 }
 
 export interface AppJwtPayload extends JwtPayload {
-  role?: string | string[];
+  role: string[];
 }

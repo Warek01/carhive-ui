@@ -21,7 +21,7 @@ export interface CreateUserDto {
   roles: UserRole[];
 }
 
-export const enum UserRole {
+export enum UserRole {
   User,
   Admin,
   SuperAdmin,

@@ -124,8 +124,6 @@ const NewListingForm: FC = () => {
     [formKey],
   );
 
-  console.log(formKey);
-
   return (
     <Card component="form" onSubmit={formik.handleSubmit}>
       <List>

@@ -1,4 +1,4 @@
-import { Grid, Skeleton } from '@mui/material';
+import { Unstable_Grid2 as Grid, Skeleton } from '@mui/material';
 import { FC, memo } from 'react';
 
 import { ListingItem } from '@faf-cars/components';
@@ -13,15 +13,9 @@ const ListingsList: FC<Props> = ({ items, skeletonCount }) => {
   const arr = items ?? new Array(skeletonCount).fill(null);
 
   return (
-    <Grid spacing={3} container alignItems="stretch">
+    <Grid spacing={3} container width="100%" alignItems="stretch">
       {arr.map((car, index) => (
-        <Grid
-          xs={4}
-          lg={3}
-          key={index}
-          item
-          sx={{ aspectRatio: { xs: '9/16', lg: '9/12' } }}
-        >
+        <Grid xs={4} lg={3} key={index}>
           {items ? (
             <ListingItem listing={car} />
           ) : (

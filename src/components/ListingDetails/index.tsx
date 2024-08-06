@@ -133,17 +133,20 @@ const ListingDetails: FC<Props> = ({ listing }) => {
     },
   ];
 
-  const favoriteButton = useMemo(
-    () => (
+  const favoriteButton = useMemo(() => {
+    const loading = favoritesMutation.isLoading;
+    const favorite = listing.isFavorite;
+
+    return (
       <Button
-        startIcon={listing?.isFavorite ? <Clear /> : <Favorite />}
+        disabled={loading}
+        startIcon={favorite ? <Clear /> : <Favorite />}
         onClick={() => favoritesMutation.mutate()}
       >
-        {listing?.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+        {favorite ? 'Remove from favorites' : 'Add to favorites'}
       </Button>
-    ),
-    [listing.isFavorite],
-  );
+    );
+  }, [listing.isFavorite, favoritesMutation]);
 
   return (
     <Grid container spacing={3}>

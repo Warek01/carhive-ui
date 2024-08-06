@@ -3,10 +3,10 @@ import {
   Box,
   Button,
   Card,
+  Chip,
   Divider,
   Link,
   Stack,
-  Tooltip,
   Typography,
 } from '@mui/material';
 import { FC, memo } from 'react';
@@ -14,9 +14,8 @@ import { generatePath } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 
 import {
-  BODY_STYLE_NAME_MAP,
   CAR_COLOR_HEX_MAP,
-  CAR_COLOR_NAME_MAP,
+  CAR_STATUS_NAME_MAP,
   ListingDto,
 } from '@faf-cars/lib/listing';
 import { AppRoute } from '@faf-cars/lib/routing';
@@ -33,17 +32,16 @@ const ListingItem: FC<Props> = ({ listing }) => {
   }
 
   return (
-    <Card
-      component="div"
-      sx={{
-        p: 2,
-        overflow: 'hidden',
-        width: '100%',
-        minHeight: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 0.5,
-      }}
+    <Box
+      component={Card}
+      p={2}
+      overflow="hidden"
+      width="100%"
+      height={{ xs: 400, lg: 420 }}
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+      gap={0.5}
     >
       <Link
         sx={{
@@ -64,7 +62,8 @@ const ListingItem: FC<Props> = ({ listing }) => {
               objectFit: 'cover',
               objectPosition: 'center',
             }}
-            alt="Listing"
+            title={title}
+            alt={title}
             loading="lazy"
             src={import.meta.env.VITE_API_BASENAME + listing.imagesUrls[0]}
           />
@@ -72,9 +71,10 @@ const ListingItem: FC<Props> = ({ listing }) => {
           <ImageNotSupported fontSize="large" />
         )}
       </Link>
-      <Divider sx={{ my: 1 }} />
-      <Tooltip title={title}>
+      <Stack direction="column" spacing={1}>
+        <Divider sx={{ my: 1 }} />
         <Typography
+          title={title}
           variant="body1"
           textOverflow="ellipsis"
           overflow="hidden"
@@ -82,38 +82,32 @@ const ListingItem: FC<Props> = ({ listing }) => {
         >
           {title}
         </Typography>
-      </Tooltip>
-
-      {listing.bodyStyle !== null && (
-        <Typography variant="body1">
-          {BODY_STYLE_NAME_MAP.get(listing.bodyStyle)}
+        {listing.color !== null && (
+          <Stack direction="row" spacing={1} alignItems="center">
+            {listing.carStatus !== null && (
+              <Chip
+                title="Status"
+                size="small"
+                color="secondary"
+                label={CAR_STATUS_NAME_MAP.get(listing.carStatus)}
+              />
+            )}
+            <Box
+              title="Color"
+              width={30}
+              height={22}
+              bgcolor={CAR_COLOR_HEX_MAP.get(listing.color)}
+              borderRadius={0.75}
+            />
+          </Stack>
+        )}
+        <Typography
+          title={`${listing.sellAddress}, ${listing.cityName}, ${listing.countryCode}`}
+        >
+          {listing.cityName}
         </Typography>
-      )}
-
-      {listing.color !== null && (
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Typography variant="body1">
-            {CAR_COLOR_NAME_MAP.get(listing.color)}
-          </Typography>
-          <Box
-            sx={{
-              width: 30,
-              height: 22,
-              bgcolor: CAR_COLOR_HEX_MAP.get(listing.color),
-              borderRadius: 0.75,
-            }}
-          />
-        </Stack>
-      )}
-
-      <Tooltip
-        title={`${listing.sellAddress}, ${listing.cityName}, ${listing.countryCode}`}
-      >
-        <Typography>{listing.cityName}</Typography>
-      </Tooltip>
-
-      <p>{listing.price} $</p>
-
+        <Typography title="Price">{listing.price} $</Typography>
+      </Stack>
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Link
           component={RouterLink}
@@ -122,7 +116,7 @@ const ListingItem: FC<Props> = ({ listing }) => {
           <Button variant="outlined">Details</Button>
         </Link>
       </Box>
-    </Card>
+    </Box>
   );
 };
 

@@ -318,7 +318,6 @@ const MarketPage: FC = () => {
         alignItems="center"
         flexDirection="column"
         gap={8}
-        pb={10}
       >
         <ListingsList items={listings} skeletonCount={pagination.size} />
 

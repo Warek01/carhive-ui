@@ -6,13 +6,13 @@ import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { AuthContextProvider } from '@faf-cars/contexts/auth';
-import { GlobalLoadingContextProvider } from '@faf-cars/contexts/global-loading';
-import { HttpContextProvider } from '@faf-cars/contexts/http';
-import { LogContextProvider } from '@faf-cars/contexts/log';
-import { ThemeContextProvider } from '@faf-cars/contexts/theme';
-import { QUERY_CLIENT_CONFIG } from '@faf-cars/lib/query';
-import { APP_ROUTES } from '@faf-cars/lib/routing';
+import { AuthContextProvider } from '@carhive/contexts/auth';
+import { GlobalLoadingContextProvider } from '@carhive/contexts/global-loading';
+import { HttpContextProvider } from '@carhive/contexts/http';
+import { LogContextProvider } from '@carhive/contexts/log';
+import { ThemeContextProvider } from '@carhive/contexts/theme';
+import { QUERY_CLIENT_CONFIG } from '@carhive/lib/query';
+import { APP_ROUTES } from '@carhive/lib/routing';
 
 export type ProvidersArray = Array<{
   Provider: (props: any) => ReactNode;

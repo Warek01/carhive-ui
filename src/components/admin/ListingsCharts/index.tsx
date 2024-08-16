@@ -14,10 +14,10 @@ import { FC, memo, useCallback, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { useSessionStorage } from 'usehooks-ts';
 
-import { useHttp } from '@faf-cars/hooks';
-import { MonthYearPair } from '@faf-cars/lib/date';
-import { QueryKey } from '@faf-cars/lib/query';
-import { StorageKey } from '@faf-cars/lib/storage';
+import { useHttp } from '@carhive/hooks';
+import { MonthYearPair } from '@carhive/lib/date';
+import { QueryKey } from '@carhive/lib/query';
+import { StorageKey } from '@carhive/lib/storage';
 
 const ListingsCharts: FC = () => {
   const http = useHttp();

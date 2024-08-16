@@ -2,7 +2,7 @@ import { AccountCircle } from '@mui/icons-material';
 import { Avatar, Card, CardContent, Typography } from '@mui/material';
 import { FC, memo } from 'react';
 
-import { User } from '@faf-cars/lib/user';
+import { User } from '@carhive/lib/user';
 
 interface Props {
   user: User;

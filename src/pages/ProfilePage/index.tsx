@@ -2,9 +2,9 @@ import { Box, Button, Container, Typography } from '@mui/material';
 import { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 
-import { UserCard } from '@faf-cars/components';
-import { useAuth } from '@faf-cars/hooks';
-import { AppRoute } from '@faf-cars/lib/routing';
+import { UserCard } from '@carhive/components';
+import { useAuth } from '@carhive/hooks';
+import { AppRoute } from '@carhive/lib/routing';
 
 const ProfilePage: FC = () => {
   const { user, logout } = useAuth();

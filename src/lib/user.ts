@@ -1,4 +1,4 @@
-import { OauthIdentityProvider } from '@faf-cars/lib/auth';
+import { OauthIdentityProvider } from '@carhive/lib/auth';
 
 export interface User {
   id: string;

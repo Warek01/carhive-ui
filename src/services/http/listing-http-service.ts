@@ -1,11 +1,11 @@
-import { CreateListingDto, ListingDto } from '@faf-cars/lib/listing';
-import { PaginatedResponse } from '@faf-cars/lib/pagination';
+import { CreateListingDto, ListingDto } from '@carhive/lib/listing';
+import { PaginatedResponse } from '@carhive/lib/pagination';
 import {
   MarketStatistics,
   MarketStatisticsQuery,
-} from '@faf-cars/lib/statistics';
-import { objectToFormData } from '@faf-cars/lib/utils';
-import { BaseHttpService } from '@faf-cars/services/http/base-http-service';
+} from '@carhive/lib/statistics';
+import { objectToFormData } from '@carhive/lib/utils';
+import { BaseHttpService } from '@carhive/services/http/base-http-service';
 
 export class ListingHttpService extends BaseHttpService {
   async list(params?: object): Promise<PaginatedResponse<ListingDto>> {

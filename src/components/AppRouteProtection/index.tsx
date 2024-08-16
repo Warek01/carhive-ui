@@ -2,9 +2,9 @@ import { FC, memo, useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 
-import { useAuth, useHttp, useLogger } from '@faf-cars/hooks';
-import { AppRouteProtectionLevel, ROUTE_TYPE_MAP } from '@faf-cars/lib/routing';
-import { AppRoute } from '@faf-cars/lib/routing';
+import { useAuth, useHttp, useLogger } from '@carhive/hooks';
+import { AppRouteProtectionLevel, ROUTE_TYPE_MAP } from '@carhive/lib/routing';
+import { AppRoute } from '@carhive/lib/routing';
 
 const AppRouteProtection: FC = () => {
   const location = useLocation();

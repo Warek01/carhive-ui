@@ -49,7 +49,7 @@ export default [
           ],
           pathGroups: [
             {
-              pattern: '@faf-cars/**',
+              pattern: '@carhive/**',
               group: 'internal',
               position: 'after',
             },

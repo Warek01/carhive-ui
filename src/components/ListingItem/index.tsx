@@ -17,8 +17,8 @@ import {
   CAR_COLOR_HEX_MAP,
   CAR_STATUS_NAME_MAP,
   ListingDto,
-} from '@faf-cars/lib/listing';
-import { AppRoute } from '@faf-cars/lib/routing';
+} from '@carhive/lib/listing';
+import { AppRoute } from '@carhive/lib/routing';
 
 interface Props {
   listing: ListingDto;

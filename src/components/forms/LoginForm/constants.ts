@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { LoginFormData } from '@faf-cars/lib/auth';
+import { LoginFormData } from '@carhive/lib/auth';
 
 export const loginInitialValues = {
   password: '',

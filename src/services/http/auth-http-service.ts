@@ -1,5 +1,5 @@
-import { AuthDto, LoginDto, RegisterDto } from '@faf-cars/lib/auth';
-import { BaseHttpService } from '@faf-cars/services/http/base-http-service';
+import { AuthDto, LoginDto, RegisterDto } from '@carhive/lib/auth';
+import { BaseHttpService } from '@carhive/services/http/base-http-service';
 
 export class AuthHttpService extends BaseHttpService {
   async login(loginDto: LoginDto, params?: object): Promise<AuthDto> {

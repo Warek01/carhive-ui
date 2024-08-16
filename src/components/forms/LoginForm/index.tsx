@@ -7,11 +7,11 @@ import { FC, memo, useCallback, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { AppTextField } from '@faf-cars/components/inputs';
-import { useAuth, useHttp, useLoading } from '@faf-cars/hooks';
-import { GOOGLE_LOGIN_PROPS, LoginFormData } from '@faf-cars/lib/auth';
-import { AppRoute } from '@faf-cars/lib/routing';
-import { ToastId } from '@faf-cars/lib/toast';
+import { AppTextField } from '@carhive/components/inputs';
+import { useAuth, useHttp, useLoading } from '@carhive/hooks';
+import { GOOGLE_LOGIN_PROPS, LoginFormData } from '@carhive/lib/auth';
+import { AppRoute } from '@carhive/lib/routing';
+import { ToastId } from '@carhive/lib/toast';
 
 import { loginInitialValues, loginValidationSchema } from './constants';
 

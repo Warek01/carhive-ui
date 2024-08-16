@@ -9,7 +9,7 @@
     "newLine": "lf",
     "skipLibCheck": true,
     "paths": {
-      "@faf-cars/*": ["./*"]
+      "@carhive/*": ["./*"]
     },
     "baseUrl": "src",
 

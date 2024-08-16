@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
 
-import { AppEnv } from '@faf-cars/lib/env';
+import { AppEnv } from '@carhive/lib/env';
 
 type ImportMetaEnv = Readonly<AppEnv>;

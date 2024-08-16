@@ -1,4 +1,4 @@
-import { User } from '@faf-cars/lib/user';
+import { User } from '@carhive/lib/user';
 
 export interface ListingDto {
   id: string;

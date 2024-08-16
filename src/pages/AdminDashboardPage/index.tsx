@@ -15,14 +15,14 @@ import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useSessionStorage } from 'usehooks-ts';
 
-import { ListingsCharts, UsersList } from '@faf-cars/components/admin';
-import { CreateUserForm } from '@faf-cars/components/admin/forms';
-import { useHttp, useWatchLoading } from '@faf-cars/hooks';
-import { RegisterDto } from '@faf-cars/lib/auth';
-import { QueryKey } from '@faf-cars/lib/query';
-import { StorageKey } from '@faf-cars/lib/storage';
-import { ToastId } from '@faf-cars/lib/toast';
-import { CreateUserDto } from '@faf-cars/lib/user';
+import { ListingsCharts, UsersList } from '@carhive/components/admin';
+import { CreateUserForm } from '@carhive/components/admin/forms';
+import { useHttp, useWatchLoading } from '@carhive/hooks';
+import { RegisterDto } from '@carhive/lib/auth';
+import { QueryKey } from '@carhive/lib/query';
+import { StorageKey } from '@carhive/lib/storage';
+import { ToastId } from '@carhive/lib/toast';
+import { CreateUserDto } from '@carhive/lib/user';
 
 const enum AdminTab {
   UsersList = 'users',

@@ -3,9 +3,9 @@ import { FormikHelpers, FormikProvider, useFormik } from 'formik';
 import { FC, memo } from 'react';
 import * as Yup from 'yup';
 
-import { AppTextField } from '@faf-cars/components/inputs';
-import { CreateUserDto, UserRole } from '@faf-cars/lib/user';
-import { toggleArrayItem } from '@faf-cars/lib/utils';
+import { AppTextField } from '@carhive/components/inputs';
+import { CreateUserDto, UserRole } from '@carhive/lib/user';
+import { toggleArrayItem } from '@carhive/lib/utils';
 
 interface Props {
   onSubmit(

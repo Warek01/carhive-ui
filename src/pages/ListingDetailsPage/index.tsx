@@ -5,11 +5,11 @@ import { useQuery } from 'react-query';
 import { Navigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 
-import { ListingDetails } from '@faf-cars/components';
-import { useHttp, useWatchLoading } from '@faf-cars/hooks';
-import { QueryKey } from '@faf-cars/lib/query';
-import { AppRoute } from '@faf-cars/lib/routing';
-import { ToastId } from '@faf-cars/lib/toast';
+import { ListingDetails } from '@carhive/components';
+import { useHttp, useWatchLoading } from '@carhive/hooks';
+import { QueryKey } from '@carhive/lib/query';
+import { AppRoute } from '@carhive/lib/routing';
+import { ToastId } from '@carhive/lib/toast';
 
 interface Params extends Record<string, string> {
   listingId: string;

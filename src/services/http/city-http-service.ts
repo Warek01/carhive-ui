@@ -1,5 +1,5 @@
-import { CityQuery } from '@faf-cars/lib/city';
-import { BaseHttpService } from '@faf-cars/services/http/base-http-service';
+import { CityQuery } from '@carhive/lib/city';
+import { BaseHttpService } from '@carhive/services/http/base-http-service';
 
 export class CityHttpService extends BaseHttpService {
   async count(): Promise<number> {

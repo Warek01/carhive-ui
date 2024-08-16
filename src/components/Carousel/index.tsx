@@ -2,7 +2,7 @@ import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { Box, Button, Stack } from '@mui/material';
 import { CSSProperties, FC, memo, useState } from 'react';
 
-import { AppModal } from '@faf-cars/components';
+import { AppModal } from '@carhive/components';
 
 interface Props {
   images: string[];

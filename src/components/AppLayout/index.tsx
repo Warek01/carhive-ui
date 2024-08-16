@@ -4,9 +4,9 @@ import { Outlet } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Header, MobileSplashScreen } from '@faf-cars/components';
-import { GLOBAL_CONTAINER_MAX_WIDTH } from '@faf-cars/lib/themes';
-import { useGetToastProps } from '@faf-cars/lib/toast';
+import { Header, MobileSplashScreen } from '@carhive/components';
+import { GLOBAL_CONTAINER_MAX_WIDTH } from '@carhive/lib/themes';
+import { useGetToastProps } from '@carhive/lib/toast';
 
 const AppLayout: FC = () => {
   const toastProps = useGetToastProps();

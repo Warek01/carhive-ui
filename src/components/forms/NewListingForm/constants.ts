@@ -8,7 +8,7 @@ import {
   CAR_TRANSMISSIONS,
   CreateListingDto,
   FUEL_TYPES,
-} from '@faf-cars/lib/listing';
+} from '@carhive/lib/listing';
 
 export const IMAGE_SIZE_LIMIT = 5 * 1024 * 1024;
 

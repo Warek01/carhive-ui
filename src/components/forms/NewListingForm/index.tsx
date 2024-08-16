@@ -16,10 +16,10 @@ import { FC, ReactElement, memo, useCallback, useMemo, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
-import { useHttp, useWatchLoading } from '@faf-cars/hooks';
-import { CreateListingDto } from '@faf-cars/lib/listing';
-import { QueryKey } from '@faf-cars/lib/query';
-import { ToastId } from '@faf-cars/lib/toast';
+import { useHttp, useWatchLoading } from '@carhive/hooks';
+import { CreateListingDto } from '@carhive/lib/listing';
+import { QueryKey } from '@carhive/lib/query';
+import { ToastId } from '@carhive/lib/toast';
 
 import AdditionalSection from './AdditionalSection';
 import PrimarySection from './PrimarySection';

@@ -19,10 +19,10 @@ import {
 } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { ThemeContext } from '@faf-cars/contexts/theme';
-import { useAuth } from '@faf-cars/hooks';
-import { AppRoute } from '@faf-cars/lib/routing';
-import { GLOBAL_CONTAINER_MAX_WIDTH } from '@faf-cars/lib/themes';
+import { ThemeContext } from '@carhive/contexts/theme';
+import { useAuth } from '@carhive/hooks';
+import { AppRoute } from '@carhive/lib/routing';
+import { GLOBAL_CONTAINER_MAX_WIDTH } from '@carhive/lib/themes';
 
 const Header: FC = () => {
   const { isAuthorized, isAdmin } = useAuth();
@@ -81,7 +81,7 @@ const Header: FC = () => {
               }}
             >
               <TimeToLeave sx={{ width: 32, height: 32 }} />
-              FAF cars
+              CarHive
             </Typography>
             <Stack alignItems="center" direction="row" spacing={4} pl={4}>
               <Typography

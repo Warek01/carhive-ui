@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { RegisterFormData } from '@faf-cars/lib/auth';
+import { RegisterFormData } from '@carhive/lib/auth';
 
 export const registerInitialValues = {
   email: '',

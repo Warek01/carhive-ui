@@ -3,9 +3,9 @@ import { Grid, Typography } from '@mui/material';
 import { FC, memo } from 'react';
 import { generatePath } from 'react-router';
 
-import { AppLink } from '@faf-cars/components';
-import { AppRoute } from '@faf-cars/lib/routing';
-import { User } from '@faf-cars/lib/user';
+import { AppLink } from '@carhive/components';
+import { AppRoute } from '@carhive/lib/routing';
+import { User } from '@carhive/lib/user';
 
 interface Props {
   user: User;

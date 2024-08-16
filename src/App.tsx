@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { renderProviders } from '@faf-cars/lib/app-providers';
+import { renderProviders } from '@carhive/lib/app-providers';
 
 import './index.scss';
 

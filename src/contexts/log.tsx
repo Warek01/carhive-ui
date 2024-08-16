@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, createContext } from 'react';
 
-import { ConsoleLogger, LogLevel, Logger } from '@faf-cars/lib/logging';
+import { ConsoleLogger, LogLevel, Logger } from '@carhive/lib/logging';
 
 export interface LogContextProps {
   logger: Logger;

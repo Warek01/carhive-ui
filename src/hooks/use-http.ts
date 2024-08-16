@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { HttpContext } from '@faf-cars/contexts/http';
+import { HttpContext } from '@carhive/contexts/http';
 
 export const useHttp = () => {
   return useContext(HttpContext);

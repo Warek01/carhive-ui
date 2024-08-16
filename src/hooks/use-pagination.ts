@@ -4,8 +4,8 @@ import { useSessionStorage } from 'usehooks-ts';
 import {
   DEFAULT_PAGINATION_DATA,
   PaginationData,
-} from '@faf-cars/lib/pagination';
-import { StorageKey } from '@faf-cars/lib/storage';
+} from '@carhive/lib/pagination';
+import { StorageKey } from '@carhive/lib/storage';
 
 export const usePagination = (key: StorageKey | string) => {
   const [paginationData, setPaginationData] = useSessionStorage<PaginationData>(

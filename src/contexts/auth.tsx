@@ -10,13 +10,13 @@ import {
 import { useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
-import { HttpContext } from '@faf-cars/contexts/http';
-import { useLogger } from '@faf-cars/hooks';
-import { AppJwtPayload, AuthDto } from '@faf-cars/lib/auth';
-import { QueryKey } from '@faf-cars/lib/query';
-import { StorageKey } from '@faf-cars/lib/storage';
-import { ToastId } from '@faf-cars/lib/toast';
-import { User, UserRole } from '@faf-cars/lib/user';
+import { HttpContext } from '@carhive/contexts/http';
+import { useLogger } from '@carhive/hooks';
+import { AppJwtPayload, AuthDto } from '@carhive/lib/auth';
+import { QueryKey } from '@carhive/lib/query';
+import { StorageKey } from '@carhive/lib/storage';
+import { ToastId } from '@carhive/lib/toast';
+import { User, UserRole } from '@carhive/lib/user';
 
 export interface AuthContextProps {
   user: User | null;

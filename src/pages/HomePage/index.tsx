@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { useQuery } from 'react-query';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { useAuth, useHttp } from '@faf-cars/hooks';
-import { QueryKey } from '@faf-cars/lib/query';
-import { AppRoute } from '@faf-cars/lib/routing';
+import { useAuth, useHttp } from '@carhive/hooks';
+import { QueryKey } from '@carhive/lib/query';
+import { AppRoute } from '@carhive/lib/routing';
 
 const HomePage: FC = () => {
   const { isAuthorized } = useAuth();

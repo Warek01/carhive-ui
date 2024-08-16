@@ -9,8 +9,8 @@ import {
 } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 
-import { useLogger } from '@faf-cars/hooks';
-import { StorageKey } from '@faf-cars/lib/storage';
+import { useLogger } from '@carhive/hooks';
+import { StorageKey } from '@carhive/lib/storage';
 import {
   AuthHttpService,
   BrandHttpService,
@@ -18,7 +18,7 @@ import {
   CountryHttpService,
   ListingHttpService,
   UserHttpService,
-} from '@faf-cars/services/http';
+} from '@carhive/services/http';
 
 // this contexts acts as a storage for auth tokens and provides http services
 // the services will use refresh token when encounters 401 Unauthorized and set

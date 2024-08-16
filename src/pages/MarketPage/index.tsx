@@ -26,21 +26,18 @@ import {
 import { useQuery } from 'react-query';
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
 
-import { CarTypesFilter, ListingsList } from '@faf-cars/components';
-import { useAuth, useHttp, usePagination } from '@faf-cars/hooks';
+import { CarTypesFilter, ListingsList } from '@carhive/components';
+import { useAuth, useHttp, usePagination } from '@carhive/hooks';
 import {
   BodyStyle,
   LISTING_ORDER_BY_VALUES,
   ListingDto,
   ListingOrderBy,
-} from '@faf-cars/lib/listing';
-import { PaginatedResponse } from '@faf-cars/lib/pagination';
-import { QueryKey } from '@faf-cars/lib/query';
-import { StorageKey } from '@faf-cars/lib/storage';
-import {
-  LISTING_TABS,
-  ListingsTab,
-} from '@faf-cars/pages/MarketPage/constants';
+} from '@carhive/lib/listing';
+import { PaginatedResponse } from '@carhive/lib/pagination';
+import { QueryKey } from '@carhive/lib/query';
+import { StorageKey } from '@carhive/lib/storage';
+import { LISTING_TABS, ListingsTab } from '@carhive/pages/MarketPage/constants';
 
 const MarketPage: FC = () => {
   const http = useHttp();

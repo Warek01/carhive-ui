@@ -1,6 +1,6 @@
-import { PaginatedResponse } from '@faf-cars/lib/pagination';
-import { CreateUserDto, UpdateUserDto, User } from '@faf-cars/lib/user';
-import { BaseHttpService } from '@faf-cars/services/http/base-http-service';
+import { PaginatedResponse } from '@carhive/lib/pagination';
+import { CreateUserDto, UpdateUserDto, User } from '@carhive/lib/user';
+import { BaseHttpService } from '@carhive/services/http/base-http-service';
 
 export class UserHttpService extends BaseHttpService {
   async find(userId: string, params?: object): Promise<User> {

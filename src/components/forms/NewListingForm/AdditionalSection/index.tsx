@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { FC, memo } from 'react';
 
-import { AppTextField } from '@faf-cars/components/inputs';
+import { AppTextField } from '@carhive/components/inputs';
 
 const AdditionalSection: FC = () => {
   return (

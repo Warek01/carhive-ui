@@ -1,4 +1,4 @@
-import { BaseHttpService } from '@faf-cars/services/http/base-http-service';
+import { BaseHttpService } from '@carhive/services/http/base-http-service';
 
 export class BrandHttpService extends BaseHttpService {
   async listModels(brandName: string, params?: object): Promise<string[]> {

@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import { FC, memo } from 'react';
 
-import { AppSelectField, AppTextField } from '@faf-cars/components/inputs';
+import { AppSelectField, AppTextField } from '@carhive/components/inputs';
 import {
   CAR_COLORS,
   CAR_COLOR_HEX_MAP,
@@ -13,7 +13,7 @@ import {
   CAR_TRANSMISSIONS,
   CAR_TRANSMISSIONS_NAME_MAP,
   CreateListingField,
-} from '@faf-cars/lib/listing';
+} from '@carhive/lib/listing';
 
 const SecondarySection: FC = () => {
   return (

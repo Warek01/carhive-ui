@@ -1,6 +1,6 @@
 import { Favorite, ShoppingCart, TimeToLeave } from '@mui/icons-material';
 
-import { IconButton } from '@faf-cars/lib/definitions';
+import { IconButton } from '@carhive/lib/definitions';
 
 export enum ListingsTab {
   All,

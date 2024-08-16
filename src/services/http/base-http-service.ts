@@ -6,8 +6,8 @@ import axios, {
 } from 'axios';
 import qs from 'qs';
 
-import { HttpContextProps } from '@faf-cars/contexts/http';
-import { AuthDto } from '@faf-cars/lib/auth';
+import { HttpContextProps } from '@carhive/contexts/http';
+import { AuthDto } from '@carhive/lib/auth';
 
 export abstract class BaseHttpService {
   protected readonly client: AxiosInstance;

@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 
-import { AppLayout, AppRouteProtection } from '@faf-cars/components';
+import { AppLayout, AppRouteProtection } from '@carhive/components';
 import {
   AboutPage,
   AdminDashboardPage,
@@ -12,7 +12,7 @@ import {
   NotFoundPage,
   ProfilePage,
   RegisterPage,
-} from '@faf-cars/pages';
+} from '@carhive/pages';
 
 export const enum AppRoute {
   Home = '/',

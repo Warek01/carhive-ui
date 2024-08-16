@@ -1,8 +1,8 @@
 import { Unstable_Grid2 as Grid, Skeleton } from '@mui/material';
 import { FC, memo } from 'react';
 
-import { ListingItem } from '@faf-cars/components';
-import { ListingDto } from '@faf-cars/lib/listing';
+import { ListingItem } from '@carhive/components';
+import { ListingDto } from '@carhive/lib/listing';
 
 interface Props {
   items?: ListingDto[];

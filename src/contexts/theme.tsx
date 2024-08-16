@@ -3,8 +3,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { FC, PropsWithChildren, createContext, useMemo } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 
-import { StorageKey } from '@faf-cars/lib/storage';
-import { APP_THEME_OPTIONS } from '@faf-cars/lib/themes';
+import { StorageKey } from '@carhive/lib/storage';
+import { APP_THEME_OPTIONS } from '@carhive/lib/themes';
 
 export interface ThemeContextProps {
   themeMode: PaletteMode;

@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import { FC } from 'react';
 
-import { LoginForm } from '@faf-cars/components/forms';
+import { LoginForm } from '@carhive/components/forms';
 
 const LoginPage: FC = () => {
   return (

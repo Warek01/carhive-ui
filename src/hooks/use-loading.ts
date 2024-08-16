@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { GlobalLoadingContext } from '@faf-cars/contexts/global-loading';
+import { GlobalLoadingContext } from '@carhive/contexts/global-loading';
 
 export const useLoading = () => {
   const { unsetLoading, setLoading } = useContext(GlobalLoadingContext);

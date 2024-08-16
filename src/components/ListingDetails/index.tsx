@@ -9,8 +9,8 @@ import {
 import { FC, memo, useMemo } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { Carousel } from '@faf-cars/components';
-import { useHttp } from '@faf-cars/hooks';
+import { Carousel } from '@carhive/components';
+import { useHttp } from '@carhive/hooks';
 import {
   BODY_STYLE_NAME_MAP,
   CAR_COLOR_HEX_MAP,
@@ -20,8 +20,8 @@ import {
   CAR_TRANSMISSIONS_NAME_MAP,
   FUEL_TYPE_NAME_MAP,
   ListingDto,
-} from '@faf-cars/lib/listing';
-import { QueryKey } from '@faf-cars/lib/query';
+} from '@carhive/lib/listing';
+import { QueryKey } from '@carhive/lib/query';
 
 import UserInfo from './UserInfo';
 

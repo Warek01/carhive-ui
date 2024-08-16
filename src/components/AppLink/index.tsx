@@ -2,7 +2,7 @@ import { Link, LinkProps } from '@mui/material';
 import { FC, PropsWithChildren, memo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { AppRoute } from '@faf-cars/lib/routing';
+import { AppRoute } from '@carhive/lib/routing';
 
 interface Props extends PropsWithChildren<LinkProps> {
   to?: AppRoute | string;

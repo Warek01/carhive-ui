@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import { FC } from 'react';
 
-import { RegisterForm } from '@faf-cars/components/forms';
+import { RegisterForm } from '@carhive/components/forms';
 
 const RegisterPage: FC = () => {
   return (

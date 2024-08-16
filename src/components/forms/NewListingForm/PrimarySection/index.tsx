@@ -21,9 +21,9 @@ import {
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 
-import { IMAGE_SIZE_LIMIT } from '@faf-cars/components/forms/NewListingForm/constants';
-import { AppSelectField, AppTextField } from '@faf-cars/components/inputs';
-import { useHttp, useLogger } from '@faf-cars/hooks';
+import { IMAGE_SIZE_LIMIT } from '@carhive/components/forms/NewListingForm/constants';
+import { AppSelectField, AppTextField } from '@carhive/components/inputs';
+import { useHttp, useLogger } from '@carhive/hooks';
 import {
   BODY_STYLES,
   BODY_STYLE_NAME_MAP,
@@ -31,10 +31,10 @@ import {
   CreateListingField,
   FUEL_TYPES,
   FUEL_TYPE_NAME_MAP,
-} from '@faf-cars/lib/listing';
-import { QueryKey } from '@faf-cars/lib/query';
-import { ToastId } from '@faf-cars/lib/toast';
-import { fileToBase64 } from '@faf-cars/lib/utils';
+} from '@carhive/lib/listing';
+import { QueryKey } from '@carhive/lib/query';
+import { ToastId } from '@carhive/lib/toast';
+import { fileToBase64 } from '@carhive/lib/utils';
 
 const PrimarySection: FC = () => {
   const formik = useFormikContext<CreateListingDto>();

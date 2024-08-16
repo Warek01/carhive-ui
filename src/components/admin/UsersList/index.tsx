@@ -17,16 +17,16 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useLocalStorage } from 'usehooks-ts';
 
-import { useAuth, useHttp } from '@faf-cars/hooks';
+import { useAuth, useHttp } from '@carhive/hooks';
 import {
   DEFAULT_PAGINATION_DATA,
   PaginationData,
-} from '@faf-cars/lib/pagination';
-import { QueryKey } from '@faf-cars/lib/query';
-import { StorageKey } from '@faf-cars/lib/storage';
-import { ToastId } from '@faf-cars/lib/toast';
-import { UpdateUserDto, User, UserRole } from '@faf-cars/lib/user';
-import { toggleArrayItem } from '@faf-cars/lib/utils';
+} from '@carhive/lib/pagination';
+import { QueryKey } from '@carhive/lib/query';
+import { StorageKey } from '@carhive/lib/storage';
+import { ToastId } from '@carhive/lib/toast';
+import { UpdateUserDto, User, UserRole } from '@carhive/lib/user';
+import { toggleArrayItem } from '@carhive/lib/utils';
 
 const ROLES_STRING_MAP: [UserRole, string][] = [
   [UserRole.Admin, 'Admin'],

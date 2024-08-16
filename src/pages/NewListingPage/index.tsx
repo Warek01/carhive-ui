@@ -5,7 +5,7 @@ import { NewListingForm } from '@faf-cars/components/forms';
 
 const NewDealPage: FC = () => {
   return (
-    <Box py={10}>
+    <Box>
       <Typography variant="h3">Create a new listing</Typography>
       <NewListingForm />
     </Box>

@@ -1,13 +1,13 @@
 import * as Yup from 'yup';
 
-import { RegisterData } from '@faf-cars/lib/auth';
+import { RegisterFormData } from '@faf-cars/lib/auth';
 
 export const registerInitialValues = {
   email: '',
   password: '',
   username: '',
   repeatPassword: '',
-} as RegisterData;
+} as RegisterFormData;
 
 export const registerValidationSchema = Yup.object().shape({
   username: Yup.string()
@@ -20,4 +20,4 @@ export const registerValidationSchema = Yup.object().shape({
   repeatPassword: Yup.string()
     .required('Repeated password is required.')
     .min(1, 'Repeated password is too short.'),
-} as Record<keyof RegisterData, any>);
+} as Record<keyof RegisterFormData, any>);

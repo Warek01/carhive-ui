@@ -1,5 +1,7 @@
+import { PropsOf } from '@emotion/react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -22,7 +24,14 @@ export const PROVIDERS: ProvidersArray = [
     Provider: QueryClientProvider,
     props: {
       client: new QueryClient(QUERY_CLIENT_CONFIG),
-    },
+    } as PropsOf<typeof QueryClientProvider>,
+  },
+  {
+    Provider: GoogleOAuthProvider,
+    props: {
+      clientId:
+        '568272482103-en7knuvbvheuqhtu9krfqcl0dglnjban.apps.googleusercontent.com',
+    } as PropsOf<typeof GoogleOAuthProvider>,
   },
   {
     Provider: LogContextProvider,
@@ -44,7 +53,7 @@ export const PROVIDERS: ProvidersArray = [
     Provider: LocalizationProvider,
     props: {
       dateAdapter: AdapterDayjs,
-    },
+    } as PropsOf<typeof LocalizationProvider>,
   },
   {
     Provider: ThemeContextProvider,
@@ -54,7 +63,7 @@ export const PROVIDERS: ProvidersArray = [
     Provider: RouterProvider,
     props: {
       router: createBrowserRouter(APP_ROUTES),
-    },
+    } as PropsOf<typeof RouterProvider>,
   },
 ];
 

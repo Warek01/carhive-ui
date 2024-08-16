@@ -11,6 +11,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
 import { HttpContext } from '@faf-cars/contexts/http';
+import { useLogger } from '@faf-cars/hooks';
 import { AppJwtPayload, AuthDto } from '@faf-cars/lib/auth';
 import { QueryKey } from '@faf-cars/lib/query';
 import { StorageKey } from '@faf-cars/lib/storage';
@@ -32,6 +33,7 @@ export const AuthContext = createContext<AuthContextProps>(null!);
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const queryClient = useQueryClient();
+  const logger = useLogger();
   const http = useContext(HttpContext);
   const {
     accessToken,
@@ -61,7 +63,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     setRefreshToken(null);
 
     queryClient.clear();
-    queryClient.invalidateQueries();
+    queryClient.invalidateQueries().catch(logger.error);
 
     const theme = localStorage.getItem(StorageKey.Theme);
     localStorage.clear();

@@ -1,7 +1,13 @@
+import { OauthIdentityProvider } from '@faf-cars/lib/auth';
+
 export interface User {
   id: string;
   username: string;
   email: string;
+  firstName: string | null;
+  lastName: string | null;
+  picture: string | null;
+  provider: OauthIdentityProvider | null;
   roles: UserRole[] | null;
   phoneNumber: string | null;
   createdAt: string | null;

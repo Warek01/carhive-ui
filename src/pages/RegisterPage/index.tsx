@@ -5,13 +5,7 @@ import { RegisterForm } from '@faf-cars/components/forms';
 
 const RegisterPage: FC = () => {
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      height="100%"
-      mt={-10}
-    >
+    <Box height="100%" display="flex" alignItems="center">
       <Container fixed maxWidth="xs">
         <RegisterForm />
       </Container>

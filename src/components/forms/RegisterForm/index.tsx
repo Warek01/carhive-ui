@@ -1,4 +1,5 @@
 import { Button, Grid, Typography } from '@mui/material';
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import { AxiosError } from 'axios';
 import { FormikProvider, useFormik } from 'formik';
 import { FC, memo, useCallback } from 'react';
@@ -7,7 +8,7 @@ import { toast } from 'react-toastify';
 
 import { AppTextField } from '@faf-cars/components/inputs';
 import { useAuth, useHttp, useLoading } from '@faf-cars/hooks';
-import { RegisterData } from '@faf-cars/lib/auth';
+import { GOOGLE_LOGIN_PROPS, RegisterFormData } from '@faf-cars/lib/auth';
 import { AppRoute } from '@faf-cars/lib/routing';
 import { ToastId } from '@faf-cars/lib/toast';
 
@@ -18,7 +19,33 @@ const RegisterForm: FC = () => {
   const { setLoading, unsetLoading } = useLoading();
   const http = useHttp();
 
-  const handleSubmit = useCallback(async (values: RegisterData) => {
+  const handleGoogleSubmit = useCallback(
+    async (credentials: CredentialResponse) => {
+      setLoading();
+
+      try {
+        const res = await http.auth.googleRegister(credentials.credential!);
+        login(res);
+      } catch (err) {
+        if (err instanceof AxiosError && err.response?.status === 409) {
+          toast('Google account already registered', {
+            type: 'error',
+            toastId: ToastId.Register,
+          });
+        } else {
+          toast('Something went wrong', {
+            type: 'error',
+            toastId: ToastId.Register,
+          });
+        }
+      }
+
+      unsetLoading();
+    },
+    [],
+  );
+
+  const handleSubmit = useCallback(async (values: RegisterFormData) => {
     if (values.password !== values.repeatPassword) {
       formik.setFieldError('passwordRepeat', 'Password mismatch');
       return;
@@ -37,13 +64,7 @@ const RegisterForm: FC = () => {
       if (err instanceof AxiosError) {
         switch (err.response?.status) {
           case 401:
-            toast('Invalid password.', {
-              type: 'error',
-              toastId: ToastId.Register,
-            });
-            break;
-          case 404:
-            toast('User does not exist.', {
+            toast('Invalid password', {
               type: 'error',
               toastId: ToastId.Register,
             });
@@ -113,6 +134,12 @@ const RegisterForm: FC = () => {
           alignItems="center"
           gap={2}
         >
+          <GoogleLogin
+            {...GOOGLE_LOGIN_PROPS}
+            context="signup"
+            text="signup_with"
+            onSuccess={handleGoogleSubmit}
+          />
           <Button variant="outlined" type="submit">
             Register
           </Button>

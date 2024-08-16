@@ -1,5 +1,6 @@
 import { Visibility } from '@mui/icons-material';
 import { Button, Grid, IconButton, Tooltip, Typography } from '@mui/material';
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import { AxiosError } from 'axios';
 import { FormikProvider, useFormik } from 'formik';
 import { FC, memo, useCallback, useState } from 'react';
@@ -8,7 +9,7 @@ import { toast } from 'react-toastify';
 
 import { AppTextField } from '@faf-cars/components/inputs';
 import { useAuth, useHttp, useLoading } from '@faf-cars/hooks';
-import { LoginData } from '@faf-cars/lib/auth';
+import { GOOGLE_LOGIN_PROPS, LoginFormData } from '@faf-cars/lib/auth';
 import { AppRoute } from '@faf-cars/lib/routing';
 import { ToastId } from '@faf-cars/lib/toast';
 
@@ -20,7 +21,40 @@ const LoginForm: FC = () => {
   const { setLoading, unsetLoading } = useLoading();
   const [passwordShown, setPasswordShown] = useState(false);
 
-  const handleSubmit = useCallback(async (values: LoginData) => {
+  const handleGoogleSubmit = useCallback(
+    async (credentials: CredentialResponse) => {
+      setLoading();
+
+      try {
+        const res = await http.auth.googleLogin(credentials.credential!);
+        login(res);
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          switch (err.response?.status) {
+            case 401:
+              toast('Invalid google registration', {
+                type: 'error',
+                toastId: ToastId.Login,
+              });
+              break;
+            case 404:
+              toast('User does not exist', {
+                type: 'error',
+                toastId: ToastId.Login,
+              });
+              break;
+          }
+        } else {
+          toast('Error.', { type: 'error', toastId: ToastId.Login });
+        }
+      }
+
+      unsetLoading();
+    },
+    [],
+  );
+
+  const handleSubmit = useCallback(async (values: LoginFormData) => {
     setLoading();
 
     try {
@@ -30,13 +64,13 @@ const LoginForm: FC = () => {
       if (err instanceof AxiosError) {
         switch (err.response?.status) {
           case 401:
-            toast('Invalid password.', {
+            toast('Invalid password', {
               type: 'error',
               toastId: ToastId.Login,
             });
             break;
           case 404:
-            toast('User does not exist.', {
+            toast('User does not exist', {
               type: 'error',
               toastId: ToastId.Login,
             });
@@ -99,6 +133,15 @@ const LoginForm: FC = () => {
               </IconButton>
             </Tooltip>
           </Grid>
+        </Grid>
+
+        <Grid item xs={12}>
+          <GoogleLogin
+            {...GOOGLE_LOGIN_PROPS}
+            context="signin"
+            text="signin_with"
+            onSuccess={handleGoogleSubmit}
+          />
         </Grid>
 
         <Grid

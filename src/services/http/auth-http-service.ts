@@ -15,4 +15,14 @@ export class AuthHttpService extends BaseHttpService {
     });
     return res.data;
   }
+
+  async googleLogin(token: string) {
+    const res = await this.client.post('auth/google-login', { token });
+    return res.data;
+  }
+
+  async googleRegister(token: string) {
+    const res = await this.client.post('auth/google-register', { token });
+    return res.data;
+  }
 }

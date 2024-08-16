@@ -29,7 +29,7 @@ const HomePage: FC = () => {
   );
 
   return (
-    <Grid container spacing={3} alignItems="center" py={6}>
+    <Grid container spacing={3} alignItems="center">
       <Grid item xs={isAuthorized ? 12 : 9}>
         <Typography variant="h3" display="flex" alignItems="center">
           Browse{' '}

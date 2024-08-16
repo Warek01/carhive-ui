@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
 
-import { LoginData } from '@faf-cars/lib/auth';
+import { LoginFormData } from '@faf-cars/lib/auth';
 
 export const loginInitialValues = {
   password: '',
   username: '',
-} as LoginData;
+} as LoginFormData;
 
 export const loginValidationSchema = Yup.object().shape({
   username: Yup.string()
@@ -14,4 +14,4 @@ export const loginValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required('Password is required.')
     .min(1, 'Password is too short.'),
-} as Record<keyof LoginData, any>);
+} as Record<keyof LoginFormData, any>);

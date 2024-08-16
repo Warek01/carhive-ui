@@ -13,13 +13,18 @@ const ListingsList: FC<Props> = ({ items, skeletonCount }) => {
   const arr = items ?? new Array(skeletonCount).fill(null);
 
   return (
-    <Grid spacing={3} container width="100%" alignItems="stretch">
+    <Grid container spacing={3}>
       {arr.map((car, index) => (
         <Grid xs={4} lg={3} key={index}>
           {items ? (
             <ListingItem listing={car} />
           ) : (
-            <Skeleton height="100%" variant="rectangular" width="100%" />
+            <Skeleton
+              height="100%"
+              variant="rectangular"
+              width="100%"
+              key={index}
+            />
           )}
         </Grid>
       ))}

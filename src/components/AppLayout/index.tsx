@@ -12,24 +12,28 @@ const AppLayout: FC = () => {
   const toastProps = useGetToastProps();
 
   return (
-    <Box
-      pt={8}
-      minHeight="100vh"
-      height="100vh"
-      maxHeight="100bvh"
-      position="relative"
-    >
+    <>
       <CssBaseline />
       <ToastContainer {...toastProps} />
-      <Box overflow="auto" height="100%" py={4}>
+      <Box
+        overflow="auto"
+        minHeight="100vh"
+        height="100vh"
+        maxHeight="100vh"
+        position="relative"
+        display="flex"
+        flexDirection="column"
+      >
         <MobileSplashScreen>
           <Header />
-          <Container fixed maxWidth={GLOBAL_CONTAINER_MAX_WIDTH}>
-            <Outlet />
-          </Container>
+          <Box overflow="auto" flex={1} py={3}>
+            <Container fixed maxWidth={GLOBAL_CONTAINER_MAX_WIDTH}>
+              <Outlet />
+            </Container>
+          </Box>
         </MobileSplashScreen>
       </Box>
-    </Box>
+    </>
   );
 };
 

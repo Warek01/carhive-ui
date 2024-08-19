@@ -54,10 +54,6 @@ const ListingDetails: FC<Props> = ({ listing }) => {
     title = `${listing.productionYear} ${title}`;
   }
 
-  const images = listing.imagesUrls.map(
-    (u) => import.meta.env.VITE_API_BASENAME + u,
-  );
-
   const FIELDS = [
     {
       label: 'Year',
@@ -152,7 +148,7 @@ const ListingDetails: FC<Props> = ({ listing }) => {
     <Grid container spacing={3}>
       <Grid container xs={12} spacing={3} alignItems="flex-start">
         <Grid xs={8}>
-          <Carousel images={images} />
+          <Carousel images={listing.imagesUrls} />
         </Grid>
         <Grid container spacing={1} xs={4}>
           <Grid xs={12}>

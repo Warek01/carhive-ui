@@ -65,7 +65,7 @@ const ListingItem: FC<Props> = ({ listing }) => {
             title={title}
             alt={title}
             loading="lazy"
-            src={import.meta.env.VITE_API_BASENAME + listing.imagesUrls[0]}
+            src={listing.imagesUrls[0]}
           />
         ) : (
           <ImageNotSupported fontSize="large" />
